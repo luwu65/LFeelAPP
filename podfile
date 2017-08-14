@@ -1,0 +1,37 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'LFeelAPP' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for LFeelAPP
+   pod 'AFNetworking', '~> 3.1.0'
+   pod 'SDCycleScrollView', '~> 1.66'
+   pod 'IQKeyboardManager', '~> 4.0.9'
+   pod 'SDWebImage', '~> 4.0.0'
+   pod 'Masonry', '~> 1.0.2'
+   pod 'WechatOpenSDK', '~> 1.7.8'  
+   pod 'FDFullscreenPopGesture', '~> 1.1'
+   pod 'ReactiveObjC', '~> 3.0.0'
+   pod 'SobotKit', '~> 2.3.0'
+   pod 'MJExtension', '~> 3.0.13'
+   pod 'MJRefresh', '~> 3.1.12'
+   pod 'MBProgressHUD', '~> 1.0.0'
+
+
+
+
+
+
+  target 'LFeelAPPTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'LFeelAPPUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
