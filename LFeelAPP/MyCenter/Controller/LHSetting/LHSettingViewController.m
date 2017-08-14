@@ -46,7 +46,7 @@
     
     [self setUI];
     [self setHBK_NavigationBar];
-    NSLog(@"hahaha");
+    NSLog(@"啦啦啦啦");
 }
 
 
