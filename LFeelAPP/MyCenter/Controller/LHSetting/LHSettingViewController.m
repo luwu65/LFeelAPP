@@ -32,6 +32,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    //页面一出现就开始计算缓存
     [self countCacheSize];
     
     
