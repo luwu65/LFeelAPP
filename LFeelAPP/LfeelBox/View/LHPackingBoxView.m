@@ -64,7 +64,7 @@
         lineView.backgroundColor = kColor(245, 245, 245);
         [self addSubview:lineView];
         
-        self.allSelectBtn = [[CustomButton alloc] initWithFrame:CGRectMake(10, 0, kAllBarHeight*kRatio, kAllBarHeight*kRatio) imageFrame:CGRectMake(5, 0, kAllBarHeight*kRatio-10, kAllBarHeight*kRatio-10) imageName:@"MyBox_click_default" titleLabelFrame:CGRectMake(5, kAllBarHeight*kRatio-15, kAllBarHeight*kRatio-10, 14*kRatio) title:@"全部" titleColor:[UIColor lightGrayColor] titleFont:12*kRatio bageLabelSize:CGSizeMake(0, 0)];
+        self.allSelectBtn = [[CustomButton alloc] initWithFrame:CGRectMake(10, 0, kAllBarHeight*kRatio, kAllBarHeight*kRatio) imageFrame:CGRectMake(5, 0, kAllBarHeight*kRatio-10, kAllBarHeight*kRatio-10) imageName:@"MyBox_click_default" titleLabelFrame:CGRectMake(5, kAllBarHeight*kRatio-15, kAllBarHeight*kRatio-10, 14*kRatio) title:@"全部" titleColor:[UIColor lightGrayColor] titleFont:12*kRatio];
 //        [self.allSelectBtn addTarget:self action:@selector(allBtnAction:) forControlEvents:(UIControlEventTouchUpInside)];
         [self addSubview:self.allSelectBtn];
         
@@ -133,7 +133,7 @@
         lineView.backgroundColor = kColor(245, 245, 245);
         [self addSubview:lineView];
         
-        CustomButton *allBtn = [[CustomButton alloc] initWithFrame:CGRectMake(15, 0, kAllBarHeight*kRatio, kAllBarHeight*kRatio) imageFrame:CGRectMake(5, 0, kAllBarHeight*kRatio-10, kAllBarHeight*kRatio-10) imageName:@"MyBox_click_default" titleLabelFrame:CGRectMake(5, kAllBarHeight*kRatio-15, kAllBarHeight*kRatio-10, 14*kRatio) title:@"全部" titleColor:[UIColor lightGrayColor] titleFont:12*kRatio bageLabelSize:CGSizeMake(0, 0)];
+        CustomButton *allBtn = [[CustomButton alloc] initWithFrame:CGRectMake(15, 0, kAllBarHeight*kRatio, kAllBarHeight*kRatio) imageFrame:CGRectMake(5, 0, kAllBarHeight*kRatio-10, kAllBarHeight*kRatio-10) imageName:@"MyBox_click_default" titleLabelFrame:CGRectMake(5, kAllBarHeight*kRatio-15, kAllBarHeight*kRatio-10, 14*kRatio) title:@"全部" titleColor:[UIColor lightGrayColor] titleFont:12*kRatio];
         
         [allBtn addTarget:self action:@selector(allBtnAction:) forControlEvents:(UIControlEventTouchUpInside)];
         [self addSubview:allBtn];

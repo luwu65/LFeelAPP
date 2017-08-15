@@ -17,7 +17,7 @@
         CGFloat margin = ((kScreenWidth/4)-kFit(35))/2;
         for (int i = 0; i < titleArray.count; i++) {
             
-            CustomButton *button = [[CustomButton alloc] initWithFrame:CGRectMake(margin*(i*2+1) + i*kFit(35), (frame.size.height-kFit(55))/2, kFit(35), kFit(55)) imageFrame:CGRectMake(0, 0, kFit(35), kFit(35)) imageName:imageArray[i] titleLabelFrame:CGRectMake(0, kFit(35), kFit(35), kFit(20)) title:titleArray[i] titleColor:[UIColor blackColor] titleFont:kFit(11) bageLabelSize:CGSizeMake(16, 16)];
+            CustomButton *button = [[CustomButton alloc] initWithFrame:CGRectMake(margin*(i*2+1) + i*kFit(35), (frame.size.height-kFit(55))/2, kFit(35), kFit(55)) imageFrame:CGRectMake(0, 0, kFit(35), kFit(35)) imageName:imageArray[i] titleLabelFrame:CGRectMake(0, kFit(35), kFit(35), kFit(20)) title:titleArray[i] titleColor:[UIColor blackColor] titleFont:kFit(11)];
             button.tag = kOrderAboutBtnTag + i;
             button.badgeBGColor = [UIColor redColor];
             button.badgeTextColor = [UIColor whiteColor];

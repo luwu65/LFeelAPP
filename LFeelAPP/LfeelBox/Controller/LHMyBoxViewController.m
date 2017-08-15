@@ -15,6 +15,7 @@
 #import "LHCartHeaderView.h"
 #import "LHShoppingCartModel.h"
 #import "LHAccountCenterViewController.h"
+#import "LHSendBackViewController.h"
 #define kTag_CartEmptyView  3101
 #define kTag_BoxEmptyView   3102
 
@@ -153,6 +154,10 @@
         LHPackInfoViewController *packVC = [[LHPackInfoViewController alloc] init];
         NSLog(@"打包盒子");
         [weakself.navigationController pushViewController:packVC animated:YES];
+        
+//        LHSendBackViewController *sendBack = [[LHSendBackViewController alloc] init];
+//        [weakself.navigationController pushViewController:sendBack animated:YES];
+        
     }];
     [leftBgView addSubview:packView];
     

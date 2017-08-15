@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="LHPackInfoView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第一件" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tep-w4-ZDG">
+                    <rect key="frame" x="10" y="15.5" width="46" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MhJ-38-YVy">
+                    <rect key="frame" x="75" y="4" width="50" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="ppT-o6-mF8"/>
+                        <constraint firstAttribute="width" constant="50" id="wZt-mc-O2H"/>
+                    </constraints>
+                    <state key="normal" title="服装">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="clothesBtn:" destination="iN0-l3-epB" eventType="touchUpInside" id="AV5-M5-1pv"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ves-1f-krp">
+                    <rect key="frame" x="135" y="4" width="50" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="3N5-5w-ELk"/>
+                        <constraint firstAttribute="height" constant="40" id="FFD-sy-zYs"/>
+                    </constraints>
+                    <state key="normal" title="鞋子">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="shoesBtn:" destination="iN0-l3-epB" eventType="touchUpInside" id="4E6-D3-CZZ"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aHn-jt-7Ws">
+                    <rect key="frame" x="195" y="4" width="50" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="Lyh-CL-b6J"/>
+                        <constraint firstAttribute="width" constant="50" id="oyg-uh-ECZ"/>
+                    </constraints>
+                    <state key="normal" title="包包">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="bagBtn:" destination="iN0-l3-epB" eventType="touchUpInside" id="5lC-y9-p4d"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eCc-jm-1qO">
+                    <rect key="frame" x="255" y="4" width="50" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="JW0-72-W0M"/>
+                        <constraint firstAttribute="width" constant="50" id="KQ6-q7-qOM"/>
+                    </constraints>
+                    <state key="normal" title="配饰">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="accBtn:" destination="iN0-l3-epB" eventType="touchUpInside" id="fKv-T3-Ki2"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GV5-2n-BTo">
+                    <rect key="frame" x="315" y="4" width="50" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="Jpa-TG-x50"/>
+                        <constraint firstAttribute="height" constant="40" id="VU7-6e-vhr"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="M">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="aHn-jt-7Ws" firstAttribute="leading" secondItem="Ves-1f-krp" secondAttribute="trailing" constant="10" id="0DS-5a-Sxd"/>
+                <constraint firstItem="GV5-2n-BTo" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="6Q7-jY-Pka"/>
+                <constraint firstItem="Ves-1f-krp" firstAttribute="leading" secondItem="MhJ-38-YVy" secondAttribute="trailing" constant="10" id="AHf-R4-V3R"/>
+                <constraint firstItem="MhJ-38-YVy" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="E6y-5B-tez"/>
+                <constraint firstAttribute="trailing" secondItem="GV5-2n-BTo" secondAttribute="trailing" constant="10" id="HJQ-Fr-mNA"/>
+                <constraint firstItem="tep-w4-ZDG" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="PaU-NJ-Iuf"/>
+                <constraint firstItem="eCc-jm-1qO" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Rzp-ZL-Xsr"/>
+                <constraint firstItem="GV5-2n-BTo" firstAttribute="leading" secondItem="eCc-jm-1qO" secondAttribute="trailing" constant="10" id="UMA-iV-q7Z"/>
+                <constraint firstItem="Ves-1f-krp" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="YVY-s8-lKF"/>
+                <constraint firstItem="tep-w4-ZDG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="f0h-bS-lHD"/>
+                <constraint firstItem="eCc-jm-1qO" firstAttribute="leading" secondItem="aHn-jt-7Ws" secondAttribute="trailing" constant="10" id="m6a-9m-JE7"/>
+                <constraint firstItem="aHn-jt-7Ws" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="zkg-Xb-H0d"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="accBtn" destination="eCc-jm-1qO" id="LwE-m5-RVx"/>
+                <outlet property="bagBtn" destination="aHn-jt-7Ws" id="dqr-Xa-gPu"/>
+                <outlet property="clothesBtn" destination="MhJ-38-YVy" id="f7i-XV-xWf"/>
+                <outlet property="shoesBtn" destination="Ves-1f-krp" id="BW9-jD-aPR"/>
+                <outlet property="sizeBtn" destination="GV5-2n-BTo" id="PeA-yH-Xh3"/>
+            </connections>
+            <point key="canvasLocation" x="10.5" y="-47"/>
+        </view>
+    </objects>
+</document>

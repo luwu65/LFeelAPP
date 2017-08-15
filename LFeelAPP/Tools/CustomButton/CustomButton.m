@@ -23,8 +23,8 @@
               titleLabelFrame:(CGRect)titleLabelFrame
                         title:(NSString *)title
                    titleColor:(UIColor *)titleColor
-                    titleFont:(CGFloat)titleFont
-                bageLabelSize:(CGSize)bageSize {
+                    titleFont:(CGFloat)titleFont {
+//                bageLabelSize:(CGSize)bageSize {
     if (self = [super initWithFrame:frame]) {
         _titleImageView = [[UIImageView alloc] initWithFrame:imageFrame];
         _titleImageView.image = [UIImage imageNamed:imageName];

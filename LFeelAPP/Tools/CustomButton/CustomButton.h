@@ -22,8 +22,8 @@
               titleLabelFrame:(CGRect)titleLabelFrame
                         title:(NSString *)title
                    titleColor:(UIColor *)titleColor
-                    titleFont:(CGFloat)titleFont
-                bageLabelSize:(CGSize)bageSize;
+                    titleFont:(CGFloat)titleFont;
+//                bageLabelSize:(CGSize)bageSize;
 
 
 
