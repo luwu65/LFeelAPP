@@ -8,7 +8,6 @@
 
 #import "LHUserInfoViewController.h"
 #import "LHUserInfoCell.h"
-#import "LHPickView.h"
 @interface LHUserInfoViewController ()<UITableViewDelegate, UITableViewDataSource, LHPickViewDelegate>
 
 

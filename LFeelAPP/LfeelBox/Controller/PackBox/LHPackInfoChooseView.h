@@ -19,10 +19,30 @@ typedef void(^ChooseTypeBlock)();
 @property (weak, nonatomic) IBOutlet UIButton *bagBtn;
 /*配饰*/
 @property (weak, nonatomic) IBOutlet UIButton *accBtn;
+
 /*尺码*/
 @property (weak, nonatomic) IBOutlet UIButton *sizeBtn;
 
-+ (instancetype)creatView;
+
+@property (nonatomic, copy) ChooseTypeBlock clothesBlock;
+@property (nonatomic, copy) ChooseTypeBlock shoesBlock;
+@property (nonatomic, copy) ChooseTypeBlock bagBlock;
+@property (nonatomic, copy) ChooseTypeBlock accBlock;
+
+
+- (void)ChooseClothesBtnBlock:(ChooseTypeBlock)clothesBlock
+                shoesBtnBlock:(ChooseTypeBlock)shoesBlock
+                  bagBtnBlock:(ChooseTypeBlock)bagBlock
+                  accBtnBlock:(ChooseTypeBlock)accBlock;
+
+
+
+
+
+
+
+
+
 
 @end
 

@@ -15,27 +15,27 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第一件" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tep-w4-ZDG">
-                    <rect key="frame" x="10" y="15.5" width="46" height="18"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第一件:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tep-w4-ZDG">
+                    <rect key="frame" x="10" y="15.5" width="50.5" height="18"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MhJ-38-YVy">
-                    <rect key="frame" x="75" y="4" width="50" height="40"/>
+                    <rect key="frame" x="75" y="9" width="50" height="30"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="ppT-o6-mF8"/>
+                        <constraint firstAttribute="height" constant="30" id="ppT-o6-mF8"/>
                         <constraint firstAttribute="width" constant="50" id="wZt-mc-O2H"/>
                     </constraints>
                     <state key="normal" title="服装">
-                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                             <real key="value" value="1"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                            <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -43,20 +43,20 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ves-1f-krp">
-                    <rect key="frame" x="135" y="4" width="50" height="40"/>
+                    <rect key="frame" x="135" y="9" width="50" height="30"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="50" id="3N5-5w-ELk"/>
-                        <constraint firstAttribute="height" constant="40" id="FFD-sy-zYs"/>
+                        <constraint firstAttribute="height" constant="30" id="FFD-sy-zYs"/>
                     </constraints>
                     <state key="normal" title="鞋子">
-                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                             <real key="value" value="1"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                            <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -64,20 +64,20 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aHn-jt-7Ws">
-                    <rect key="frame" x="195" y="4" width="50" height="40"/>
+                    <rect key="frame" x="195" y="9" width="50" height="30"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="Lyh-CL-b6J"/>
+                        <constraint firstAttribute="height" constant="30" id="Lyh-CL-b6J"/>
                         <constraint firstAttribute="width" constant="50" id="oyg-uh-ECZ"/>
                     </constraints>
                     <state key="normal" title="包包">
-                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                             <real key="value" value="1"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                            <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -85,20 +85,20 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eCc-jm-1qO">
-                    <rect key="frame" x="255" y="4" width="50" height="40"/>
+                    <rect key="frame" x="255" y="9" width="50" height="30"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="JW0-72-W0M"/>
+                        <constraint firstAttribute="height" constant="30" id="JW0-72-W0M"/>
                         <constraint firstAttribute="width" constant="50" id="KQ6-q7-qOM"/>
                     </constraints>
                     <state key="normal" title="配饰">
-                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                             <real key="value" value="1"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                            <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -106,10 +106,10 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GV5-2n-BTo">
-                    <rect key="frame" x="315" y="4" width="50" height="40"/>
+                    <rect key="frame" x="315" y="9" width="50" height="30"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="50" id="Jpa-TG-x50"/>
-                        <constraint firstAttribute="height" constant="40" id="VU7-6e-vhr"/>
+                        <constraint firstAttribute="height" constant="30" id="VU7-6e-vhr"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <state key="normal" title="M">

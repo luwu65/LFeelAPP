@@ -88,8 +88,8 @@
 		0F7B79481F427F5F009DAF35 /* LHPackSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B79461F427F5F009DAF35 /* LHPackSuccessViewController.m */; };
 		0F7B79511F4280EC009DAF35 /* LHSendBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B794F1F4280EC009DAF35 /* LHSendBackViewController.m */; };
 		0F7B79521F4280EC009DAF35 /* LHSendBackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F7B79501F4280EC009DAF35 /* LHSendBackViewController.xib */; };
-		0F7B79551F428F80009DAF35 /* LHPackInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B79541F428F80009DAF35 /* LHPackInfoView.m */; };
-		0F7B79571F428FA8009DAF35 /* LHPackInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F7B79561F428FA8009DAF35 /* LHPackInfoView.xib */; };
+		0F7B79551F428F80009DAF35 /* LHPackInfoChooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B79541F428F80009DAF35 /* LHPackInfoChooseView.m */; };
+		0F7B79571F428FA8009DAF35 /* LHPackInfoChooseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F7B79561F428FA8009DAF35 /* LHPackInfoChooseView.xib */; };
 		0F8277D41F013209004D2A06 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8277D31F013209004D2A06 /* Foundation+Log.m */; };
 		0F84BAF31F1F23AB00D98999 /* LHCardHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F84BAF21F1F23AB00D98999 /* LHCardHeaderView.m */; };
 		0F84BB351F20B00B00D98999 /* LHMakeBillViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F84BB341F20B00B00D98999 /* LHMakeBillViewController.m */; };
@@ -307,9 +307,9 @@
 		0F7B794E1F4280EC009DAF35 /* LHSendBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHSendBackViewController.h; sourceTree = "<group>"; };
 		0F7B794F1F4280EC009DAF35 /* LHSendBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHSendBackViewController.m; sourceTree = "<group>"; };
 		0F7B79501F4280EC009DAF35 /* LHSendBackViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHSendBackViewController.xib; sourceTree = "<group>"; };
-		0F7B79531F428F80009DAF35 /* LHPackInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHPackInfoView.h; sourceTree = "<group>"; };
-		0F7B79541F428F80009DAF35 /* LHPackInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHPackInfoView.m; sourceTree = "<group>"; };
-		0F7B79561F428FA8009DAF35 /* LHPackInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHPackInfoView.xib; sourceTree = "<group>"; };
+		0F7B79531F428F80009DAF35 /* LHPackInfoChooseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHPackInfoChooseView.h; sourceTree = "<group>"; };
+		0F7B79541F428F80009DAF35 /* LHPackInfoChooseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHPackInfoChooseView.m; sourceTree = "<group>"; };
+		0F7B79561F428FA8009DAF35 /* LHPackInfoChooseView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHPackInfoChooseView.xib; sourceTree = "<group>"; };
 		0F8277D31F013209004D2A06 /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+Log.m"; sourceTree = "<group>"; };
 		0F84BAF11F1F23AB00D98999 /* LHCardHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHCardHeaderView.h; sourceTree = "<group>"; };
 		0F84BAF21F1F23AB00D98999 /* LHCardHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHCardHeaderView.m; sourceTree = "<group>"; };
@@ -923,9 +923,9 @@
 			children = (
 				0F7B79431F427F5F009DAF35 /* LHPackInfoViewController.h */,
 				0F7B79441F427F5F009DAF35 /* LHPackInfoViewController.m */,
-				0F7B79531F428F80009DAF35 /* LHPackInfoView.h */,
-				0F7B79541F428F80009DAF35 /* LHPackInfoView.m */,
-				0F7B79561F428FA8009DAF35 /* LHPackInfoView.xib */,
+				0F7B79531F428F80009DAF35 /* LHPackInfoChooseView.h */,
+				0F7B79541F428F80009DAF35 /* LHPackInfoChooseView.m */,
+				0F7B79561F428FA8009DAF35 /* LHPackInfoChooseView.xib */,
 				0F7B79451F427F5F009DAF35 /* LHPackSuccessViewController.h */,
 				0F7B79461F427F5F009DAF35 /* LHPackSuccessViewController.m */,
 				0F7B794E1F4280EC009DAF35 /* LHSendBackViewController.h */,
@@ -1229,7 +1229,7 @@
 				0F52B6AA1EF268ED007D45EC /* LHBrondCollectionCell.xib in Resources */,
 				0F9045C71F1DE6B7000528A2 /* LHWebViewController.xib in Resources */,
 				0F52B69B1EF24DE4007D45EC /* LHMyCenterCell.xib in Resources */,
-				0F7B79571F428FA8009DAF35 /* LHPackInfoView.xib in Resources */,
+				0F7B79571F428FA8009DAF35 /* LHPackInfoChooseView.xib in Resources */,
 				0F52B7381EFA1328007D45EC /* city.plist in Resources */,
 				0F3F64451F419C6100A42084 /* MBProgressHUD.bundle in Resources */,
 			);
@@ -1397,7 +1397,7 @@
 				0FEC8D271F38533800453700 /* LHShoppingCartModel.m in Sources */,
 				0F03D91E1F3B100B002F7939 /* LHPhotoGroupView.m in Sources */,
 				0F9045BE1F1DA18F000528A2 /* UIColor+Extension.m in Sources */,
-				0F7B79551F428F80009DAF35 /* LHPackInfoView.m in Sources */,
+				0F7B79551F428F80009DAF35 /* LHPackInfoChooseView.m in Sources */,
 				0F52B73B1EFB553D007D45EC /* LHGoodsListViewController.m in Sources */,
 				0F9045BF1F1DA18F000528A2 /* UIImage+Compress.m in Sources */,
 				0F03D9121F3B07D8002F7939 /* LHGoodsCommentCell.m in Sources */,
