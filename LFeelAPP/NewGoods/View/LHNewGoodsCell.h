@@ -7,9 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "LHNewGoodsModel.h"
 @interface LHNewGoodsCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIView *statusView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
+
+
+@property (nonatomic, strong) LHCategoryListModel *listModel;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end

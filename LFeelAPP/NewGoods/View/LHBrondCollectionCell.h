@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "LHNewGoodsModel.h"
 @interface LHBrondCollectionCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *goodsImageView;
 
 @property (weak, nonatomic) IBOutlet UILabel *goodsTitleLabel;
+
+
+@property (nonatomic, strong) LHCategoryDetailListModel *listModel;
+
+
 @end

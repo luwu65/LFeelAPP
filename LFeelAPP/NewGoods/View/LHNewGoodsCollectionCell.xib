@@ -46,14 +46,8 @@
                             <action selector="collectionButtonAciton:" destination="Mfr-Wl-Amn" eventType="touchUpInside" id="Iue-Ma-8wh"/>
                         </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="官网价:$111111" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wly-WA-1pe">
-                        <rect key="frame" x="67.5" y="186" width="67.5" height="26"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
-                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="乐荟价:$1999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DBB-nR-V8b">
-                        <rect key="frame" x="0.0" y="185" width="67.5" height="26"/>
+                        <rect key="frame" x="0.0" y="185" width="135" height="26"/>
                         <fontDescription key="fontDescription" type="system" pointSize="9"/>
                         <color key="textColor" red="1" green="0.1281391285" blue="0.14585888759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -62,14 +56,10 @@
             </view>
             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
             <constraints>
-                <constraint firstItem="Wly-WA-1pe" firstAttribute="width" secondItem="DBB-nR-V8b" secondAttribute="width" id="1JY-b9-bhv"/>
-                <constraint firstItem="Wly-WA-1pe" firstAttribute="height" secondItem="DBB-nR-V8b" secondAttribute="height" id="GaG-8J-dPg"/>
+                <constraint firstItem="DBB-nR-V8b" firstAttribute="centerX" secondItem="Mfr-Wl-Amn" secondAttribute="centerX" id="5Xz-2c-ong"/>
                 <constraint firstItem="R84-Pf-IaD" firstAttribute="leading" secondItem="Mfr-Wl-Amn" secondAttribute="leading" id="H0R-QN-75d"/>
                 <constraint firstItem="DBB-nR-V8b" firstAttribute="leading" secondItem="Mfr-Wl-Amn" secondAttribute="leading" id="JXl-1C-ttU"/>
                 <constraint firstAttribute="trailing" secondItem="zKP-jL-Ojt" secondAttribute="trailing" constant="5" id="Lri-jZ-JMg"/>
-                <constraint firstItem="Wly-WA-1pe" firstAttribute="leading" secondItem="DBB-nR-V8b" secondAttribute="trailing" id="NmJ-F8-k4Y"/>
-                <constraint firstItem="Wly-WA-1pe" firstAttribute="top" secondItem="epQ-BS-M9p" secondAttribute="bottom" constant="1" id="T4L-Gl-9KF"/>
-                <constraint firstAttribute="trailing" secondItem="Wly-WA-1pe" secondAttribute="trailing" id="TTw-pr-TH1"/>
                 <constraint firstAttribute="bottom" secondItem="DBB-nR-V8b" secondAttribute="bottom" id="Yqi-Nh-zr2"/>
                 <constraint firstItem="DBB-nR-V8b" firstAttribute="top" secondItem="epQ-BS-M9p" secondAttribute="bottom" id="auA-Vi-01p"/>
                 <constraint firstAttribute="trailing" secondItem="R84-Pf-IaD" secondAttribute="trailing" id="gem-aI-Y3K"/>
@@ -85,7 +75,6 @@
                 <outlet property="lfeelPriceLabel" destination="DBB-nR-V8b" id="WW6-z7-WiQ"/>
                 <outlet property="picImageView" destination="R84-Pf-IaD" id="9qq-zF-igh"/>
                 <outlet property="titleLabel" destination="epQ-BS-M9p" id="rIv-Xq-pX6"/>
-                <outlet property="webPriceLabel" destination="Wly-WA-1pe" id="KGm-2D-5gV"/>
             </connections>
             <point key="canvasLocation" x="-158" y="27"/>
         </collectionViewCell>

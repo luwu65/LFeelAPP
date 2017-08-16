@@ -7,7 +7,6 @@
 //
 
 #import "LHNewGoodsHeaderView.h"
-
 @implementation LHNewGoodsHeaderView
 
 /*
@@ -52,23 +51,32 @@
 }
 
 
-- (instancetype)initWithFrame:(CGRect)frame imageUrl:(NSString *)imageUrl title:(NSString *)title {
+
+
+@end
+
+
+
+@implementation LHNewGoodsCategoryHeaderView
+
+
+- (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, frame.size.width-20, (frame.size.width-20)/3)];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@""]];
-        [self addSubview:imageView];
+        self.categoryImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, frame.size.width-10, frame.size.height-25)];
+        self.categoryImageView.backgroundColor = [UIColor redColor];
+        [self addSubview:self.categoryImageView];
         
-        UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(10, frame.size.height/3*2+15/2+10, (frame.size.width-20)/3, 1)];
+        
+        self.categoryNameLabel = [[UILabel alloc] initWithFrame:CGRectMake((frame.size.width-20)/3+10, frame.size.height-25+5, (frame.size.width-20)/3, 15)];
+        self.categoryNameLabel.textAlignment = NSTextAlignmentCenter;
+        self.categoryNameLabel.font = kFont(12*kRatio);
+        [self addSubview:self.categoryNameLabel];
+        
+        UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(5, self.categoryNameLabel.centerY, (frame.size.width-20)/3, 0.5)];
         leftView.backgroundColor = [UIColor blackColor];
         [self addSubview:leftView];
         
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((frame.size.width-20)/3+10, frame.size.height/3*2+10, (frame.size.width-20)/3, 15)];
-        titleLabel.text = title;
-        titleLabel.textAlignment = NSTextAlignmentCenter;
-        titleLabel.font = kFont(12*kRatio);
-        [self addSubview:titleLabel];
-        
-        UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake((frame.size.width-20)/3*2+10, frame.size.height/3*2+15/2+10, (frame.size.width-20)/3, 1)];
+        UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake((frame.size.width-20)/3*2+15, self.categoryNameLabel.centerY, (frame.size.width-20)/3, 0.5)];
         rightView.backgroundColor = [UIColor blackColor];
         [self addSubview:rightView];
         
@@ -76,29 +84,36 @@
     return self;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- (void)setModel:(LHCategoryListModel *)model {
+    if (model.url) {
+        [self.categoryImageView sd_setImageWithURL:kURL(model.url) placeholderImage:kImage(@"")];
+    } else {
+        self.categoryImageView.image = kImage(@"");
+    }
+    if (model.category_name) {
+        self.categoryNameLabel.text = [NSString stringWithFormat:@"%@", model.category_name];
+    }
+}
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

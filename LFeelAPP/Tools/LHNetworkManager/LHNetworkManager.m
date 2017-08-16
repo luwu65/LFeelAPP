@@ -59,6 +59,7 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         //回调请求失败的错误信息
         aError(error);
+        NSLog(@"%@", error);
     }];
 }
 
@@ -95,6 +96,7 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         //请求失败结果的回调
         aError(error);
+        NSLog(@"%@", error);
     }];
 }
 

@@ -54,19 +54,6 @@
             make.top.equalTo(self.titleLabel).offset(0);
             make.left.equalTo(self.mas_left).offset(0);
         }];
-        
-        [self.webPriceLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_equalTo(20*kRatio);
-            make.top.equalTo(self.titleLabel).offset(0);
-            make.right.equalTo(self.mas_right).offset(0);
-            make.width.mas_equalTo(self.frame.size.width/2);
-        }];
-
-        NSString *priStr = @"官网价: ¥19999";
-        NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:priStr];
-        [attributeMarket setAttributes:@{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle], NSBaselineOffsetAttributeName : @(NSUnderlineStyleSingle)} range:NSMakeRange(0,priStr.length)];
-        self.webPriceLabel.attributedText = attributeMarket;
-        
     }
     return self;
 }
@@ -95,27 +82,40 @@
             make.left.equalTo(self.mas_left).offset(0);
         }];
         
-        [self.webPriceLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.mas_bottom).offset(0);
-            make.top.equalTo(self.titleLabel).offset(0);
-            make.right.equalTo(self.mas_right).offset(0);
-            make.width.mas_equalTo(self.frame.size.width/2);
-        }];
+
     }
     return self;
 }
 
 
-
-
-
-
-
-
-
 - (void)handleCollecitonBtnAction:(CollecitonButtonBlock)block {
     self.collectionBtnBlock = block;
 }
+
+
+
+- (void)setListModel:(LHGoodsListModel *)listModel {
+    if (listModel.url) {
+        [self.picImageView sd_setImageWithURL:[NSURL URLWithString:listModel.url] placeholderImage:kImage(@"")];
+    } else {
+        self.picImageView.image = kImage(@"");
+    }
+    if (listModel.price_lfeel) {
+        self.lfeelPriceLabel.text = [NSString stringWithFormat:@"乐荟价: ¥%@", listModel.price_lfeel];
+    }
+    if ([listModel.iscollection integerValue] == 0) {
+        [self.collectionBtn setImage:kImage(@"") forState:(UIControlStateNormal)];
+    } else {
+        [self.collectionBtn setImage:kImage(@"") forState:(UIControlStateNormal)];
+    }
+    if (listModel.product_name) {
+        self.titleLabel.text = [NSString stringWithFormat:@"%@", listModel.product_name];
+    }
+}
+
+
+
+
 
 
 

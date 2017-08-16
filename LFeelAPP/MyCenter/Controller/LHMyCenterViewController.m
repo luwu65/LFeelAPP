@@ -19,6 +19,10 @@
 #import "LHWebViewController.h"
 #import "LHCardBagViewController.h"
 #import "LHBoxHistoryViewController.h"
+
+#import <Accelerate/Accelerate.h>
+#import <UIImage+MultiFormat.h>
+
 static NSString *myCenterCell = @"myCenterCell";
 @interface LHMyCenterViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -68,8 +72,7 @@ static NSString *myCenterCell = @"myCenterCell";
     
     [self setHBK_NavigationBar];
     
-    
-    
+    [self configureDataForUser];
 }
 - (void)setHBK_NavigationBar {
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -89,6 +92,20 @@ static NSString *myCenterCell = @"myCenterCell";
     self.hbk_navgationBar.rightFirstBtn.titleLabel.font = kFont(13);
     [self.hbk_navgationBar.rightFirstBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
 }
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    CGPoint offset = scrollView.contentOffset;
+    CGFloat y = offset.y;
+    if (offset.y < 0) {
+        CGRect rect =self.headerView.frame;
+        rect.origin.y = offset.y;
+        rect.size.height =CGRectGetHeight(rect)-offset.y;
+        self.headerView.bgImageView.frame = rect;
+        self.headerView.clipsToBounds=NO;
+    }
+    CGFloat alphy = y / 150 > 1.0 ? 1.0 : y / 150;
+    self.hbk_navgationBar.bgColor = [UIColor colorWithRed:256 green:0 blue:0 alpha:alphy];
+    self.hbk_navgationBar.titleLabel.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:alphy];
+}
 
 - (void)setUI {
     self.myCenterTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-49) style:(UITableViewStylePlain)];
@@ -100,12 +117,11 @@ static NSString *myCenterCell = @"myCenterCell";
     [self.view addSubview:self.myCenterTableView];
     
      self.headerView = [[LHMyCenterHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 200*kRatio)];
-    self.headerView.bgImageView.backgroundColor = [UIColor cyanColor];
+    self.headerView.bgImageView.backgroundColor = [UIColor whiteColor];
     [self.headerView clickIconBlock:^{
         LHUserInfoViewController *userInfoVC = [[LHUserInfoViewController alloc] init];
         [self.navigationController pushViewController:userInfoVC animated:YES];
     }];
-    [_headerView.nameButton setTitle:@"小强" forState:(UIControlStateNormal)];
     self.myCenterTableView.tableHeaderView = _headerView;
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 80)];
@@ -121,12 +137,16 @@ static NSString *myCenterCell = @"myCenterCell";
     
     [self.myCenterTableView registerNib:[UINib nibWithNibName:@"LHMyCenterCell" bundle:nil] forCellReuseIdentifier:@"LHMyCenterCell"];
 }
-- (void)callBtnAction {
-    //拨打客服电话
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://020-37889773"] options:@{} completionHandler:nil];
+
+//创建 --待付款, 待发货, 待收货, 待评论视图
+- (LHOrderFormView *)createOrderAbooutView {
+    self.orderAbooutView = [[LHOrderFormView alloc] initWithFrame:CGRectMake(1, 1, kScreenWidth-2, 68) imageNameArray:@[@"MyCenter_waitPay", @"MyCenter_waitSend", @"MyCenter_waitReceive", @"MyCenter_waitComment"] titleArray:@[@"待付款", @"待发货", @"待收货", @"待评论"]];
+    CustomButton *btn = (CustomButton *)[self.orderAbooutView viewWithTag:5002];
+    btn.badgeValue = @"1";
+    [self clickOrderBtnAction];
+    
+    return _orderAbooutView;
 }
-
-
 
 
 #pragma mark -------------  UITableViewDelegate, UITableViewDataSource
@@ -245,14 +265,24 @@ static NSString *myCenterCell = @"myCenterCell";
 
         
     }
-
 }
 
 
-//创建 --待付款, 待发货, 待收货, 待评论视图
-- (LHOrderFormView *)createOrderAbooutView {
-    self.orderAbooutView = [[LHOrderFormView alloc] initWithFrame:CGRectMake(1, 1, kScreenWidth-2, 68) imageNameArray:@[@"MyCenter_waitPay", @"MyCenter_waitSend", @"MyCenter_waitReceive", @"MyCenter_waitComment"] titleArray:@[@"待付款", @"待发货", @"待收货", @"待评论"]];
-    
+
+#pragma mark ----------------- Action -----------------------
+
+/**
+ 打电话
+ */
+- (void)callBtnAction {
+    //拨打客服电话
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://020-37889773"] options:@{} completionHandler:nil];
+}
+
+/*
+ 点击--->待付款, 待发货, 待收货, 待评论
+ */
+- (void)clickOrderBtnAction {
     [self.orderAbooutView clickCustomButton:^(NSInteger index) {
         switch (index) {
             case 0:{
@@ -286,34 +316,100 @@ static NSString *myCenterCell = @"myCenterCell";
             default:
                 break;
         }
-        
-        
     }];
-           CustomButton *btn = (CustomButton *)[self.orderAbooutView viewWithTag:4002];
-            btn.badgeValue = @"1";
-    return _orderAbooutView;
 }
 
+#pragma mark -------------------- 赋值 -------------------
 
-
-
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    CGPoint offset = scrollView.contentOffset;
-    CGFloat y = offset.y;
-    if (offset.y < 0) {
-        CGRect rect =self.headerView.frame;
-        rect.origin.y = offset.y;
-        rect.size.height =CGRectGetHeight(rect)-offset.y;
-        self.headerView.bgImageView.frame = rect;
-        self.headerView.clipsToBounds=NO;
+- (void)configureDataForUser {
+   LHUserInfoModel *model = [LHUserInfoManager getUserInfo];
+    if (model.head_url) {
+        [_headerView.iconImageView sd_setImageWithURL:[NSURL URLWithString:model.head_url] placeholderImage:kImage(@"MyCenter_headerIcon")];
+        _headerView.bgImageView.image = [self headerBgBlurImageWithURLString:model.head_url withBlurNumber:0.5];
+    } else {
+        _headerView.iconImageView.image = kImage(@"MyCenter_headerIcon");
+        _headerView.bgImageView.image = [self boxblurImage:kImage(@"BgImage") withBlurNumber:0.5];
     }
-    CGFloat alphy = y / 150 > 1.0 ? 1.0 : y / 150;
-    self.hbk_navgationBar.bgColor = [UIColor colorWithRed:256 green:0 blue:0 alpha:alphy];
-    self.hbk_navgationBar.titleLabel.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:alphy];
+    
+    
+    if (model.nick_name) {
+        [_headerView.nameButton setTitle:model.nick_name forState:(UIControlStateNormal)];
+    } else {
+        NSString *phone = [NSString stringWithFormat:@"%@****%@", [model.username substringToIndex:3], [model.username substringFromIndex:7]];
+        [_headerView.nameButton setTitle:phone forState:(UIControlStateNormal)];
+    }
 }
 
 
 
+#pragma mark --------------------- 高斯模糊 --------------------
+- (UIImage *)boxblurImage:(UIImage *)image withBlurNumber:(CGFloat)blur {
+    if (blur < 0.f || blur > 1.f) {
+        blur = 0.5f;
+    }
+    int boxSize = (int)(blur * 40);
+    boxSize = boxSize - (boxSize % 2) + 1;
+    
+    CGImageRef img = image.CGImage;
+    
+    vImage_Buffer inBuffer, outBuffer;
+    vImage_Error error;
+    
+    void *pixelBuffer;
+    //从CGImage中获取数据
+    CGDataProviderRef inProvider = CGImageGetDataProvider(img);
+    CFDataRef inBitmapData = CGDataProviderCopyData(inProvider);
+    //设置从CGImage获取对象的属性
+    inBuffer.width = CGImageGetWidth(img);
+    inBuffer.height = CGImageGetHeight(img);
+    inBuffer.rowBytes = CGImageGetBytesPerRow(img);
+    
+    inBuffer.data = (void*)CFDataGetBytePtr(inBitmapData);
+    
+    pixelBuffer = malloc(CGImageGetBytesPerRow(img) *
+                         CGImageGetHeight(img));
+    
+    if(pixelBuffer == NULL)
+        NSLog(@"No pixelbuffer");
+    
+    outBuffer.data = pixelBuffer;
+    outBuffer.width = CGImageGetWidth(img);
+    outBuffer.height = CGImageGetHeight(img);
+    outBuffer.rowBytes = CGImageGetBytesPerRow(img);
+    
+    error = vImageBoxConvolve_ARGB8888(&inBuffer, &outBuffer, NULL, 0, 0, boxSize, boxSize, NULL, kvImageEdgeExtend);
+    
+    if (error) {
+        NSLog(@"error from convolution %ld", error);
+    }
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef ctx = CGBitmapContextCreate(
+                                             outBuffer.data,
+                                             outBuffer.width,
+                                             outBuffer.height,
+                                             8,
+                                             outBuffer.rowBytes,
+                                             colorSpace,
+                                             kCGImageAlphaNoneSkipLast);
+    CGImageRef imageRef = CGBitmapContextCreateImage (ctx);
+    UIImage *returnImage = [UIImage imageWithCGImage:imageRef];
+    //clean up
+    CGContextRelease(ctx);
+    CGColorSpaceRelease(colorSpace);
+    
+    free(pixelBuffer);
+    CFRelease(inBitmapData);
+    CGColorSpaceRelease(colorSpace);
+    CGImageRelease(imageRef);
+    return returnImage;
+}
+
+- (UIImage *)headerBgBlurImageWithURLString:(NSString *)urlString withBlurNumber:(CGFloat)blur {
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    UIImage *image = [UIImage sd_imageWithData:data];
+    return [self boxblurImage:image withBlurNumber:blur];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

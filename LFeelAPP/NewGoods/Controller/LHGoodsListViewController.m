@@ -134,13 +134,9 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
    LHNewGoodsCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LHNewGoodsCollectionCell" forIndexPath:indexPath];
-    NSString *priStr = @"官网价: ¥19999";
-    NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:priStr];
-    [attributeMarket setAttributes:@{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle], NSBaselineOffsetAttributeName : @(NSUnderlineStyleSingle)} range:NSMakeRange(0,priStr.length)];
-    cell.webPriceLabel.attributedText = attributeMarket;
+
     cell.titleLabel.font = kFont(13*kRatio);
     cell.lfeelPriceLabel.font = kFont(12*kRatio);
-    cell.webPriceLabel.font = kFont(12*kRatio);
     return cell;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {

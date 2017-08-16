@@ -91,7 +91,7 @@
 
 
 
-#pragma mark  ---------------------------------
+#pragma mark  ----------------------  Action -----------
 //默认
 - (void)defaultBtnAction:(CustomButton *)sender {
     sender.selected = !sender.selected;

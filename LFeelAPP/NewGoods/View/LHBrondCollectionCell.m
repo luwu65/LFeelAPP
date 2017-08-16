@@ -39,7 +39,17 @@
     return self;
 }
 
-
+- (void)setListModel:(LHCategoryDetailListModel *)listModel {
+    if (listModel.url) {
+        [self.goodsImageView sd_setImageWithURL:[NSURL URLWithString:listModel.url] placeholderImage:kImage(@"")];
+    } else {
+        self.goodsImageView.image = kImage(@"");
+    }
+    
+    if (listModel.category_name) {
+        self.goodsTitleLabel.text = [NSString stringWithFormat:@"%@", listModel.category_name];
+    }
+}
 
 
 

@@ -12,20 +12,46 @@
 #import "LHBrondCollectionCell.h"
 #import "LHNewGoodsHeaderView.h"
 #import "LHGoodsListViewController.h"
-#import "LHMyBoxViewController.h"
-
+#import "LHNewGoodsModel.h"
 @interface LHNewGoodsViewController ()<UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate>
 
 @property (nonatomic, strong) UITableView *newsGoodTableView;
 @property (nonatomic, strong) UICollectionView *newsGoodCollectionView;
-//记录点击了第几个cell, 响应的collectionView上的数据变化
+//记录点击了第几个cell, 相应的collectionView上的数据变化
 @property (nonatomic, assign) NSUInteger clickIndex;
 /*搜索框*/
 @property (nonatomic, strong) UISearchBar *newsGoodSearchBar;
 
+@property (nonatomic, strong) NSMutableArray *categoryListArray;
+
+@property (nonatomic, strong) NSMutableArray *goodsArray;
+
+@property (nonatomic, strong) NSMutableArray *detailListArray;
+
 @end
 
 @implementation LHNewGoodsViewController
+
+- (NSMutableArray *)categoryListArray {
+    if (!_categoryListArray) {
+        self.categoryListArray = [NSMutableArray new];
+    }
+    return _categoryListArray;
+}
+
+- (NSMutableArray *)goodsArray {
+    if (!_goodsArray) {
+        self.goodsArray = [NSMutableArray new];
+    }
+    return _goodsArray;
+}
+
+- (NSMutableArray *)detailListArray {
+    if (!_detailListArray) {
+        self.detailListArray = [NSMutableArray new];
+    }
+    return _detailListArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,8 +59,14 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self setHBK_NavigationBar];
     [self setUI];
-}
+    
+    [self requestCategoryListData];
+    [self requestRecommendGoodsListData];
 
+    
+    
+}
+#pragma mark  ------------------------ UI ------------------------------------
 - (void)setUI {
     self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageFromColor:kColor(242, 242, 242)] forBarMetrics:UIBarMetricsDefault];
@@ -44,8 +76,7 @@
     self.newsGoodTableView.delegate = self;
     self.newsGoodTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.newsGoodTableView];
-    //默认选中第一行
-    [self.newsGoodTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
+
     self.clickIndex = 0;
     self.newsGoodTableView.tableFooterView = [[UIView alloc] init];
     
@@ -86,47 +117,48 @@
 }
 #pragma mark ------------ UITableViewDelegate, UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.categoryListArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     LHNewGoodsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LHNewGoodsCell" forIndexPath:indexPath];
-
-    
-    
-    
+    cell.listModel = self.categoryListArray[indexPath.row];
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.clickIndex = indexPath.row;
-    [self.newsGoodCollectionView reloadData];
-}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 44*kRatio + 5;
 }
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.clickIndex = indexPath.row;
+    if (indexPath.row != 0) {
+        LHCategoryListModel *model = self.categoryListArray[indexPath.row];
+        [self requestCategoryDetailDataWithID:model];
+    } else {
+        [self.newsGoodCollectionView reloadData];
+    }
+}
 
 #pragma mark ------------ UICollectionViewDelegate, UICollectionViewDataSource
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 10;
-}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 15;
+    if (self.clickIndex == 0) {
+        return self.goodsArray.count;
+        
+    } else {
+        return self.detailListArray.count;
+        
+    }
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (self.clickIndex == 0) {
         LHNewGoodsCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LHNewGoodsCollectionCell" forIndexPath:indexPath];
-        cell.lfeelPriceLabel.text = @"优惠价:10000";
-        NSString *priStr = @"官网价:¥19999";
-        NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:priStr];
-        [attributeMarket setAttributes:@{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle], NSBaselineOffsetAttributeName : @(NSUnderlineStyleSingle)} range:NSMakeRange(0,priStr.length)];
-        cell.webPriceLabel.attributedText = attributeMarket;
-    
+        cell.listModel = self.goodsArray[indexPath.row];
         return cell;
     } else {
         LHBrondCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LHBrondCollectionCell" forIndexPath:indexPath];
-        
+        cell.listModel = self.detailListArray[indexPath.row];
         return cell;
     }
 }
@@ -155,7 +187,7 @@
     if (self.clickIndex == 0) {
         return CGSizeMake(kScreenWidth/4*3, 40*kRatio);
     } else {
-        return CGSizeMake(kScreenWidth/4*3, 100*kRatio);
+        return CGSizeMake(kScreenWidth/4*3, kFit(100));
     }
 }
 
@@ -178,12 +210,17 @@
         
     } else {
         UICollectionReusableView *reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"LHNewGoodsHeaderViewImage" forIndexPath:indexPath];
-        LHNewGoodsHeaderView *headerView = [[LHNewGoodsHeaderView alloc] initWithFrame:CGRectMake(0, 0, reusableView.frame.size.width, reusableView.frame.size.height) imageUrl:@"" title:@"奢华大牌"];
+
+        LHNewGoodsCategoryHeaderView *headerView = [[LHNewGoodsCategoryHeaderView alloc] initWithFrame:CGRectMake(0, 0, reusableView.frame.size.width, reusableView.frame.size.height)];
+        LHCategoryListModel *model = self.categoryListArray[self.clickIndex];
+        headerView.model = model;
+        //此举是为了防止header重用, 赋值不正确, 遍历他的subViews, 删掉再添加
         if (reusableView.subviews.count >= 1) {
-            return reusableView;
+            for (UIView *subView in reusableView.subviews) {
+                [subView removeFromSuperview];
+            }
         }
         [reusableView addSubview:headerView];
-        
         return reusableView;
     }
 }
@@ -192,12 +229,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (self.clickIndex == 0) {
-        //假数据, 随便跳转的   不用就删掉
-        
-        ///头文件也要删掉
-        LHMyBoxViewController *boxVC = [[LHMyBoxViewController alloc] init];
-        boxVC.subPage = YES;
-        [self.navigationController pushViewController:boxVC animated:YES];
+
     
     } else {
         LHGoodsListViewController *goodsListVC = [[LHGoodsListViewController alloc] init];
@@ -206,7 +238,80 @@
     
 }
 
+#pragma mark ------------------- 请求
 
+/**
+ 请求商品分类, 左边tableView展示的内容
+ */
+- (void)requestCategoryListData {
+//    [self showProgressHUD];
+    [LHNetworkManager requestForGetWithUrl:@"category/getchildren" parameter:@{@"id": @0} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            for (NSDictionary *dic in reponseObject[@"data"]) {
+                LHCategoryListModel *model = [[LHCategoryListModel alloc] init];
+                [model setValuesForKeysWithDictionary:dic];
+                [self.categoryListArray addObject:model];
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.newsGoodTableView reloadData];
+            //默认选中第一行
+            [self.newsGoodTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
+        });
+    } failure:^(NSError *error) {
+        
+        
+    }];
+}
+
+/**
+ 请求推荐的商品列表
+ */
+- (void)requestRecommendGoodsListData {
+    //recommended 是否推荐 0 --> 不推荐; 1 --> 推荐
+    //type 0 --> 购买的商品; 1 --> 租赁的商品
+    [LHNetworkManager requestForGetWithUrl:@"product/getList" parameter:@{@"recommend": @1, @"user_id": kUser_id, @"type": @0} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            for (NSDictionary *dic in reponseObject[@"data"]) {
+                LHGoodsListModel *model = [[LHGoodsListModel alloc] init];
+                [model setValuesForKeysWithDictionary:dic];
+                [self.goodsArray addObject:model];
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.newsGoodCollectionView reloadData];
+        });
+    } failure:^(NSError *error) {
+            
+    }];
+}
+
+
+/**
+ 某一个分类下的子分类, 比如男装下面的 T恤, 衬衫等
+
+ @param model 点击的那个分类 model
+ */
+- (void)requestCategoryDetailDataWithID:(LHCategoryListModel *)model {
+    [LHNetworkManager requestForGetWithUrl:@"category/getchildren" parameter:@{@"id": model.id_} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        [self.detailListArray removeAllObjects];
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            for (NSDictionary *dic in reponseObject[@"data"]) {
+                LHCategoryDetailListModel *model = [[LHCategoryDetailListModel alloc] init];
+                [model setValuesForKeysWithDictionary:dic];
+                [self.detailListArray addObject:model];
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.newsGoodCollectionView reloadData];
+        });
+    } failure:^(NSError *error) {
+
+    }];
+}
 
 
 - (void)didReceiveMemoryWarning {

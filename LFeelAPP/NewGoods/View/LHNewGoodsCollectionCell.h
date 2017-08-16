@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LHNewGoodsModel.h"
+
 typedef void(^CollecitonButtonBlock)(BOOL isClick);
 
 @interface LHNewGoodsCollectionCell : UICollectionViewCell
@@ -24,14 +26,13 @@ typedef void(^CollecitonButtonBlock)(BOOL isClick);
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lfeelPriceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *webPriceLabel;
 
 
 - (void)handleCollecitonBtnAction:(CollecitonButtonBlock)block;
 
 
 
-
+@property (nonatomic, strong) LHGoodsListModel *listModel;
 
 
 

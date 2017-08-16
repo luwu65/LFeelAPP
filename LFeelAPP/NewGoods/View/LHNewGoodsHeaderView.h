@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LHNewGoodsModel.h"
 
 typedef void(^ClickRightLabelBlock)();
 
@@ -22,33 +23,42 @@ typedef void(^ClickRightLabelBlock)();
 - (instancetype)initWithFrame:(CGRect)frame;
 
 
-
-- (instancetype)initWithFrame:(CGRect)frame imageUrl:(NSString *)imageUrl title:(NSString *)title;
-
+@end
 
 
 
+@interface LHNewGoodsCategoryHeaderView : UIView
 
 
+@property (nonatomic, strong) UIImageView *categoryImageView;
+
+@property (nonatomic, strong) UILabel *categoryNameLabel;
+
+- (instancetype)initWithFrame:(CGRect)frame;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@property (nonatomic, strong) LHCategoryListModel *model;
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

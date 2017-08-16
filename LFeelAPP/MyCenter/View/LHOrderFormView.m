@@ -7,7 +7,7 @@
 //
 
 #import "LHOrderFormView.h"
-#define kOrderAboutBtnTag                4000
+#define kOrderAboutBtnTag                5000
 @implementation LHOrderFormView
 
 

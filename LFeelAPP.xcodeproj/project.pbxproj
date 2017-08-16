@@ -84,6 +84,7 @@
 		0F594D301F2A13560047DCC1 /* LHDraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F594D2F1F2A13560047DCC1 /* LHDraggableView.m */; };
 		0F594D331F2A13B80047DCC1 /* LHDraggableCardContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F594D321F2A13B80047DCC1 /* LHDraggableCardContainer.m */; };
 		0F594D361F2A19F80047DCC1 /* LHDragCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F594D351F2A19F80047DCC1 /* LHDragCardView.m */; };
+		0F7B0A2C1F442222004080D6 /* LHNewGoodsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B0A2B1F442222004080D6 /* LHNewGoodsModel.m */; };
 		0F7B79471F427F5F009DAF35 /* LHPackInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B79441F427F5F009DAF35 /* LHPackInfoViewController.m */; };
 		0F7B79481F427F5F009DAF35 /* LHPackSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B79461F427F5F009DAF35 /* LHPackSuccessViewController.m */; };
 		0F7B79511F4280EC009DAF35 /* LHSendBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B794F1F4280EC009DAF35 /* LHSendBackViewController.m */; };
@@ -300,6 +301,9 @@
 		0F594D321F2A13B80047DCC1 /* LHDraggableCardContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHDraggableCardContainer.m; sourceTree = "<group>"; };
 		0F594D341F2A19F80047DCC1 /* LHDragCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHDragCardView.h; sourceTree = "<group>"; };
 		0F594D351F2A19F80047DCC1 /* LHDragCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHDragCardView.m; sourceTree = "<group>"; };
+		0F7B0A2A1F442222004080D6 /* LHNewGoodsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHNewGoodsModel.h; sourceTree = "<group>"; };
+		0F7B0A2B1F442222004080D6 /* LHNewGoodsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHNewGoodsModel.m; sourceTree = "<group>"; };
+		0F7B0A2D1F442F9D004080D6 /* LHURLHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LHURLHeader.h; sourceTree = "<group>"; };
 		0F7B79431F427F5F009DAF35 /* LHPackInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHPackInfoViewController.h; sourceTree = "<group>"; };
 		0F7B79441F427F5F009DAF35 /* LHPackInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHPackInfoViewController.m; sourceTree = "<group>"; };
 		0F7B79451F427F5F009DAF35 /* LHPackSuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHPackSuccessViewController.h; sourceTree = "<group>"; };
@@ -743,6 +747,8 @@
 		0F52B6341EEF849E007D45EC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0F7B0A2A1F442222004080D6 /* LHNewGoodsModel.h */,
+				0F7B0A2B1F442222004080D6 /* LHNewGoodsModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -777,6 +783,7 @@
 				0F3F642E1F414C1300A42084 /* LineView */,
 				0F3F64401F41993E00A42084 /* MBProgressHUD+MJ */,
 				0F52B6431EEF8548007D45EC /* LHDefineHeader.h */,
+				0F7B0A2D1F442F9D004080D6 /* LHURLHeader.h */,
 				0F52B6441EEF8558007D45EC /* LHPrefixHeader.pch */,
 				0F8277D31F013209004D2A06 /* Foundation+Log.m */,
 			);
@@ -1440,6 +1447,7 @@
 				0F8277D41F013209004D2A06 /* Foundation+Log.m in Sources */,
 				0F3F64431F41993E00A42084 /* MBProgressHUD+MJ.m in Sources */,
 				0F52B6481EEF8AA0007D45EC /* CustomButton.m in Sources */,
+				0F7B0A2C1F442222004080D6 /* LHNewGoodsModel.m in Sources */,
 				0F9045BC1F1DA18F000528A2 /* NSString+Category.m in Sources */,
 				0F52B6A91EF268ED007D45EC /* LHBrondCollectionCell.m in Sources */,
 				0F84BB381F20B6BE00D98999 /* LHOrderGoodsCell.m in Sources */,

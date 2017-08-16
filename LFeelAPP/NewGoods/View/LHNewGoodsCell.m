@@ -24,14 +24,28 @@
         self.titleLabel.textColor = [UIColor redColor];
         self.statusView.backgroundColor = [UIColor redColor];
     } else {
-        self.backgroundColor = [UIColor lightGrayColor];
+        self.backgroundColor = kColor(206, 206, 206);
         self.titleLabel.textColor = [UIColor blackColor];
-        self.statusView.backgroundColor = [UIColor lightGrayColor];
+        self.statusView.backgroundColor = [UIColor clearColor];
     }
-    
-    
-    
-    
 }
+
+
+- (void)setListModel:(LHCategoryListModel *)listModel {
+    if (listModel.category_name) {
+        self.titleLabel.text = listModel.category_name;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
 
 @end

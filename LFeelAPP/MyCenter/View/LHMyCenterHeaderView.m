@@ -23,8 +23,8 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.bgImageView = [[UIImageView alloc] initWithFrame:frame];
-        self.bgImageView.contentMode = UIViewContentModeScaleAspectFill;
-        self.bgImageView.autoresizingMask=UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//        self.bgImageView.contentMode = UIViewContentModeScaleAspectFit;
+        self.bgImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         self.bgImageView.clipsToBounds=YES;
         self.bgImageView.userInteractionEnabled = YES;
         [self addSubview:self.bgImageView];
@@ -42,8 +42,8 @@
         
         
         _iconImageView = [[UIImageView alloc] init] ;
-        _iconImageView.image = [UIImage imageNamed:@""];
         _iconImageView.userInteractionEnabled = YES;
+        _iconImageView.backgroundColor = [UIColor whiteColor];
         [self.bgImageView addSubview:_iconImageView];
         [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(_nameButton.mas_top);
@@ -54,7 +54,6 @@
         
         _iconImageView.layer.masksToBounds = YES;
         _iconImageView.layer.cornerRadius = kIconHeight*kRatio/2;
-        _iconImageView.backgroundColor = [UIColor greenColor];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(myCenterAction)];
         [_iconImageView addGestureRecognizer:tap];
         
