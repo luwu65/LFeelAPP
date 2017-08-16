@@ -15,6 +15,12 @@
 
 @property (nonatomic, strong) UIImageView *goodsImageView;
 
+@property (nonatomic, strong) UIImageView *unlikeImageView;
+@property (nonatomic, strong) UIImageView *likeImageView;
+
+
+
+
 @property (nonatomic, strong) LHThemeGoodsModel *goodsModel;
 
 

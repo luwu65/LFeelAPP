@@ -50,6 +50,22 @@
     _goodsImageView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     [self addSubview:_goodsImageView];
     
+    _unlikeImageView = [[UIImageView alloc] initWithImage:kImage(@"Home_ChooseGoods_unLike")];
+    _unlikeImageView.frame = CGRectMake(15, 10, kFit(50), kFit(50));
+    _unlikeImageView.layer.masksToBounds = YES;
+    _unlikeImageView.layer.cornerRadius = kFit(50/2);
+    _unlikeImageView.backgroundColor = [UIColor whiteColor];
+    _unlikeImageView.alpha = 0;
+    [_goodsImageView addSubview:_unlikeImageView];
+    
+    _likeImageView = [[UIImageView alloc] initWithImage:kImage(@"Home_ChooseGoods_Like")];
+    _likeImageView.frame = CGRectMake(self.frame.size.width-15-kFit(50), 10, kFit(50), kFit(50));
+    _likeImageView.backgroundColor = [UIColor whiteColor];
+    _likeImageView.layer.masksToBounds = YES;
+    _likeImageView.layer.cornerRadius = kFit(50/2);
+    _likeImageView.alpha = 0;
+    [_goodsImageView addSubview:_likeImageView];
+    
 }
 
 - (void)setGoodsModel:(LHThemeGoodsModel *)goodsModel {

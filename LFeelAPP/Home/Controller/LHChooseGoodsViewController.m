@@ -12,6 +12,8 @@
 #import "LHHomeModel.h"
 #import "LHDraggableCardContainer.h"
 #import "LHDragCardView.h"
+#import "LHFloatAnimationButton.h"
+
 @interface LHChooseGoodsViewController ()<LHDraggableCardContainerDelegate, LHDraggableCardContainerDataSource>
 
 @property (nonatomic, strong) UILabel *cTitleLabel;//中文标题
@@ -23,6 +25,8 @@
 @property (nonatomic, assign) NSInteger index;//记录点击滑到第几张了
 @property (nonatomic, strong) LHDraggableCardContainer *container;
 
+@property (nonatomic, strong) LHFloatAnimationButton * floatAnimationButton;
+@property (nonatomic, strong) NSTimer * timer;
 
 @end
 
@@ -40,10 +44,11 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
 
-    [self setUI];
     [self requestGoodsDataWithUrl];
+    [self setUI];
     
     [self setHBK_NavigationBar];
+    [self setAnimationButton];
 }
 
 
@@ -88,6 +93,7 @@
 
 //不喜欢
 - (void)unLikeBtnAction {
+    [self stopAnimation];
     [_container movePositionWithDirection:LHDraggableDirectionLeft isAutomatic:YES];
 
     _index++;
@@ -100,6 +106,7 @@
 }
 //喜欢
 - (void)likeBtnAction {
+    [self startAnimation];
     [_container movePositionWithDirection:LHDraggableDirectionRight isAutomatic:YES];
 
     _index++;
@@ -116,9 +123,25 @@
     
 }
 
+/**
+ 开始动画
+ */
+- (void)startAnimation {
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self
+                                                selector:@selector(startHeart) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+}
 
+/**
+ 结束动画
+ */
+- (void)stopAnimation {
+    [self.timer invalidate];
+}
 
-
+- (void) startHeart {
+    [self.floatAnimationButton startRandom];
+}
 
 
 
@@ -236,6 +259,20 @@
     }];
 }
 
+- (void)setAnimationButton {
+    self.floatAnimationButton = [[LHFloatAnimationButton alloc]init];
+    self.floatAnimationButton.frame = CGRectMake((self.view.frame.size.width-45)/2, (self.view.frame.size.height-45)/2, 45, 45);
+    self.floatAnimationButton.images = @[[UIImage imageNamed:@"AnimationButton_01"],
+                                         [UIImage imageNamed:@"AnimationButton_02"],
+                                         [UIImage imageNamed:@"AnimationButton_03"]];
+    self.floatAnimationButton.maxLeft = self.view.frame.size.width/2;
+    self.floatAnimationButton.maxRight = self.view.frame.size.width/2;
+    self.floatAnimationButton.duration = 1;
+    
+    [self.view addSubview:self.floatAnimationButton];
+}
+
+
 #pragma mark -------------------- YSLDraggableCardContainer DataSource
 - (UIView *)cardContainerViewNextViewWithIndex:(NSInteger)index {
 //    NSDictionary *dict = _datas[index];
@@ -264,7 +301,7 @@
     
     if (draggableDirection == LHDraggableDirectionRight) {
         NSLog(@"--------------- >>>  右");
-        
+        [self startAnimation];
         [cardContainerView movePositionWithDirection:draggableDirection isAutomatic:NO];
         _index++;
         if (_index < self.dataArray.count) {
@@ -299,40 +336,40 @@
 }
 
 - (void)cardContainderView:(LHDraggableCardContainer *)cardContainderView updatePositionWithDraggableView:(UIView *)draggableView draggableDirection:(LHDraggableDirection)draggableDirection widthRatio:(CGFloat)widthRatio heightRatio:(CGFloat)heightRatio {
-//    LHDragCardView *view = (LHDragCardView *)draggableView;
-    
+    LHDragCardView *view = (LHDragCardView *)draggableView;
     if (draggableDirection == LHDraggableDirectionDefault) {
-        //        NSLog(@"--------------------");
-//        view.selectedView.alpha = 0;
-//        view.selectedView.alpha = widthRatio > 0.8 ? 0.8 : widthRatio;
-        
+        view.unlikeImageView.alpha = 0;
+        view.likeImageView.alpha = 0;
+        view.unlikeImageView.alpha = widthRatio*3;
+        view.likeImageView.alpha = widthRatio*3;
     }
-    
     if (draggableDirection == LHDraggableDirectionLeft) {
-//        view.selectedView.backgroundColor = kColor(215, 104, 91);
-//        view.selectedView.alpha = widthRatio > 0.8 ? 0.8 : widthRatio;
+        view.unlikeImageView.alpha = widthRatio*3;
     }
-    
     if (draggableDirection == LHDraggableDirectionRight) {
-//        view.selectedView.backgroundColor = kColor(114, 209, 142);
-//        view.selectedView.alpha = widthRatio > 0.8 ? 0.8 : widthRatio;
+        view.likeImageView.alpha = widthRatio*3;
     }
-    
+    if (draggableDirection == LHDraggableDirectionUp) {
+        view.likeImageView.alpha = heightRatio*3;
+    }
+    if (draggableDirection == LHDraggableDirectionDown) {
+        view.unlikeImageView.alpha = heightRatio*3;
+    }
 }
 
 - (void)cardContainerViewDidCompleteAll:(LHDraggableCardContainer *)container; {
-    [self showAlertViewWithTitle:@"滑完了"];
+//    [self showAlertViewWithTitle:@"滑完了"];
     self.cTitleLabel.text = @"";
     self.eTitleLabel.text = @"";
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-//        [container reloadCardContainer];
+        [container reloadCardContainer];
     });
 }
 //点击事件
 - (void)cardContainerView:(LHDraggableCardContainer *)cardContainerView didSelectAtIndex:(NSInteger)index draggableView:(UIView *)draggableView {
-    LHGoodsDetailViewController *detailVC = [[LHGoodsDetailViewController alloc] init];
-    detailVC.goodsModel = self.dataArray[index];
-    [self.navigationController pushViewController:detailVC animated:YES];
+//    LHGoodsDetailViewController *detailVC = [[LHGoodsDetailViewController alloc] init];
+//    detailVC.goodsModel = self.dataArray[index];
+//    [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 

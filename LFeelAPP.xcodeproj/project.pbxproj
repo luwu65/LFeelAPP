@@ -85,6 +85,7 @@
 		0F594D331F2A13B80047DCC1 /* LHDraggableCardContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F594D321F2A13B80047DCC1 /* LHDraggableCardContainer.m */; };
 		0F594D361F2A19F80047DCC1 /* LHDragCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F594D351F2A19F80047DCC1 /* LHDragCardView.m */; };
 		0F7B0A2C1F442222004080D6 /* LHNewGoodsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B0A2B1F442222004080D6 /* LHNewGoodsModel.m */; };
+		0F7B0A301F44779C004080D6 /* LHFloatAnimationButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B0A2F1F44779C004080D6 /* LHFloatAnimationButton.m */; };
 		0F7B79471F427F5F009DAF35 /* LHPackInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B79441F427F5F009DAF35 /* LHPackInfoViewController.m */; };
 		0F7B79481F427F5F009DAF35 /* LHPackSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B79461F427F5F009DAF35 /* LHPackSuccessViewController.m */; };
 		0F7B79511F4280EC009DAF35 /* LHSendBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B794F1F4280EC009DAF35 /* LHSendBackViewController.m */; };
@@ -304,6 +305,8 @@
 		0F7B0A2A1F442222004080D6 /* LHNewGoodsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHNewGoodsModel.h; sourceTree = "<group>"; };
 		0F7B0A2B1F442222004080D6 /* LHNewGoodsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHNewGoodsModel.m; sourceTree = "<group>"; };
 		0F7B0A2D1F442F9D004080D6 /* LHURLHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LHURLHeader.h; sourceTree = "<group>"; };
+		0F7B0A2E1F44779C004080D6 /* LHFloatAnimationButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHFloatAnimationButton.h; sourceTree = "<group>"; };
+		0F7B0A2F1F44779C004080D6 /* LHFloatAnimationButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHFloatAnimationButton.m; sourceTree = "<group>"; };
 		0F7B79431F427F5F009DAF35 /* LHPackInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHPackInfoViewController.h; sourceTree = "<group>"; };
 		0F7B79441F427F5F009DAF35 /* LHPackInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHPackInfoViewController.m; sourceTree = "<group>"; };
 		0F7B79451F427F5F009DAF35 /* LHPackSuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHPackSuccessViewController.h; sourceTree = "<group>"; };
@@ -921,6 +924,8 @@
 				0F594D321F2A13B80047DCC1 /* LHDraggableCardContainer.m */,
 				0F594D341F2A19F80047DCC1 /* LHDragCardView.h */,
 				0F594D351F2A19F80047DCC1 /* LHDragCardView.m */,
+				0F7B0A2E1F44779C004080D6 /* LHFloatAnimationButton.h */,
+				0F7B0A2F1F44779C004080D6 /* LHFloatAnimationButton.m */,
 			);
 			path = LHDraggableView;
 			sourceTree = "<group>";
@@ -1502,6 +1507,7 @@
 				0F52B6D61EF7A837007D45EC /* LHNetworkManager.m in Sources */,
 				0F90460D1F1DFC7F000528A2 /* LHScanViewController.m in Sources */,
 				0FEC8D231F38533800453700 /* LHAccountCenterViewController.m in Sources */,
+				0F7B0A301F44779C004080D6 /* LHFloatAnimationButton.m in Sources */,
 				0F52B6B61EF3783B007D45EC /* LHMyCenterHeaderView.m in Sources */,
 				0FEC8D221F38533800453700 /* LHAccountCenterHeaderFooterView.m in Sources */,
 				0F52B6511EEF8AFB007D45EC /* LHMyCenterViewController.m in Sources */,
