@@ -72,14 +72,59 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideProgressHUD];
             LHThemeGoodsModel *model = self.dataArray[self.index];
-            self.cTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
-            self.eTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
+            self.cTitleLabel.text = model.brand_name ? @"" : model.brand_name;
+            self.eTitleLabel.text = model.brand_name? @"" : model.brand_name;
             [_container reloadCardContainer];
         });
     } failure:^(NSError *error) {
         
     }];
 }
+
+
+/**
+ 收藏/ 取消收藏
+ 
+ @param model 收藏或取消收藏的模型
+ */
+//- (void)requestCollectGoodsDataWithModel:(LHThemeGoodsModel *)model {
+//    NSString *url = nil;
+//    if ([model.iscollection integerValue] == 0) {
+//        url = kCollectionGoodsUrl;
+//    } else {
+//        url = kUncollectionGoodsUrl;
+//    }
+//    [LHNetworkManager PostWithUrl:url parameter:@{@"product_id": model.product_id, @"user_id": kUser_id, @"type": @0} success:^(id reponseObject) {
+//        NSLog(@"%@", reponseObject);
+//        if ([model.iscollection integerValue] == 0) {
+//            if (reponseObject[@"errorCode"]) {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [MBProgressHUD showSuccess:@"收藏成功"];
+//                });
+//            } else {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [MBProgressHUD showError:@"收藏失败"];
+//                });
+//            }
+//        } else {
+//            if (reponseObject[@"errorCode"]) {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [MBProgressHUD showSuccess:@"取消收藏"];
+//                });
+//            } else {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [MBProgressHUD showError:@"取消收藏失败"];
+//                });
+//            }
+//        }
+//        
+//    } failure:^(NSError *error) {
+//        
+//    }];
+//}
+
+
+
 
 #pragma  mark -----------------  Action ------------------
 
@@ -367,9 +412,10 @@
 }
 //点击事件
 - (void)cardContainerView:(LHDraggableCardContainer *)cardContainerView didSelectAtIndex:(NSInteger)index draggableView:(UIView *)draggableView {
-//    LHGoodsDetailViewController *detailVC = [[LHGoodsDetailViewController alloc] init];
-//    detailVC.goodsModel = self.dataArray[index];
-//    [self.navigationController pushViewController:detailVC animated:YES];
+    LHGoodsDetailViewController *detailVC = [[LHGoodsDetailViewController alloc] init];
+    detailVC.goodsModel = self.dataArray[index];
+    
+    [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 

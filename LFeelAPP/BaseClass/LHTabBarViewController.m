@@ -35,7 +35,7 @@
     LHNavigationViewController *boxNav = [self setChildController:boxVC title:@"首页" defineImageName:@"Home_default" clickImageName:@"Home_default_click"];
     
     LHChooseClothesViewController *chooseVC = [[LHChooseClothesViewController alloc] init];
-    LHNavigationViewController *chooseNav = [self setChildController:chooseVC title:@"选衣" defineImageName:@"" clickImageName:@""];
+    LHNavigationViewController *chooseNav = [self setChildController:chooseVC title:@"选衣" defineImageName:@"ChooseClothes_default" clickImageName:@"ChooseClothes_click"];
     
     LHMyBoxViewController *myBoxVC = [[LHMyBoxViewController alloc] init];
     LHNavigationViewController *myBoxNav = [self setChildController:myBoxVC title:@"乐荟盒子" defineImageName:@"ShoppingCart_default" clickImageName:@"ShoppingCart_default_click"];

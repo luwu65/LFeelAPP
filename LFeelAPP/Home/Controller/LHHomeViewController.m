@@ -79,8 +79,7 @@
 - (void)requestCycleScrollViewData {
     [self showProgressHUDWithTitle:@"加载中"];
     [LHNetworkManager requestForGetWithUrl:kCycleViewUrl parameter:nil success:^(id reponseObject) {
-        NSLog(@"%@", reponseObject);
-
+//        NSLog(@"%@", reponseObject);
         if ([kSTR(reponseObject[@"isError"]) isEqualToString:@"0"]) {
             for (NSDictionary *imaggeURlDic in reponseObject[@"data"]) {
                 [self.cycleImageArray addObject:imaggeURlDic[@"url"]];
@@ -88,7 +87,6 @@
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             self.cycleScrollView.cycleView.imageURLStringsGroup = self.cycleImageArray;
-            NSLog(@"****************************%ld-----------", self.cycleScrollView.cycleView.imageURLStringsGroup.count);
             [self.homeTabeView reloadData];
             [self requestSpecialData];
         });
@@ -101,7 +99,7 @@
 
 - (void)requestSpecialData {
     [LHNetworkManager requestForGetWithUrl:kThemeURl parameter:nil success:^(id reponseObject) {
-        NSLog(@"%@", reponseObject);
+//        NSLog(@"%@", reponseObject);
         if ([kSTR(reponseObject[@"isError"]) isEqualToString:@"0"]) {
             for (NSDictionary *modelDic in reponseObject[@"data"]) {
                 LHHomeThemesModel *model = [[LHHomeThemesModel alloc] init];
@@ -112,7 +110,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.homeTabeView reloadData];
             [self requestThemeGoodsData];
-            [self hideProgressHUD];
+            
         });
 
     } failure:^(NSError *error) {
@@ -121,9 +119,9 @@
 }
 
 - (void)requestThemeGoodsData {
-    //@"limit":@3,
-    [LHNetworkManager requestForGetWithUrl:@"product/theme/products" parameter:@{@"page":@1, @"pronum": @3} success:^(id reponseObject) {
-        NSLog(@"%@", reponseObject);
+    //@"limit":@3,在首页限制3件
+    [LHNetworkManager requestForGetWithUrl:kGoodsUrl parameter:@{@"page":@1, @"pronum": @3} success:^(id reponseObject) {
+//        NSLog(@"%@", reponseObject);
         if ([kSTR(reponseObject[@"isError"]) isEqualToString:@"0"]) {
             for (NSDictionary *adic in reponseObject[@"data"]) {
                 LHHomeThemeGoodsModel *model = [[LHHomeThemeGoodsModel alloc] init];
@@ -133,6 +131,7 @@
             }
         }
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self hideProgressHUD];
             [self.homeTabeView reloadData];
         });
     } failure:^(NSError *error) {

@@ -74,6 +74,8 @@ static NSString *myCenterCell = @"myCenterCell";
     
     [self configureDataForUser];
 }
+
+#pragma mark ---------------  UI ------------------
 - (void)setHBK_NavigationBar {
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"个人中心" rightFirst:@"加入会员" rightFirstBtnAction:^{
@@ -91,20 +93,6 @@ static NSString *myCenterCell = @"myCenterCell";
     self.hbk_navgationBar.rightFirstBtn.layer.masksToBounds = YES;
     self.hbk_navgationBar.rightFirstBtn.titleLabel.font = kFont(13);
     [self.hbk_navgationBar.rightFirstBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-}
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    CGPoint offset = scrollView.contentOffset;
-    CGFloat y = offset.y;
-    if (offset.y < 0) {
-        CGRect rect =self.headerView.frame;
-        rect.origin.y = offset.y;
-        rect.size.height =CGRectGetHeight(rect)-offset.y;
-        self.headerView.bgImageView.frame = rect;
-        self.headerView.clipsToBounds=NO;
-    }
-    CGFloat alphy = y / 150 > 1.0 ? 1.0 : y / 150;
-    self.hbk_navgationBar.bgColor = [UIColor colorWithRed:256 green:0 blue:0 alpha:alphy];
-    self.hbk_navgationBar.titleLabel.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:alphy];
 }
 
 - (void)setUI {
@@ -340,7 +328,21 @@ static NSString *myCenterCell = @"myCenterCell";
     }
 }
 
-
+#pragma mark ---------------
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    CGPoint offset = scrollView.contentOffset;
+    CGFloat y = offset.y;
+    if (offset.y < 0) {
+        CGRect rect =self.headerView.frame;
+        rect.origin.y = offset.y;
+        rect.size.height =CGRectGetHeight(rect)-offset.y;
+        self.headerView.bgImageView.frame = rect;
+        self.headerView.clipsToBounds=NO;
+    }
+    CGFloat alphy = y / 150 > 1.0 ? 1.0 : y / 150;
+    self.hbk_navgationBar.bgColor = [UIColor colorWithRed:256 green:0 blue:0 alpha:alphy];
+    self.hbk_navgationBar.titleLabel.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:alphy];
+}
 
 #pragma mark --------------------- 高斯模糊 --------------------
 - (UIImage *)boxblurImage:(UIImage *)image withBlurNumber:(CGFloat)blur {

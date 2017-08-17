@@ -26,9 +26,10 @@
     if (self.collectionBtnBlock) {
         self.collectionBtnBlock(sender.selected);
     }
-    
-    
-    
+}
+
+- (void)handleCollecitonBtnAction:(CollecitonButtonBlock)block {
+    self.collectionBtnBlock = block;
 }
 
 
@@ -88,9 +89,6 @@
 }
 
 
-- (void)handleCollecitonBtnAction:(CollecitonButtonBlock)block {
-    self.collectionBtnBlock = block;
-}
 
 
 
@@ -104,9 +102,11 @@
         self.lfeelPriceLabel.text = [NSString stringWithFormat:@"乐荟价: ¥%@", listModel.price_lfeel];
     }
     if ([listModel.iscollection integerValue] == 0) {
-        [self.collectionBtn setImage:kImage(@"") forState:(UIControlStateNormal)];
+        [self.collectionBtn setImage:kImage(@"NewGoods_unLike") forState:(UIControlStateNormal)];
+        self.collectionBtn.selected = NO;
     } else {
-        [self.collectionBtn setImage:kImage(@"") forState:(UIControlStateNormal)];
+        [self.collectionBtn setImage:kImage(@"NewGoods_Like") forState:(UIControlStateNormal)];
+        self.collectionBtn.selected = YES;
     }
     if (listModel.product_name) {
         self.titleLabel.text = [NSString stringWithFormat:@"%@", listModel.product_name];

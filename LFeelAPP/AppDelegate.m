@@ -12,6 +12,9 @@
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 @interface AppDelegate ()<UNUserNotificationCenterDelegate, UIApplicationDelegate>
 
+@property (nonatomic, copy) NSString *connect;
+
+
 @end
 
 @implementation AppDelegate
@@ -28,11 +31,49 @@
     
     
 //    [self ZCServiceApplication:application];
-    
+    self.connect = @"Connect";
+    [self KVONetworkChange];
     return YES;
 }
 
+#pragma mark ------------- 监测网络状态 -------------
 
+/*
+ * 实时监控网络状态
+ */
+- (void)KVONetworkChange {
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        if (status == AFNetworkReachabilityStatusNotReachable) {
+            self.connect = @"noConnect";
+            [self showAlertView];
+            return ;
+        }
+        if (status == AFNetworkReachabilityStatusReachableViaWWAN || status == AFNetworkReachabilityStatusReachableViaWiFi) {
+            if ([self.connect isEqualToString: @"isConnect"]) {
+                [MBProgressHUD showSuccess:@"网络连接成功"];
+            }
+        }
+    }];
+    //监控网络状态，开启监听
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+}
+
+#pragma mark --提示框
+- (void)showAlertView {
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"呜呜~没有网络了" message:@"ಥ_ಥ" preferredStyle:(UIAlertControllerStyleAlert)];
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"重试一下" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+        self.connect = @"isConnect";
+        [self KVONetworkChange];
+    }];
+    [alertC addAction:sureAction];
+    UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    alertWindow.rootViewController = [[UIViewController alloc] init];
+    alertWindow.windowLevel = UIWindowLevelAlert + 1;
+    [alertWindow makeKeyAndVisible];
+    [alertWindow.rootViewController presentViewController:alertC animated:YES completion:nil];
+}
+
+#pragma mark ------------ 智齿客服 ---------------
 - (void)ZCServiceApplication:(UIApplication *)application {
     //  初始化智齿客服，会建立长连接通道，监听服务端消息（建议启动应用时调用，没有发起过咨询不会浪费资源，至少转一次人工才有效果）
     [[ZCLibClient getZCLibClient] initZCIMCaht];

@@ -16,22 +16,34 @@
 @property (nonatomic, assign) NSInteger priceBtnClickIndex;//价格button被点击的次数
 
 @property (nonatomic, strong) UICollectionView *goodsCollectionView;
+@property (nonatomic, strong) NSMutableArray *goodsArray;
 
 @end
 
 @implementation LHGoodsListViewController
-
+- (NSMutableArray *)goodsArray {
+    if (!_goodsArray) {
+        self.goodsArray = [NSMutableArray new];
+    }
+    return _goodsArray;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     [self setUI];
     [self setHBK_NavigationBar];
+    
+    if (self.isRecommend) {
+        [self requestGoodsListDataWithModel:nil];
+    } else {
+        [self requestGoodsListDataWithModel:self.listModel];
+    }
 }
 
 
 
-
+#pragma mark --------------- UI ------------------------------
 - (void)setUI {
     self.priceBtnClickIndex = 0;
     
@@ -63,7 +75,7 @@
     [btnBgView addSubview:self.priceBtn];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    self.goodsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 40*kRatio+64, kScreenWidth, kScreenHeight-64-40*kRatio) collectionViewLayout:layout];
+    self.goodsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kFit(40)+64, kScreenWidth, kScreenHeight-64-kFit(40)) collectionViewLayout:layout];
     self.goodsCollectionView.dataSource = self;
     self.goodsCollectionView.delegate = self;
     self.goodsCollectionView.backgroundColor = [UIColor whiteColor];
@@ -96,6 +108,7 @@
     [bgView addSubview:backBtn];
 }
 
+#pragma mark -------------------------- Action ------------------------------
 - (void)backAction {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -128,15 +141,26 @@
     }
 }
 
+
+#pragma mark ---------------------- <UICollectionViewDelegate, UICollectionViewDataSource>
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 20;
+    return self.goodsArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
    LHNewGoodsCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LHNewGoodsCollectionCell" forIndexPath:indexPath];
-
     cell.titleLabel.font = kFont(13*kRatio);
     cell.lfeelPriceLabel.font = kFont(12*kRatio);
+    cell.listModel = self.goodsArray[indexPath.row];
+    [cell handleCollecitonBtnAction:^(BOOL isClick) {
+        LHGoodsListModel *model = self.goodsArray[indexPath.row];
+        if (isClick) {
+            model.iscollection = @"0";
+        } else {
+            model.iscollection = @"1";
+        }
+        [self requestCollectGoodsDataWithModel:model];
+    }];
     return cell;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -153,6 +177,64 @@
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(5, 5, 5, 5);
 }
+
+#pragma mark -------------------------- 网络请求 ------------------
+/**
+ 请求推荐的商品列表
+ */
+- (void)requestGoodsListDataWithModel:(LHCategoryDetailListModel *)model {
+    //recommended 是否推荐 0 --> 不推荐; 1 --> 推荐
+    //type 0 --> 购买的商品; 1 --> 租赁的商品
+    NSMutableDictionary *dic = [NSMutableDictionary new];
+    if (model) {
+         NSDictionary *aDic = @{@"id": model.id_, @"user_id": kUser_id, @"type": @0};
+        dic = [aDic mutableCopy];
+    } else {
+        NSDictionary *aDic = @{@"recommend": @1, @"user_id": kUser_id, @"type": @0};
+        dic = [aDic mutableCopy];
+    }
+    [LHNetworkManager requestForGetWithUrl:kNewGoodsListUrl parameter:dic success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            for (NSDictionary *dic in reponseObject[@"data"]) {
+                LHGoodsListModel *model = [[LHGoodsListModel alloc] init];
+                [model setValuesForKeysWithDictionary:dic];
+                [self.goodsArray addObject:model];
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.goodsCollectionView reloadData];
+        });
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+/**
+ 收藏/ 取消收藏
+ 
+ @param model 收藏或取消收藏的模型
+ */
+- (void)requestCollectGoodsDataWithModel:(LHGoodsListModel *)model {
+    NSString *url = nil;
+    if ([model.iscollection integerValue] == 0) {
+        url = kCollectionGoodsUrl;
+    } else {
+        url = kUncollectionGoodsUrl;
+    }
+    [LHNetworkManager PostWithUrl:url parameter:@{@"product_id": model.product_id, @"user_id": kUser_id, @"type": @0} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        //        if (reponseObject[@"errorCode"]) {
+        //            [MBProgressHUD showMessage:@"收藏成功"];
+        //        } else {
+        //            [MBProgressHUD showError:@"收藏失败"];
+        //        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

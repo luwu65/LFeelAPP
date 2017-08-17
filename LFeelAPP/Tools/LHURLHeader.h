@@ -43,22 +43,27 @@
 //主题
 #define kThemeURl               @"product/theme"
 
-//主题下推荐三款的商品
+//主题下推荐三款的商品 首页加limit限制3件, 左滑右滑不做限制, 全部显示出来
 #define kGoodsUrl               @"product/theme/products"
 
 
 
+// -------------- 新品购买
 
+//商品列表
+#define kNewGoodsListUrl        @"product/getList"
 
+//商品类别 左边TableView
+#define kCategoryListUrl        @"category/getchildren"
 
+//某一类别下的子标题  比如男装下的 上衣 裤子
+#define kCategoryDetailListUrl  @"category/getchildren"
 
+//添加收藏
+#define kCollectionGoodsUrl     @"collection/add"
 
-
-
-
-
-
-
+//删除收藏
+#define kUncollectionGoodsUrl   @"collection/delete"
 
 
 

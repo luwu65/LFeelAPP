@@ -19,6 +19,9 @@
 - (MBProgressHUD *)HUD {
     if (!_HUD) {
         self.HUD = [[MBProgressHUD alloc] initWithView:self.view];
+        self.HUD.bezelView.color = [UIColor colorWithWhite:0.0 alpha:1];
+        self.HUD.contentColor = [UIColor whiteColor];
+        self.HUD.animationType = MBProgressHUDAnimationFade;
         [self.view addSubview:_HUD];
     }
     return _HUD;
@@ -41,7 +44,7 @@
 - (void)hideProgressHUD {
     if (self.HUD != nil) {
         //移除并置空
-        [self.HUD removeFromSuperview];
+        [self.HUD hideAnimated:YES];
         self.HUD = nil;
     }
 }
@@ -56,7 +59,6 @@
     }
     //显示loading
     [self.HUD showAnimated:YES];
-    
 }
 
 

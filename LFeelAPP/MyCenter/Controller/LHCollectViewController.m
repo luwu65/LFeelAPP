@@ -11,21 +11,18 @@
 @interface LHCollectViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *collecTableView;
+@property (nonatomic, strong) NSMutableArray *goodsArray;
+
 
 @end
 
 @implementation LHCollectViewController
 
-- (UITableView *)collecTableView {
-    if (!_collecTableView) {
-        self.collecTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-kNavBarHeight) style:(UITableViewStylePlain)];
-        self.collecTableView.backgroundColor = kColor(245, 245, 245);
-        self.collecTableView.dataSource = self;
-        self.collecTableView.delegate = self;
-        self.collecTableView.tableFooterView = [[UIView alloc] init];
-        [self.view addSubview:self.collecTableView];
+- (NSMutableArray *)goodsArray {
+    if (!_goodsArray) {
+        self.goodsArray = [NSMutableArray new];
     }
-    return _collecTableView;
+    return _goodsArray;
 }
 
 - (void)viewDidLoad {
@@ -38,6 +35,19 @@
     [self setHBK_NavigationBar];
 }
 
+#pragma mark --------------- UI ------------------------
+- (UITableView *)collecTableView {
+    if (!_collecTableView) {
+        self.collecTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-kNavBarHeight) style:(UITableViewStylePlain)];
+        self.collecTableView.backgroundColor = kColor(245, 245, 245);
+        self.collecTableView.dataSource = self;
+        self.collecTableView.delegate = self;
+        self.collecTableView.tableFooterView = [[UIView alloc] init];
+        [self.view addSubview:self.collecTableView];
+    }
+    return _collecTableView;
+}
+
 - (void)setHBK_NavigationBar {
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"我的收藏" backAction:^{
@@ -45,6 +55,7 @@
     }];
 }
 
+#pragma mark --------------- <UITableViewDelegate, UITableViewDataSource> -----------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 4;
 }
@@ -63,8 +74,23 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80*kRatio;
+    return kFit(80);
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
+#pragma mark -------------- 网络请求 -------------------
+
+- (void)requestColloctionListData {
+    
+    
+    
+    
+}
+
+
 
 
 

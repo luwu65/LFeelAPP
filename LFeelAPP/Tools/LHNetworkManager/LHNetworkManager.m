@@ -80,6 +80,7 @@
     //设置可接受的数据类型
     manager.responseSerializer.acceptableContentTypes =[NSSet setWithObjects:@"text/html",@"application/json", @"text/json", @"charset=utf-8", nil];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [manager.requestSerializer setValue:kToken forHTTPHeaderField:@"token"];
     
     url = [NSString stringWithFormat:@"%@%@", kUrlHeader, url];
     if (![url hasSuffix:@"?"]) {
@@ -101,6 +102,44 @@
 }
 
 
+
+
+
++ (void)PostWithUrl:(NSString *)url
+          parameter:(NSDictionary *)dic
+            success:(void(^)(id reponseObject))success
+            failure:(void(^)(NSError *error))aError{
+    url = [NSString stringWithFormat:@"%@%@", kUrlHeader, url];
+    if (![url hasSuffix:@"?"]) {
+        url = [url stringByAppendingString:@"?"];
+    }
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    request.HTTPMethod = @"POST";
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    if (kToken) {
+        [request setValue:kToken forHTTPHeaderField:@"token"];
+    }
+    NSData *data = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
+    request.HTTPBody = data;
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (!error) {
+            id dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            //            NSLog(@"1111111111%@", dic);
+            success(dic);
+            
+        } else {
+            //            NSLog(@"2222222222%@", [error localizedDescription]);
+            aError(error);
+            NSLog(@"%@", error);
+            
+        }
+        
+    }];
+    [dataTask resume];
+}
 
 
 
@@ -202,39 +241,6 @@
 }
 
 
-
-
-
-+ (void)PostWithUrl:(NSString *)url
-          parameter:(NSDictionary *)dic
-            success:(void(^)(id reponseObject))success
-            failure:(void(^)(NSError *error))aError{
-    url = [NSString stringWithFormat:@"%@%@", kUrlHeader, url];
-    if (![url hasSuffix:@"?"]) {
-        url = [url stringByAppendingString:@"?"];
-    }
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
-    request.HTTPMethod = @"POST";
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    NSData *data = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
-    request.HTTPBody = data;
-    NSURLSession *session = [NSURLSession sharedSession];
-    
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (!error) {
-            id dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-//            NSLog(@"1111111111%@", dic);
-            success(dic);
-            
-        } else {
-//            NSLog(@"2222222222%@", [error localizedDescription]);
-            aError(error);
-        }
-        
-    }];
-    [dataTask resume];
-}
 
 
 

@@ -86,6 +86,8 @@
 		0F594D361F2A19F80047DCC1 /* LHDragCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F594D351F2A19F80047DCC1 /* LHDragCardView.m */; };
 		0F7B0A2C1F442222004080D6 /* LHNewGoodsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B0A2B1F442222004080D6 /* LHNewGoodsModel.m */; };
 		0F7B0A301F44779C004080D6 /* LHFloatAnimationButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B0A2F1F44779C004080D6 /* LHFloatAnimationButton.m */; };
+		0F7B0A331F45A66E004080D6 /* LHChooseTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B0A321F45A66E004080D6 /* LHChooseTypeView.m */; };
+		0F7B0A361F45AC18004080D6 /* LHTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B0A351F45AC18004080D6 /* LHTagView.m */; };
 		0F7B79471F427F5F009DAF35 /* LHPackInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B79441F427F5F009DAF35 /* LHPackInfoViewController.m */; };
 		0F7B79481F427F5F009DAF35 /* LHPackSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B79461F427F5F009DAF35 /* LHPackSuccessViewController.m */; };
 		0F7B79511F4280EC009DAF35 /* LHSendBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B794F1F4280EC009DAF35 /* LHSendBackViewController.m */; };
@@ -307,6 +309,10 @@
 		0F7B0A2D1F442F9D004080D6 /* LHURLHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LHURLHeader.h; sourceTree = "<group>"; };
 		0F7B0A2E1F44779C004080D6 /* LHFloatAnimationButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHFloatAnimationButton.h; sourceTree = "<group>"; };
 		0F7B0A2F1F44779C004080D6 /* LHFloatAnimationButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHFloatAnimationButton.m; sourceTree = "<group>"; };
+		0F7B0A311F45A66E004080D6 /* LHChooseTypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHChooseTypeView.h; sourceTree = "<group>"; };
+		0F7B0A321F45A66E004080D6 /* LHChooseTypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHChooseTypeView.m; sourceTree = "<group>"; };
+		0F7B0A341F45AC18004080D6 /* LHTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHTagView.h; sourceTree = "<group>"; };
+		0F7B0A351F45AC18004080D6 /* LHTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHTagView.m; sourceTree = "<group>"; };
 		0F7B79431F427F5F009DAF35 /* LHPackInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHPackInfoViewController.h; sourceTree = "<group>"; };
 		0F7B79441F427F5F009DAF35 /* LHPackInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHPackInfoViewController.m; sourceTree = "<group>"; };
 		0F7B79451F427F5F009DAF35 /* LHPackSuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHPackSuccessViewController.h; sourceTree = "<group>"; };
@@ -493,6 +499,10 @@
 		0F2F17CB1F319E83006DE053 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0F7B0A311F45A66E004080D6 /* LHChooseTypeView.h */,
+				0F7B0A321F45A66E004080D6 /* LHChooseTypeView.m */,
+				0F7B0A341F45AC18004080D6 /* LHTagView.h */,
+				0F7B0A351F45AC18004080D6 /* LHTagView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1461,6 +1471,7 @@
 				0F594D301F2A13560047DCC1 /* LHDraggableView.m in Sources */,
 				0F9045C61F1DE6B7000528A2 /* LHWebViewController.m in Sources */,
 				0F3354681F0264380056FEA9 /* MDManager.m in Sources */,
+				0F7B0A361F45AC18004080D6 /* LHTagView.m in Sources */,
 				0FEC8D211F38533800453700 /* LHAccountCenterCell.m in Sources */,
 				0F03D9661F3BFCF6002F7939 /* LHHomeModel.m in Sources */,
 				0F52B6571EEF8F0A007D45EC /* LHHomeTitleView.m in Sources */,
@@ -1476,6 +1487,7 @@
 				0F9045C11F1DA18F000528A2 /* UITextField+PlaceHolder.m in Sources */,
 				0F52B5F71EEF83E1007D45EC /* AppDelegate.m in Sources */,
 				0FEC8D241F38533800453700 /* LHMyBoxViewController.m in Sources */,
+				0F7B0A331F45A66E004080D6 /* LHChooseTypeView.m in Sources */,
 				0F52B66D1EEFDE87007D45EC /* LHBuyNewCollectionViewCell.m in Sources */,
 				0F52B6961EF2491C007D45EC /* LHOrderFormView.m in Sources */,
 				0F52B72D1EF9452B007D45EC /* LHEditAddressViewController.m in Sources */,

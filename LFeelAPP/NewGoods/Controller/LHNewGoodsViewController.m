@@ -22,10 +22,19 @@
 /*搜索框*/
 @property (nonatomic, strong) UISearchBar *newsGoodSearchBar;
 
+/**
+ 一级类别
+ */
 @property (nonatomic, strong) NSMutableArray *categoryListArray;
 
+/**
+ 存放请求到的商品
+ */
 @property (nonatomic, strong) NSMutableArray *goodsArray;
 
+/**
+ 存放一级类别下的二级类别, 比如男装-->上衣,裤子
+ */
 @property (nonatomic, strong) NSMutableArray *detailListArray;
 
 @end
@@ -61,7 +70,6 @@
     [self setUI];
     
     [self requestCategoryListData];
-    [self requestRecommendGoodsListData];
 
     
     
@@ -155,6 +163,19 @@
     if (self.clickIndex == 0) {
         LHNewGoodsCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LHNewGoodsCollectionCell" forIndexPath:indexPath];
         cell.listModel = self.goodsArray[indexPath.row];
+
+        [cell handleCollecitonBtnAction:^(BOOL isClick) {
+            LHGoodsListModel *model = self.goodsArray[indexPath.row];
+            if (isClick) {
+                KMyLog(@"收藏了");
+                model.iscollection = @"0";
+            } else {
+                KMyLog(@"取消收藏了");
+                model.iscollection = @"1";
+            }
+            [self requestCollectGoodsDataWithModel:model];
+        }];
+        
         return cell;
     } else {
         LHBrondCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LHBrondCollectionCell" forIndexPath:indexPath];
@@ -199,6 +220,7 @@
         [headerView clickRightLabelBlock:^{
             NSLog(@"更多");
             LHGoodsListViewController *goodsList= [[LHGoodsListViewController alloc] init];
+            goodsList.isRecommend = @"isRecommend";
             [self.navigationController pushViewController:goodsList animated:YES];
         }];
         //此举是防止collectionHeaderView重用
@@ -230,9 +252,10 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (self.clickIndex == 0) {
 
-    
+        
     } else {
         LHGoodsListViewController *goodsListVC = [[LHGoodsListViewController alloc] init];
+        goodsListVC.listModel = self.detailListArray[indexPath.row];
         [self.navigationController pushViewController:goodsListVC animated:YES];
     }
     
@@ -244,8 +267,8 @@
  请求商品分类, 左边tableView展示的内容
  */
 - (void)requestCategoryListData {
-//    [self showProgressHUD];
-    [LHNetworkManager requestForGetWithUrl:@"category/getchildren" parameter:@{@"id": @0} success:^(id reponseObject) {
+    [self showProgressHUD];
+    [LHNetworkManager requestForGetWithUrl:kCategoryListUrl parameter:@{@"id": @0} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             for (NSDictionary *dic in reponseObject[@"data"]) {
@@ -256,6 +279,7 @@
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.newsGoodTableView reloadData];
+            [self requestRecommendGoodsListData];
             //默认选中第一行
             [self.newsGoodTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
         });
@@ -271,7 +295,7 @@
 - (void)requestRecommendGoodsListData {
     //recommended 是否推荐 0 --> 不推荐; 1 --> 推荐
     //type 0 --> 购买的商品; 1 --> 租赁的商品
-    [LHNetworkManager requestForGetWithUrl:@"product/getList" parameter:@{@"recommend": @1, @"user_id": kUser_id, @"type": @0} success:^(id reponseObject) {
+    [LHNetworkManager requestForGetWithUrl:kNewGoodsListUrl parameter:@{@"recommend": @1, @"user_id": kUser_id, @"type": @0} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             for (NSDictionary *dic in reponseObject[@"data"]) {
@@ -281,6 +305,7 @@
             }
         }
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self hideProgressHUD];
             [self.newsGoodCollectionView reloadData];
         });
     } failure:^(NSError *error) {
@@ -295,8 +320,9 @@
  @param model 点击的那个分类 model
  */
 - (void)requestCategoryDetailDataWithID:(LHCategoryListModel *)model {
-    [LHNetworkManager requestForGetWithUrl:@"category/getchildren" parameter:@{@"id": model.id_} success:^(id reponseObject) {
-        NSLog(@"%@", reponseObject);
+    [self showProgressHUD];
+    [LHNetworkManager requestForGetWithUrl:kCategoryDetailListUrl parameter:@{@"id": model.id_} success:^(id reponseObject) {
+        NSLog(@"---->%@", reponseObject);
         [self.detailListArray removeAllObjects];
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             for (NSDictionary *dic in reponseObject[@"data"]) {
@@ -306,6 +332,7 @@
             }
         }
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self hideProgressHUD];
             [self.newsGoodCollectionView reloadData];
         });
     } failure:^(NSError *error) {
@@ -314,19 +341,59 @@
 }
 
 
+/**
+ 收藏/ 取消收藏
+
+ @param model 收藏或取消收藏的模型
+ */
+- (void)requestCollectGoodsDataWithModel:(LHGoodsListModel *)model {
+    NSString *url = nil;
+    if ([model.iscollection integerValue] == 0) {
+        url = kCollectionGoodsUrl;
+    } else {
+        url = kUncollectionGoodsUrl;
+    }
+    [LHNetworkManager PostWithUrl:url parameter:@{@"product_id": model.product_id, @"user_id": kUser_id, @"type": @0} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        if ([model.iscollection integerValue] == 0) {
+            if (reponseObject[@"errorCode"]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showSuccess:@"收藏成功"];
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showError:@"收藏失败"];
+                });
+            }
+        } else {
+            if (reponseObject[@"errorCode"]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showSuccess:@"取消收藏"];
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showError:@"取消收藏失败"];
+                });
+            }
+        }
+
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+
+
+
+
+
+
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

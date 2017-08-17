@@ -7,7 +7,32 @@
 //
 
 #import "LHBaseViewController.h"
-
+#import "LHNewGoodsModel.h"
 @interface LHGoodsListViewController : LHBaseViewController
+
+
+@property (nonatomic, copy) NSString *isRecommend;
+
+
+@property (nonatomic, strong) LHCategoryDetailListModel *listModel;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end
