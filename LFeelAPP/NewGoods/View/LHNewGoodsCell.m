@@ -24,7 +24,7 @@
         self.titleLabel.textColor = [UIColor redColor];
         self.statusView.backgroundColor = [UIColor redColor];
     } else {
-        self.backgroundColor = kColor(206, 206, 206);
+        self.backgroundColor = kColor(245, 246, 246);
         self.titleLabel.textColor = [UIColor blackColor];
         self.statusView.backgroundColor = [UIColor clearColor];
     }

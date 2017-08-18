@@ -23,6 +23,7 @@ typedef void(^ChooseTypeBlock)();
 /*尺码*/
 @property (weak, nonatomic) IBOutlet UIButton *sizeBtn;
 
+@property (weak, nonatomic) IBOutlet UILabel *numLabel;
 
 @property (nonatomic, copy) ChooseTypeBlock clothesBlock;
 @property (nonatomic, copy) ChooseTypeBlock shoesBlock;

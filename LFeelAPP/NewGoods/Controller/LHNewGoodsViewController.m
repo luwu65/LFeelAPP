@@ -68,12 +68,14 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self setHBK_NavigationBar];
     [self setUI];
-    
     [self requestCategoryListData];
 
     
     
 }
+
+
+
 #pragma mark  ------------------------ UI ------------------------------------
 - (void)setUI {
     self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
@@ -82,7 +84,7 @@
     self.newsGoodTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth/4, kScreenHeight-kNBarTBarHeight) style:(UITableViewStylePlain)];
     self.newsGoodTableView.dataSource = self;
     self.newsGoodTableView.delegate = self;
-    self.newsGoodTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    self.newsGoodTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.newsGoodTableView];
 
     self.clickIndex = 0;
@@ -279,7 +281,10 @@
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.newsGoodTableView reloadData];
-            [self requestRecommendGoodsListData];
+            //此处做延迟是防止请求太快, user_id还没有读取出来
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self requestRecommendGoodsListData];
+            });
             //默认选中第一行
             [self.newsGoodTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
         });
@@ -295,6 +300,7 @@
 - (void)requestRecommendGoodsListData {
     //recommended 是否推荐 0 --> 不推荐; 1 --> 推荐
     //type 0 --> 购买的商品; 1 --> 租赁的商品
+//    NSLog(@"---------------> %@", kUser_id);
     [LHNetworkManager requestForGetWithUrl:kNewGoodsListUrl parameter:@{@"recommend": @1, @"user_id": kUser_id, @"type": @0} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
@@ -306,6 +312,7 @@
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideProgressHUD];
+
             [self.newsGoodCollectionView reloadData];
         });
     } failure:^(NSError *error) {

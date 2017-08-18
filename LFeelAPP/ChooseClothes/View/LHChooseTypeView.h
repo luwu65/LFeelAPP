@@ -10,4 +10,42 @@
 
 @interface LHChooseTypeView : UIView
 
+
+
+
+
+
+@property (nonatomic, copy) void(^ClickSubmitBlock)(NSArray *selectArray);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @end

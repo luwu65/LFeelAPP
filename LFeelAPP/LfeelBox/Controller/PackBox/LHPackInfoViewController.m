@@ -54,14 +54,17 @@
     [defaultView addSubview:defaultBtn];
     
     _firstView = [LHPackInfoView creatView];
+    _firstView.numLabel.text = @"第一件:";
     _firstView.frame = CGRectMake(0, 64+kFit(35), kScreenWidth, kFit(45));
     [self.view addSubview:_firstView];
     
     _secondView = [LHPackInfoView creatView];
+    _secondView.numLabel.text = @"第二件:";
     _secondView.frame = CGRectMake(0, 64+kFit(35)+kFit(45), kScreenWidth, kFit(45));
     [self.view addSubview:_secondView];
 
     _thirdView = [LHPackInfoView creatView];
+    _thirdView.numLabel.text = @"第三件:";
     _thirdView.frame = CGRectMake(0, 64+kFit(35)+kFit(45)*2, kScreenWidth, kFit(45));
     [self.view addSubview:_thirdView];
     

@@ -138,6 +138,7 @@
                 <outlet property="accBtn" destination="eCc-jm-1qO" id="LwE-m5-RVx"/>
                 <outlet property="bagBtn" destination="aHn-jt-7Ws" id="dqr-Xa-gPu"/>
                 <outlet property="clothesBtn" destination="MhJ-38-YVy" id="f7i-XV-xWf"/>
+                <outlet property="numLabel" destination="tep-w4-ZDG" id="cMU-9n-NvS"/>
                 <outlet property="shoesBtn" destination="Ves-1f-krp" id="BW9-jD-aPR"/>
                 <outlet property="sizeBtn" destination="GV5-2n-BTo" id="PeA-yH-Xh3"/>
             </connections>

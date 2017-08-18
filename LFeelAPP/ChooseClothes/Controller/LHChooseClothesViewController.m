@@ -9,7 +9,7 @@
 #import "LHChooseClothesViewController.h"
 #import "LHNewGoodsCollectionCell.h"
 #import "LHChooseTypeView.h"
-
+#import "LHTagView.h"
 @interface LHChooseClothesViewController ()<UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 /*搜索框*/
 @property (nonatomic, strong) UISearchBar *chooseSearchBar;
@@ -23,8 +23,23 @@
 
 @property (nonatomic, strong) LHChooseTypeView *chooseView;
 
+/**
+ 全部类别button
+ */
 @property (nonatomic, strong) UIButton *openButton;
 
+/**
+ 全部类别View
+ */
+@property (nonatomic, strong) UIView *categoryView;
+
+/**
+ 全部类别
+ */
+@property (nonatomic, strong) LHTagView *allCategoryView;
+
+//self.allCategoryLabel
+@property (nonatomic, strong) UILabel *allCategoryLabel;
 
 @end
 
@@ -73,26 +88,29 @@
  创建筛选条件的横条 ----> 全部品类
  */
 - (void)setScreeningView {
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kFit(45))];
-    bgView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:bgView];
+    self.categoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kFit(45))];
+    self.categoryView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.categoryView];
     
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, kScreenWidth/2, kFit(45))];
-    titleLabel.text = @"全部类别";
-    titleLabel.font = kFont(15);
-    [bgView addSubview:titleLabel];
+    self.allCategoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, kScreenWidth-kFit(30), kFit(45))];
+    self.allCategoryLabel.text = @"全部类别";
+    self.allCategoryLabel.font = kFont(15);
+    [self.categoryView addSubview:self.allCategoryLabel];
+    
+//    self.allCategoryView = [[LHTagView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-kFit(30), kFit(45)) TxtArray:@[@"全部类别"]];
+//    [self.categoryView addSubview:self.allCategoryView];
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenWidth-kFit(30), kFit(15), kFit(15), kFit(15))];
     imageView.image = kImage(@"ChooseClothes_open");
-    [bgView addSubview:imageView];
+    [self.categoryView addSubview:imageView];
     
     LHDevider *devider = [[LHDevider alloc] initWithFrame:CGRectMake(0, kFit(45)-0.5, kScreenWidth, 0.5)];
-    [bgView addSubview:devider];
+    [self.categoryView addSubview:devider];
     
     self.openButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
     self.openButton.frame = CGRectMake(0, 0, kScreenWidth, kFit(45));
     [self.openButton addTarget:self action:@selector(openAndCloseAction:) forControlEvents:(UIControlEventTouchUpInside)];
-    [bgView addSubview:self.openButton];
+    [self.categoryView addSubview:self.openButton];
 }
 
 /**
@@ -114,7 +132,19 @@
 */
  - (void)setChooseJumpView {
     self.chooseView = [[LHChooseTypeView alloc] initWithFrame:CGRectMake(0, -(kFit(40)*5-(64+kFit(45))), kScreenWidth, kFit(40)*5)];
-     self.chooseView.backgroundColor = [UIColor redColor];
+     @weakify(self);
+    self.chooseView.ClickSubmitBlock = ^(NSArray *selectArrray){
+        @strongify(self);
+        [self hideChooseView];
+        self.openButton.selected = NO;
+        
+        
+        
+        
+        
+        
+        
+    };
     [self.view addSubview:self.chooseView];
 }
 
@@ -163,10 +193,10 @@
 - (void)openAndCloseAction:(UIButton *)sender {
     sender.selected = !sender.selected;
     if (sender.selected) {
-        NSLog(@"展开%d", sender.selected);
+//        NSLog(@"展开%d", sender.selected);
         [self showChooseView];
     } else {
-        NSLog(@"合上%d", sender.selected);
+//        NSLog(@"合上%d", sender.selected);
         [self hideChooseView];
     }
 }
