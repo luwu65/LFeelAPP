@@ -282,9 +282,9 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.newsGoodTableView reloadData];
             //此处做延迟是防止请求太快, user_id还没有读取出来
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self requestRecommendGoodsListData];
-            });
+//            });
             //默认选中第一行
             [self.newsGoodTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
         });
@@ -383,7 +383,6 @@
                 });
             }
         }
-
     } failure:^(NSError *error) {
         
     }];

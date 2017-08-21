@@ -28,9 +28,14 @@
     
 
     self.view.backgroundColor = [UIColor whiteColor];
-    [self setUI];
+    [self setTableViewUI];
+    [self setSegmentControl];
     [self setHBK_NavigationBar];
 }
+
+
+#pragma mark ------------- UI -------------
+
 - (void)setHBK_NavigationBar {
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"我的订单" backAction:^{
@@ -38,57 +43,43 @@
     }];
 }
 
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ordercell"];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"ordercell"];
-    }
-    return cell;
-}
-
-
-- (void)setUI {
+- (void)setTableViewUI {
     NSInteger scrollHeight = kScreenHeight-kNavBarHeight-42;
     self.myOrderScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kNavBarHeight+42, kScreenWidth, scrollHeight)];
     self.myOrderScrollView.contentSize = CGSizeMake(0, kScreenWidth*5);
     self.myOrderScrollView.pagingEnabled = YES;
     [self.view addSubview:self.myOrderScrollView];
 
-    self.allOrderTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, scrollHeight) style:(UITableViewStylePlain)];
+    self.allOrderTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, scrollHeight) style:(UITableViewStyleGrouped)];
     self.allOrderTV.delegate = self;
     self.allOrderTV.dataSource = self;
     [self.myOrderScrollView addSubview:self.allOrderTV];
     
-    self.payTV = [[UITableView alloc] initWithFrame:CGRectMake(kScreenWidth, 0, kScreenWidth, scrollHeight) style:(UITableViewStylePlain)];
+    self.payTV = [[UITableView alloc] initWithFrame:CGRectMake(kScreenWidth, 0, kScreenWidth, scrollHeight) style:(UITableViewStyleGrouped)];
     self.payTV.delegate = self;
     self.payTV.dataSource = self;
     [self.myOrderScrollView addSubview:self.payTV];
     
-    self.sendTV = [[UITableView alloc] initWithFrame:CGRectMake(2*kScreenWidth, 0, kScreenWidth, scrollHeight) style:(UITableViewStylePlain)];
+    self.sendTV = [[UITableView alloc] initWithFrame:CGRectMake(2*kScreenWidth, 0, kScreenWidth, scrollHeight) style:(UITableViewStyleGrouped)];
     self.sendTV.delegate = self;
     self.sendTV.dataSource = self;
     [self.myOrderScrollView addSubview:self.sendTV];
     
-    self.commentTV = [[UITableView alloc] initWithFrame:CGRectMake(4*kScreenWidth, 0, kScreenWidth, scrollHeight) style:(UITableViewStylePlain)];
-    self.commentTV.delegate = self;
-    self.commentTV.dataSource = self;
-    [self.myOrderScrollView addSubview:self.commentTV];
-    
-    __weak typeof(self) weakself = self;
-    LHSegmentControlView *segView = [[LHSegmentControlView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, 44*kRatio) titleArray:@[@"全部", @"待付款", @"待发货", @"待收货", @"待评价"] titleFont:kFont(15) titleDefineColor:[UIColor blackColor] titleSelectedColor:[UIColor redColor]];
-    [self.view addSubview:segView];
-    
-    self.receiveTV = [[UITableView alloc] initWithFrame:CGRectMake(3*kScreenWidth, 0, kScreenWidth, scrollHeight) style:(UITableViewStylePlain)];
+    self.receiveTV = [[UITableView alloc] initWithFrame:CGRectMake(3*kScreenWidth, 0, kScreenWidth, scrollHeight) style:(UITableViewStyleGrouped)];
     self.receiveTV.delegate = self;
     self.receiveTV.dataSource = self;
     [self.myOrderScrollView addSubview:self.receiveTV];
     
+    self.commentTV = [[UITableView alloc] initWithFrame:CGRectMake(4*kScreenWidth, 0, kScreenWidth, scrollHeight) style:(UITableViewStyleGrouped)];
+    self.commentTV.delegate = self;
+    self.commentTV.dataSource = self;
+    [self.myOrderScrollView addSubview:self.commentTV];
+}
+
+- (void)setSegmentControl {
+    __weak typeof(self) weakself = self;
+    LHSegmentControlView *segView = [[LHSegmentControlView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, 44*kRatio) titleArray:@[@"全部", @"待付款", @"待发货", @"待收货", @"待评价"] titleFont:kFont(15) titleDefineColor:[UIColor blackColor] titleSelectedColor:[UIColor redColor]];
+    [self.view addSubview:segView];
 
     [segView clickTitleButtonBlock:^(NSInteger index) {
         if (index == 0) {
@@ -100,14 +91,14 @@
         } else if (index == 2) {
             weakself.myOrderScrollView.contentOffset = CGPointMake(2*kScreenWidth, 0);
             
-
-        
+            
+            
         } else if (index == 3) {
             weakself.myOrderScrollView.contentOffset = CGPointMake(3*kScreenWidth, 0);
-
+            
             
         } else if (index == 4) {
-            weakself.myOrderScrollView.contentOffset = CGPointMake(4*kScreenWidth, 0);            
+            weakself.myOrderScrollView.contentOffset = CGPointMake(4*kScreenWidth, 0);
         }
     }];
     
@@ -122,10 +113,10 @@
         }
     }
     if (self.index == 0) {
-
+        
         self.myOrderScrollView.contentOffset = CGPointMake(0, 0);
     } else if (self.index == 1) {
-      
+        
         self.myOrderScrollView.contentOffset = CGPointMake(kScreenWidth, 0);
         [UIView animateWithDuration:0.25 animations:^{
             CGPoint point = segView.sliderView.center;
@@ -140,7 +131,7 @@
             point.x = segView.sliderView.center.x + kScreenWidth/5*2;
             segView.sliderView.center = point;
         }];
-
+        
     } else if (self.index == 3) {
         self.myOrderScrollView.contentOffset = CGPointMake(3*kScreenWidth, 0);
         [UIView animateWithDuration:0.25 animations:^{
@@ -148,7 +139,7 @@
             point.x = segView.sliderView.center.x + kScreenWidth/5*3;
             segView.sliderView.center = point;
         }];
-
+        
     } else if (self.index == 4) {
         self.myOrderScrollView.contentOffset = CGPointMake(4*kScreenWidth, 0);
         [UIView animateWithDuration:0.25 animations:^{
@@ -160,7 +151,19 @@
 }
 
 
+#pragma mark ---------   <UITableViewDelegate, UITableViewDataSource> ---------
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 3;
+}
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ordercell"];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"ordercell"];
+    }
+    
+    return cell;
+}
 
 
 - (void)didReceiveMemoryWarning {

@@ -63,6 +63,7 @@
     [self.view addSubview:self.detailTableView];
     
     self.cycleView = [[LHRentGoodsDetailCycleView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth*1.8) imageFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth*1.4) placeHolderImage:kImage(@"")];
+
     self.cycleView.backgroundColor = [UIColor whiteColor];
     self.detailTableView.tableHeaderView = self.cycleView;
 }
@@ -189,6 +190,8 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.cycleView.titleLabel.text = model.product_name;
                 self.cycleView.rentCycleView.imageURLStringsGroup = self.cycleArray;
+                self.cycleView.sizeArray = kClothesSize;
+                self.cycleView.tagView.categoryLabel.text = @"尺码:";
                 [self.detailTableView reloadData];
             });
         }

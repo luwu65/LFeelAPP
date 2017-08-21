@@ -36,7 +36,7 @@
 }
 
 - (void)setUI {
-    self.boxHistoryTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64) style:(UITableViewStylePlain)];
+    self.boxHistoryTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64) style:(UITableViewStyleGrouped)];
     self.boxHistoryTableView.delegate = self;
     self.boxHistoryTableView.dataSource = self;
     [self.view addSubview:self.boxHistoryTableView];
@@ -92,7 +92,9 @@
     return view;
 }
 
-
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return CGFLOAT_MIN;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

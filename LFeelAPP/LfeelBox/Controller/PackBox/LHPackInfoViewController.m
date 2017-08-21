@@ -68,6 +68,18 @@
     _thirdView.frame = CGRectMake(0, 64+kFit(35)+kFit(45)*2, kScreenWidth, kFit(45));
     [self.view addSubview:_thirdView];
     
+    UILabel *remindLabel = [[UILabel alloc] init];
+    remindLabel.text = @"温馨提示:选择默认, 我们会根据您在个人信息里填写的信息选择商品大小哦~";
+    remindLabel.numberOfLines = 0;
+    remindLabel.font = kFont(12);
+    [self.view addSubview:remindLabel];
+    [remindLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_left).offset(10);
+        make.right.equalTo(self.view.mas_right).offset(-10);
+        make.height.mas_equalTo(40);
+        make.top.equalTo(_thirdView.mas_bottom).offset(10);
+    }];
+    
     
     UIButton *submitBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
     submitBtn.frame = CGRectMake(kFit(30), kScreenHeight-kFit(80), kScreenWidth-kFit(60), kFit(40));

@@ -10,11 +10,18 @@
 #import "LHNewGoodsCollectionCell.h"
 #import "LHChooseTypeView.h"
 #import "LHTagView.h"
+#import "LHCategoryView.h"
+#import "LHCategoryListViewController.h"
+
 @interface LHChooseClothesViewController ()<UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 /*搜索框*/
 @property (nonatomic, strong) UISearchBar *chooseSearchBar;
 
-@property (nonatomic, strong) UICollectionView *chooseColllectionView;
+/**
+ 商品列表
+ */
+@property (nonatomic, strong) UICollectionView *goodsColllectionView;
+
 
 /**
  存储请求到的商品
@@ -93,7 +100,7 @@
     [self.view addSubview:self.categoryView];
     
     self.allCategoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, kScreenWidth-kFit(30), kFit(45))];
-    self.allCategoryLabel.text = @"全部类别";
+    self.allCategoryLabel.text = @"规格";
     self.allCategoryLabel.font = kFont(15);
     [self.categoryView addSubview:self.allCategoryLabel];
     
@@ -117,14 +124,23 @@
  创建collectionView
  */
 - (void)setCollectionView {
+    //下面的商品列表
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    self.chooseColllectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64+kFit(45), kScreenWidth, kScreenHeight-64-kFit(45)-49) collectionViewLayout:layout];
-    self.chooseColllectionView.dataSource = self;
-    self.chooseColllectionView.delegate = self;
-    self.chooseColllectionView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.chooseColllectionView];
+    self.goodsColllectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64+kFit(45), kScreenWidth, kScreenHeight-64-kFit(45)-49) collectionViewLayout:layout];
+    self.goodsColllectionView.dataSource = self;
+    self.goodsColllectionView.delegate = self;
+    self.goodsColllectionView.backgroundColor = kColor(245, 245, 245);
+    [self.view addSubview:self.goodsColllectionView];
     
-    [self.chooseColllectionView registerNib:[UINib nibWithNibName:@"LHNewGoodsCollectionCell" bundle:nil] forCellWithReuseIdentifier:@"LHNewGoodsCollectionCell"];
+    [self.goodsColllectionView registerNib:[UINib nibWithNibName:@"LHNewGoodsCollectionCell" bundle:nil] forCellWithReuseIdentifier:@"LHNewGoodsCollectionCell"];
+    [self.goodsColllectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"LHCategoryView"];
+
+    self.goodsColllectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        NSLog(@"下拉刷新");
+    }];
+    self.goodsColllectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        NSLog(@"上拉加载");
+    }];
 }
 
 /*
@@ -137,12 +153,6 @@
         @strongify(self);
         [self hideChooseView];
         self.openButton.selected = NO;
-        
-        
-        
-        
-        
-        
         
     };
     [self.view addSubview:self.chooseView];
@@ -185,8 +195,29 @@
     return UIEdgeInsetsMake(5, 5, 5, 5);
 }
 
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    UICollectionReusableView *reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"LHCategoryView" forIndexPath:indexPath];
+    LHCategoryView *categoryView = [[LHCategoryView alloc] initWithFrame:CGRectMake(0, 0, reusableView.frame.size.width, reusableView.frame.size.height)];
+    categoryView.ClickCategoryBlock = ^(NSInteger index) {
+        NSLog(@"%ld", index);
+        LHCategoryListViewController *listVC = [[LHCategoryListViewController alloc] init];
+        
+        [self.navigationController pushViewController:listVC animated:YES];
+    };
+    
+    
+    //此举是防止collectionHeaderView重用
+    if (reusableView.subviews.count >= 1) {
+        return reusableView;
+    }
+    [reusableView addSubview:categoryView];
+    return reusableView;
+}
 
-
+//这个方法是返回 Header的大小 size
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    return CGSizeMake(kScreenWidth, (kScreenWidth-30)/5 * 1.2 * 2+kFit(40)+20);
+}
 
 #pragma mark ---------- Action -------------
 
@@ -202,7 +233,7 @@
 }
 
 - (void)showChooseView {
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.2 animations:^{
         CGPoint point = self.chooseView.center;
         point.y = kFit(40)*5 + point.y;
         self.chooseView.center = point;

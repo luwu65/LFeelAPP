@@ -224,11 +224,27 @@
     }
     [LHNetworkManager PostWithUrl:url parameter:@{@"product_id": model.product_id, @"user_id": kUser_id, @"type": @0} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
-        //        if (reponseObject[@"errorCode"]) {
-        //            [MBProgressHUD showMessage:@"收藏成功"];
-        //        } else {
-        //            [MBProgressHUD showError:@"收藏失败"];
-        //        }
+        if ([model.iscollection integerValue] == 0) {
+            if (reponseObject[@"errorCode"]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showSuccess:@"收藏成功"];
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showError:@"收藏失败"];
+                });
+            }
+        } else {
+            if (reponseObject[@"errorCode"]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showSuccess:@"取消收藏"];
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showError:@"取消收藏失败"];
+                });
+            }
+        }
     } failure:^(NSError *error) {
         
     }];

@@ -59,6 +59,8 @@ typedef void(^ClickCycleViewBlock)(NSInteger index);
 
 
 #pragma mark  -------------------   商品详情轮播  --------------------------
+#import "LHTagView.h"
+
 //商品详情轮播
 @interface LHRentGoodsDetailCycleView : UIView<SDCycleScrollViewDelegate>
 
@@ -84,10 +86,10 @@ typedef void(^ClickCycleViewBlock)(NSInteger index);
 /*
  传入size的数组, 显示衣服的size
  */
-@property (nonatomic, strong) NSMutableArray *sizeArray;
+@property (nonatomic, strong) NSArray *sizeArray;
+@property (nonatomic, strong) LHTagView *tagView;
 
 - (void)clickCycleBlock:(ClickCycleViewBlock)clickCycleBlock;
-
 
 
 @end

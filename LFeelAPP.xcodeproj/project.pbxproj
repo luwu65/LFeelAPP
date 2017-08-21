@@ -123,6 +123,10 @@
 		0F9046191F1EEC52000528A2 /* LHNewGoodsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9046181F1EEC52000528A2 /* LHNewGoodsDetailViewController.m */; };
 		0F9046211F1EF20F000528A2 /* LHCardBagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9046201F1EF20F000528A2 /* LHCardBagViewController.m */; };
 		0F9046241F1EF256000528A2 /* LHCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9046231F1EF256000528A2 /* LHCardCell.m */; };
+		0FB793351F4A786300FDDB76 /* LHCategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB793341F4A786300FDDB76 /* LHCategoryView.m */; };
+		0FB793381F4A870300FDDB76 /* LHCategoryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB793371F4A870300FDDB76 /* LHCategoryListViewController.m */; };
+		0FB7933B1F4AE0D600FDDB76 /* LHCollectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7933A1F4AE0D600FDDB76 /* LHCollectModel.m */; };
+		0FB7933E1F4B19B500FDDB76 /* LHOrderHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7933D1F4B19B500FDDB76 /* LHOrderHeaderFooterView.m */; };
 		0FEA5A8C1F3031760095532D /* LHAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FEA5A8B1F3031760095532D /* LHAddressModel.m */; };
 		0FEC8D031F37F06300453700 /* HBK_NavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FEC8D021F37F06300453700 /* HBK_NavigationBar.m */; };
 		0FEC8D211F38533800453700 /* LHAccountCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FEC8D081F38533800453700 /* LHAccountCenterCell.m */; };
@@ -379,6 +383,14 @@
 		0F9046201F1EF20F000528A2 /* LHCardBagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHCardBagViewController.m; sourceTree = "<group>"; };
 		0F9046221F1EF256000528A2 /* LHCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHCardCell.h; sourceTree = "<group>"; };
 		0F9046231F1EF256000528A2 /* LHCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHCardCell.m; sourceTree = "<group>"; };
+		0FB793331F4A786300FDDB76 /* LHCategoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHCategoryView.h; sourceTree = "<group>"; };
+		0FB793341F4A786300FDDB76 /* LHCategoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHCategoryView.m; sourceTree = "<group>"; };
+		0FB793361F4A870300FDDB76 /* LHCategoryListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHCategoryListViewController.h; sourceTree = "<group>"; };
+		0FB793371F4A870300FDDB76 /* LHCategoryListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHCategoryListViewController.m; sourceTree = "<group>"; };
+		0FB793391F4AE0D600FDDB76 /* LHCollectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHCollectModel.h; sourceTree = "<group>"; };
+		0FB7933A1F4AE0D600FDDB76 /* LHCollectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHCollectModel.m; sourceTree = "<group>"; };
+		0FB7933C1F4B19B500FDDB76 /* LHOrderHeaderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHOrderHeaderFooterView.h; sourceTree = "<group>"; };
+		0FB7933D1F4B19B500FDDB76 /* LHOrderHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHOrderHeaderFooterView.m; sourceTree = "<group>"; };
 		0FEA5A8A1F3031760095532D /* LHAddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHAddressModel.h; sourceTree = "<group>"; };
 		0FEA5A8B1F3031760095532D /* LHAddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHAddressModel.m; sourceTree = "<group>"; };
 		0FEC8D011F37F06300453700 /* HBK_NavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBK_NavigationBar.h; sourceTree = "<group>"; };
@@ -485,6 +497,8 @@
 			children = (
 				0F2F17CC1F319EC0006DE053 /* LHChooseClothesViewController.h */,
 				0F2F17CD1F319EC0006DE053 /* LHChooseClothesViewController.m */,
+				0FB793361F4A870300FDDB76 /* LHCategoryListViewController.h */,
+				0FB793371F4A870300FDDB76 /* LHCategoryListViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -503,6 +517,8 @@
 				0F7B0A321F45A66E004080D6 /* LHChooseTypeView.m */,
 				0F7B0A341F45AC18004080D6 /* LHTagView.h */,
 				0F7B0A351F45AC18004080D6 /* LHTagView.m */,
+				0FB793331F4A786300FDDB76 /* LHCategoryView.h */,
+				0FB793341F4A786300FDDB76 /* LHCategoryView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -714,6 +730,8 @@
 			children = (
 				0F52B6D01EF7A6F5007D45EC /* LHUserInfoModel.h */,
 				0F52B6D11EF7A6F5007D45EC /* LHUserInfoModel.m */,
+				0FB793391F4AE0D600FDDB76 /* LHCollectModel.h */,
+				0FB7933A1F4AE0D600FDDB76 /* LHCollectModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -850,6 +868,8 @@
 				0F52B71A1EF91965007D45EC /* LHMyOrderViewController.m */,
 				0F3354DE1F0A0C480056FEA9 /* LHOrderCell.h */,
 				0F3354DF1F0A0C480056FEA9 /* LHOrderCell.m */,
+				0FB7933C1F4B19B500FDDB76 /* LHOrderHeaderFooterView.h */,
+				0FB7933D1F4B19B500FDDB76 /* LHOrderHeaderFooterView.m */,
 			);
 			path = LHOrder;
 			sourceTree = "<group>";
@@ -1427,6 +1447,7 @@
 				0F52B7251EF91965007D45EC /* LHReceiveAddressViewController.m in Sources */,
 				0F9045C01F1DA18F000528A2 /* UIImage+Extension.m in Sources */,
 				0F52B69F1EF25A80007D45EC /* LHNewGoodsCell.m in Sources */,
+				0FB7933B1F4AE0D600FDDB76 /* LHCollectModel.m in Sources */,
 				0F3F64311F414C6E00A42084 /* LHDevider.m in Sources */,
 				0F84BAF31F1F23AB00D98999 /* LHCardHeaderView.m in Sources */,
 				0F84BB351F20B00B00D98999 /* LHMakeBillViewController.m in Sources */,
@@ -1486,6 +1507,7 @@
 				0F52B64B1EEF8ADA007D45EC /* LHHomeViewController.m in Sources */,
 				0F9045C11F1DA18F000528A2 /* UITextField+PlaceHolder.m in Sources */,
 				0F52B5F71EEF83E1007D45EC /* AppDelegate.m in Sources */,
+				0FB793381F4A870300FDDB76 /* LHCategoryListViewController.m in Sources */,
 				0FEC8D241F38533800453700 /* LHMyBoxViewController.m in Sources */,
 				0F7B0A331F45A66E004080D6 /* LHChooseTypeView.m in Sources */,
 				0F52B66D1EEFDE87007D45EC /* LHBuyNewCollectionViewCell.m in Sources */,
@@ -1498,6 +1520,7 @@
 				0F9045C21F1DA18F000528A2 /* UIView+AdaptivePerfect.m in Sources */,
 				0F7B79471F427F5F009DAF35 /* LHPackInfoViewController.m in Sources */,
 				0F52B6D21EF7A6F5007D45EC /* LHUserInfoModel.m in Sources */,
+				0FB793351F4A786300FDDB76 /* LHCategoryView.m in Sources */,
 				0F9045BA1F1DA18F000528A2 /* NSDate+Extension.m in Sources */,
 				0F03D9141F3B07D8002F7939 /* LHGoodsDetailViewController.m in Sources */,
 				0F52B7361EFA11AA007D45EC /* LHCityChooseView.m in Sources */,
@@ -1516,6 +1539,7 @@
 				0F594D331F2A13B80047DCC1 /* LHDraggableCardContainer.m in Sources */,
 				0F9046241F1EF256000528A2 /* LHCardCell.m in Sources */,
 				0F52B7071EF8BC52007D45EC /* LHChooseGoodsViewController.m in Sources */,
+				0FB7933E1F4B19B500FDDB76 /* LHOrderHeaderFooterView.m in Sources */,
 				0F52B6D61EF7A837007D45EC /* LHNetworkManager.m in Sources */,
 				0F90460D1F1DFC7F000528A2 /* LHScanViewController.m in Sources */,
 				0FEC8D231F38533800453700 /* LHAccountCenterViewController.m in Sources */,

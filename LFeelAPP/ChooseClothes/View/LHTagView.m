@@ -72,9 +72,9 @@
             NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:12]};
             CGFloat length = [txtArray[i] boundingRectWithSize:CGSizeMake(320, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size.width;
             if (i == 0) {
-                 btn.frame = CGRectMake(10, kFit(10), length+20, kFit(20));
+                 btn.frame = CGRectMake(10, (self.frame.size.height- kFit(20))/2, length+20, kFit(20));
             } else {
-                btn.frame = CGRectMake(10 *(i + 1) + self.AllLength, kFit(10), length+20, kFit(20));
+                btn.frame = CGRectMake(10 *(i + 1) + self.AllLength, (self.frame.size.height- kFit(20))/2, length+20, kFit(20));
             }
             self.AllLength += (length+20);
             
@@ -205,6 +205,61 @@
     
 
 }
+
+
+#pragma mark -----------------------------------------------------------------------------------------------
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        self.categoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, kFit(40), frame.size.height)];
+        self.categoryLabel.font = kFont(15);
+        [self addSubview:self.categoryLabel];
+        
+        self.tagScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(kFit(40)+10, 0, self.frame.size.width, self.frame.size.height)];
+        self.tagScrollView.contentSize = CGSizeMake(CGFLOAT_MAX, self.size.height);
+        self.tagScrollView.showsHorizontalScrollIndicator = NO;
+        [self addSubview:self.tagScrollView];
+        
+        self.contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGFLOAT_MAX, self.frame.size.height)];
+        [self.tagScrollView addSubview:self.contentView];
+        
+
+        
+    }
+    return self;
+}
+
+
+- (void)setContentArray:(NSArray *)contentArray {
+    _contentArray = contentArray;
+    for (int i = 0; i < self.contentArray.count; i++) {
+        UIButton *btn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        btn.backgroundColor = [UIColor whiteColor];
+        [btn setTitle:self.contentArray[i] forState:(UIControlStateNormal)];
+        [btn setTitleColor:[UIColor blackColor]];
+        btn.titleLabel.font = kFont(15);
+        btn.tag = kChooseClothesTag + i;
+        NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:15]};
+        CGFloat length = [self.contentArray[i] boundingRectWithSize:CGSizeMake(320, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size.width;
+        if (i == 0) {
+            btn.frame = CGRectMake(10, (self.frame.size.height- kFit(30))/2, length+20, kFit(30));
+        } else {
+            btn.frame = CGRectMake(10 *(i + 1) + self.AllLength, (self.frame.size.height- kFit(30))/2, length+20, kFit(30));
+        }
+        self.AllLength += (length+20);
+        
+        btn.layer.cornerRadius = 2;
+        btn.layer.masksToBounds = YES;
+        [btn addTarget:self action:@selector(selectedBtnAction:) forControlEvents:(UIControlEventTouchUpInside)];
+        [self.contentView addSubview:btn];
+    }
+    self.contentWidth = 10*(self.contentArray.count+1)+self.AllLength;
+}
+
+
+- (void)selectedBtnAction:(UIButton *)sender {
+    NSLog(@"点击了");
+}
+
 
 
 

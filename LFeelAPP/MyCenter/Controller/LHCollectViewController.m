@@ -8,6 +8,7 @@
 
 #import "LHCollectViewController.h"
 #import "LHMyBoxCell.h"
+#import "LHCollectModel.h"
 @interface LHCollectViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *collecTableView;
@@ -29,10 +30,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.view.backgroundColor = kColor(245, 245, 245);
+//    self.view.backgroundColor = kColor(245, 245, 245);
     [self collecTableView];
     
     [self setHBK_NavigationBar];
+    
+    [self requestColloctionListData];
+    
+    
+
 }
 
 #pragma mark --------------- UI ------------------------
@@ -44,6 +50,13 @@
         self.collecTableView.delegate = self;
         self.collecTableView.tableFooterView = [[UIView alloc] init];
         [self.view addSubview:self.collecTableView];
+        self.collecTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            NSLog(@"刷新");
+        }];
+        
+        self.collecTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            NSLog(@"加载");
+        }];
     }
     return _collecTableView;
 }
@@ -57,7 +70,7 @@
 
 #pragma mark --------------- <UITableViewDelegate, UITableViewDataSource> -----------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return self.goodsArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -65,9 +78,7 @@
     if (cell == nil) {
         cell = [[LHMyBoxCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"LHMyBoxCell"];
     }
-    cell.titleLabel.text = @"哈哈还哈";
-    cell.brandLabel.text = @"brand";
-    cell.sizeLabel.text = @"S, XL";
+    cell.collectModel = self.goodsArray[indexPath.row];
     
     return cell;
     
@@ -84,10 +95,23 @@
 #pragma mark -------------- 网络请求 -------------------
 
 - (void)requestColloctionListData {
-    
-    
-    
-    
+    [self showProgressHUD];
+    [LHNetworkManager requestForGetWithUrl:kCollectionListUrl parameter:@{@"user_id":kUser_id} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            for (NSDictionary *dic in reponseObject[@"data"]) {
+                LHCollectModel *model = [[LHCollectModel alloc] init];
+                [model setValuesForKeysWithDictionary:dic];
+                [self.goodsArray addObject:model];
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self hideProgressHUD];
+            [self.collecTableView reloadData];
+        });
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 

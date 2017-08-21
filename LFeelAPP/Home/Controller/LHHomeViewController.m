@@ -78,8 +78,10 @@
 //轮播图数据
 - (void)requestCycleScrollViewData {
     [self showProgressHUDWithTitle:@"加载中"];
+    //请求之前先把之前数组里的数据清除, 防止下拉刷新重复添加
+    [self.cycleImageArray removeAllObjects];
     [LHNetworkManager requestForGetWithUrl:kCycleViewUrl parameter:nil success:^(id reponseObject) {
-//        NSLog(@"%@", reponseObject);
+        NSLog(@"%@", reponseObject);
         if ([kSTR(reponseObject[@"isError"]) isEqualToString:@"0"]) {
             for (NSDictionary *imaggeURlDic in reponseObject[@"data"]) {
                 [self.cycleImageArray addObject:imaggeURlDic[@"url"]];
@@ -98,8 +100,10 @@
 
 
 - (void)requestSpecialData {
+    //请求之前先把之前数组里的数据清除, 防止下拉刷新重复添加
+    [self.themeArray removeAllObjects];
     [LHNetworkManager requestForGetWithUrl:kThemeURl parameter:nil success:^(id reponseObject) {
-//        NSLog(@"%@", reponseObject);
+        NSLog(@"%@", reponseObject);
         if ([kSTR(reponseObject[@"isError"]) isEqualToString:@"0"]) {
             for (NSDictionary *modelDic in reponseObject[@"data"]) {
                 LHHomeThemesModel *model = [[LHHomeThemesModel alloc] init];
@@ -119,9 +123,11 @@
 }
 
 - (void)requestThemeGoodsData {
+    //请求之前先把之前数组里的数据清除, 防止下拉刷新重复添加
+    [self.themeGoodsArray removeAllObjects];
     //@"limit":@3,在首页限制3件
     [LHNetworkManager requestForGetWithUrl:kGoodsUrl parameter:@{@"page":@1, @"pronum": @3} success:^(id reponseObject) {
-//        NSLog(@"%@", reponseObject);
+        NSLog(@"%@", reponseObject);
         if ([kSTR(reponseObject[@"isError"]) isEqualToString:@"0"]) {
             for (NSDictionary *adic in reponseObject[@"data"]) {
                 LHHomeThemeGoodsModel *model = [[LHHomeThemeGoodsModel alloc] init];
@@ -131,6 +137,7 @@
             }
         }
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self.homeTabeView.mj_header endRefreshing];
             [self hideProgressHUD];
             [self.homeTabeView reloadData];
         });
@@ -155,6 +162,11 @@
         NSLog(@"点击了第%ld张", index);
     }];
     
+    @weakify(self);
+    self.homeTabeView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self);
+        [self requestCycleScrollViewData];
+    }];
 }
 
 - (void)setHBK_NavigationBar {

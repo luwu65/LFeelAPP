@@ -65,7 +65,8 @@
 //删除收藏
 #define kUncollectionGoodsUrl   @"collection/delete"
 
-
+//收藏列表
+#define kCollectionListUrl      @"collection/getList"
 
 
 

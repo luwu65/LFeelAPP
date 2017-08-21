@@ -82,7 +82,16 @@
     
 }
 
-
+- (void)setCollectModel:(LHCollectModel *)collectModel {
+    if (![collectModel.product_url isKindOfClass:[NSNull class]]) {
+        [self.goodsImageView sd_setImageWithURL:[NSURL URLWithString:collectModel.product_url] placeholderImage:kImage(@"")];
+    } else {
+        self.goodsImageView.image = kImage(@"");
+    }
+    
+    self.titleLabel.text = collectModel.product_name;
+    self.brandLabel.text = collectModel.brand_name;   
+}
 
 
 

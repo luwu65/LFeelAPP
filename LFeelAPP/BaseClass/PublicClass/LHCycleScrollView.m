@@ -100,12 +100,6 @@
 //商品详情轮播
 @implementation LHRentGoodsDetailCycleView
 
-- (NSMutableArray *)sizeArray {
-    if (!_sizeArray) {
-        self.sizeArray = [NSMutableArray array];
-    }
-    return _sizeArray;
-}
 
 
 /*
@@ -131,17 +125,6 @@
             make.height.mas_equalTo(kFit(25));
         }];
         
-        for (int i = 0; i < self.sizeArray.count; i++) {
-            UIButton *btn = [UIButton buttonWithType:(UIButtonTypeSystem)];
-            [self addSubview:btn];
-            [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.mas_left).offset(10 + i*10 + i*50);
-                make.width.mas_equalTo(50);
-                make.height.mas_equalTo(25);
-                make.top.equalTo(self.titleLabel.mas_bottom).offset(10);
-            }];
-        }
-        
         UIButton *addBox = [UIButton buttonWithType:(UIButtonTypeCustom)];
         [addBox setTitle:@"加入我的盒子" forState:(UIControlStateNormal)];
         [addBox setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
@@ -157,9 +140,15 @@
         addBox.layer.borderWidth = 1;
         addBox.layer.cornerRadius = 2;
         
-        
+        self.tagView = [[LHTagView alloc] initWithFrame:CGRectMake(10, kFit(30)+kScreenWidth*1.4, kScreenWidth-10, kFit(40))];
+        [self addSubview:self.tagView];
     }
     return self;
+}
+
+- (void)setSizeArray:(NSArray *)sizeArray {
+    _sizeArray = sizeArray;
+    self.tagView.contentArray = sizeArray;
 }
 
 

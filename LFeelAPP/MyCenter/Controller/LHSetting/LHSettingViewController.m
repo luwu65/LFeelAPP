@@ -111,9 +111,9 @@
         NSUInteger mb = 1024 * 1024;
         if (totalSize < mb) {
             if (0 == (totalSize / kb)) {
-                CacheSize = @"";
+                CacheSize = @"0.00MB";
             } else {
-                CacheSize  = [NSString stringWithFormat:@"%luKB", totalSize / kb];
+                CacheSize  = [NSString stringWithFormat:@"%luMB", totalSize / mb];
             }
         } else {
             CacheSize = [NSString stringWithFormat:@"%.1fMB", (double)totalSize / mb];
@@ -181,15 +181,17 @@
             LHChangePasswordViewController *passVC = [[LHChangePasswordViewController alloc] init];
             [self.navigationController pushViewController:passVC animated:YES];
         } else if (indexPath.row == 0) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self showAlertViewWithTitle:@"清理缓存图片" yesHandler:^(UIAlertAction * _Nullable action) {
-                    [[[SDWebImageManager sharedManager] imageCache] clearDiskOnCompletion:nil];
-                    [[SDWebImageManager sharedManager].imageCache clearMemory];
-                    [MBProgressHUD showSuccess:@"清理成功"];
-                    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-                    cell.detailTextLabel.text = @"";
-                } noHandler:nil];
-            });
+            if ([CacheSize integerValue] > 0) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self showAlertViewWithTitle:@"清理缓存图片" yesHandler:^(UIAlertAction * _Nullable action) {
+                        [[[SDWebImageManager sharedManager] imageCache] clearDiskOnCompletion:nil];
+                        [[SDWebImageManager sharedManager].imageCache clearMemory];
+                        [MBProgressHUD showSuccess:@"清理成功"];
+                        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+                        cell.detailTextLabel.text = @"0.00MB";
+                    } noHandler:nil];
+                });
+            }
         }
     }
 }

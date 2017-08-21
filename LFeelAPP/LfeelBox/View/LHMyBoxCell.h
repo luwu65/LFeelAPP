@@ -7,11 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "LHCollectModel.h"
 @interface LHMyBoxCell : UITableViewCell
 @property (strong, nonatomic) UIImageView *goodsImageView;
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UILabel *brandLabel;
 @property (strong, nonatomic) UILabel *sizeLabel;
+
+
+
+
+@property (nonatomic, strong) LHCollectModel *collectModel;
+
+
+
+
+
+
+
+
 
 @end

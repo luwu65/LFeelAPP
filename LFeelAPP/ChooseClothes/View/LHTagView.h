@@ -19,7 +19,7 @@
 
 
 /**
- 只显示文字的标签
+ 只显示文字的标签, 选中后显示叉叉图片删除
 
  @param frame 尺寸
  @param txtArray 文字的数组
@@ -40,8 +40,17 @@
 
 
 
+/**
+ 带边框的标签, 前面带类名 例如"尺码:"
 
+ @param frame 尺寸
+ @return 标签视图
+ */
+- (instancetype)initWithFrame:(CGRect)frame;
 
+@property (nonatomic, strong) UILabel *categoryLabel;
+
+@property (nonatomic, strong) NSArray *contentArray;
 
 @end
 
