@@ -272,38 +272,9 @@ static NSString *myCenterCell = @"myCenterCell";
  */
 - (void)clickOrderBtnAction {
     [self.orderAbooutView clickCustomButton:^(NSInteger index) {
-        switch (index) {
-            case 0:{
-                LHMyOrderViewController *orderVC = [[LHMyOrderViewController alloc] init];
-                orderVC.index = 1;
-                [self.navigationController pushViewController:orderVC animated:YES];
-            }
-                break;
-            case 1:{
-                LHMyOrderViewController *orderVC = [[LHMyOrderViewController alloc] init];
-                orderVC.index = 2;
-                [self.navigationController pushViewController:orderVC animated:YES];
-                
-            }
-                break;
-            case 2:{
-                LHMyOrderViewController *orderVC = [[LHMyOrderViewController alloc] init];
-                orderVC.index = 3;
-                [self.navigationController pushViewController:orderVC animated:YES];
-                
-            }
-                break;
-            case 3:{
-                LHMyOrderViewController *orderVC = [[LHMyOrderViewController alloc] init];
-                orderVC.index = 4;
-                [self.navigationController pushViewController:orderVC animated:YES];
-                
-            }
-                break;
-                
-            default:
-                break;
-        }
+        LHMyOrderViewController *orderVC = [[LHMyOrderViewController alloc] init];
+        orderVC.index = index+1;
+        [self.navigationController pushViewController:orderVC animated:YES];
     }];
 }
 

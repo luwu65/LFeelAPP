@@ -29,6 +29,10 @@
     
     
     [self setHBK_NavigationBar];
+    
+    [self requestAddAddressData];
+    
+    
 }
 - (void)setHBK_NavigationBar {
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -153,6 +157,25 @@
 }
 
 
+#pragma  mark ----------------- 添加地址 --------------
+//添加地址
+- (void)requestAddAddressData {
+    [LHNetworkManager requestForGetWithUrl:kAddAddressUrl parameter:@{@"user_id": @"7", @"province": @"河南", @"city": @"郑州", @"district": @"金水区", @"mobile": @"110", @"detail_address": @"哈哈哈哈"} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+    
+//    [LHNetworkManager PostWithUrl:kAddAddressUrl parameter:@{@"user_id": @"7", @"province": @"河南", @"city": @"郑州", @"district": @"金水区", @"mobile": @"110", @"detail_address": @"哈哈哈哈"} success:^(id reponseObject) {
+//        NSLog(@"%@", reponseObject);
+//    } failure:^(NSError *error) {
+//        
+//    }];
+    
+}
 
 
 

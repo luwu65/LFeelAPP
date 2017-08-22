@@ -12,9 +12,9 @@
 
 #pragma mark  -----------------------  URL  -------------------------
 //请求头
-//#define kUrlHeader              @"http://lfeeltest.ngrok.cc/lfeel/" //本地测试环境
+#define kUrlHeader              @"http://lfeeltest.ngrok.cc/lfeel/" //本地测试环境
 //#define kUrlHeader            @"http://47.92.149.182:8020/lfeel/" //服务器环境
-#define kUrlHeader            @"http://120.76.215.11:8021/lfeel/" //服务器环境
+//#define kUrlHeader            @"http://120.76.215.11:8021/lfeel/" //服务器环境
 
 //token
 #define kToken                  @"e895482e-7662-4aa1-bdc7-a6fb3e806ccd"
@@ -49,6 +49,7 @@
 
 
 // -------------- 新品购买
+//type 0 --> 购买的商品; 1 --> 租赁的商品
 
 //商品列表
 #define kNewGoodsListUrl        @"product/getList"
@@ -68,8 +69,8 @@
 //收藏列表
 #define kCollectionListUrl      @"collection/getList"
 
-
-
+//添加地址
+#define kAddAddressUrl          @"addr/add"
 
 
 

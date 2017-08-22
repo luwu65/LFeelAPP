@@ -18,7 +18,6 @@
 		0F3354681F0264380056FEA9 /* MDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3354671F0264380056FEA9 /* MDManager.m */; };
 		0F33547C1F0397260056FEA9 /* LHAllCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F33547B1F0397260056FEA9 /* LHAllCommentViewController.m */; };
 		0F33547F1F039C2A0056FEA9 /* LHParamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F33547E1F039C2A0056FEA9 /* LHParamCell.m */; };
-		0F3354E01F0A0C490056FEA9 /* LHOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3354DF1F0A0C480056FEA9 /* LHOrderCell.m */; };
 		0F3354E31F0A10B70056FEA9 /* LHUserInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3354E21F0A10B70056FEA9 /* LHUserInfoCell.m */; };
 		0F3F64251F3C51C500A42084 /* UIButton+badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F64241F3C51C500A42084 /* UIButton+badge.m */; };
 		0F3F64281F3D527C00A42084 /* LHPayWayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F64271F3D527C00A42084 /* LHPayWayView.m */; };
@@ -127,6 +126,7 @@
 		0FB793381F4A870300FDDB76 /* LHCategoryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB793371F4A870300FDDB76 /* LHCategoryListViewController.m */; };
 		0FB7933B1F4AE0D600FDDB76 /* LHCollectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7933A1F4AE0D600FDDB76 /* LHCollectModel.m */; };
 		0FB7933E1F4B19B500FDDB76 /* LHOrderHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7933D1F4B19B500FDDB76 /* LHOrderHeaderFooterView.m */; };
+		0FB793441F4BFC6700FDDB76 /* LHOrderListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB793431F4BFC6700FDDB76 /* LHOrderListTableViewController.m */; };
 		0FEA5A8C1F3031760095532D /* LHAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FEA5A8B1F3031760095532D /* LHAddressModel.m */; };
 		0FEC8D031F37F06300453700 /* HBK_NavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FEC8D021F37F06300453700 /* HBK_NavigationBar.m */; };
 		0FEC8D211F38533800453700 /* LHAccountCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FEC8D081F38533800453700 /* LHAccountCenterCell.m */; };
@@ -184,8 +184,6 @@
 		0F33547B1F0397260056FEA9 /* LHAllCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHAllCommentViewController.m; sourceTree = "<group>"; };
 		0F33547D1F039C2A0056FEA9 /* LHParamCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHParamCell.h; sourceTree = "<group>"; };
 		0F33547E1F039C2A0056FEA9 /* LHParamCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHParamCell.m; sourceTree = "<group>"; };
-		0F3354DE1F0A0C480056FEA9 /* LHOrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHOrderCell.h; sourceTree = "<group>"; };
-		0F3354DF1F0A0C480056FEA9 /* LHOrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHOrderCell.m; sourceTree = "<group>"; };
 		0F3354E11F0A10B70056FEA9 /* LHUserInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHUserInfoCell.h; sourceTree = "<group>"; };
 		0F3354E21F0A10B70056FEA9 /* LHUserInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHUserInfoCell.m; sourceTree = "<group>"; };
 		0F3F64231F3C51C500A42084 /* UIButton+badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+badge.h"; sourceTree = "<group>"; };
@@ -391,6 +389,8 @@
 		0FB7933A1F4AE0D600FDDB76 /* LHCollectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHCollectModel.m; sourceTree = "<group>"; };
 		0FB7933C1F4B19B500FDDB76 /* LHOrderHeaderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHOrderHeaderFooterView.h; sourceTree = "<group>"; };
 		0FB7933D1F4B19B500FDDB76 /* LHOrderHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHOrderHeaderFooterView.m; sourceTree = "<group>"; };
+		0FB793421F4BFC6700FDDB76 /* LHOrderListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHOrderListTableViewController.h; sourceTree = "<group>"; };
+		0FB793431F4BFC6700FDDB76 /* LHOrderListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHOrderListTableViewController.m; sourceTree = "<group>"; };
 		0FEA5A8A1F3031760095532D /* LHAddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHAddressModel.h; sourceTree = "<group>"; };
 		0FEA5A8B1F3031760095532D /* LHAddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHAddressModel.m; sourceTree = "<group>"; };
 		0FEC8D011F37F06300453700 /* HBK_NavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBK_NavigationBar.h; sourceTree = "<group>"; };
@@ -866,8 +866,8 @@
 			children = (
 				0F52B7191EF91965007D45EC /* LHMyOrderViewController.h */,
 				0F52B71A1EF91965007D45EC /* LHMyOrderViewController.m */,
-				0F3354DE1F0A0C480056FEA9 /* LHOrderCell.h */,
-				0F3354DF1F0A0C480056FEA9 /* LHOrderCell.m */,
+				0FB793421F4BFC6700FDDB76 /* LHOrderListTableViewController.h */,
+				0FB793431F4BFC6700FDDB76 /* LHOrderListTableViewController.m */,
 				0FB7933C1F4B19B500FDDB76 /* LHOrderHeaderFooterView.h */,
 				0FB7933D1F4B19B500FDDB76 /* LHOrderHeaderFooterView.m */,
 			);
@@ -1526,7 +1526,6 @@
 				0F52B7361EFA11AA007D45EC /* LHCityChooseView.m in Sources */,
 				0F9046211F1EF20F000528A2 /* LHCardBagViewController.m in Sources */,
 				0F52B5F41EEF83E1007D45EC /* main.m in Sources */,
-				0F3354E01F0A0C490056FEA9 /* LHOrderCell.m in Sources */,
 				0F03D9131F3B07D8002F7939 /* LHGoodsCommentHeaderFooterView.m in Sources */,
 				0F7B79511F4280EC009DAF35 /* LHSendBackViewController.m in Sources */,
 				0F594D361F2A19F80047DCC1 /* LHDragCardView.m in Sources */,
@@ -1537,6 +1536,7 @@
 				0F52B69A1EF24DE4007D45EC /* LHMyCenterCell.m in Sources */,
 				0FEC8D031F37F06300453700 /* HBK_NavigationBar.m in Sources */,
 				0F594D331F2A13B80047DCC1 /* LHDraggableCardContainer.m in Sources */,
+				0FB793441F4BFC6700FDDB76 /* LHOrderListTableViewController.m in Sources */,
 				0F9046241F1EF256000528A2 /* LHCardCell.m in Sources */,
 				0F52B7071EF8BC52007D45EC /* LHChooseGoodsViewController.m in Sources */,
 				0FB7933E1F4B19B500FDDB76 /* LHOrderHeaderFooterView.m in Sources */,

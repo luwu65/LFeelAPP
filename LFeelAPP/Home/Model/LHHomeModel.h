@@ -41,6 +41,7 @@
 @property (nonatomic, copy) NSString *product_id;
 @property (nonatomic, copy) NSString *product_url;
 @property (nonatomic, copy) NSString *brand_name;
+@property (nonatomic, copy) NSString *iscollect;
 
 
 

@@ -10,7 +10,9 @@
 
 @interface LHOrderHeaderView : UITableViewHeaderFooterView
 
-
+@property (nonatomic, strong) UIImageView *shopImageview;
+@property (nonatomic, strong) UILabel *shopLabel;
+@property (nonatomic, strong) UILabel *statusLabel;
 
 
 
@@ -23,13 +25,14 @@
 
 
 
-
 @interface LHOrderFooterView : UITableViewHeaderFooterView
 
 
+@property (nonatomic, strong) UILabel *allLabel;
+@property (nonatomic, strong) UIButton *leftBtn;
+@property (nonatomic, strong) UIButton *rightBtn;
 
-
-
+@property (nonatomic, copy) void (^ClickBtnBlock)(UIButton *sender);
 
 
 

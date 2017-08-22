@@ -87,41 +87,23 @@
  
  @param model 收藏或取消收藏的模型
  */
-//- (void)requestCollectGoodsDataWithModel:(LHThemeGoodsModel *)model {
-//    NSString *url = nil;
-//    if ([model.iscollection integerValue] == 0) {
-//        url = kCollectionGoodsUrl;
-//    } else {
-//        url = kUncollectionGoodsUrl;
-//    }
-//    [LHNetworkManager PostWithUrl:url parameter:@{@"product_id": model.product_id, @"user_id": kUser_id, @"type": @0} success:^(id reponseObject) {
-//        NSLog(@"%@", reponseObject);
-//        if ([model.iscollection integerValue] == 0) {
-//            if (reponseObject[@"errorCode"]) {
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [MBProgressHUD showSuccess:@"收藏成功"];
-//                });
-//            } else {
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [MBProgressHUD showError:@"收藏失败"];
-//                });
-//            }
-//        } else {
-//            if (reponseObject[@"errorCode"]) {
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [MBProgressHUD showSuccess:@"取消收藏"];
-//                });
-//            } else {
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [MBProgressHUD showError:@"取消收藏失败"];
-//                });
-//            }
-//        }
-//        
-//    } failure:^(NSError *error) {
-//        
-//    }];
-//}
+- (void)requestCollectGoodsDataWithModel:(LHThemeGoodsModel *)model {
+    //type 0 --> 购买的商品; 1 --> 租赁的商品
+    [LHNetworkManager PostWithUrl:kCollectionGoodsUrl parameter:@{@"product_id": model.product_id, @"user_id": kUser_id, @"type": @1} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        if (reponseObject[@"errorCode"]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showSuccess:@"收藏成功"];
+            });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showError:@"收藏失败"];
+            });
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
 
 
 
@@ -138,7 +120,7 @@
 
 //不喜欢
 - (void)unLikeBtnAction {
-    [self stopAnimation];
+//    [self stopAnimation];
     [_container movePositionWithDirection:LHDraggableDirectionLeft isAutomatic:YES];
 
     _index++;
@@ -146,12 +128,18 @@
         LHThemeGoodsModel *model = self.dataArray[self.index];
         self.cTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
         self.eTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
-
     }
 }
 //喜欢
 - (void)likeBtnAction {
-    [self startAnimation];
+//    [self startAnimation];
+    if (_index < self.dataArray.count) {
+        NSLog(@"%ld", _index);
+        LHThemeGoodsModel *model = self.dataArray[_index];
+        if ([model.iscollect integerValue] == 0) {
+            [self requestCollectGoodsDataWithModel:self.dataArray[_index]];
+        }
+    }
     [_container movePositionWithDirection:LHDraggableDirectionRight isAutomatic:YES];
 
     _index++;
@@ -159,7 +147,10 @@
         LHThemeGoodsModel *model = self.dataArray[self.index];
         self.cTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
         self.eTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
+        
+        
     }
+    
 }
 
 
@@ -346,7 +337,13 @@
     
     if (draggableDirection == LHDraggableDirectionRight) {
         NSLog(@"--------------- >>>  右");
-        [self startAnimation];
+        if (_index < self.dataArray.count) {
+            NSLog(@"%ld", _index);
+            LHThemeGoodsModel *model = self.dataArray[_index];
+            if ([model.iscollect integerValue] == 0) {
+                [self requestCollectGoodsDataWithModel:self.dataArray[_index]];
+            }
+        }//        [self startAnimation];
         [cardContainerView movePositionWithDirection:draggableDirection isAutomatic:NO];
         _index++;
         if (_index < self.dataArray.count) {
@@ -358,6 +355,13 @@
     if (draggableDirection == LHDraggableDirectionUp) {
         NSLog(@"--------------- >>>  上");
         
+        if (_index < self.dataArray.count) {
+            NSLog(@"%ld", _index);
+            LHThemeGoodsModel *model = self.dataArray[_index];
+            if ([model.iscollect integerValue] == 0) {
+                [self requestCollectGoodsDataWithModel:self.dataArray[_index]];
+            }
+        }
         [cardContainerView movePositionWithDirection:draggableDirection isAutomatic:NO];
         _index++;
         if (_index < self.dataArray.count) {
@@ -376,8 +380,7 @@
             self.cTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
             self.eTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
         }
-    }
-    
+    }    
 }
 
 - (void)cardContainderView:(LHDraggableCardContainer *)cardContainderView updatePositionWithDraggableView:(UIView *)draggableView draggableDirection:(LHDraggableDirection)draggableDirection widthRatio:(CGFloat)widthRatio heightRatio:(CGFloat)heightRatio {

@@ -13,7 +13,7 @@
 
 
 
-
+//选中的类型, 0=全部订单, 1=待付款, 2=待发货, 3=待收货, 4=待评论
 @property (nonatomic, assign) NSInteger index;
 
 

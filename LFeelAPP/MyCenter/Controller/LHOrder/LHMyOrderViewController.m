@@ -8,28 +8,34 @@
 
 #import "LHMyOrderViewController.h"
 #import "LHSegmentControlView.h"
-@interface LHMyOrderViewController ()<UITableViewDelegate, UITableViewDataSource>
+#import "LHOrderListTableViewController.h"
+
+#define kScrollHeight kScreenHeight-kNavBarHeight-42
+@interface LHMyOrderViewController ()///<UIScrollViewDelegate>
+
 
 
 @property (nonatomic, strong) UIScrollView *myOrderScrollView;
-@property (nonatomic, strong) UITableView *allOrderTV;//全部订单
-@property (nonatomic, strong) UITableView *payTV;//待付款
-@property (nonatomic, strong) UITableView *sendTV;//待发货
-@property (nonatomic, strong) UITableView *receiveTV;//待收货
-@property (nonatomic, strong) UITableView *commentTV;//待评价
+@property (nonatomic, strong) LHSegmentControlView *segView;
+@property (nonatomic, strong) NSMutableArray *titleArray;
 
 @end
 
 @implementation LHMyOrderViewController
-
+- (NSMutableArray *)titleArray {
+    if (!_titleArray) {
+        self.titleArray = [NSMutableArray arrayWithObjects:@"全部", @"待付款", @"待发货", @"待收货", @"待评价", nil];
+    }
+    return _titleArray;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
 
     self.view.backgroundColor = [UIColor whiteColor];
-    [self setTableViewUI];
+    [self setScrollViewUI];
     [self setSegmentControl];
+   
     [self setHBK_NavigationBar];
 }
 
@@ -38,132 +44,125 @@
 
 - (void)setHBK_NavigationBar {
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"我的订单" backAction:^{
+    
+    self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:self.titleArray[self.index] backAction:^{
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }
 
-- (void)setTableViewUI {
-    NSInteger scrollHeight = kScreenHeight-kNavBarHeight-42;
-    self.myOrderScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kNavBarHeight+42, kScreenWidth, scrollHeight)];
-    self.myOrderScrollView.contentSize = CGSizeMake(0, kScreenWidth*5);
+- (void)setScrollViewUI {
+    self.myOrderScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kNavBarHeight+42, kScreenWidth, kScrollHeight)];
+    self.myOrderScrollView.contentSize = CGSizeMake(kScreenWidth*self.titleArray.count, kScrollHeight);
     self.myOrderScrollView.pagingEnabled = YES;
+//    self.myOrderScrollView.delegate = self;
+    self.myOrderScrollView.showsHorizontalScrollIndicator = NO;
+    self.myOrderScrollView.scrollEnabled = NO;
     [self.view addSubview:self.myOrderScrollView];
 
-    self.allOrderTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, scrollHeight) style:(UITableViewStyleGrouped)];
-    self.allOrderTV.delegate = self;
-    self.allOrderTV.dataSource = self;
-    [self.myOrderScrollView addSubview:self.allOrderTV];
-    
-    self.payTV = [[UITableView alloc] initWithFrame:CGRectMake(kScreenWidth, 0, kScreenWidth, scrollHeight) style:(UITableViewStyleGrouped)];
-    self.payTV.delegate = self;
-    self.payTV.dataSource = self;
-    [self.myOrderScrollView addSubview:self.payTV];
-    
-    self.sendTV = [[UITableView alloc] initWithFrame:CGRectMake(2*kScreenWidth, 0, kScreenWidth, scrollHeight) style:(UITableViewStyleGrouped)];
-    self.sendTV.delegate = self;
-    self.sendTV.dataSource = self;
-    [self.myOrderScrollView addSubview:self.sendTV];
-    
-    self.receiveTV = [[UITableView alloc] initWithFrame:CGRectMake(3*kScreenWidth, 0, kScreenWidth, scrollHeight) style:(UITableViewStyleGrouped)];
-    self.receiveTV.delegate = self;
-    self.receiveTV.dataSource = self;
-    [self.myOrderScrollView addSubview:self.receiveTV];
-    
-    self.commentTV = [[UITableView alloc] initWithFrame:CGRectMake(4*kScreenWidth, 0, kScreenWidth, scrollHeight) style:(UITableViewStyleGrouped)];
-    self.commentTV.delegate = self;
-    self.commentTV.dataSource = self;
-    [self.myOrderScrollView addSubview:self.commentTV];
+    for (int i = 0; i < self.titleArray.count; i++) {
+        LHOrderListTableViewController *orderTVC = [[LHOrderListTableViewController alloc] initWithStyle:(UITableViewStyleGrouped)];
+        [self addChildViewController:orderTVC];
+    }
 }
 
 - (void)setSegmentControl {
-    __weak typeof(self) weakself = self;
-    LHSegmentControlView *segView = [[LHSegmentControlView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, 44*kRatio) titleArray:@[@"全部", @"待付款", @"待发货", @"待收货", @"待评价"] titleFont:kFont(15) titleDefineColor:[UIColor blackColor] titleSelectedColor:[UIColor redColor]];
-    [self.view addSubview:segView];
+    @weakify(self);
+    self.segView = [[LHSegmentControlView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, 44*kRatio) titleArray:self.titleArray titleFont:kFont(15) titleDefineColor:[UIColor blackColor] titleSelectedColor:[UIColor redColor]];
+    [self.view addSubview:self.segView];
 
-    [segView clickTitleButtonBlock:^(NSInteger index) {
-        if (index == 0) {
-            weakself.myOrderScrollView.contentOffset = CGPointMake(0, 0);
-            
-        } else if (index == 1){
-            weakself.myOrderScrollView.contentOffset = CGPointMake(kScreenWidth, 0);
-            
-        } else if (index == 2) {
-            weakself.myOrderScrollView.contentOffset = CGPointMake(2*kScreenWidth, 0);
-            
-            
-            
-        } else if (index == 3) {
-            weakself.myOrderScrollView.contentOffset = CGPointMake(3*kScreenWidth, 0);
-            
-            
-        } else if (index == 4) {
-            weakself.myOrderScrollView.contentOffset = CGPointMake(4*kScreenWidth, 0);
-        }
+    [self.segView clickTitleButtonBlock:^(NSInteger index) {
+        [UIView animateWithDuration:0.25 animations:^{
+            @strongify(self);
+            [self.myOrderScrollView setContentOffset:CGPointMake(kScreenWidth * index, 0)];
+        }];
+        [self setOrderTableViewWithIndex:index];
+        
     }];
     
-    //判断上个页面是点击哪个按钮进来的, 对应上相应的scrollView的偏移量
-    for (UIView *btn in [segView subviews]) {
+    [self judgeClickIndex:self.index isScroll:NO];
+}
+
+
+/**
+ 判断点击了哪个seg
+ @param index 点击了第几个
+ */
+- (void)judgeClickIndex:(NSInteger)index isScroll:(BOOL)isScroll {
+    @weakify(self);
+    //判断点击了哪个seg
+    for (UIView *btn in [self.segView subviews]) {
         if ([btn isKindOfClass:[UIButton class]]) {
-            if (btn.tag == self.index + 3000) {
+            if (btn.tag == index + 3000) {
                 [(UIButton *)btn setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
             } else {
                 [(UIButton *)btn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
             }
         }
     }
-    if (self.index == 0) {
-        
-        self.myOrderScrollView.contentOffset = CGPointMake(0, 0);
-    } else if (self.index == 1) {
-        
-        self.myOrderScrollView.contentOffset = CGPointMake(kScreenWidth, 0);
-        [UIView animateWithDuration:0.25 animations:^{
-            CGPoint point = segView.sliderView.center;
-            point.x = segView.sliderView.center.x + kScreenWidth/5;
-            segView.sliderView.center = point;
-        }];
-        
-    } else if (self.index == 2) {
-        self.myOrderScrollView.contentOffset = CGPointMake(2*kScreenWidth, 0);
-        [UIView animateWithDuration:0.25 animations:^{
-            CGPoint point = segView.sliderView.center;
-            point.x = segView.sliderView.center.x + kScreenWidth/5*2;
-            segView.sliderView.center = point;
-        }];
-        
-    } else if (self.index == 3) {
-        self.myOrderScrollView.contentOffset = CGPointMake(3*kScreenWidth, 0);
-        [UIView animateWithDuration:0.25 animations:^{
-            CGPoint point = segView.sliderView.center;
-            point.x = segView.sliderView.center.x + kScreenWidth/5*3;
-            segView.sliderView.center = point;
-        }];
-        
-    } else if (self.index == 4) {
-        self.myOrderScrollView.contentOffset = CGPointMake(4*kScreenWidth, 0);
-        [UIView animateWithDuration:0.25 animations:^{
-            CGPoint point = segView.sliderView.center;
-            point.x = segView.sliderView.center.x + kScreenWidth/5*4;
-            segView.sliderView.center = point;
-        }];
+    if (!isScroll) {
+        [self.myOrderScrollView setContentOffset:CGPointMake(kScreenWidth * index, 0)];
+    }
+    [UIView animateWithDuration:0.25 animations:^{
+        @strongify(self);
+        CGPoint point = self.segView.sliderView.center;
+        point.x = self.segView.sliderView.center.x + kScreenWidth/self.titleArray.count * index;
+        self.segView.sliderView.center = point;
+    }];
+    [self setOrderTableViewWithIndex:index];
+
+}
+
+- (void)setOrderTableViewWithIndex:(NSInteger)index {
+    self.hbk_navgationBar.titleLabel.text = self.titleArray[index];
+    LHOrderListTableViewController *orderView = self.childViewControllers[index];
+    if (!orderView.isViewLoaded) {
+        orderView.view.frame = CGRectMake(index * kScreenWidth, 0, kScreenWidth, kScrollHeight);
+        orderView.type = index;
+        [self.myOrderScrollView addSubview:orderView.view];
+    } else {
+        if (orderView.isNeedRefresh) {
+            [orderView reloadData];
+        }
     }
 }
 
+//刷新子控制器
+ //needRefresh 是否需要刷新
+//- (void)makeAllControllerNeedRefreshNeedImmediately:(BOOL)immediately {
+//    for (LHOrderListTableViewController* vc in self.childViewControllers) {
+//        vc.needRefresh = YES;
+//    }
+//    if (immediately) {
+//        LHOrderListTableViewController* vc = self.childViewControllers[self.index];
+//        [vc reloadData];
+//    }
+//}
 
-#pragma mark ---------   <UITableViewDelegate, UITableViewDataSource> ---------
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
-}
+#pragma mark -------------------- UIScrollViewDelegate ------------------
+//- (void)scrollViewDidEndDecelerating:(UIScrollView*)scrollView {
+//    NSInteger index = scrollView.contentOffset.x / kScreenWidth;
+//    if (self.index == index) {
+//        return;
+//    }
+//    NSLog(@"%ld", index);
+//    self.hbk_navgationBar.titleLabel.text = self.titleArray[index];
+//
+//    [self judgeClickIndex:index isScroll:YES];
+//
+//}
+//- (void)scrollViewDidScroll:(UIScrollView*)scrollView {
+//    if (scrollView != self.myOrderScrollView) {
+//        return;
+//    }
+//    CGFloat x = scrollView.contentOffset.x;
+//    if (x <= 0 || x >= kScreenWidth * self.titleArray.count) {
+//        return;
+//    }
+//}
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ordercell"];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"ordercell"];
-    }
-    
-    return cell;
-}
+
+
+
 
 
 - (void)didReceiveMemoryWarning {

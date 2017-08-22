@@ -16,6 +16,7 @@
 #import "LHShoppingCartModel.h"
 #import "LHAccountCenterViewController.h"
 #import "LHSendBackViewController.h"
+#import "LHHomeModel.h"
 #define kTag_CartEmptyView  3101
 #define kTag_BoxEmptyView   3102
 
@@ -96,10 +97,6 @@
     [self requstMyBoxCartData];
     
 //    [self requestShoppingCartData1];
-    
-
-    
-    
 }
 
 #pragma mark -----------------------  初始化UI控件 --------------------------------
@@ -242,8 +239,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.myBoxTableView) {
-//        return self.myBoxArray.count;
-        return 5;
+        return self.myBoxArray.count;
     } else {
         LHCartStoreModel *model = self.storeArray[section];
         return model.goodsModelArray.count;
@@ -256,9 +252,7 @@
         if (cell == nil) {
             cell = [[LHMyBoxCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"LHMyBoxCell"];
         }
-        cell.titleLabel.text = @"哈哈还哈";
-        cell.brandLabel.text = @"brand";
-        cell.sizeLabel.text = @"S, XL";
+        cell.collectModel = self.myBoxArray[indexPath.row];
         
         return cell;
     } else {
@@ -421,8 +415,14 @@
         }
     } else {
         //此处删除换衣盒数据
-        
-        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定要删除该商品?删除后无法恢复!" preferredStyle:1];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+            NSLog(@"");
+            
+            
+        }]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleDefault) handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 
@@ -555,6 +555,8 @@
     [self.shoppingCartTableView reloadData];
 }
 
+
+
 #pragma mark  --------------  判断是否全选等    价格的计算  ----------------------
 - (void)verityGroupSelectState:(NSInteger)section {
     // 判断某个区的商品是否全选
@@ -625,12 +627,30 @@
     [self.shoppingCartTableView reloadData];
 }
 
-//请求换衣盒数据
+/*请求换衣盒数据
+ *收藏列表
+ *type 0 --> 购买的商品; 1 --> 租赁的商品
+ */
 - (void)requstMyBoxCartData {
-    
-    
-    
+    [self showProgressHUD];
+    [LHNetworkManager requestForGetWithUrl:kCollectionListUrl parameter:@{@"user_id":kUser_id, @"type": @0} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            for (NSDictionary *dic in reponseObject[@"data"]) {
+                LHCollectModel *model = [[LHCollectModel alloc] init];
+                [model setValuesForKeysWithDictionary:dic];
+                [self.myBoxArray addObject:model];
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self hideProgressHUD];
+            [self.myBoxTableView reloadData];
+        });
+    } failure:^(NSError *error) {
+        
+    }];
 }
+
 
 
 - (void)requestShoppingCartData1 {

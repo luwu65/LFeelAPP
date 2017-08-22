@@ -96,7 +96,7 @@
 
 - (void)requestColloctionListData {
     [self showProgressHUD];
-    [LHNetworkManager requestForGetWithUrl:kCollectionListUrl parameter:@{@"user_id":kUser_id} success:^(id reponseObject) {
+    [LHNetworkManager requestForGetWithUrl:kCollectionListUrl parameter:@{@"user_id":kUser_id, @"type": @0} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             for (NSDictionary *dic in reponseObject[@"data"]) {
