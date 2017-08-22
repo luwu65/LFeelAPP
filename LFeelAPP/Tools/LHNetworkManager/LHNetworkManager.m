@@ -101,10 +101,6 @@
     }];
 }
 
-
-
-
-
 + (void)PostWithUrl:(NSString *)url
           parameter:(NSDictionary *)dic
             success:(void(^)(id reponseObject))success
