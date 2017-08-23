@@ -11,9 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LHSendBackViewController">
             <connections>
-                <outlet property="countLabel" destination="CIM-mX-XL5" id="1x3-Gv-90a"/>
                 <outlet property="expressNumTF" destination="zeb-XB-dnK" id="M7T-4I-KCh"/>
                 <outlet property="nameTF" destination="uRN-2A-Kr7" id="1cM-vx-lye"/>
+                <outlet property="numberBtn" destination="LMU-gz-l2w" id="pAr-wD-rS7"/>
                 <outlet property="phoneTF" destination="32t-ZX-c1E" id="kUj-Zg-Ug2"/>
                 <outlet property="remarkTF" destination="gAr-ZY-mP3" id="u3H-Vb-hTR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -156,18 +156,15 @@
                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LMU-gz-l2w">
-                                    <rect key="frame" x="66" y="0.0" width="309" height="50"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LMU-gz-l2w">
+                                    <rect key="frame" x="66" y="0.0" width="294" height="50"/>
+                                    <state key="normal" title="数量">
+                                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
                                     <connections>
                                         <action selector="sendBackCountAction:" destination="-1" eventType="touchUpInside" id="10o-bh-Pll"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="数量" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CIM-mX-XL5">
-                                    <rect key="frame" x="331" y="17" width="29" height="17"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -175,10 +172,8 @@
                                 <constraint firstAttribute="bottom" secondItem="LMU-gz-l2w" secondAttribute="bottom" id="B2L-zY-uuG"/>
                                 <constraint firstItem="M9m-sR-Q9E" firstAttribute="centerY" secondItem="uXW-C7-b49" secondAttribute="centerY" id="Ca1-vA-MZv"/>
                                 <constraint firstItem="LMU-gz-l2w" firstAttribute="top" secondItem="uXW-C7-b49" secondAttribute="top" id="K6e-hQ-wWC"/>
-                                <constraint firstAttribute="trailing" secondItem="CIM-mX-XL5" secondAttribute="trailing" constant="15" id="VbM-V5-V4x"/>
-                                <constraint firstAttribute="trailing" secondItem="LMU-gz-l2w" secondAttribute="trailing" id="fe1-TN-eW8"/>
+                                <constraint firstAttribute="trailing" secondItem="LMU-gz-l2w" secondAttribute="trailing" constant="15" id="fe1-TN-eW8"/>
                                 <constraint firstItem="M9m-sR-Q9E" firstAttribute="leading" secondItem="uXW-C7-b49" secondAttribute="leading" constant="15" id="fgt-sY-IZv"/>
-                                <constraint firstItem="CIM-mX-XL5" firstAttribute="centerY" secondItem="uXW-C7-b49" secondAttribute="centerY" id="qMH-gv-bsU"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FGY-ff-L3P">

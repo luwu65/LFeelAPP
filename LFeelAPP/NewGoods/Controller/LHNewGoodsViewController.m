@@ -13,6 +13,8 @@
 #import "LHNewGoodsHeaderView.h"
 #import "LHGoodsListViewController.h"
 #import "LHNewGoodsModel.h"
+#import "LHNewGoodsDetailViewController.h"
+
 @interface LHNewGoodsViewController ()<UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate>
 
 @property (nonatomic, strong) UITableView *newsGoodTableView;
@@ -84,7 +86,6 @@
     self.newsGoodTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth/4, kScreenHeight-kNBarTBarHeight) style:(UITableViewStylePlain)];
     self.newsGoodTableView.dataSource = self;
     self.newsGoodTableView.delegate = self;
-//    self.newsGoodTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.newsGoodTableView];
 
     self.clickIndex = 0;
@@ -253,11 +254,15 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (self.clickIndex == 0) {
-
+        LHNewGoodsDetailViewController *newVC = [[LHNewGoodsDetailViewController alloc] init];
+        newVC.listModel = self.goodsArray[indexPath.row];
+        [self.navigationController pushViewController:newVC animated:YES];
+        
+        
         
     } else {
         LHGoodsListViewController *goodsListVC = [[LHGoodsListViewController alloc] init];
-        goodsListVC.listModel = self.detailListArray[indexPath.row];
+        goodsListVC.listModel = self.goodsArray[indexPath.row];
         [self.navigationController pushViewController:goodsListVC animated:YES];
     }
     
@@ -281,10 +286,8 @@
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.newsGoodTableView reloadData];
-            //此处做延迟是防止请求太快, user_id还没有读取出来
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self requestRecommendGoodsListData];
-//            });
+            //之前这里有做延迟操作, 防止user_id读取太慢
+            [self requestRecommendGoodsListData];
             //默认选中第一行
             [self.newsGoodTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
         });

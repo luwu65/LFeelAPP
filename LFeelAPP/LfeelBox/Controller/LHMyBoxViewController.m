@@ -148,12 +148,12 @@
     // ----------------------------------------------  打包 底栏  ----------------------------------
     LHPackingBoxView *packView = [[LHPackingBoxView alloc] initWithFrame:CGRectMake(0, kScreenHeight-kNavBarHeight-tabBarHeight-kAllBarHeight*kRatio, kScreenWidth, kAllBarHeight*kRatio) packingStatusString:@"   随机打包三件给你" packingButtonTitle:@"打包盒子"];
     [packView clickPackingButtonBlock:^(NSString *packBtnTitle) {
-        LHPackInfoViewController *packVC = [[LHPackInfoViewController alloc] init];
-        NSLog(@"打包盒子");
-        [weakself.navigationController pushViewController:packVC animated:YES];
+//        LHPackInfoViewController *packVC = [[LHPackInfoViewController alloc] init];
+//        NSLog(@"打包盒子");
+//        [weakself.navigationController pushViewController:packVC animated:YES];
         
-//        LHSendBackViewController *sendBack = [[LHSendBackViewController alloc] init];
-//        [weakself.navigationController pushViewController:sendBack animated:YES];
+        LHSendBackViewController *sendBack = [[LHSendBackViewController alloc] init];
+        [weakself.navigationController pushViewController:sendBack animated:YES];
         
     }];
     [leftBgView addSubview:packView];

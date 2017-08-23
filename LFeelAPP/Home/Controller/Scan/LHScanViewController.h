@@ -10,4 +10,33 @@
 
 @interface LHScanViewController : LHBaseViewController
 
+
+
+//判断是从哪个页面跳转过来的
+@property (nonatomic, copy) NSString *controller_ID;
+
+
+
+@property (nonatomic, copy) void(^ScanContentBlock)(NSString *content);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @end

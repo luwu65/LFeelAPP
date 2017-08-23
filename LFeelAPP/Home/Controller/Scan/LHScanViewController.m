@@ -105,8 +105,16 @@
     // 3. 设置界面显示扫描结果
     if (metadataObjects.count > 0) {
         AVMetadataMachineReadableCodeObject *obj = metadataObjects[0];
-        
         //        NSLog(@"metadataObjects = %@", metadataObjects);
+        
+        if ([_controller_ID isEqualToString:@"LHSendBackViewController"]) {
+            //如果是扫描快递单号
+            if (self.ScanContentBlock) {
+                self.ScanContentBlock(obj.stringValue);
+            }
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        
         
         if ([obj.stringValue hasPrefix:@"http"]) {
             // 提示：如果需要对url或者名片等信息进行扫描，可以在此进行扩展！
