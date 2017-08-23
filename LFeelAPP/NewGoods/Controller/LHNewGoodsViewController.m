@@ -363,7 +363,7 @@
     [LHNetworkManager PostWithUrl:url parameter:@{@"product_id": model.product_id, @"user_id": kUser_id, @"type": @0} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([model.iscollection integerValue] == 0) {
-            if (reponseObject[@"errorCode"]) {
+            if ([reponseObject[@"errorCode"] integerValue] == 200) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [MBProgressHUD showSuccess:@"收藏成功"];
                 });
@@ -373,7 +373,7 @@
                 });
             }
         } else {
-            if (reponseObject[@"errorCode"]) {
+            if ([reponseObject[@"errorCode"] integerValue] == 200) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [MBProgressHUD showSuccess:@"取消收藏"];
                 });

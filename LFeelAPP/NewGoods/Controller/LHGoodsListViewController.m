@@ -8,6 +8,7 @@
 
 #import "LHGoodsListViewController.h"
 #import "LHNewGoodsCollectionCell.h"
+#import "LHNewGoodsDetailViewController.h"
 @interface LHGoodsListViewController ()<UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong) UISearchBar *newsGoodSearchBar;
 @property (nonatomic, strong) UIButton *newsBtn;
@@ -39,6 +40,7 @@
     } else {
         [self requestGoodsListDataWithModel:self.listModel];
     }
+    [self LH_Refresh];
 }
 
 
@@ -141,6 +143,15 @@
     }
 }
 
+- (void)LH_Refresh {
+    self.goodsCollectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        NSLog(@"刷新");
+    }];
+    self.goodsCollectionView.mj_footer = [MJRefreshAutoFooter footerWithRefreshingBlock:^{
+        NSLog(@"加载");
+    }];
+}
+
 
 #pragma mark ---------------------- <UICollectionViewDelegate, UICollectionViewDataSource>
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -176,6 +187,12 @@
 }
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(5, 5, 5, 5);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    LHNewGoodsDetailViewController *newVC = [[LHNewGoodsDetailViewController alloc] init];
+    newVC.listModel = self.goodsArray[indexPath.row];
+    [self.navigationController pushViewController:newVC animated:YES];
 }
 
 #pragma mark -------------------------- 网络请求 ------------------

@@ -55,25 +55,27 @@
 #pragma mark  -------------  网络请求  -----------------------------
 - (void)requestGoodsDataWithUrl {
     [self showProgressHUD];
-    [LHNetworkManager requestForGetWithUrl:kGoodsUrl parameter:@{@"id": self.themesModel.id_} success:^(id reponseObject) {
+    [LHNetworkManager requestForGetWithUrl:kGoodsUrl parameter:@{@"id": self.themesModel.id_, @"user_id": kUser_id} success:^(id reponseObject) {
         NSLog(@"!!!!!!%@", reponseObject);
         if ([kSTR(reponseObject[@"isError"]) isEqualToString:@"0"]) {
             for (NSDictionary *dic in reponseObject[@"data"]) {
                 for (NSDictionary *aDic in dic[@"value"]) {
-//                    NSLog(@"~~~~~~`%@", aDic);
+                    //                    NSLog(@"~~~~~~`%@", aDic);
                     LHThemeGoodsModel *model = [[LHThemeGoodsModel alloc] init];
                     [model setValuesForKeysWithDictionary:aDic];
                     [self.dataArray addObject:model];
-                    
                 }
             }
-            
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideProgressHUD];
-            LHThemeGoodsModel *model = self.dataArray[self.index];
-            self.cTitleLabel.text = model.brand_name ? @"" : model.brand_name;
-            self.eTitleLabel.text = model.brand_name? @"" : model.brand_name;
+            if (self.dataArray.count > 0) {
+                LHThemeGoodsModel *model = self.dataArray[self.index];
+                self.cTitleLabel.text = model.brand_name ? @"" : model.brand_name;
+                self.eTitleLabel.text = model.brand_name? @"" : model.brand_name;
+            } else {
+                [MBProgressHUD showError:@"暂无数据"];
+            }
             [_container reloadCardContainer];
         });
     } failure:^(NSError *error) {
@@ -83,7 +85,7 @@
 
 
 /**
- 收藏/ 取消收藏
+ 收藏
  
  @param model 收藏或取消收藏的模型
  */
@@ -91,7 +93,7 @@
     //type 0 --> 购买的商品; 1 --> 租赁的商品
     [LHNetworkManager PostWithUrl:kCollectionGoodsUrl parameter:@{@"product_id": model.product_id, @"user_id": kUser_id, @"type": @1} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
-        if (reponseObject[@"errorCode"]) {
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD showSuccess:@"收藏成功"];
             });
@@ -136,7 +138,7 @@
     if (_index < self.dataArray.count) {
         NSLog(@"%ld", _index);
         LHThemeGoodsModel *model = self.dataArray[_index];
-        if ([model.iscollect integerValue] == 0) {
+        if ([model.iscollection integerValue] == 0) {
             [self requestCollectGoodsDataWithModel:self.dataArray[_index]];
         }
     }
@@ -340,7 +342,7 @@
         if (_index < self.dataArray.count) {
             NSLog(@"%ld", _index);
             LHThemeGoodsModel *model = self.dataArray[_index];
-            if ([model.iscollect integerValue] == 0) {
+            if ([model.iscollection integerValue] == 0) {
                 [self requestCollectGoodsDataWithModel:self.dataArray[_index]];
             }
         }//        [self startAnimation];
@@ -358,7 +360,7 @@
         if (_index < self.dataArray.count) {
             NSLog(@"%ld", _index);
             LHThemeGoodsModel *model = self.dataArray[_index];
-            if ([model.iscollect integerValue] == 0) {
+            if ([model.iscollection integerValue] == 0) {
                 [self requestCollectGoodsDataWithModel:self.dataArray[_index]];
             }
         }

@@ -404,7 +404,10 @@
                     [self emptyShoppingCartView];
                 }
                 //如果删除的时候数据紊乱,可延迟0.5s刷新一下
-                [self performSelector:@selector(reloadTable) withObject:nil afterDelay:0.5];
+//                [self performSelector:@selector(reloadTable) withObject:nil afterDelay:0.5];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.shoppingCartTableView reloadData];
+                });
                 
             }];
             
@@ -416,12 +419,18 @@
     } else {
         //此处删除换衣盒数据
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定要删除该商品?删除后无法恢复!" preferredStyle:1];
+        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleDefault) handler:nil]];
         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-            NSLog(@"");
-            
+            [self requestDeleteBoxGoods:self.myBoxArray[indexPath.row]];
+            [self.myBoxArray removeObjectAtIndex:indexPath.row];
+            if (self.myBoxArray.count == 0) {
+                [self emptyLfeelBoxView];
+            }
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.myBoxTableView reloadData];
+            });
             
         }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleDefault) handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
     }
 }
@@ -550,10 +559,6 @@
     [self countPrice];
     
 }
-#pragma mark  ----------------------  刷新  ----------------------------
-- (void)reloadTable {
-    [self.shoppingCartTableView reloadData];
-}
 
 
 
@@ -633,13 +638,17 @@
  */
 - (void)requstMyBoxCartData {
     [self showProgressHUD];
-    [LHNetworkManager requestForGetWithUrl:kCollectionListUrl parameter:@{@"user_id":kUser_id, @"type": @0} success:^(id reponseObject) {
+    [LHNetworkManager requestForGetWithUrl:kCollectionListUrl parameter:@{@"user_id":kUser_id, @"type": @1} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
-            for (NSDictionary *dic in reponseObject[@"data"]) {
-                LHCollectModel *model = [[LHCollectModel alloc] init];
-                [model setValuesForKeysWithDictionary:dic];
-                [self.myBoxArray addObject:model];
+            if (reponseObject[@"data"]) {
+                for (NSDictionary *dic in reponseObject[@"data"]) {
+                    LHCollectModel *model = [[LHCollectModel alloc] init];
+                    [model setValuesForKeysWithDictionary:dic];
+                    [self.myBoxArray addObject:model];
+                }
+            } else {
+                [self emptyLfeelBoxView];
             }
         }
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -651,7 +660,24 @@
     }];
 }
 
-
+- (void)requestDeleteBoxGoods:(LHCollectModel *)model {
+    [LHNetworkManager PostWithUrl:kUncollectionGoodsUrl parameter:@{@"product_id": model.product_id, @"user_id": kUser_id, @"type": @1} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showSuccess:@"删除成功"];
+            });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showError:@"删除失败"];
+            });
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
 
 - (void)requestShoppingCartData1 {
    LHUserInfoModel *model = [LHUserInfoManager getUserInfo];

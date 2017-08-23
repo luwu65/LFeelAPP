@@ -7,7 +7,17 @@
 //
 
 #import "LHBaseViewController.h"
-
+#import "LHNewGoodsModel.h"
 @interface LHNewGoodsDetailViewController : LHBaseViewController
+
+
+
+
+@property (nonatomic, strong) LHGoodsListModel *listModel;
+
+
+
+
+
 
 @end

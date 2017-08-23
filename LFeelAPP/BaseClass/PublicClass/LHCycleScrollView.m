@@ -166,6 +166,121 @@
 @end
 
 
+#pragma mark  ------------------------  新品 商品详情轮播  -----------------------------
+//商品详情轮播
+@implementation LHNewGoodsDetailCycleView
+
+/*
+ 租赁详情
+ */
+- (instancetype)initWithFrame:(CGRect)frame
+                   imageFrame:(CGRect)imageFrame
+             placeHolderImage:(UIImage *)placeHolderImage {
+    if (self = [super initWithFrame:frame]) {
+        self.rentCycleView = [[SDCycleScrollView alloc] initWithFrame:imageFrame];
+        self.rentCycleView.delegate = self;
+        self.rentCycleView.placeholderImage = placeHolderImage;
+        [self addSubview:self.rentCycleView];
+        
+        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(kFit(15), self.rentCycleView.maxY+5, kScreenWidth-kFit(30), kFit(25))];
+        self.titleLabel.backgroundColor = [UIColor whiteColor];
+        self.titleLabel.font = kFont(17*kRatio);
+        [self addSubview:self.titleLabel];
+
+        self.priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(kFit(15), self.titleLabel.maxY+5, kScreenWidth-kFit(30), kFit(30))];
+        self.priceLabel.backgroundColor = [UIColor whiteColor];
+        self.priceLabel.textColor = [UIColor redColor];
+        self.priceLabel.font = kFont(kFit(18));
+        [self addSubview:self.priceLabel];
+        
+        
+        self.sizeTagView = [[LHTagView alloc] initWithFrame:CGRectMake(10, self.priceLabel.maxY, kScreenWidth-10, kFit(40))];
+        [self addSubview:self.sizeTagView];
+        self.colorTagView = [[LHTagView alloc] initWithFrame:CGRectMake(10, self.sizeTagView.maxY, kScreenWidth-10, kFit(40))];
+        [self addSubview:self.colorTagView];
+        
+        
+        UIButton *addCart = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        addCart.frame = CGRectMake(kFit(15), self.maxY-kFit(50), (kScreenWidth-kFit(45))/2, kFit(45));
+        [addCart setTitle:@"加入购物车" forState:(UIControlStateNormal)];
+        [addCart setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
+        [addCart addTarget:self action:@selector(addShoppingCart) forControlEvents:(UIControlEventTouchUpInside)];
+        [self addSubview:addCart];
+        addCart.layer.masksToBounds = YES;
+        addCart.layer.borderColor = [UIColor redColor].CGColor;
+        addCart.layer.borderWidth = 1;
+        addCart.layer.cornerRadius = 2;
+        
+        
+        UIButton *bugNowBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        bugNowBtn.frame = CGRectMake(addCart.maxX + kFit(15), self.maxY-kFit(50), (kScreenWidth-kFit(45))/2, kFit(45));
+        [bugNowBtn setTitle:@"立即购买" forState:(UIControlStateNormal)];
+        [bugNowBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+        [bugNowBtn addTarget:self action:@selector(bugNowAction) forControlEvents:(UIControlEventTouchUpInside)];
+        [self addSubview:bugNowBtn];
+        bugNowBtn.backgroundColor = [UIColor redColor];
+        bugNowBtn.layer.masksToBounds = YES;
+        bugNowBtn.layer.cornerRadius = 2;
+        
+
+        
+    }
+    return self;
+}
+
+- (void)setSizeArray:(NSArray *)sizeArray {
+    _sizeArray = sizeArray;
+    self.sizeTagView.contentArray = sizeArray;
+}
+
+- (void)setColorArray:(NSArray *)colorArray {
+    _colorArray = colorArray;
+    self.colorTagView.contentArray = colorArray;
+}
+
+
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
+    if (self.clickCycleBlock) {
+        self.clickCycleBlock(index);
+    }
+}
+
+- (void)clickCycleBlock:(ClickCycleViewBlock)clickCycleBlock {
+    self.clickCycleBlock = clickCycleBlock;
+}
+
+
+- (void)addShoppingCart {
+    
+}
+
+- (void)bugNowAction {
+    
+}
+
+
+
+
+
+
+
+@end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

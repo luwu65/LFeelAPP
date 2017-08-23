@@ -200,7 +200,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     if (indexPath.section == 0) {
         LHHomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LHBoxTableViewCellA"];
         if (cell == nil) {
