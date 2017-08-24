@@ -9,6 +9,13 @@
 #ifndef LHDefineHeader_h
 #define LHDefineHeader_h
 
+
+
+//--------------------------- User_id
+#define kUser_id              [LHUserInfoManager getUserInfo].id_
+
+
+
 #pragma mark --------------------- 尺寸 ----------------------------
 //屏幕的宽度
 #define kScreenWidth            [[UIScreen mainScreen] bounds].size.width
@@ -102,8 +109,6 @@
 #define kClothesStyle         @[@"日常", @"商务", @"宴会", @"社交" ]
 
 
-//--------------------------- User_id
-#define kUser_id              [LHUserInfoManager getUserInfo].id_
 
 
 

@@ -44,6 +44,7 @@
 
 @property (nonatomic, strong) NSMutableArray *myBoxArray;
 
+@property (nonatomic, assign) BOOL CollectionSuccess;
 
 @end
 
@@ -83,8 +84,14 @@
     //初始化显示状态
     _allSelectBtn.selected = NO;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(CollectionSuccess) name:@"CollectionSuccess" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(CollectionSuccessNotification) name:@"CollectionSuccess" object:nil];
 
+    //如果左滑右滑被收藏过, 在这里请求
+    if (self.CollectionSuccess) {
+        [self requstMyBoxCartData];
+    }
+    
+    
 }
 
 - (void)dealloc {
@@ -100,16 +107,20 @@
     [self setUI];
     [self customNavBar];
     [self requestShoppingCartData];
-    [self requstMyBoxCartData];
+    
+    //如果左滑右滑没有收藏, 那么就在这里收藏
+    if (!self.CollectionSuccess) {
+        [self requstMyBoxCartData];
+    }
     
 //    [self requestShoppingCartData1];
-    
+    NSLog(@"+++++++++++++++++++++++++++++++++++++++++++%d", self.CollectionSuccess);
     
 }
-
-- (void)CollectionSuccess {
+//监测到有收藏, 就把收藏状态改为YES
+- (void)CollectionSuccessNotification {
     NSLog(@"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-
+    self.CollectionSuccess = YES;
 
 }
 #pragma mark -----------------------  初始化UI控件 --------------------------------
