@@ -96,6 +96,7 @@
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD showSuccess:@"收藏成功"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"CollectionSuccess" object:nil];
             });
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -324,7 +325,7 @@
     return self.dataArray.count;
 }
 
-#pragma mark -- YSLDraggableCardContainer Delegate
+#pragma mark ---------------------- YSLDraggableCardContainer Delegate
 - (void)cardContainerView:(LHDraggableCardContainer *)cardContainerView didEndDraggingAtIndex:(NSInteger)index draggableView:(UIView *)draggableView draggableDirection:(LHDraggableDirection)draggableDirection {    
     if (draggableDirection == LHDraggableDirectionLeft) {
         NSLog(@"--------------- >>>  左");

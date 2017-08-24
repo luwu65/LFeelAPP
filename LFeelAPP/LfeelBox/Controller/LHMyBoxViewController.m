@@ -83,6 +83,12 @@
     //初始化显示状态
     _allSelectBtn.selected = NO;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(CollectionSuccess) name:@"CollectionSuccess" object:nil];
+
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"CollectionSuccess" object:nil];
     
 }
 
@@ -97,8 +103,15 @@
     [self requstMyBoxCartData];
     
 //    [self requestShoppingCartData1];
+    
+    
 }
 
+- (void)CollectionSuccess {
+    NSLog(@"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+
+}
 #pragma mark -----------------------  初始化UI控件 --------------------------------
 - (void)setUI {
     __weak typeof(self) weakself = self;
@@ -348,7 +361,11 @@
     return nil;
 }
 -(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return @"删除";
+    if (tableView == self.shoppingCartTableView) {
+        return @"删除";
+    } else {
+        return @"取消收藏";
+    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 80*kRatio;
@@ -373,7 +390,7 @@
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.shoppingCartTableView) {
         if (editingStyle == UITableViewCellEditingStyleDelete) {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定要删除该商品?删除后无法恢复!" preferredStyle:1];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定要删除该商品?" preferredStyle:1];
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 LHCartStoreModel *storeModel = [self.storeArray objectAtIndex:indexPath.section];
                 LHCartGoodsModel *goodsModel = [storeModel.goodsModelArray objectAtIndex:indexPath.row];
@@ -418,9 +435,9 @@
         }
     } else {
         //此处删除换衣盒数据
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定要删除该商品?删除后无法恢复!" preferredStyle:1];
-        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleDefault) handler:nil]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定要删除该商品?" preferredStyle:1];
+//        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleDefault) handler:nil]];
+//        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
             [self requestDeleteBoxGoods:self.myBoxArray[indexPath.row]];
             [self.myBoxArray removeObjectAtIndex:indexPath.row];
             if (self.myBoxArray.count == 0) {
@@ -430,8 +447,8 @@
                 [self.myBoxTableView reloadData];
             });
             
-        }]];
-        [self presentViewController:alert animated:YES completion:nil];
+//        }]];
+//        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 
