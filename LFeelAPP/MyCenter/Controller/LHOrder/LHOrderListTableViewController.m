@@ -25,7 +25,25 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self.tableView registerClass:[LHAccountGoodsCell class] forCellReuseIdentifier:@"LHAccountGoodsCell"];
     
-    
+    if (self.type == 0) {
+        self.tableView.backgroundColor = [UIColor redColor];
+    } else if (self.type == 1) {
+        
+        self.tableView.backgroundColor = [UIColor orangeColor];
+
+    } else if (self.type == 2) {
+        self.tableView.backgroundColor = [UIColor greenColor];
+
+        
+    } else if (self.type == 3) {
+        self.tableView.backgroundColor = [UIColor purpleColor];
+
+        
+    } else if (self.type == 4) {
+        self.tableView.backgroundColor = [UIColor cyanColor];
+
+        
+    }
     
 }
 
@@ -61,6 +79,18 @@
     cell.priceLabel.text = @"$11111";
     cell.numLabel.text = @"x2";
     
+    
+    if (self.type == 0) {
+        cell.backgroundColor = [UIColor redColor];
+    } else if (self.type == 1) {
+        cell.backgroundColor = [UIColor orangeColor];
+    } else if (self.type == 2) {
+        cell.backgroundColor = [UIColor greenColor];
+    } else if (self.type == 3) {
+        cell.backgroundColor = [UIColor purpleColor];
+    } else if (self.type == 4) {
+        cell.backgroundColor = [UIColor cyanColor];
+    }
     
     return cell;
 }

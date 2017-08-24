@@ -29,6 +29,7 @@
 
 
 
+@property (nonatomic, assign) CGPoint offset;
 
 
 

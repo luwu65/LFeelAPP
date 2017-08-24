@@ -19,6 +19,7 @@
 #import "LHWebViewController.h"
 #import "LHCardBagViewController.h"
 #import "LHBoxHistoryViewController.h"
+#import "LHDistributionViewController.h"
 
 #import <Accelerate/Accelerate.h>
 #import <UIImage+MultiFormat.h>
@@ -83,7 +84,7 @@ static NSString *myCenterCell = @"myCenterCell";
         LHAddVipViewController *addVip = [[LHAddVipViewController alloc] init];
         [self.navigationController pushViewController:addVip animated:YES];
     }];
-    self.hbk_navgationBar.rightFirstBtn.frame = CGRectMake(kScreenWidth-70, 31, 60, 20);
+    self.hbk_navgationBar.rightFirstBtn.frame = CGRectMake(kScreenWidth-70, 31, 60, 25);
     self.hbk_navgationBar.bgColor = [UIColor clearColor];
     self.hbk_navgationBar.deviderLayer.backgroundColor = [UIColor clearColor].CGColor;
     self.hbk_navgationBar.titleLabel.textColor = [UIColor clearColor];
@@ -199,9 +200,9 @@ static NSString *myCenterCell = @"myCenterCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0 && indexPath.row == 1) {
-        return 65*kRatio;
+        return kFit(65);
     } else {
-        return 50*kRatio;
+        return kFit(50);
     }
     
 }
@@ -210,7 +211,7 @@ static NSString *myCenterCell = @"myCenterCell";
     if (section == 0) {
         return 0;
     }
-    return 15*kRatio;
+    return kFit(15);
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -219,40 +220,34 @@ static NSString *myCenterCell = @"myCenterCell";
         LHMyOrderViewController *orderVC = [[LHMyOrderViewController alloc] init];
         orderVC.index = 0;
         [self.navigationController pushViewController:orderVC animated:YES];
-    }
-    if (indexPath.section == 2) {
+    } else if (indexPath.section == 1) {
+        LHDistributionViewController *disVC = [[LHDistributionViewController alloc] init];
+        [self.navigationController pushViewController:disVC animated:YES];
+    } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             //卡包
             LHCardBagViewController *cardBagVC = [[LHCardBagViewController alloc] init];
             [self.navigationController pushViewController:cardBagVC animated:YES];
-            
         } else  if (indexPath.row == 1){
             //收藏
             LHCollectViewController *collectVC = [[LHCollectViewController alloc] init];
             [self.navigationController pushViewController:collectVC animated:YES];
-            
         } else {
             LHBoxHistoryViewController *boxVC = [[LHBoxHistoryViewController alloc] init];
             [self.navigationController pushViewController:boxVC animated:YES];
-            
         }
-    }
-    if (indexPath.section == 3) {
+    } else if (indexPath.section == 3) {
         if (indexPath.row == 0) {
             LHReceiveAddressViewController *receiveVC = [[LHReceiveAddressViewController alloc] init];
             [self.navigationController pushViewController:receiveVC animated:YES];
-            
+            return;
         } else {
             //设置
             LHSettingViewController *settingVC = [[LHSettingViewController alloc] init];
             [self.navigationController pushViewController:settingVC animated:YES];
-        
         }
     }
-    if (indexPath.section == 1) {
 
-        
-    }
 }
 
 

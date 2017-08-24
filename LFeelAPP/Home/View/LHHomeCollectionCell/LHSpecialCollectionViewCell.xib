@@ -18,12 +18,17 @@
                 <rect key="frame" x="0.0" y="0.0" width="176" height="247"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rZX-SJ-Vcd">
-                        <rect key="frame" x="-7" y="0.0" width="176" height="247"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rZX-SJ-Vcd">
+                        <rect key="frame" x="0.0" y="0.0" width="176" height="247"/>
                     </imageView>
                 </subviews>
             </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="rZX-SJ-Vcd" secondAttribute="trailing" id="B4D-ML-Bmn"/>
+                <constraint firstItem="rZX-SJ-Vcd" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="BYr-kt-sHS"/>
+                <constraint firstItem="rZX-SJ-Vcd" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="XEb-Bh-nVk"/>
+                <constraint firstAttribute="bottom" secondItem="rZX-SJ-Vcd" secondAttribute="bottom" id="fvV-6e-t0o"/>
+            </constraints>
             <size key="customSize" width="176" height="247"/>
             <connections>
                 <outlet property="themeImageView" destination="rZX-SJ-Vcd" id="EuZ-Re-K8w"/>

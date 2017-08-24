@@ -7,16 +7,17 @@
 //
 
 #import "LHMyOrderViewController.h"
-#import "LHSegmentControlView.h"
 #import "LHOrderListTableViewController.h"
+#import "LHTitleSliderView.h"
 
 #define kScrollHeight kScreenHeight-kNavBarHeight-42
-@interface LHMyOrderViewController ()///<UIScrollViewDelegate>
+@interface LHMyOrderViewController ()<UIScrollViewDelegate>
 
 
 
 @property (nonatomic, strong) UIScrollView *myOrderScrollView;
-@property (nonatomic, strong) LHSegmentControlView *segView;
+@property (nonatomic, strong) LHTitleSliderView *titleView;
+
 @property (nonatomic, strong) NSMutableArray *titleArray;
 
 @end
@@ -54,9 +55,8 @@
     self.myOrderScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kNavBarHeight+42, kScreenWidth, kScrollHeight)];
     self.myOrderScrollView.contentSize = CGSizeMake(kScreenWidth*self.titleArray.count, kScrollHeight);
     self.myOrderScrollView.pagingEnabled = YES;
-//    self.myOrderScrollView.delegate = self;
+    self.myOrderScrollView.delegate = self;
     self.myOrderScrollView.showsHorizontalScrollIndicator = NO;
-    self.myOrderScrollView.scrollEnabled = NO;
     [self.view addSubview:self.myOrderScrollView];
 
     for (int i = 0; i < self.titleArray.count; i++) {
@@ -67,17 +67,24 @@
 
 - (void)setSegmentControl {
     @weakify(self);
-    self.segView = [[LHSegmentControlView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, 44*kRatio) titleArray:self.titleArray titleFont:kFont(15) titleDefineColor:[UIColor blackColor] titleSelectedColor:[UIColor redColor]];
-    [self.view addSubview:self.segView];
-
-    [self.segView clickTitleButtonBlock:^(NSInteger index) {
+    self.titleView = [[LHTitleSliderView alloc] init];
+    [self.view addSubview:self.titleView];
+    self.titleView.backgroundColor = [UIColor whiteColor];
+    [self.titleView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(self.view);
+        make.top.mas_equalTo(64);
+        make.height.mas_equalTo(kFit(44));
+    }];
+    _titleView.titles  = self.titleArray;
+    _titleView.selectedIndex = self.index;
+    _titleView.buttonSelected = ^(NSInteger index){
+        @strongify(self);
+        
         [UIView animateWithDuration:0.25 animations:^{
-            @strongify(self);
             [self.myOrderScrollView setContentOffset:CGPointMake(kScreenWidth * index, 0)];
         }];
         [self setOrderTableViewWithIndex:index];
-        
-    }];
+    };
     
     [self judgeClickIndex:self.index isScroll:NO];
 }
@@ -88,28 +95,10 @@
  @param index 点击了第几个
  */
 - (void)judgeClickIndex:(NSInteger)index isScroll:(BOOL)isScroll {
-    @weakify(self);
-    //判断点击了哪个seg
-    for (UIView *btn in [self.segView subviews]) {
-        if ([btn isKindOfClass:[UIButton class]]) {
-            if (btn.tag == index + 3000) {
-                [(UIButton *)btn setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
-            } else {
-                [(UIButton *)btn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
-            }
-        }
-    }
     if (!isScroll) {
         [self.myOrderScrollView setContentOffset:CGPointMake(kScreenWidth * index, 0)];
     }
-    [UIView animateWithDuration:0.25 animations:^{
-        @strongify(self);
-        CGPoint point = self.segView.sliderView.center;
-        point.x = self.segView.sliderView.center.x + kScreenWidth/self.titleArray.count * index;
-        self.segView.sliderView.center = point;
-    }];
     [self setOrderTableViewWithIndex:index];
-
 }
 
 - (void)setOrderTableViewWithIndex:(NSInteger)index {
@@ -139,28 +128,15 @@
 //}
 
 #pragma mark -------------------- UIScrollViewDelegate ------------------
-//- (void)scrollViewDidEndDecelerating:(UIScrollView*)scrollView {
-//    NSInteger index = scrollView.contentOffset.x / kScreenWidth;
-//    if (self.index == index) {
-//        return;
-//    }
-//    NSLog(@"%ld", index);
-//    self.hbk_navgationBar.titleLabel.text = self.titleArray[index];
-//
-//    [self judgeClickIndex:index isScroll:YES];
-//
-//}
-//- (void)scrollViewDidScroll:(UIScrollView*)scrollView {
-//    if (scrollView != self.myOrderScrollView) {
-//        return;
-//    }
-//    CGFloat x = scrollView.contentOffset.x;
-//    if (x <= 0 || x >= kScreenWidth * self.titleArray.count) {
-//        return;
-//    }
-//}
-
-
+- (void)scrollViewDidEndDecelerating:(UIScrollView*)scrollView {
+    if (scrollView == self.myOrderScrollView) {
+        CGFloat contentOffsetX = scrollView.contentOffset.x;
+        NSInteger pageNum = contentOffsetX / kScreenWidth + 0.5;
+        self.titleView.selectedIndex = pageNum;
+        [self judgeClickIndex:pageNum isScroll:YES];
+    }
+    
+}
 
 
 

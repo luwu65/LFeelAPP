@@ -128,6 +128,10 @@
 		0FB793521F4E859500FDDB76 /* LHWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7934D1F4E859500FDDB76 /* LHWebViewController.m */; };
 		0FB793531F4E859500FDDB76 /* LHWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FB7934E1F4E859500FDDB76 /* LHWebViewController.xib */; };
 		0FB793571F4E864500FDDB76 /* LHDistributionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB793561F4E864500FDDB76 /* LHDistributionViewController.m */; };
+		0FB793601F4E9DEA00FDDB76 /* LHDistributionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7935E1F4E9DEA00FDDB76 /* LHDistributionHeaderView.m */; };
+		0FB793611F4E9DEA00FDDB76 /* LHDistributionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FB7935F1F4E9DEA00FDDB76 /* LHDistributionHeaderView.xib */; };
+		0FB793641F4EAA6400FDDB76 /* LHTitleSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB793631F4EAA6400FDDB76 /* LHTitleSliderView.m */; };
+		0FB793671F4EB91E00FDDB76 /* LHDistributionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB793661F4EB91E00FDDB76 /* LHDistributionTableView.m */; };
 		0FEA5A8C1F3031760095532D /* LHAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FEA5A8B1F3031760095532D /* LHAddressModel.m */; };
 		0FEC8D031F37F06300453700 /* HBK_NavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FEC8D021F37F06300453700 /* HBK_NavigationBar.m */; };
 		0FEC8D211F38533800453700 /* LHAccountCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FEC8D081F38533800453700 /* LHAccountCenterCell.m */; };
@@ -394,6 +398,13 @@
 		0FB7934E1F4E859500FDDB76 /* LHWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHWebViewController.xib; sourceTree = "<group>"; };
 		0FB793551F4E864500FDDB76 /* LHDistributionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHDistributionViewController.h; sourceTree = "<group>"; };
 		0FB793561F4E864500FDDB76 /* LHDistributionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHDistributionViewController.m; sourceTree = "<group>"; };
+		0FB7935D1F4E9DEA00FDDB76 /* LHDistributionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHDistributionHeaderView.h; sourceTree = "<group>"; };
+		0FB7935E1F4E9DEA00FDDB76 /* LHDistributionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHDistributionHeaderView.m; sourceTree = "<group>"; };
+		0FB7935F1F4E9DEA00FDDB76 /* LHDistributionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHDistributionHeaderView.xib; sourceTree = "<group>"; };
+		0FB793621F4EAA6400FDDB76 /* LHTitleSliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHTitleSliderView.h; sourceTree = "<group>"; };
+		0FB793631F4EAA6400FDDB76 /* LHTitleSliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHTitleSliderView.m; sourceTree = "<group>"; };
+		0FB793651F4EB91E00FDDB76 /* LHDistributionTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHDistributionTableView.h; sourceTree = "<group>"; };
+		0FB793661F4EB91E00FDDB76 /* LHDistributionTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHDistributionTableView.m; sourceTree = "<group>"; };
 		0FEA5A8A1F3031760095532D /* LHAddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHAddressModel.h; sourceTree = "<group>"; };
 		0FEA5A8B1F3031760095532D /* LHAddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHAddressModel.m; sourceTree = "<group>"; };
 		0FEC8D011F37F06300453700 /* HBK_NavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBK_NavigationBar.h; sourceTree = "<group>"; };
@@ -1044,6 +1055,8 @@
 				0FB7934C1F4E859500FDDB76 /* LHWebViewController.h */,
 				0FB7934D1F4E859500FDDB76 /* LHWebViewController.m */,
 				0FB7934E1F4E859500FDDB76 /* LHWebViewController.xib */,
+				0FB793621F4EAA6400FDDB76 /* LHTitleSliderView.h */,
+				0FB793631F4EAA6400FDDB76 /* LHTitleSliderView.m */,
 			);
 			path = PublicClass;
 			sourceTree = "<group>";
@@ -1053,6 +1066,11 @@
 			children = (
 				0FB793551F4E864500FDDB76 /* LHDistributionViewController.h */,
 				0FB793561F4E864500FDDB76 /* LHDistributionViewController.m */,
+				0FB793651F4EB91E00FDDB76 /* LHDistributionTableView.h */,
+				0FB793661F4EB91E00FDDB76 /* LHDistributionTableView.m */,
+				0FB7935D1F4E9DEA00FDDB76 /* LHDistributionHeaderView.h */,
+				0FB7935E1F4E9DEA00FDDB76 /* LHDistributionHeaderView.m */,
+				0FB7935F1F4E9DEA00FDDB76 /* LHDistributionHeaderView.xib */,
 			);
 			path = LHDistribution;
 			sourceTree = "<group>";
@@ -1278,6 +1296,7 @@
 				0F3F642D1F41495500A42084 /* LHAccountCenterHeaderFooterView.xib in Resources */,
 				0F594CA81F2610860047DCC1 /* ShopCarNew.plist in Resources */,
 				0F52B5FD1EEF83E1007D45EC /* Main.storyboard in Resources */,
+				0FB793611F4E9DEA00FDDB76 /* LHDistributionHeaderView.xib in Resources */,
 				0F52B66E1EEFDE87007D45EC /* LHBuyNewCollectionViewCell.xib in Resources */,
 				0F52B6A51EF265D4007D45EC /* LHNewGoodsCollectionCell.xib in Resources */,
 				0F52B6A01EF25A80007D45EC /* LHNewGoodsCell.xib in Resources */,
@@ -1492,6 +1511,7 @@
 				0FEA5A8C1F3031760095532D /* LHAddressModel.m in Sources */,
 				0F52B7451EFF8A5A007D45EC /* LHRegistViewController.m in Sources */,
 				0F8277D41F013209004D2A06 /* Foundation+Log.m in Sources */,
+				0FB793671F4EB91E00FDDB76 /* LHDistributionTableView.m in Sources */,
 				0F3F64431F41993E00A42084 /* MBProgressHUD+MJ.m in Sources */,
 				0F52B6481EEF8AA0007D45EC /* CustomButton.m in Sources */,
 				0F7B0A2C1F442222004080D6 /* LHNewGoodsModel.m in Sources */,
@@ -1544,6 +1564,7 @@
 				0F3F64281F3D527C00A42084 /* LHPayWayView.m in Sources */,
 				0F9046101F1DFCC9000528A2 /* LHScanSuccessJumpViewController.m in Sources */,
 				0FB793521F4E859500FDDB76 /* LHWebViewController.m in Sources */,
+				0FB793641F4EAA6400FDDB76 /* LHTitleSliderView.m in Sources */,
 				0F52B6601EEFB86E007D45EC /* LHHomeTableViewCell.m in Sources */,
 				0F52B69A1EF24DE4007D45EC /* LHMyCenterCell.m in Sources */,
 				0FB7934F1F4E859500FDDB76 /* LHAddVipViewController.m in Sources */,
@@ -1552,6 +1573,7 @@
 				0F594D331F2A13B80047DCC1 /* LHDraggableCardContainer.m in Sources */,
 				0FB793441F4BFC6700FDDB76 /* LHOrderListTableViewController.m in Sources */,
 				0F9046241F1EF256000528A2 /* LHCardCell.m in Sources */,
+				0FB793601F4E9DEA00FDDB76 /* LHDistributionHeaderView.m in Sources */,
 				0F52B7071EF8BC52007D45EC /* LHChooseGoodsViewController.m in Sources */,
 				0FB7933E1F4B19B500FDDB76 /* LHOrderHeaderFooterView.m in Sources */,
 				0F52B6D61EF7A837007D45EC /* LHNetworkManager.m in Sources */,

@@ -40,12 +40,12 @@
                 [titleBtn setTitleColor:titleColor forState:(UIControlStateNormal)];
             }
             titleBtn.titleLabel.font = titleFont;
-            titleBtn.frame = CGRectMake(i*(self.frame.size.width/(titleArray.count)), 0, self.frame.size.width/(titleArray.count), 40);
+            titleBtn.frame = CGRectMake(i*(self.frame.size.width/(titleArray.count)), 0, self.frame.size.width/(titleArray.count), frame.size.height-2);
             
             [titleBtn addTarget:self action:@selector(handleTitleBtn:) forControlEvents:(UIControlEventTouchUpInside)];
             [self addSubview:titleBtn];
         }
-        _sliderView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, self.frame.size.width/(titleArray.count), 2)];
+        _sliderView = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height-2, self.frame.size.width/(titleArray.count), 2)];
         _sliderView.backgroundColor = selectedColor;
         [self addSubview:_sliderView];
     }
