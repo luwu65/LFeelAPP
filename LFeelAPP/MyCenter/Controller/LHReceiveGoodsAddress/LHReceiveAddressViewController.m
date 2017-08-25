@@ -12,9 +12,8 @@
 @interface LHReceiveAddressViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *addressTableView;
-@property (nonatomic, strong) NSIndexPath *lastPath;//记录最后点击的哪一个
 
-@property (nonatomic, strong) NSMutableArray *addressArray;
+@property (nonatomic, strong) NSMutableArray<LHAddressModel *> *addressArray;
 
 
 @end
@@ -35,13 +34,14 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self setUI];
     [self setHBK_NavigationBar];
+        
+    [self requestAddressListData];
 }
 - (void)setHBK_NavigationBar {
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"我的地址" backAction:^{
         [self.navigationController popViewControllerAnimated:YES];
     } rightFirst:@"新增" rightFirstBtnAction:^{
-        NSLog(@"新增");
         LHEditAddressViewController *editVC = [[LHEditAddressViewController alloc] init];
         [self.navigationController pushViewController:editVC animated:YES];
     }];
@@ -60,7 +60,7 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return self.addressArray.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -73,15 +73,13 @@
     if (cell == nil) {
         cell = [[LHReceiveAddressCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"LHReceiveAddressCell"];
     }
-    cell.nameLabel.text = @"黄冰珂     132082434343";
-    cell.addressLabel.text = @"噶搜噶时光机阿里山就够啦冠军联赛";
-    [cell deleteAddressBlock:^(UIButton *sender) {
-        NSLog(@"删除");
-        NSLog(@"删除 ---- %ld --  %ld", indexPath.section, indexPath.row);
-        [self deleteAddressAlert];
+    cell.addressModel = self.addressArray[indexPath.section];
+    [cell deleteAddressBlock:^{
+        [self deleteAddressAlertWithModel:self.addressArray[indexPath.section]];
+        [self.addressArray removeObjectAtIndex:indexPath.section];
     }];
     
-    [cell EditAddressBlock:^(UIButton *sender) {
+    [cell EditAddressBlock:^{
         NSLog(@"编辑");
         NSLog(@"编辑 ---- %ld --  %ld", indexPath.section, indexPath.row);
 
@@ -89,9 +87,10 @@
     }];
   
     [cell setDefaultAddressBlock:^(UIButton *sender) {
-        NSLog(@"设为默认 ---- %ld --  %ld", indexPath.section, indexPath.row);
-        
-    
+        LHAddressModel *model = self.addressArray[indexPath.section];
+        if ([model.isdefault integerValue] == 0) {
+            [self requestDefaultAddressWithIndex:indexPath.section];
+        }
     }];
     return cell;
 }
@@ -121,15 +120,86 @@
     self.addressBlock = block;
 }
 
-- (void)deleteAddressAlert {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"友情提示" message:@"确定要删除这个地址吗?" preferredStyle:(UIAlertControllerStyleAlert)];
+- (void)deleteAddressAlertWithModel:(LHAddressModel *)model {
+    @weakify(self);
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定要删除这个地址吗?" message:nil preferredStyle:(UIAlertControllerStyleAlert)];
     [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-        
-        
+        @strongify(self);
+        [self requestDeleteAddressDataWithModel:model];
     }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
 }
+
+#pragma mark  ---------------  网络请求 --------------------
+//地址列表
+- (void)requestAddressListData {
+    [self showProgressHUD];
+    [LHNetworkManager requestForGetWithUrl:kAddressList parameter:@{@"user_id": kUser_id} success:^(id reponseObject) {
+        NSLog(@"++++++++++++%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            for (NSDictionary *dic in reponseObject[@"data"]) {
+                LHAddressModel *model = [[LHAddressModel alloc] init];
+                model.isdefault = [NSString stringWithFormat:@"%@", dic[@"isdefault"]];
+                [model setValuesForKeysWithDictionary:dic];
+                [self.addressArray addObject:model];
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self hideProgressHUD];
+            [self.addressTableView reloadData];
+        });
+        if (self.addressArray.count == 0) {
+            //如果为空, 添加显示为空的View
+            
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
+//删除地址
+- (void)requestDeleteAddressDataWithModel:(LHAddressModel *)model {
+    [self showProgressHUD];
+    [LHNetworkManager PostWithUrl:kAddreessDeleteUrl parameter:@{@"id": model.id_} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self hideProgressHUD];
+                [MBProgressHUD showSuccess:@"删除成功"];
+                [self.addressTableView reloadData];
+            });
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+//设为默认
+- (void)requestDefaultAddressWithIndex:(NSInteger)index {
+    [self showProgressHUD];
+    LHAddressModel *model = self.addressArray[index];
+    [LHNetworkManager PostWithUrl:kAddressUpdateUrl parameter:@{@"user_id": model.user_id, @"id": model.id_, @"isdefault": @"1"} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            for (LHAddressModel *aModel in self.addressArray) {
+                if (aModel == model) {
+                    aModel.isdefault = @"1";
+                } else {
+                    aModel.isdefault = @"0";
+                }
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self hideProgressHUD];
+                [self.addressTableView reloadData];
+            });
+        } else {
+            [MBProgressHUD showError:@"失败"];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
 
 
 

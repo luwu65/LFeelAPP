@@ -8,12 +8,21 @@
 
 #import "LHEditAddressViewController.h"
 #import "LHCityChooseView.h"
-@interface LHEditAddressViewController ()<UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate>
+@interface LHEditAddressViewController ()<UIPickerViewDelegate>
 
-@property (nonatomic, strong) UITableView *editTableView;
-@property (nonatomic, strong) UITextField *textField;//输入框
-@property (nonatomic, strong) UILabel *addressLabel;//展示省市区
 
+@property (weak, nonatomic) IBOutlet UITextField *nameTF;
+@property (weak, nonatomic) IBOutlet UITextField *phoneTF;
+@property (weak, nonatomic) IBOutlet UITextField *detailAddressTF;
+@property (weak, nonatomic) IBOutlet UIButton *addressBtn;
+
+
+@property (nonatomic, copy) NSString *province;//省
+@property (nonatomic, copy) NSString *city;//市
+@property (nonatomic, copy) NSString *area;//区
+
+//是否默认
+@property (weak, nonatomic) IBOutlet UISwitch *defaultSwitch;
 
 @end
 
@@ -22,15 +31,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.view rm_fitAllConstraint];
     self.view.backgroundColor = [UIColor whiteColor];
-    
-    [self setUI];
-
-    
     
     [self setHBK_NavigationBar];
     
-    [self requestAddAddressData];
+
     
     
 }
@@ -41,140 +47,55 @@
     }];
 }
 
-- (void)setUI {
-    self.editTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight) style:(UITableViewStylePlain)];
-    self.editTableView.scrollEnabled = NO;
-    self.editTableView.dataSource = self;
-    self.editTableView.delegate = self;
-    [self.view addSubview:self.editTableView];
-    
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-kNavBarHeight-45*kRatio*4)];
-    footerView.backgroundColor = kColor(245, 245, 245);
-    //给footerView添加手势, 回收键盘
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
-    [tap addTarget:self action:@selector(handleTableFooterViewAction)];
-    [footerView addGestureRecognizer:tap];
-    UIButton *submitBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
-    [submitBtn setTitle:@"保存地址" forState:(UIControlStateNormal)];
-    submitBtn.layer.borderColor = [UIColor redColor].CGColor;
-    submitBtn.layer.borderWidth = 1;
-    submitBtn.layer.cornerRadius = 5;
-    submitBtn.layer.masksToBounds = YES;
-    [submitBtn setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
-    [submitBtn addTarget:self action:@selector(submitBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
-    submitBtn.frame = CGRectMake(50, footerView.frame.size.height-45*kRatio-30, kScreenWidth-100, 45*kRatio);
-    [footerView addSubview:submitBtn];
-    self.editTableView.tableFooterView = footerView;    
-}
 
 //保存地址
-- (void)submitBtnAction {
-    NSLog(@"保存地址");
+- (IBAction)submitBtnAction:(UIButton *)sender {
+    [self requestAddAddressData];
+}
+
+- (IBAction)chooseAddress:(UIButton *)sender {
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+    LHCityChooseView * cityView = [[LHCityChooseView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+    cityView.selectedBlock = ^(NSString * province, NSString * city, NSString * area){
+        self.province = province;
+        self.city = city;
+        self.area = area;
+        NSLog(@"%@%@%@",province,city,area);
+        [self.addressBtn setTitle:[NSString stringWithFormat:@"%@%@%@", province, city, area] forState:(UIControlStateNormal)];
+        [self.addressBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+    };
+    UIWindow *window = [[UIApplication sharedApplication].delegate window];
+    [window addSubview: cityView];
+    [window bringSubviewToFront:cityView];
 }
 
 
-//给footerView添加手势, 回收键盘
-- (void)handleTableFooterViewAction {
+// 回收键盘
+- (IBAction)handleEmptyView:(UITapGestureRecognizer *)sender {
     [[UIApplication sharedApplication].keyWindow endEditing:YES];
-}
-#pragma mark ----------------- UITableViewDelegate, UITableViewDataSource
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"editTableViewCell"];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"editTableViewCell"];
-    }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    UILabel *label = [[UILabel alloc] init];
-    label.font = kFont(14);
-    label.text = @[@"收货人姓名", @"手机号码", @"省市区", @"详细地址"][indexPath.row];
-    label.textColor = [UIColor blackColor];
-    [cell addSubview:label];
-    [label mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(cell.mas_left).offset(10);
-        make.width.mas_equalTo(90*kRatio);
-        make.height.mas_equalTo(cell.mas_height);
-        make.centerY.equalTo(cell.mas_centerY);
-    }];
-    if (indexPath.row != 2) {
-        _textField = [[UITextField alloc] init];
-        _textField.textAlignment = NSTextAlignmentRight;
-        _textField.font = kFont(15);
-        if (indexPath.row == 0) {
-            _textField.placeholder = @"请输入姓名";
-        } else if (indexPath.row == 1) {
-            _textField.placeholder = @"请输入电话号码";
-        } else {
-            _textField.placeholder = @"请输入详细地址";
-        }
-        [cell addSubview:_textField];
-        [_textField mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(label.mas_right).offset(0);
-            make.right.equalTo(cell.mas_right).offset(-5);
-            make.height.mas_equalTo(cell.mas_height);
-            make.centerY.equalTo(cell.mas_centerY);
-        }];
-    } else {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        _addressLabel = [[UILabel alloc] init];
-        _addressLabel.textAlignment = NSTextAlignmentRight;
-        _addressLabel.font = kFont(15);
-        [cell addSubview:_addressLabel];
-        [_addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(label.mas_right).offset(0);
-            make.right.equalTo(cell.mas_right).offset(-30);
-            make.height.mas_equalTo(cell.mas_height);
-            make.centerY.equalTo(cell.mas_centerY);
-        }];
-    }
-    
-    
-    
-    return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 45*kRatio;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 2) {
-        [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
-        LHCityChooseView * cityView = [[LHCityChooseView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
-        __weak typeof(self) weakSelf = self;
-        cityView.selectedBlock = ^(NSString * province, NSString * city, NSString * area){
-            weakSelf.addressLabel.text = [NSString stringWithFormat:@"%@%@%@",province,city,area];
-            NSLog(@"%@%@%@",province,city,area);
-        };
-        UIWindow *window = [[UIApplication sharedApplication].delegate window];
-        [window addSubview: cityView];
-        [window bringSubviewToFront:cityView];
-        
-    }
 }
 
 
 #pragma  mark ----------------- 添加地址 --------------
 //添加地址
 - (void)requestAddAddressData {
-    [LHNetworkManager requestForGetWithUrl:kAddAddressUrl parameter:@{@"user_id": @"7", @"province": @"河南", @"city": @"郑州", @"district": @"金水区", @"mobile": @"110", @"detail_address": @"哈哈哈哈"} success:^(id reponseObject) {
-        NSLog(@"%@", reponseObject);
-        
-        
+    //地址是否默认   先默认为0 (不是默认)
+    NSDictionary *dic = @{@"user_id": kUser_id, @"province": self.province, @"city": self.city, @"district": self.area, @"mobile": self.phoneTF.text, @"detail_address": self.detailAddressTF.text, @"isdefault":@(self.defaultSwitch.on), @"name": self.nameTF.text};
+    [LHNetworkManager requestForGetWithUrl:kAddAddressUrl parameter:dic success:^(id reponseObject) {
+        NSLog(@"-----------%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showSuccess:@"添加成功"];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.navigationController popViewControllerAnimated:YES];
+                });
+            });
+        } else {
+            [MBProgressHUD showError:@"参数错误"];
+        }
     } failure:^(NSError *error) {
         
     }];
-    
-    
-//    [LHNetworkManager PostWithUrl:kAddAddressUrl parameter:@{@"user_id": @"7", @"province": @"河南", @"city": @"郑州", @"district": @"金水区", @"mobile": @"110", @"detail_address": @"哈哈哈哈"} success:^(id reponseObject) {
-//        NSLog(@"%@", reponseObject);
-//    } failure:^(NSError *error) {
-//        
-//    }];
-    
 }
 
 

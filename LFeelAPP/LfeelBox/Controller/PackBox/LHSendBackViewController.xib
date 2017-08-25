@@ -16,7 +16,7 @@
                 <outlet property="numberBtn" destination="LMU-gz-l2w" id="pAr-wD-rS7"/>
                 <outlet property="phoneTF" destination="32t-ZX-c1E" id="kUj-Zg-Ug2"/>
                 <outlet property="remarkTF" destination="gAr-ZY-mP3" id="u3H-Vb-hTR"/>
-                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="LOG-hZ-VdA"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

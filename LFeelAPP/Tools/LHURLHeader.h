@@ -12,9 +12,9 @@
 
 #pragma mark  -----------------------  URL  -------------------------
 //请求头
-//#define kUrlHeader              @"http://lfeeltest.ngrok.cc/lfeel/" //本地测试环境
+#define kUrlHeader              @"http://192.168.0.132:8081/lfeel/" //本地测试环境
 //#define kUrlHeader            @"http://47.92.149.182:8020/lfeel/" //服务器环境
-#define kUrlHeader            @"http://120.76.215.11:8021/lfeel/" //服务器环境
+//#define kUrlHeader            @"http://120.76.215.11:8021/lfeel/" //服务器环境
 
 //token
 #define kToken                  @"e895482e-7662-4aa1-bdc7-a6fb3e806ccd"
@@ -72,9 +72,14 @@
 //添加地址
 #define kAddAddressUrl          @"addr/add"
 
+//修改地址
+#define kAddressUpdateUrl       @"addr/update"
 
+//删除地址
+#define kAddreessDeleteUrl      @"addr/delete"
 
-
+//地址列表
+#define kAddressList            @"addr/getList"
 
 
 

@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "LHAddressModel.h"
 
 typedef void(^SetDefaultBlock)(UIButton *sender);
-typedef void(^EditAddressBlock)(UIButton *sender);
-typedef void(^DeleteAddressBlock)(UIButton *sender);
+typedef void(^EditAddressBlock)();
+typedef void(^DeleteAddressBlock)();
 @interface LHReceiveAddressCell : UITableViewCell
 
 
@@ -19,6 +19,7 @@ typedef void(^DeleteAddressBlock)(UIButton *sender);
 
 
 @property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) UILabel *phoneLabel;
 
 @property (nonatomic, strong) UILabel *addressLabel;
 
@@ -42,7 +43,7 @@ typedef void(^DeleteAddressBlock)(UIButton *sender);
 
 
 
-
+@property (nonatomic, strong) LHAddressModel *addressModel;
 
 
 

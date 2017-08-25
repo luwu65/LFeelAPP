@@ -36,14 +36,25 @@
 
 
 - (void)setUI {
-    //新名电话
+    //姓名电话
     self.nameLabel = [[UILabel alloc] init];
-    _nameLabel.font = kFont(16*kRatio);
+    _nameLabel.font = kFont(kFit(16));
     [self addSubview:_nameLabel];
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(10);
+        make.top.equalTo(self.mas_top).offset(5);
+        make.height.mas_equalTo(25*kRatio);
+        make.width.mas_equalTo((kScreenWidth-30)/2);
+    }];
+    
+    self.phoneLabel = [[UILabel alloc] init];
+    self.phoneLabel.textAlignment = NSTextAlignmentRight;
+    _phoneLabel.font = kFont(kFit(16));
+    [self addSubview:_phoneLabel];
+    [_phoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.mas_right).offset(-10);
         make.top.equalTo(self.mas_top).offset(5);
+        make.width.mas_equalTo((kScreenWidth-30)/2);
         make.height.mas_equalTo(25*kRatio);
     }];
     
@@ -73,7 +84,7 @@
     
     //设为默认
     self.defaultBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    [self.defaultBtn setImage:[UIImage imageNamed:@"MyBox_click_default"] forState:(UIControlStateNormal)];
+    [self.defaultBtn setBackgroundImage:[UIImage imageNamed:@"MyBox_click_default"] forState:(UIControlStateNormal)];
     [self.defaultBtn addTarget:self action:@selector(defaultBtnAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self addSubview:self.defaultBtn];
     [self.defaultBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -132,7 +143,7 @@
 //删除
 - (void)deleteAction:(UIButton *)sender {
     if (self.deleteAddressBlock) {
-        self.deleteAddressBlock(sender);
+        self.deleteAddressBlock();
     }
     
 }
@@ -143,7 +154,7 @@
 //编辑
 - (void)editBtnAction:(UIButton *)sender {
     if (self.editAddressBlock) {
-        self.editAddressBlock(sender);
+        self.editAddressBlock();
     }
 }
 
@@ -152,7 +163,17 @@
 }
 
 
-
+- (void)setAddressModel:(LHAddressModel *)addressModel {
+    _addressModel = addressModel;
+    self.nameLabel.text = [NSString stringWithFormat:@"%@", addressModel.name];
+    self.phoneLabel.text = [NSString stringWithFormat:@"%@", addressModel.mobile];
+    self.addressLabel.text = [NSString stringWithFormat:@"%@%@%@%@", addressModel.province, addressModel.city, addressModel.district, addressModel.detail_address];
+    if ([addressModel.isdefault integerValue] == 0) {
+        [self.defaultBtn setImage:kImage(@"MyBox_click_default") forState:(UIControlStateNormal)];
+    } else {
+        [self.defaultBtn setImage:kImage(@"MyBox_clicked") forState:(UIControlStateNormal)];
+    }
+}
 
 
 @end

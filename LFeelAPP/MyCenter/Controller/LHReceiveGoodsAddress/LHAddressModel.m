@@ -10,4 +10,36 @@
 
 @implementation LHAddressModel
 
+
+
+
+
+
+
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+    if ([key isEqualToString:@"id"]) {
+        self.id_ = value;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @end
