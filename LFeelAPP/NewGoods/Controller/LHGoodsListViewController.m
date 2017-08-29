@@ -201,13 +201,13 @@
  */
 - (void)requestGoodsListDataWithModel:(LHCategoryDetailListModel *)model {
     //recommended 是否推荐 0 --> 不推荐; 1 --> 推荐
-    //type 0 --> 购买的商品; 1 --> 租赁的商品
+    //type 0 --> 购买的商品; 1 --> 租赁的商品 , @"user_id": kUser_id
     NSMutableDictionary *dic = [NSMutableDictionary new];
     if (model) {
-         NSDictionary *aDic = @{@"id": model.id_, @"user_id": kUser_id, @"type": @0};
+         NSDictionary *aDic = @{@"id": model.id_, @"type": @0};
         dic = [aDic mutableCopy];
     } else {
-        NSDictionary *aDic = @{@"recommend": @1, @"user_id": kUser_id, @"type": @0};
+        NSDictionary *aDic = @{@"recommend": @1, @"type": @0};
         dic = [aDic mutableCopy];
     }
     [LHNetworkManager requestForGetWithUrl:kNewGoodsListUrl parameter:dic success:^(id reponseObject) {

@@ -43,6 +43,11 @@
         [self.navigationController popViewControllerAnimated:YES];
     } rightFirst:@"新增" rightFirstBtnAction:^{
         LHEditAddressViewController *editVC = [[LHEditAddressViewController alloc] init];
+        editVC.hbk_navgationBar.title = @"新增地址";
+        editVC.SubmitBlock = ^{
+            [self.addressArray removeAllObjects];
+            [self.addressTableView.mj_header beginRefreshing];
+        };
         [self.navigationController pushViewController:editVC animated:YES];
     }];
     self.hbk_navgationBar.rightFirstBtn.frame = CGRectMake(kScreenWidth-50, 21, 50, 42);
@@ -55,6 +60,13 @@
     self.addressTableView.tableFooterView = [[UIView alloc] init];
     self.addressTableView.backgroundColor = kColor(245, 245, 245);
     [self.view addSubview:self.addressTableView];
+    
+    self.addressTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self.addressArray removeAllObjects];
+        [self requestAddressListData];
+    }];
+    
+    
     
 }
 
@@ -80,9 +92,13 @@
     }];
     
     [cell EditAddressBlock:^{
-        NSLog(@"编辑");
-        NSLog(@"编辑 ---- %ld --  %ld", indexPath.section, indexPath.row);
-
+        LHEditAddressViewController *editVC = [[LHEditAddressViewController alloc] init];
+        editVC.addressModel = self.addressArray[indexPath.section];
+        editVC.SubmitBlock = ^{
+            [self.addressArray removeAllObjects];
+            [self.addressTableView.mj_header beginRefreshing];
+        };
+        [self.navigationController pushViewController:editVC animated:YES];
         
     }];
   
@@ -96,7 +112,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 26 + 80*kRatio;
+    return 26 + kFit(80);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -104,10 +120,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"---- %ld ----", indexPath.section);
     if (!self.addressBlock) {
         return;
     }
+    NSLog(@"---- %ld ----", indexPath.section);
     LHAddressModel *model = [[LHAddressModel alloc] init];
     [self.addressArray addObject: model];
     if (self.addressBlock) {
@@ -145,8 +161,10 @@
                 [self.addressArray addObject:model];
             }
         }
+
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideProgressHUD];
+            [self.addressTableView.mj_header endRefreshing];
             [self.addressTableView reloadData];
         });
         if (self.addressArray.count == 0) {

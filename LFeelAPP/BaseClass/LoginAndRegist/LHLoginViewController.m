@@ -37,7 +37,7 @@
     
 }
 
-
+#pragma mark --------------- UI ------------------
 - (void)setUI {
     UIView *bgView = [[UIView alloc] init];
     bgView.backgroundColor = [UIColor redColor];
@@ -222,59 +222,8 @@
     UITapGestureRecognizer *tapForget = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapForgetAction)];
     [forgetLabel addGestureRecognizer:tapForget];
 }
-
-//跳转到注册页面
-- (void)tapRegistAction {
-    LHRegistViewController *registVC = [[LHRegistViewController alloc] init];
-    [self presentViewController:registVC animated:YES completion:nil];
-}
-
-//跳转到忘记密码界面
-- (void)tapForgetAction {
-    LHForgetPasswordViewController *forgetVC = [[LHForgetPasswordViewController alloc] init];
-    [self presentViewController:forgetVC animated:YES completion:nil];
-}
-
-
-//验证码登录
-- (void)mgsBtnAction {
-    LhCaptchaLoginViewController *captchaVC = [[LhCaptchaLoginViewController alloc] init];
-    [self presentViewController:captchaVC animated:YES completion:nil];
-}
-
-//登录
-- (void)loginBtnAction {
-    [self showProgressHUDWithTitle:@"登录中"];
-    NSDictionary *dic = @{@"mobile": self.phoneTextField.text, @"password": [MDManager md5withStr:self.passwordTextField.text], @"level":@0};
-    [LHNetworkManager PostWithUrl:kLoginURL parameter:dic success:^(id reponseObject) {
-//        NSLog(@"%@----%@----%@", self.phoneTextField.text, self.passwordTextField.text, [MDManager md5withStr:self.passwordTextField.text]);
-        NSLog(@"%@", reponseObject);
-        if ([kSTR(reponseObject[@"isError"]) isEqualToString:@"0"]) {
-            [LHUserInfoManager cleanUserInfo];
-            LHUserInfoModel *model = [[LHUserInfoModel alloc] init];
-            NSDictionary *dic = reponseObject[@"data"];
-            [model setValuesForKeysWithDictionary:dic[@"user"]];
-            [LHUserInfoManager saveUserInfoWithModel:model];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self dismissViewControllerAnimated:YES completion:nil];
-                [self hideProgressHUD];
-            });
-        } else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self showAlertViewWithTitle:reponseObject[@"errorDesc"]];
-            });
-        }
-    } failure:^(NSError *error) {
-        NSLog(@"%@", error);
-    }];
-}
-
-
-
 //第三方登录
 - (void)thirdLogin {
-
-    
     //微博
     UIButton *wbBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [wbBtn setImage:[UIImage imageNamed:@"Login_Weibo"] forState:(UIControlStateNormal)];
@@ -347,6 +296,35 @@
 }
 
 
+#pragma mark ------------ Action ---------------
+//跳转到注册页面
+- (void)tapRegistAction {
+    LHRegistViewController *registVC = [[LHRegistViewController alloc] init];
+    [self presentViewController:registVC animated:YES completion:nil];
+}
+
+//跳转到忘记密码界面
+- (void)tapForgetAction {
+    LHForgetPasswordViewController *forgetVC = [[LHForgetPasswordViewController alloc] init];
+    [self presentViewController:forgetVC animated:YES completion:nil];
+}
+
+
+//验证码登录
+- (void)mgsBtnAction {
+    LhCaptchaLoginViewController *captchaVC = [[LhCaptchaLoginViewController alloc] init];
+    [self presentViewController:captchaVC animated:YES completion:nil];
+}
+
+//登录
+- (void)loginBtnAction {
+    kVerifyPhone(self.phoneTextField.text, @"请输入正确手机号");
+    kVerifyText(self.passwordTextField.text.length, @"请输入密码");
+    
+    [self requestLoginData];
+}
+
+
 //微信登录
 - (void)wcBtnAction {
     NSLog(@"微信登录");
@@ -364,15 +342,51 @@
    
     NSLog(@"QQ登录");
 }
-
-
-
-
 //返回
 - (void)backAction {
     [self dismissViewControllerAnimated:YES completion:nil];
     
 }
+
+#pragma mark ------------- 网络请求 --------------
+
+- (void)requestLoginData {
+    [self showProgressHUDWithTitle:@"登录中"];
+    NSDictionary *dic = @{@"mobile": self.phoneTextField.text, @"password": [MDManager md5withStr:self.passwordTextField.text], @"level":@0};
+    [LHNetworkManager PostWithUrl:kLoginURL parameter:dic success:^(id reponseObject) {
+        //        NSLog(@"%@----%@----%@", self.phoneTextField.text, self.passwordTextField.text, [MDManager md5withStr:self.passwordTextField.text]);
+        NSLog(@"%@", reponseObject);
+        if ([kSTR(reponseObject[@"isError"]) isEqualToString:@"0"]) {
+            [LHUserInfoManager cleanUserInfo];
+            LHUserInfoModel *model = [[LHUserInfoModel alloc] init];
+            NSDictionary *dic = reponseObject[@"data"];
+            [model setValuesForKeysWithDictionary:dic[@"user"]];
+            [LHUserInfoManager saveUserInfoWithModel:model];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self dismissViewControllerAnimated:YES completion:nil];
+                [self hideProgressHUD];
+            });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self showAlertViewWithTitle:reponseObject[@"errorDesc"]];
+            });
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

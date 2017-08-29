@@ -14,7 +14,7 @@
 #import "LHGoodsListViewController.h"
 #import "LHNewGoodsModel.h"
 #import "LHNewGoodsDetailViewController.h"
-
+#import "LHLoginViewController.h"
 @interface LHNewGoodsViewController ()<UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate>
 
 @property (nonatomic, strong) UITableView *newsGoodTableView;
@@ -168,15 +168,20 @@
         cell.listModel = self.goodsArray[indexPath.row];
 
         [cell handleCollecitonBtnAction:^(BOOL isClick) {
-            LHGoodsListModel *model = self.goodsArray[indexPath.row];
-            if (isClick) {
-                KMyLog(@"收藏了");
-                model.iscollection = @"0";
+            if (![LHUserInfoManager isLoad]) {
+                LHLoginViewController *loginVC = [[LHLoginViewController alloc] init];
+                [self presentViewController:loginVC animated:YES completion:nil];
             } else {
-                KMyLog(@"取消收藏了");
-                model.iscollection = @"1";
+                LHGoodsListModel *model = self.goodsArray[indexPath.row];
+                if (isClick) {
+                    KMyLog(@"收藏了");
+                    model.iscollection = @"0";
+                } else {
+                    KMyLog(@"取消收藏了");
+                    model.iscollection = @"1";
+                }
+                [self requestCollectGoodsDataWithModel:model];
             }
-            [self requestCollectGoodsDataWithModel:model];
         }];
         
         return cell;
@@ -303,8 +308,8 @@
 - (void)requestRecommendGoodsListData {
     //recommended 是否推荐 0 --> 不推荐; 1 --> 推荐
     //type 0 --> 购买的商品; 1 --> 租赁的商品
-//    NSLog(@"---------------> %@", kUser_id);
-    [LHNetworkManager requestForGetWithUrl:kNewGoodsListUrl parameter:@{@"recommend": @1, @"user_id": kUser_id, @"type": @0} success:^(id reponseObject) {
+//    NSLog(@"---------------> %@", kUser_id); , @"user_id": kUser_id
+    [LHNetworkManager requestForGetWithUrl:kNewGoodsListUrl parameter:@{@"recommend": @1, @"type": @0} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             for (NSDictionary *dic in reponseObject[@"data"]) {

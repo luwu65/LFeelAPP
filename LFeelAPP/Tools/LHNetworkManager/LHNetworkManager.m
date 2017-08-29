@@ -109,7 +109,9 @@
     if (![url hasSuffix:@"?"]) {
         url = [url stringByAppendingString:@"?"];
     }
-    
+#if DEBUG
+    _printParameter(dic, url);
+#endif
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     request.HTTPMethod = @"POST";
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];

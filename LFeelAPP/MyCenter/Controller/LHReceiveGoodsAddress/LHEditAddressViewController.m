@@ -34,23 +34,45 @@
     [self.view rm_fitAllConstraint];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [self setHBK_NavigationBar];
     
-
+    if (self.addressModel) {
+        [self setHBK_NavigationBarWithTitle:@"修改地址"];
+        self.nameTF.text = self.addressModel.name;
+        self.phoneTF.text = self.addressModel.mobile;
+        self.detailAddressTF.text = self.addressModel.detail_address;
+        [self.addressBtn setTitle:[NSString stringWithFormat:@"%@%@%@", self.addressModel.province, self.addressModel.city, self.addressModel.district] forState:(UIControlStateNormal)];
+        self.defaultSwitch.on = [self.addressModel.isdefault integerValue] == 1 ? YES : NO;
+    } else {
+        NSLog(@"添加地址");
+        [self setHBK_NavigationBarWithTitle:@"添加地址"];
+    }
     
     
 }
-- (void)setHBK_NavigationBar {
+#pragma mark ----------- UI -----------
+- (void)setHBK_NavigationBarWithTitle:(NSString *)title {
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"新增地址" backAction:^{
+    self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:title backAction:^{
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }
 
-
+#pragma mark ------------- Action --------------
 //保存地址
 - (IBAction)submitBtnAction:(UIButton *)sender {
-    [self requestAddAddressData];
+    kVerifyText(self.nameTF.text.length, @"请输入姓名");
+    kVerifyPhone(self.phoneTF.text, @"请输入正确手机号");
+    if (!self.province || !self.city || !self.area) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            kShowError(@"请选择省市区");
+        });
+    }
+    kVerifyText(self.detailAddressTF.text.length, @"请输入详细地址");
+    if (self.addressModel) {
+        [self requestUpdateAddressData];
+    } else {
+        [self requestAddAddressData];
+    }
 }
 
 - (IBAction)chooseAddress:(UIButton *)sender {
@@ -76,17 +98,59 @@
 }
 
 
-#pragma  mark ----------------- 添加地址 --------------
+#pragma  mark ----------------- 网络请求 --------------
 //添加地址
 - (void)requestAddAddressData {
     //地址是否默认   先默认为0 (不是默认)
-    NSDictionary *dic = @{@"user_id": kUser_id, @"province": self.province, @"city": self.city, @"district": self.area, @"mobile": self.phoneTF.text, @"detail_address": self.detailAddressTF.text, @"isdefault":@(self.defaultSwitch.on), @"name": self.nameTF.text};
-    [LHNetworkManager requestForGetWithUrl:kAddAddressUrl parameter:dic success:^(id reponseObject) {
+    NSInteger isDefault = self.defaultSwitch.on == YES ? 1 : 0;
+    NSDictionary *dic = @{@"user_id": kUser_id, @"province": self.province, @"city": self.city, @"district": self.area, @"mobile": self.phoneTF.text, @"detail_address": self.detailAddressTF.text, @"isdefault":@(isDefault), @"name": self.nameTF.text};
+    [LHNetworkManager PostWithUrl:kAddAddressUrl parameter:dic success:^(id reponseObject) {
         NSLog(@"-----------%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD showSuccess:@"添加成功"];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    if (self.SubmitBlock) {
+                        self.SubmitBlock();
+                    }
+                    [self.navigationController popViewControllerAnimated:YES];
+                });
+            });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showError:@"参数错误"];
+            });
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+
+//修改地址
+- (void)requestUpdateAddressData {
+    //地址是否默认   先默认为0 (不是默认)
+    NSInteger isDefault = self.defaultSwitch.on == YES ? 1 : 0;
+    NSString *AProvince = nil, *ACity = nil, *AArea = nil;
+    if (self.province || self.city || self.area) {
+        AProvince = self.province;
+        ACity = self.city;
+        AArea = self.area;
+    } else {
+        AProvince = self.addressModel.province;
+        ACity = self.addressModel.city;
+        AArea = self.addressModel.district;
+    }
+    NSDictionary *dic = @{@"user_id": kUser_id, @"province": AProvince, @"city": ACity, @"district": AArea, @"mobile": self.phoneTF.text, @"detail_address": self.detailAddressTF.text, @"isdefault":@(isDefault), @"name": self.nameTF.text, @"id": self.addressModel.id_};
+    [LHNetworkManager PostWithUrl:kAddressUpdateUrl parameter:dic success:^(id reponseObject) {
+        NSLog(@"-----------%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showSuccess:@"修改成功"];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    if (self.SubmitBlock) {
+                        self.SubmitBlock();
+                    }
                     [self.navigationController popViewControllerAnimated:YES];
                 });
             });
@@ -96,7 +160,21 @@
     } failure:^(NSError *error) {
         
     }];
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

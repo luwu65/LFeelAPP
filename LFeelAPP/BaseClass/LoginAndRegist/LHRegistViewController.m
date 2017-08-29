@@ -34,7 +34,7 @@
     
 }
 
-
+#pragma mark ------------------ 网络请求 ---------------------------
 - (void)requestURLWithRegistData {
     NSDictionary *dic = @{@"mobile": self.phoneTextField.text,
                           @"username": self.phoneTextField.text,
@@ -69,12 +69,10 @@
     }
 }
 
-
-
 //获取验证码
-- (void)obtainCaptchaAction:(UIButton *)sender {
+- (void)requestGetPhoneCodeData:(UIButton *)sender {
     [LHNetworkManager PostWithUrl:kGetVerifyURL parameter:@{@"mobile": self.phoneTextField.text} success:^(id reponseObject) {
-//        NSLog(@"============%@----%@", reponseObject, [reponseObject class]);
+        //NSLog(@"============%@----%@", reponseObject, [reponseObject class]);
         if ([kSTR(reponseObject[@"isError"]) isEqualToString:@"0"]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self hideProgressHUD];
@@ -86,6 +84,16 @@
     } failure:^(NSError *error) {
         NSLog(@"~~~~~~~~~~~~%@", error);
     }];
+    
+}
+
+
+
+#pragma mark ------------- Action ----------------------
+//获取验证码
+- (void)obtainCaptchaAction:(UIButton *)sender {
+    kVerifyPhone(self.phoneTextField.text, @"请输入正确手机号");
+    [self requestGetPhoneCodeData:sender];
 }
 
 
@@ -97,6 +105,10 @@
 
 //注册
 - (void)registBtnAction {
+    kVerifyPhone(self.phoneTextField.text, @"请输入正确手机号");
+    kVerifyText(self.captchaTextField.text.length, @"请输入验证码");
+    kVerifyText(self.passwordTextField1.text.length, @"请输入登录密码");
+    kVerifyText(self.passwordTextField2.text.length, @"请再次输入登录密码");
     [self requestURLWithRegistData];
 }
 
@@ -108,7 +120,7 @@
 }
 
 
-
+#pragma mark ---------------- UI -------------------------
 
 - (void)setUI {
     UIView *bgView = [[UIView alloc] init];

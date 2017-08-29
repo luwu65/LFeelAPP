@@ -7,7 +7,35 @@
 //
 
 #import "LHBaseViewController.h"
-
+#import "LHAddressModel.h"
 @interface LHEditAddressViewController : LHBaseViewController
+
+
+
+//地址
+@property (nonatomic, strong) LHAddressModel *addressModel;
+
+
+@property (nonatomic, copy) void (^SubmitBlock)();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end
