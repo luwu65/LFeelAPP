@@ -43,7 +43,7 @@
                           @"invitation_code": self.inviteTextField.text};
     if ([self.passwordTextField1.text isEqualToString:self.passwordTextField2.text]) {
         [LHNetworkManager PostWithUrl:kRegistURL parameter:dic success:^(id reponseObject) {
-            NSLog(@"AAAAAAAAAAAAAAAAA%@", reponseObject);
+            NSLog(@"----------------- %@", reponseObject);
             NSLog(@"%@", [reponseObject class]);
             if ([dic isKindOfClass:[NSDictionary class]]) {
                 if ([reponseObject isKindOfClass:[NSDictionary class]]) {
@@ -58,7 +58,7 @@
                 }
             }
         } failure:^(NSError *error) {
-            NSLog(@"BBBBBBBBBBBBBBBBB%@", error);
+            NSLog(@"------------------ %@", error);
             
         }];
     } else {
@@ -229,7 +229,7 @@
     [captchaBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.view.mas_right).offset(-20);
         make.centerY.equalTo(captchaImageView.mas_centerY);
-        make.width.mas_equalTo(80);
+        make.width.mas_equalTo(kFit(120));
         make.height.mas_equalTo(30);
     }];
     

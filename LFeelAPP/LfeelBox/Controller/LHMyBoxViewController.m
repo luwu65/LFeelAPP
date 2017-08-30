@@ -114,7 +114,7 @@
     }
     
 //    [self requestShoppingCartData1];
-    NSLog(@"+++++++++++++++++++++++++++++++++++++++++++%d", self.CollectionSuccess);
+//    NSLog(@"+++++++++++++++++++++++++++++++++++++++++++%d", self.CollectionSuccess);
     
 }
 //监测到有收藏, 就把收藏状态改为YES
@@ -127,7 +127,7 @@
 - (void)setUI {
     __weak typeof(self) weakself = self;
     CGFloat tabBarHeight = 49;
-    if (self.isSubPage) {
+    if ([self.subPage isEqualToString:@"Rent"] || [self.subPage isEqualToString:@"New"]) {
         tabBarHeight = 0;
         self.boxScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64-tabBarHeight)];
         self.boxScrollView.contentSize = CGSizeMake(kScreenWidth * 2, kScreenHeight-kNavBarHeight-tabBarHeight);
@@ -158,7 +158,8 @@
     self.myBoxTableView.backgroundColor = kColor(246, 246, 246);
     self.myBoxTableView.tableFooterView = [[UIView alloc] init];
     [leftBgView addSubview:self.myBoxTableView];
-    
+    self.myBoxTableView.mj_header  = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshMyBoxTable)];
+    self.myBoxTableView.mj_footer = [MJRefreshAutoFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefreshMyBoxTable)];
     
     self.shoppingCartTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight- 64 -tabBarHeight-kAllBarHeight*kRatio) style:(UITableViewStyleGrouped)];
     self.shoppingCartTableView.delegate = self;
@@ -166,22 +167,29 @@
     self.shoppingCartTableView.backgroundColor = kColor(246, 246, 246);
     self.shoppingCartTableView.tableFooterView = [[UIView alloc] init];
     [rightBgView addSubview:self.shoppingCartTableView];
+    self.shoppingCartTableView.mj_header  = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreShshoppingCartTable)];
+    self.shoppingCartTableView.mj_footer = [MJRefreshAutoFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefreshShoppingCartTable)];
     
     [self.shoppingCartTableView registerClass:[LHCartHeaderView class] forHeaderFooterViewReuseIdentifier:@"LHCartHeaderView"];
     
     // ----------------------------------------------  打包 底栏  ----------------------------------
     LHPackingBoxView *packView = [[LHPackingBoxView alloc] initWithFrame:CGRectMake(0, kScreenHeight-kNavBarHeight-tabBarHeight-kAllBarHeight*kRatio, kScreenWidth, kAllBarHeight*kRatio) packingStatusString:@"   随机打包三件给你" packingButtonTitle:@"打包盒子"];
     [packView clickPackingButtonBlock:^(NSString *packBtnTitle) {
-//        LHPackInfoViewController *packVC = [[LHPackInfoViewController alloc] init];
-//        NSLog(@"打包盒子");
-//        [weakself.navigationController pushViewController:packVC animated:YES];
         
-        LHSendBackViewController *sendBack = [[LHSendBackViewController alloc] init];
-        [weakself.navigationController pushViewController:sendBack animated:YES];
-        
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
+        [alertVC addAction:[UIAlertAction actionWithTitle:@"打包盒子" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+            NSLog(@"打包盒子");
+            LHPackInfoViewController *packVC = [[LHPackInfoViewController alloc] init];
+            [weakself.navigationController pushViewController:packVC animated:YES];
+        }]];
+        [alertVC addAction:[UIAlertAction actionWithTitle:@"寄回盒子" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+            LHSendBackViewController *sendBack = [[LHSendBackViewController alloc] init];
+            [weakself.navigationController pushViewController:sendBack animated:YES];
+        }]];
+        [alertVC addAction:[UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil]];
+        [self presentViewController:alertVC animated:YES completion:nil];
     }];
     [leftBgView addSubview:packView];
-    
     
     //---------------------------------------------------  结算 底栏  --------------------------------
     self.accrountView = [[LHPackingBoxView alloc] initWithFrame:CGRectMake(0, kScreenHeight-kNavBarHeight-tabBarHeight-kAllBarHeight*kRatio, kScreenWidth, kAllBarHeight*kRatio)];
@@ -223,7 +231,7 @@
     }];
     [bgView addSubview: segView];
 
-    if (self.isSubPage) {
+    if ([self.subPage isEqualToString:@"New"]) {
         UIButton *backBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
         [backBtn setImage:kImage(@"Back_Button") forState:(UIControlStateNormal)];
         backBtn.frame = CGRectMake(0, 20, 44, 44);
@@ -245,10 +253,14 @@
                 }
             }
         }
+    } else if ([self.subPage isEqualToString:@"New"]) {
+        UIButton *backBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        [backBtn setImage:kImage(@"Back_Button") forState:(UIControlStateNormal)];
+        backBtn.frame = CGRectMake(0, 20, 44, 44);
+        [backBtn addTarget:self action:@selector(backAction) forControlEvents:(UIControlEventTouchUpInside)];
+        [bgView addSubview:backBtn];
+        
     }
-}
-- (void)backAction {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -473,7 +485,7 @@
     self.shoppingCartTableView = nil;
     
     CGFloat tabBarHeight = 49;
-    if (self.isSubPage) {
+    if ([self.subPage isEqualToString:@"Rent"] || [self.subPage isEqualToString:@"New"]) {
         tabBarHeight = 0;
     } else {
         tabBarHeight = 49;
@@ -514,7 +526,7 @@
     self.myBoxTableView = nil;
     
     CGFloat tabBarHeight = 49;
-    if (self.isSubPage) {
+    if ([self.subPage isEqualToString:@"Rent"] || [self.subPage isEqualToString:@"New"]) {
         tabBarHeight = 0;
     } else {
         tabBarHeight = 49;
@@ -547,6 +559,9 @@
 }
 
 #pragma mark  ------------------   Action -------------------
+- (void)backAction {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 //去逛逛首页
 - (void)handleGoHomeAction {
@@ -588,7 +603,25 @@
     
 }
 
+- (void)headerRefreshMyBoxTable {
+    [self.myBoxArray removeAllObjects];
+    [self requstMyBoxCartData];
+}
 
+- (void)footerRefreshMyBoxTable {
+    
+    
+}
+
+- (void)headerRefreShshoppingCartTable {
+    
+    
+}
+
+- (void)footerRefreshShoppingCartTable {
+    
+    
+}
 
 #pragma mark  --------------  判断是否全选等    价格的计算  ----------------------
 - (void)verityGroupSelectState:(NSInteger)section {
@@ -681,6 +714,7 @@
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideProgressHUD];
+            [self.myBoxTableView.mj_header endRefreshing];
             [self.myBoxTableView reloadData];
         });
     } failure:^(NSError *error) {

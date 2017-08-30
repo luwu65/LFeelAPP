@@ -48,6 +48,9 @@
     self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"分销收益" leftFirst:@"Login_Back_write" leftFirstAction:^{
         [self.navigationController popViewControllerAnimated:YES];
     } rightFirst:@"提现" rightFirstBtnAction:^{
+        NSLog(@"提现");
+        
+        
         
     }];
     self.hbk_navgationBar.rightFirstBtn.frame = CGRectMake(kScreenWidth-60, 31, 50, 25);

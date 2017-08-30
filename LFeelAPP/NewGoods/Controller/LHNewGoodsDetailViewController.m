@@ -12,6 +12,7 @@
 #import "LHGoodsCommentHeaderFooterView.h"
 #import "LHAllCommentViewController.h"
 #import "LHGoodsDetailModel.h"
+#import "LHMyBoxViewController.h"
 @interface LHNewGoodsDetailViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *detailTableView;
@@ -60,7 +61,7 @@
     self.detailTableView.delegate = self;
     [self.view addSubview:self.detailTableView];
     
-    self.cycleView = [[LHNewGoodsDetailCycleView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth*2.1) imageFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth*1.5) placeHolderImage:kImage(@"")];
+    self.cycleView = [[LHNewGoodsDetailCycleView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth*1.8) imageFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth*1.2) placeHolderImage:kImage(@"")];
     
     self.cycleView.backgroundColor = [UIColor whiteColor];
     self.detailTableView.tableHeaderView = self.cycleView;
@@ -86,13 +87,13 @@
         productInfo.label = @"运动";
         //  页面地址url（必填)
         productInfo.link = @"";
-        
         [self openZCServiceWithProduct:productInfo];
         
-    } rightSecond:@"Home_GoodsDetail_Box" rightSecondBtnAction:^{
-        
-        
-        
+    } rightSecond:@"MyBox_Detail_ShoppingCart" rightSecondBtnAction:^{
+        LHMyBoxViewController *boxVC = [[LHMyBoxViewController alloc] init];
+        boxVC.subPage = @"New";
+        [self.navigationController pushViewController:boxVC animated:YES];
+    } rightThird:@"Home_GoodsDetail_Share" rightThirdBtnAction:^{
         
     }];
     self.hbk_navgationBar.bgColor = [UIColor clearColor];
@@ -196,7 +197,10 @@
                 [self.detailTableView reloadData];
             });
         }
-        [self hideProgressHUD];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self hideProgressHUD];
+        });
     } failure:^(NSError *error) {
         NSLog(@"%@", error);
     }];
@@ -229,11 +233,15 @@
             self.hbk_navgationBar.deviderLayer.backgroundColor = HexColorInt32_t(DDDDDD).CGColor;
             [self.hbk_navgationBar.leftFirstBtn setImage:kImage(@"Back_Button") forState:(UIControlStateNormal)];
             [self.hbk_navgationBar.rightFirstBtn setImage:kImage(@"Home_service") forState:(UIControlStateNormal)];
-            [self.hbk_navgationBar.rightSecondBtn setImage:kImage(@"Home_GoodsDetail_Box_scroll") forState:(UIControlStateNormal)];
+            [self.hbk_navgationBar.rightSecondBtn setImage:kImage(@"MyBox_Detail_ShoppingCart_Scroll") forState:(UIControlStateNormal)];
+            [self.hbk_navgationBar.rightThirdBtn setImage:kImage(@"Home_GoodsDetail_Share_scroll") forState:(UIControlStateNormal)];
+
         } else {
             [self.hbk_navgationBar.leftFirstBtn setImage:kImage(@"Home_GoodsDetail_Back") forState:(UIControlStateNormal)];
             [self.hbk_navgationBar.rightFirstBtn setImage:kImage(@"Home_GoodsDetail_Service") forState:(UIControlStateNormal)];
-            [self.hbk_navgationBar.rightSecondBtn setImage:kImage(@"Home_GoodsDetail_Box") forState:(UIControlStateNormal)];
+            [self.hbk_navgationBar.rightSecondBtn setImage:kImage(@"MyBox_Detail_ShoppingCart") forState:(UIControlStateNormal)];
+            [self.hbk_navgationBar.rightThirdBtn setImage:kImage(@"Home_GoodsDetail_Share") forState:(UIControlStateNormal)];
+
             self.hbk_navgationBar.deviderLayer.backgroundColor = [UIColor clearColor].CGColor;
         }
         CGFloat alphy = y / 150.0 > 1.0 ? 1.0 : y / 150.0;

@@ -210,19 +210,17 @@
 #pragma mark -----------------------------------------------------------------------------------------------
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.categoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, kFit(40), frame.size.height)];
+        self.categoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kFit(40), frame.size.height)];
         self.categoryLabel.font = kFont(15);
         [self addSubview:self.categoryLabel];
         
-        self.tagScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(kFit(40)+10, 0, self.frame.size.width, self.frame.size.height)];
+        self.tagScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(kFit(40), 0, self.frame.size.width, self.frame.size.height)];
         self.tagScrollView.contentSize = CGSizeMake(CGFLOAT_MAX, self.size.height);
         self.tagScrollView.showsHorizontalScrollIndicator = NO;
         [self addSubview:self.tagScrollView];
         
         self.contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGFLOAT_MAX, self.frame.size.height)];
         [self.tagScrollView addSubview:self.contentView];
-        
-
         
     }
     return self;

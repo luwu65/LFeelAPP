@@ -27,7 +27,7 @@
 #define kGetVerifyURL              @"vipmanagement/getverifycode"
 
 //注册
-#define kRegistURL                 @"vipmanagement/create"
+#define kRegistURL                 @"vipmanagement/add"
 
 //验证码登录
 #define kVerifyLogin               @"vipmanagement/verifylogin"

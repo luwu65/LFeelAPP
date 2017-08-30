@@ -37,6 +37,13 @@ typedef void(^ClickBlock)();
  */
 @property (nonatomic, strong) UIButton *rightSecondBtn;
 
+
+/**
+ 右边第三个item
+ */
+@property (nonatomic, strong) UIButton *rightThirdBtn;
+
+
 /* 
  背景图片 
  */
@@ -211,7 +218,7 @@ typedef void(^ClickBlock)();
 
 
 /**
- 标题  ---> 返回按钮 右边两个个按钮
+ 标题  ---> 返回按钮 右边两个按钮
  @param title 标题
  @param back 返回按钮
  @param rightFirst 右边第一个图片
@@ -229,6 +236,29 @@ typedef void(^ClickBlock)();
 
 
 
+/**
+ 标题  ---> 返回按钮 右边三个按钮
+
+ @param title 标题
+ @param leftFirst 返回按钮图片
+ @param leftFirstAction 返回按钮事件
+ @param rightFirst 右边第一个图片
+ @param rightFirstAction 右边第一个事件
+ @param rightSecond 右边第二个图片
+ @param rightSecondAction 右边第二个事件
+ @param rightThird 右边第三个图片
+ @param rightThirdBtnAction 右边第三个事件
+ @return 导航栏
+ */
++ (instancetype)HBK_setupNavigationBarWithTitle:(NSString *)title
+                                      leftFirst:(NSString *)leftFirst
+                                leftFirstAction:(ClickBlock)leftFirstAction
+                                     rightFirst:(NSString *)rightFirst
+                            rightFirstBtnAction:(ClickBlock)rightFirstAction
+                                    rightSecond:(NSString *)rightSecond
+                           rightSecondBtnAction:(ClickBlock)rightSecondAction
+                                     rightThird:(NSString *)rightThird
+                            rightThirdBtnAction:(ClickBlock)rightThirdBtnAction;
 
 
 @end

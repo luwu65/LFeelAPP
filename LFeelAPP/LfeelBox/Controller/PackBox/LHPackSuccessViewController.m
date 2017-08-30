@@ -10,6 +10,19 @@
 
 @interface LHPackSuccessViewController ()
 
+/**
+ 打包成功或失败显示不同的图片
+ */
+@property (weak, nonatomic) IBOutlet UIImageView *statusImageView;
+
+/**
+ 打包成功的文字显示
+ */
+@property (weak, nonatomic) IBOutlet UILabel *textLabel;
+
+
+
+
 @end
 
 @implementation LHPackSuccessViewController
@@ -29,6 +42,17 @@
     }];
 }
 
+//继续逛逛
+- (IBAction)Continue:(UIButton *)sender {
+    
+    
+}
+
+//查看订单
+- (IBAction)cheakOrder:(UIButton *)sender {
+
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

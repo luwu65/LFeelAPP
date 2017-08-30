@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LHPackSuccessViewController">
+            <connections>
+                <outlet property="statusImageView" destination="S4F-RX-uwn" id="l56-Xc-mg8"/>
+                <outlet property="textLabel" destination="lYj-pR-ocd" id="PIK-NC-4he"/>
+                <outlet property="view" destination="iN0-l3-epB" id="7d9-gR-Qa4"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MyBox_packSuccess" translatesAutoresizingMaskIntoConstraints="NO" id="S4F-RX-uwn">
+                    <rect key="frame" x="90" y="100" width="195" height="195"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="S4F-RX-uwn" secondAttribute="height" id="8Dg-Kn-J9a"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="打包成功!您的盒子会尽快进行处理!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lYj-pR-ocd">
+                    <rect key="frame" x="0.0" y="315" width="375" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="6WU-TE-5zy"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V9z-2h-Plj">
+                    <rect key="frame" x="20" y="542" width="157.5" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="Slb-pP-qQp"/>
+                    </constraints>
+                    <state key="normal" title="继续逛逛">
+                        <color key="titleColor" red="1" green="0.1281391285" blue="0.14585888759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" red="1" green="0.1281391285" blue="0.14585888759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="Continue:" destination="-1" eventType="touchUpInside" id="xlX-tK-L8Y"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WUA-zU-VIF">
+                    <rect key="frame" x="197.5" y="542" width="157.5" height="45"/>
+                    <state key="normal" title="查看订单">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="cheakOrder:" destination="-1" eventType="touchUpInside" id="306-Gp-axd"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="S4F-RX-uwn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="100" id="0zT-cA-VpI"/>
+                <constraint firstItem="lYj-pR-ocd" firstAttribute="top" secondItem="S4F-RX-uwn" secondAttribute="bottom" constant="20" id="9SL-Uu-CAz"/>
+                <constraint firstItem="V9z-2h-Plj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="AMf-Kh-Di6"/>
+                <constraint firstItem="lYj-pR-ocd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="GFj-Ef-u9C"/>
+                <constraint firstItem="WUA-zU-VIF" firstAttribute="leading" secondItem="V9z-2h-Plj" secondAttribute="trailing" constant="20" id="Jxq-bG-Puk"/>
+                <constraint firstItem="S4F-RX-uwn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="90" id="RfF-IH-Chg"/>
+                <constraint firstItem="WUA-zU-VIF" firstAttribute="width" secondItem="V9z-2h-Plj" secondAttribute="width" id="S6A-nY-94q"/>
+                <constraint firstAttribute="bottom" secondItem="V9z-2h-Plj" secondAttribute="bottom" constant="80" id="Zaa-vg-eYt"/>
+                <constraint firstAttribute="trailing" secondItem="S4F-RX-uwn" secondAttribute="trailing" constant="90" id="c4d-JE-ZjR"/>
+                <constraint firstAttribute="trailing" secondItem="WUA-zU-VIF" secondAttribute="trailing" constant="20" id="gIX-SF-lW7"/>
+                <constraint firstItem="WUA-zU-VIF" firstAttribute="height" secondItem="V9z-2h-Plj" secondAttribute="height" id="mja-9g-GHm"/>
+                <constraint firstAttribute="trailing" secondItem="lYj-pR-ocd" secondAttribute="trailing" id="nmL-GP-zhO"/>
+                <constraint firstAttribute="bottom" secondItem="WUA-zU-VIF" secondAttribute="bottom" constant="80" id="wSN-zt-0IO"/>
+            </constraints>
+            <point key="canvasLocation" x="24.5" y="51.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="MyBox_packSuccess" width="16" height="16"/>
+    </resources>
+</document>

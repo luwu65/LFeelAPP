@@ -114,34 +114,23 @@
         self.rentCycleView.placeholderImage = placeHolderImage;
         [self addSubview:self.rentCycleView];
         
-        self.titleLabel = [[UILabel alloc] init];
+        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(kFit(10), self.rentCycleView.maxY + kFit(5), kScreenWidth - kFit(80), kFit(25))];
         self.titleLabel.backgroundColor = [UIColor whiteColor];
         self.titleLabel.font = kFont(17*kRatio);
         [self addSubview:self.titleLabel];
-        [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.mas_left).offset(kFit(5));
-            make.right.equalTo(self.mas_right).offset(-10);
-            make.top.equalTo(self.rentCycleView.mas_bottom).offset(5);
-            make.height.mas_equalTo(kFit(25));
-        }];
+        
+        self.tagView = [[LHTagView alloc] initWithFrame:CGRectMake(kFit(10), self.titleLabel.maxY+kFit(5), kScreenWidth-kFit(20), kFit(40))];
+        [self addSubview:self.tagView];
         
         UIButton *addBox = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        addBox.frame = CGRectMake(kFit(15), self.tagView.maxY+kFit(10), kScreenWidth - kFit(30), kFit(40));
         [addBox setTitle:@"加入我的盒子" forState:(UIControlStateNormal)];
         [addBox setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
         [self addSubview:addBox];
-        [addBox mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.mas_left).offset(kFit(15));
-            make.right.equalTo(self.mas_right).offset(kFit(-15));
-            make.height.mas_equalTo(kFit(40));
-            make.bottom.equalTo(self.mas_bottom).offset(kFit(-20));
-        }];
         addBox.layer.masksToBounds = YES;
         addBox.layer.borderColor = [UIColor redColor].CGColor;
         addBox.layer.borderWidth = 1;
         addBox.layer.cornerRadius = 2;
-        
-        self.tagView = [[LHTagView alloc] initWithFrame:CGRectMake(10, kFit(30)+kScreenWidth*1.4, kScreenWidth-10, kFit(40))];
-        [self addSubview:self.tagView];
     }
     return self;
 }
@@ -171,7 +160,7 @@
 @implementation LHNewGoodsDetailCycleView
 
 /*
- 租赁详情
+ 新品详情
  */
 - (instancetype)initWithFrame:(CGRect)frame
                    imageFrame:(CGRect)imageFrame
@@ -201,7 +190,7 @@
         
         
         UIButton *addCart = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        addCart.frame = CGRectMake(kFit(15), self.maxY-kFit(50), (kScreenWidth-kFit(45))/2, kFit(45));
+        addCart.frame = CGRectMake(kFit(15), self.colorTagView.maxY + kFit(10), (kScreenWidth-kFit(45))/2, kFit(45));
         [addCart setTitle:@"加入购物车" forState:(UIControlStateNormal)];
         [addCart setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
         [addCart addTarget:self action:@selector(addShoppingCart) forControlEvents:(UIControlEventTouchUpInside)];
@@ -213,7 +202,7 @@
         
         
         UIButton *bugNowBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        bugNowBtn.frame = CGRectMake(addCart.maxX + kFit(15), self.maxY-kFit(50), (kScreenWidth-kFit(45))/2, kFit(45));
+        bugNowBtn.frame = CGRectMake(addCart.maxX + kFit(15), self.colorTagView.maxY + kFit(10), (kScreenWidth-kFit(45))/2, kFit(45));
         [bugNowBtn setTitle:@"立即购买" forState:(UIControlStateNormal)];
         [bugNowBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
         [bugNowBtn addTarget:self action:@selector(bugNowAction) forControlEvents:(UIControlEventTouchUpInside)];
@@ -221,9 +210,6 @@
         bugNowBtn.backgroundColor = [UIColor redColor];
         bugNowBtn.layer.masksToBounds = YES;
         bugNowBtn.layer.cornerRadius = 2;
-        
-
-        
     }
     return self;
 }

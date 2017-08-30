@@ -363,11 +363,12 @@
             [model setValuesForKeysWithDictionary:dic[@"user"]];
             [LHUserInfoManager saveUserInfoWithModel:model];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self dismissViewControllerAnimated:YES completion:nil];
                 [self hideProgressHUD];
+                [self dismissViewControllerAnimated:YES completion:nil];
             });
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self hideProgressHUD];
                 [self showAlertViewWithTitle:reponseObject[@"errorDesc"]];
             });
         }

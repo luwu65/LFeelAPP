@@ -33,6 +33,7 @@ static NSString * BackButtonImageName = @"Back_Button";
 @property (nonatomic, copy) ClickBlock leftSecondBlock;
 @property (nonatomic, copy) ClickBlock rightFirstBlock;
 @property (nonatomic, copy) ClickBlock rightSecondBlock;
+@property (nonatomic, copy) ClickBlock rightThirdBlock;
 
 
 @end
@@ -98,7 +99,9 @@ static NSString * BackButtonImageName = @"Back_Button";
                    rightFirst:(NSString *)rightFirst
           rightFirstBtnAction:(ClickBlock)rightFirstAction
                   rightSecond:(NSString *)rightSecond
-         rightSecondBtnAction:(ClickBlock)rightSecondAction {
+         rightSecondBtnAction:(ClickBlock)rightSecondAction
+                   rightThird:(NSString *)rightThird
+         rightSecondBtnAction:(ClickBlock)rightThirdAction {
     if (self = [super init]) {
         self.bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 63.5)];
         [self addSubview:self.bgImageView];
@@ -180,6 +183,25 @@ static NSString * BackButtonImageName = @"Back_Button";
             [self addSubview:self.rightSecondBtn];
         }
         
+        if (rightThird) {
+            self.rightThirdBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+            self.rightThirdBtn.frame = CGRectMake(kScreenWidth-105, 27, 30, 30);
+            UIImage *image = [UIImage imageNamed:rightThird];
+            if (image) {
+                [self.rightThirdBtn setImage:[UIImage imageNamed:rightThird] forState:(UIControlStateNormal)];
+            } else {
+                [self.rightThirdBtn setTitle:rightSecond forState:(UIControlStateNormal)];
+                self.rightThirdBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+                [self.rightThirdBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+            }
+            [self.rightThirdBtn addTarget:self action:@selector(rightSecondBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
+            self.rightThirdBlock = rightThirdAction;
+            [self addSubview:self.rightThirdBtn];
+        }
+        
+        
+        
+        
     }
     return self;
 }
@@ -195,6 +217,8 @@ static NSString * BackButtonImageName = @"Back_Button";
                             rightFirst:nil
                    rightFirstBtnAction:nil
                            rightSecond:nil
+                  rightSecondBtnAction:nil
+                            rightThird:nil
                   rightSecondBtnAction:nil];
 }
 
@@ -210,6 +234,8 @@ static NSString * BackButtonImageName = @"Back_Button";
                             rightFirst:nil
                    rightFirstBtnAction:nil
                            rightSecond:nil
+                  rightSecondBtnAction:nil
+                            rightThird:nil
                   rightSecondBtnAction:nil];
 }
 
@@ -225,6 +251,8 @@ static NSString * BackButtonImageName = @"Back_Button";
                             rightFirst:nil
                    rightFirstBtnAction:nil
                            rightSecond:nil
+                  rightSecondBtnAction:nil
+                            rightThird:nil
                   rightSecondBtnAction:nil];
 }
 
@@ -242,6 +270,8 @@ static NSString * BackButtonImageName = @"Back_Button";
                             rightFirst:nil
                    rightFirstBtnAction:nil
                            rightSecond:nil
+                  rightSecondBtnAction:nil
+                            rightThird:nil
                   rightSecondBtnAction:nil];
 }
 
@@ -256,6 +286,8 @@ static NSString * BackButtonImageName = @"Back_Button";
                             rightFirst:rightFirst
                    rightFirstBtnAction:rightFirstAction
                            rightSecond:nil
+                  rightSecondBtnAction:nil
+                            rightThird:nil
                   rightSecondBtnAction:nil];
 }
 
@@ -272,6 +304,8 @@ static NSString * BackButtonImageName = @"Back_Button";
                             rightFirst:rightFirst
                    rightFirstBtnAction:rightFirstAction
                            rightSecond:nil
+                  rightSecondBtnAction:nil
+                            rightThird:nil
                   rightSecondBtnAction:nil];
 }
 
@@ -290,7 +324,9 @@ static NSString * BackButtonImageName = @"Back_Button";
                             rightFirst:rightFirst
                    rightFirstBtnAction:rightFirstAction
                            rightSecond:rightSecond
-                  rightSecondBtnAction:rightSecondAction];
+                  rightSecondBtnAction:rightSecondAction
+                            rightThird:nil
+                  rightSecondBtnAction:nil];
 }
 
 
@@ -310,7 +346,9 @@ static NSString * BackButtonImageName = @"Back_Button";
                             rightFirst:rightFirst
                    rightFirstBtnAction:rightFirstAction
                            rightSecond:rightSecond
-                  rightSecondBtnAction:rightSecondAction];
+                  rightSecondBtnAction:rightSecondAction
+                            rightThird:nil
+                  rightSecondBtnAction:nil];
 
 }
 
@@ -327,6 +365,8 @@ static NSString * BackButtonImageName = @"Back_Button";
                             rightFirst:rightFirst
                    rightFirstBtnAction:rightFirstAction
                            rightSecond:nil
+                  rightSecondBtnAction:nil
+                            rightThird:nil
                   rightSecondBtnAction:nil];
 
 }
@@ -347,8 +387,34 @@ static NSString * BackButtonImageName = @"Back_Button";
                             rightFirst:rightFirst
                    rightFirstBtnAction:rightFirstAction
                            rightSecond:rightSecond
-                  rightSecondBtnAction:rightSecondAction];
+                  rightSecondBtnAction:rightSecondAction
+                            rightThird:nil
+                  rightSecondBtnAction:nil];
 }
+
+
++ (instancetype)HBK_setupNavigationBarWithTitle:(NSString *)title
+                                      leftFirst:(NSString *)leftFirst
+                                leftFirstAction:(ClickBlock)leftFirstAction
+                                     rightFirst:(NSString *)rightFirst
+                            rightFirstBtnAction:(ClickBlock)rightFirstAction
+                                    rightSecond:(NSString *)rightSecond
+                           rightSecondBtnAction:(ClickBlock)rightSecondAction
+                                     rightThird:(NSString *)rightThird
+                            rightThirdBtnAction:(ClickBlock)rightThirdBtnAction {
+    return [[self alloc] initWithTitle:title
+                             leftFirst:leftFirst
+                    leftFirstBtnAction:leftFirstAction
+                            leftSecond:nil
+                   leftSecondBtnAction:nil
+                            rightFirst:rightFirst
+                   rightFirstBtnAction:rightFirstAction
+                           rightSecond:rightSecond
+                  rightSecondBtnAction:rightSecondAction
+                            rightThird:rightThird
+                  rightSecondBtnAction:rightThirdBtnAction];
+}
+
 
 
 #pragma mark ------------  Action ------------------

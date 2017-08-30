@@ -12,6 +12,15 @@
 		0F03D9141F3B07D8002F7939 /* LHGoodsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F03D9111F3B07D8002F7939 /* LHGoodsDetailViewController.m */; };
 		0F03D9661F3BFCF6002F7939 /* LHHomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F03D9651F3BFCF6002F7939 /* LHHomeModel.m */; };
 		0F2F17CE1F319EC0006DE053 /* LHChooseClothesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2F17CD1F319EC0006DE053 /* LHChooseClothesViewController.m */; };
+		0F3175191F563BE500208DD0 /* LHAboutMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3175171F563BE500208DD0 /* LHAboutMeViewController.m */; };
+		0F31751A1F563BE500208DD0 /* LHAboutMeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3175181F563BE500208DD0 /* LHAboutMeViewController.xib */; };
+		0F31751E1F563C1C00208DD0 /* LHOftenQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F31751C1F563C1C00208DD0 /* LHOftenQuestionViewController.m */; };
+		0F31751F1F563C1C00208DD0 /* LHOftenQuestionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F31751D1F563C1C00208DD0 /* LHOftenQuestionViewController.xib */; };
+		0F3175221F563C5700208DD0 /* LHServeProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3175211F563C5700208DD0 /* LHServeProtocolViewController.m */; };
+		0F3175241F563C6E00208DD0 /* LHServeProtocolViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3175231F563C6E00208DD0 /* LHServeProtocolViewController.xib */; };
+		0F3175281F563CBC00208DD0 /* LHNotesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3175261F563CBC00208DD0 /* LHNotesViewController.m */; };
+		0F3175291F563CBC00208DD0 /* LHNotesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3175271F563CBC00208DD0 /* LHNotesViewController.xib */; };
+		0F31752B1F563E9900208DD0 /* LHPackSuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F31752A1F563E9900208DD0 /* LHPackSuccessViewController.xib */; };
 		0F3354681F0264380056FEA9 /* MDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3354671F0264380056FEA9 /* MDManager.m */; };
 		0F33547C1F0397260056FEA9 /* LHAllCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F33547B1F0397260056FEA9 /* LHAllCommentViewController.m */; };
 		0F33547F1F039C2A0056FEA9 /* LHParamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F33547E1F039C2A0056FEA9 /* LHParamCell.m */; };
@@ -178,6 +187,19 @@
 		0F03D9651F3BFCF6002F7939 /* LHHomeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHHomeModel.m; sourceTree = "<group>"; };
 		0F2F17CC1F319EC0006DE053 /* LHChooseClothesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHChooseClothesViewController.h; sourceTree = "<group>"; };
 		0F2F17CD1F319EC0006DE053 /* LHChooseClothesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHChooseClothesViewController.m; sourceTree = "<group>"; };
+		0F3175161F563BE500208DD0 /* LHAboutMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHAboutMeViewController.h; sourceTree = "<group>"; };
+		0F3175171F563BE500208DD0 /* LHAboutMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHAboutMeViewController.m; sourceTree = "<group>"; };
+		0F3175181F563BE500208DD0 /* LHAboutMeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHAboutMeViewController.xib; sourceTree = "<group>"; };
+		0F31751B1F563C1C00208DD0 /* LHOftenQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHOftenQuestionViewController.h; sourceTree = "<group>"; };
+		0F31751C1F563C1C00208DD0 /* LHOftenQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHOftenQuestionViewController.m; sourceTree = "<group>"; };
+		0F31751D1F563C1C00208DD0 /* LHOftenQuestionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHOftenQuestionViewController.xib; sourceTree = "<group>"; };
+		0F3175201F563C5700208DD0 /* LHServeProtocolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHServeProtocolViewController.h; sourceTree = "<group>"; };
+		0F3175211F563C5700208DD0 /* LHServeProtocolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHServeProtocolViewController.m; sourceTree = "<group>"; };
+		0F3175231F563C6E00208DD0 /* LHServeProtocolViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHServeProtocolViewController.xib; sourceTree = "<group>"; };
+		0F3175251F563CBC00208DD0 /* LHNotesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHNotesViewController.h; sourceTree = "<group>"; };
+		0F3175261F563CBC00208DD0 /* LHNotesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHNotesViewController.m; sourceTree = "<group>"; };
+		0F3175271F563CBC00208DD0 /* LHNotesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHNotesViewController.xib; sourceTree = "<group>"; };
+		0F31752A1F563E9900208DD0 /* LHPackSuccessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHPackSuccessViewController.xib; sourceTree = "<group>"; };
 		0F3354661F0264380056FEA9 /* MDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDManager.h; sourceTree = "<group>"; };
 		0F3354671F0264380056FEA9 /* MDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDManager.m; sourceTree = "<group>"; };
 		0F33547A1F0397260056FEA9 /* LHAllCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHAllCommentViewController.h; sourceTree = "<group>"; };
@@ -898,6 +920,18 @@
 				0F52B7201EF91965007D45EC /* LHSettingViewController.m */,
 				0F84BB3F1F219AE400D98999 /* LHChangePasswordViewController.h */,
 				0F84BB401F219AE400D98999 /* LHChangePasswordViewController.m */,
+				0F3175161F563BE500208DD0 /* LHAboutMeViewController.h */,
+				0F3175171F563BE500208DD0 /* LHAboutMeViewController.m */,
+				0F3175181F563BE500208DD0 /* LHAboutMeViewController.xib */,
+				0F31751B1F563C1C00208DD0 /* LHOftenQuestionViewController.h */,
+				0F31751C1F563C1C00208DD0 /* LHOftenQuestionViewController.m */,
+				0F31751D1F563C1C00208DD0 /* LHOftenQuestionViewController.xib */,
+				0F3175201F563C5700208DD0 /* LHServeProtocolViewController.h */,
+				0F3175211F563C5700208DD0 /* LHServeProtocolViewController.m */,
+				0F3175231F563C6E00208DD0 /* LHServeProtocolViewController.xib */,
+				0F3175251F563CBC00208DD0 /* LHNotesViewController.h */,
+				0F3175261F563CBC00208DD0 /* LHNotesViewController.m */,
+				0F3175271F563CBC00208DD0 /* LHNotesViewController.xib */,
 			);
 			path = LHSetting;
 			sourceTree = "<group>";
@@ -972,6 +1006,7 @@
 				0F7B79561F428FA8009DAF35 /* LHPackInfoChooseView.xib */,
 				0F7B79451F427F5F009DAF35 /* LHPackSuccessViewController.h */,
 				0F7B79461F427F5F009DAF35 /* LHPackSuccessViewController.m */,
+				0F31752A1F563E9900208DD0 /* LHPackSuccessViewController.xib */,
 				0F7B794E1F4280EC009DAF35 /* LHSendBackViewController.h */,
 				0F7B794F1F4280EC009DAF35 /* LHSendBackViewController.m */,
 				0F7B79501F4280EC009DAF35 /* LHSendBackViewController.xib */,
@@ -1293,8 +1328,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F52B6691EEFDE72007D45EC /* LHSpecialCollectionViewCell.xib in Resources */,
+				0F31752B1F563E9900208DD0 /* LHPackSuccessViewController.xib in Resources */,
 				0F52B6021EEF83E1007D45EC /* LaunchScreen.storyboard in Resources */,
 				0F52B5FF1EEF83E1007D45EC /* Assets.xcassets in Resources */,
+				0F31751F1F563C1C00208DD0 /* LHOftenQuestionViewController.xib in Resources */,
 				0F7B79521F4280EC009DAF35 /* LHSendBackViewController.xib in Resources */,
 				0F3F642D1F41495500A42084 /* LHAccountCenterHeaderFooterView.xib in Resources */,
 				0F594CA81F2610860047DCC1 /* ShopCarNew.plist in Resources */,
@@ -1303,11 +1340,14 @@
 				0F52B66E1EEFDE87007D45EC /* LHBuyNewCollectionViewCell.xib in Resources */,
 				0F52B6A51EF265D4007D45EC /* LHNewGoodsCollectionCell.xib in Resources */,
 				0F52B6A01EF25A80007D45EC /* LHNewGoodsCell.xib in Resources */,
+				0F3175291F563CBC00208DD0 /* LHNotesViewController.xib in Resources */,
 				0F52B6AA1EF268ED007D45EC /* LHBrondCollectionCell.xib in Resources */,
+				0F31751A1F563BE500208DD0 /* LHAboutMeViewController.xib in Resources */,
 				0F52B69B1EF24DE4007D45EC /* LHMyCenterCell.xib in Resources */,
 				0FB7936D1F4FAE0F00FDDB76 /* LHEditAddressViewController.xib in Resources */,
 				0F7B79571F428FA8009DAF35 /* LHPackInfoChooseView.xib in Resources */,
 				0F52B7381EFA1328007D45EC /* city.plist in Resources */,
+				0F3175241F563C6E00208DD0 /* LHServeProtocolViewController.xib in Resources */,
 				0F3F64451F419C6100A42084 /* MBProgressHUD.bundle in Resources */,
 				0FB793531F4E859500FDDB76 /* LHWebViewController.xib in Resources */,
 			);
@@ -1505,6 +1545,7 @@
 				0F52B6391EEF84BA007D45EC /* LHBaseViewController.m in Sources */,
 				0F3F64251F3C51C500A42084 /* UIButton+badge.m in Sources */,
 				0F9045A41F1DA02C000528A2 /* UIView+Extension.m in Sources */,
+				0F31751E1F563C1C00208DD0 /* LHOftenQuestionViewController.m in Sources */,
 				0F33547C1F0397260056FEA9 /* LHAllCommentViewController.m in Sources */,
 				0F84BB411F219AE400D98999 /* LHChangePasswordViewController.m in Sources */,
 				0F33547F1F039C2A0056FEA9 /* LHParamCell.m in Sources */,
@@ -1551,6 +1592,7 @@
 				0F52B72D1EF9452B007D45EC /* LHEditAddressViewController.m in Sources */,
 				0F84BB3E1F21953B00D98999 /* LHBillHistoryViewController.m in Sources */,
 				0F52B7271EF91965007D45EC /* LHUserInfoViewController.m in Sources */,
+				0F3175281F563CBC00208DD0 /* LHNotesViewController.m in Sources */,
 				0F52B7441EFF8A5A007D45EC /* LHLoginViewController.m in Sources */,
 				0F52B6BF1EF3B596007D45EC /* LHNewHandsViewController.m in Sources */,
 				0F9045C21F1DA18F000528A2 /* UIView+AdaptivePerfect.m in Sources */,
@@ -1569,6 +1611,7 @@
 				0F9046101F1DFCC9000528A2 /* LHScanSuccessJumpViewController.m in Sources */,
 				0FB793521F4E859500FDDB76 /* LHWebViewController.m in Sources */,
 				0FB793641F4EAA6400FDDB76 /* LHTitleSliderView.m in Sources */,
+				0F3175221F563C5700208DD0 /* LHServeProtocolViewController.m in Sources */,
 				0F52B6601EEFB86E007D45EC /* LHHomeTableViewCell.m in Sources */,
 				0F52B69A1EF24DE4007D45EC /* LHMyCenterCell.m in Sources */,
 				0FB7934F1F4E859500FDDB76 /* LHAddVipViewController.m in Sources */,
@@ -1580,6 +1623,7 @@
 				0FB793601F4E9DEA00FDDB76 /* LHDistributionHeaderView.m in Sources */,
 				0F52B7071EF8BC52007D45EC /* LHChooseGoodsViewController.m in Sources */,
 				0FB7933E1F4B19B500FDDB76 /* LHOrderHeaderFooterView.m in Sources */,
+				0F3175191F563BE500208DD0 /* LHAboutMeViewController.m in Sources */,
 				0F52B6D61EF7A837007D45EC /* LHNetworkManager.m in Sources */,
 				0F90460D1F1DFC7F000528A2 /* LHScanViewController.m in Sources */,
 				0FEC8D231F38533800453700 /* LHAccountCenterViewController.m in Sources */,

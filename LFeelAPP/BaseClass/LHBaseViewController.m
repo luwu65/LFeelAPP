@@ -109,7 +109,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 //设置按钮显示读秒效果
                 [sender setTitle:[NSString stringWithFormat:@"重新发送(%.2d)", seconds] forState:UIControlStateNormal];
-                [sender setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+                [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 sender.userInteractionEnabled = NO;
             });
             time--;

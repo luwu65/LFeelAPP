@@ -12,7 +12,7 @@
 #import "LHGoodsCommentHeaderFooterView.h"
 #import "LHAllCommentViewController.h"
 #import "LHGoodsDetailModel.h"
-
+#import "LHMyBoxViewController.h"
 @interface LHGoodsDetailViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *detailTableView;
@@ -62,7 +62,7 @@
     self.detailTableView.delegate = self;
     [self.view addSubview:self.detailTableView];
     
-    self.cycleView = [[LHRentGoodsDetailCycleView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth*1.8) imageFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth*1.4) placeHolderImage:kImage(@"")];
+    self.cycleView = [[LHRentGoodsDetailCycleView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth*1.2 + kFit(125)) imageFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth*1.2) placeHolderImage:kImage(@"")];
 
     self.cycleView.backgroundColor = [UIColor whiteColor];
     self.detailTableView.tableHeaderView = self.cycleView;
@@ -88,15 +88,18 @@
         productInfo.label = @"运动";
         //  页面地址url（必填)
         productInfo.link = @"";
-        
         [self openZCServiceWithProduct:productInfo];
         
     } rightSecond:@"Home_GoodsDetail_Box" rightSecondBtnAction:^{
+        LHMyBoxViewController *myBoxVC = [[LHMyBoxViewController alloc] init];
+        myBoxVC.subPage = @"Rent";
+        [self.navigationController pushViewController:myBoxVC animated:YES];
         
-        
-        
+    } rightThird:@"Home_GoodsDetail_Share" rightThirdBtnAction:^{
         
     }];
+    
+    
     self.hbk_navgationBar.bgColor = [UIColor clearColor];
     self.hbk_navgationBar.deviderLayer.backgroundColor = [UIColor clearColor].CGColor;
     self.hbk_navgationBar.titleLabel.textColor = [UIColor clearColor];
@@ -130,9 +133,9 @@
         }
 //    [cell setUINoComent];
     [cell adjustCellWithString:@"哈根哈萨克干哈开始哈噶关卡关卡关卡噶哈根哈萨克干哈开始哈噶关哈根哈萨哈根哈萨克干哈开始哈噶关卡关卡关卡噶哈根哈萨克干哈开始哈噶关哈根哈萨"];
-//    cell.photoGroupView.picUrlArray = @[@"http://testapp.gtax.cn/images/2016/11/05/812eb442b6a645a99be476d139174d3c.png!m90x90.png",
-//                                        @"http://testapp.gtax.cn/images/2016/11/09/64a62eaaff7b466bb8fab12a89fe5f2f.png!m90x90.png",
-//                                        @"https://testapp.gtax.cn/images/2016/09/30/ad0d18a937b248f88d29c2f259c14b5e.jpg!m90x90.jpg"];
+    cell.photoGroupView.picUrlArray = @[@"http://testapp.gtax.cn/images/2016/11/05/812eb442b6a645a99be476d139174d3c.png!m90x90.png",
+                                        @"http://testapp.gtax.cn/images/2016/11/09/64a62eaaff7b466bb8fab12a89fe5f2f.png!m90x90.png",
+                                        @"https://testapp.gtax.cn/images/2016/09/30/ad0d18a937b248f88d29c2f259c14b5e.jpg!m90x90.jpg"];
     cell.photoGroupView.picUrlArray = [NSMutableArray new];
         return cell;
 //     }
@@ -192,10 +195,13 @@
                 self.cycleView.rentCycleView.imageURLStringsGroup = self.cycleArray;
                 self.cycleView.sizeArray = kClothesSize;
                 self.cycleView.tagView.categoryLabel.text = @"尺码:";
+                self.cycleView.titleLabel.text = @"新款宝宝哈哈哈哈哈哈";
                 [self.detailTableView reloadData];
             });
         }
-        [self hideProgressHUD];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self hideProgressHUD];
+        });
     } failure:^(NSError *error) {
         NSLog(@"%@", error);
     }];
@@ -229,10 +235,13 @@
             [self.hbk_navgationBar.leftFirstBtn setImage:kImage(@"Back_Button") forState:(UIControlStateNormal)];
             [self.hbk_navgationBar.rightFirstBtn setImage:kImage(@"Home_service") forState:(UIControlStateNormal)];
             [self.hbk_navgationBar.rightSecondBtn setImage:kImage(@"Home_GoodsDetail_Box_scroll") forState:(UIControlStateNormal)];
+            [self.hbk_navgationBar.rightThirdBtn setImage:kImage(@"Home_GoodsDetail_Share_scroll") forState:(UIControlStateNormal)];
+
         } else {
             [self.hbk_navgationBar.leftFirstBtn setImage:kImage(@"Home_GoodsDetail_Back") forState:(UIControlStateNormal)];
             [self.hbk_navgationBar.rightFirstBtn setImage:kImage(@"Home_GoodsDetail_Service") forState:(UIControlStateNormal)];
             [self.hbk_navgationBar.rightSecondBtn setImage:kImage(@"Home_GoodsDetail_Box") forState:(UIControlStateNormal)];
+            [self.hbk_navgationBar.rightThirdBtn setImage:kImage(@"Home_GoodsDetail_Share") forState:(UIControlStateNormal)];
             self.hbk_navgationBar.deviderLayer.backgroundColor = [UIColor clearColor].CGColor;
         }
         CGFloat alphy = y / 150.0 > 1.0 ? 1.0 : y / 150.0;
