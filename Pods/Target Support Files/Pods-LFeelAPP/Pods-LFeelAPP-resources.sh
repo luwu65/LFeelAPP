@@ -86,6 +86,8 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "SobotKit/ZCEmojiExpression.bundle"
   install_resource "SobotKit/en.lproj"
   install_resource "SobotKit/zh-Hans.lproj"
+  install_resource "UMengUShare/UShareSDK/UMSocialSDK/UMSocialSDKPromptResources.bundle"
+  install_resource "UMengUShare/UShareSDK/UMSocialUI/UMSocialSDKResources.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle"
@@ -94,6 +96,8 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "SobotKit/ZCEmojiExpression.bundle"
   install_resource "SobotKit/en.lproj"
   install_resource "SobotKit/zh-Hans.lproj"
+  install_resource "UMengUShare/UShareSDK/UMSocialSDK/UMSocialSDKPromptResources.bundle"
+  install_resource "UMengUShare/UShareSDK/UMSocialUI/UMSocialSDKResources.bundle"
 fi
 
 mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

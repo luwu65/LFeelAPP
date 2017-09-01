@@ -8,19 +8,21 @@
 
 #import "LHUserInfoViewController.h"
 #import "LHUserInfoCell.h"
-@interface LHUserInfoViewController ()<UITableViewDelegate, UITableViewDataSource, LHPickViewDelegate>
+@interface LHUserInfoViewController ()<LHPickViewDelegate>
 
-
-@property (nonatomic, strong) UITableView *userInfoTableView;
-
-@property (nonatomic, strong) NSMutableArray *titleArray;
-
-@property (nonatomic, strong) LHPickView *datePickView;
 
 @property (nonatomic, strong) LHPickView *linePickView;
 
 @property (nonatomic, strong) NSMutableArray *heightArray;//身高
 @property (nonatomic, strong) NSMutableArray *weightArray;//体重
+@property (weak, nonatomic) IBOutlet UITextField *nickNameTF;
+
+@property (weak, nonatomic) IBOutlet UILabel *heightLabel;
+@property (weak, nonatomic) IBOutlet UILabel *weightLabel;
+@property (weak, nonatomic) IBOutlet UILabel *BWHLabel;
+@property (weak, nonatomic) IBOutlet UILabel *shoesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sizeLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 
 @end
 
@@ -44,102 +46,25 @@
     return _heightArray;
 }
 
-- (NSMutableArray *)titleArray {
-    if (!_titleArray) {
-        self.titleArray = [NSMutableArray arrayWithObjects:@"手机号", @"昵称", @"姓名", @"地区", @"身份证", @"性别", @"出生日期", @"鞋码", @"尺码", @"身高", @"体重", @"三围", @"邀请码", nil];
-    }
-    return _titleArray;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
+    self.iconImageView.layer.cornerRadius = self.iconImageView.frame.size.height/2;
+    self.iconImageView.image = [UIImage imageNamed:@"MyCenter_headerIcon"];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"个人信息";
     
-    [self setUI];
-    
+    [self setHBK_NavigationBar];
 }
 
-- (void)setUI {
-    self.userInfoTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight) style:(UITableViewStylePlain)];
-    self.userInfoTableView.dataSource = self;
-    self.userInfoTableView.delegate = self;
-    [self.view addSubview:self.userInfoTableView];
-    
-    
-    
+#pragma mark ---------------- UI ----------------------------
+- (void)setHBK_NavigationBar {
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"个人信息" backAction:^{
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.titleArray.count;
-}
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    LHUserInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LHUserInfoCell"];
-    if (cell == nil) {
-        cell = [[LHUserInfoCell alloc] initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:@"LHUserInfoCell"];
-    }
-    cell.titleLabel.text = self.titleArray[indexPath.row];
-    cell.detailTF.placeholder = @[@"请输入手机号", @"请输入昵称", @"请输入真实姓名", @"请输入地区", @"请输入身份证号", @"请选择性别", @"请选择出生日期", @"请选择鞋码", @"请选择尺码", @"请选择身高", @"请选择体重", @"请选择三围", @"请输入邀请码(选填)"][indexPath.row];
-    if (indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 4) {
-        
-        
-        
-    } else {
-//        cell.detailTF.userInteractionEnabled = NO;
-        
-    }
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
-        //绑定新手机号
-    } else if (indexPath.row == 3) {
-        //显示地区
-        
-    } else if (indexPath.row == 5) {
-        //性别
-        [self createLineOnePickViewWithArray:@[@"男", @"女"]];
-    } else if (indexPath.row == 6) {
-        //日期
-        [self createDatePickView];
-        
-        
-    } else if (indexPath.row == 7) {
-        //鞋码
-        NSArray *sizeArr = @[@"34", @"34.5", @"35", @"35.5", @"36", @"36.5", @"37", @"37.5", @"38", @"38.5", @"39", @"39.5", @"40", @"40.5", @"41", @"41.5", @"42", @"42.5", @"43", @"43.5", @"44", @"44.5", @"45", @"45.5", @"46"];
-        [self createLineOnePickViewWithArray: sizeArr];
-        
-        
-    } else if (indexPath.row == 8) {
-        //尺码
-        [self createLineOnePickViewWithArray:@[@"XS", @"S", @"M", @"L", @"XL", @"XXL"]];
-    } else if (indexPath.row == 9) {
-        //身高
-        [self createLineOnePickViewWithArray:self.heightArray];
-        
-    } else if (indexPath.row == 10) {
-        //体重
-        [self createLineOnePickViewWithArray:self.weightArray];
-        
-    } else if (indexPath.row == 11) {
-        //三围
-        
-        
-        
-    }
-}
-
-
-- (void)createDatePickView {
-    self.datePickView = [[LHPickView alloc] initDatePickWithDate:nil datePickerMode:(UIDatePickerModeDate) isHaveNavControler:NO];
-    self.datePickView.delegate = self;
-    self.datePickView.toolbarTextColor = [UIColor blackColor];
-    self.datePickView.toolbarBGColor = kColor(245, 245, 245);
-    [self.datePickView show];
-}
 
 - (void)createLineOnePickViewWithArray:(NSArray *)array {
     self.linePickView = [[LHPickView alloc] initPickviewWithArray:array isHaveNavControler:NO];
@@ -149,20 +74,77 @@
     [self.linePickView show];
 }
 
-
+#pragma mark --------------------- LHPickViewDelegate ------------
 //选中pickview走的回调
 - (void)toobarDonBtnHaveClick:(LHPickView *)pickView resultString:(NSString *)resultString resultIndex:(NSInteger) index {
-    if (pickView == self.datePickView) {
-        NSLog(@"%@", resultString);
-    }
     if (pickView == self.linePickView) {
         NSLog(@"%@", resultString);
     }
-    
-    
+}
+
+#pragma mark -------------- Action ---------------------
+//头像
+- (IBAction)iconBtn:(UIButton *)sender {
+    NSLog(@"换头像");
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
+    [alertVC addAction:[UIAlertAction actionWithTitle:@"拍照" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+        [LHImagePickerViewController showInViewController:self libraryType:(LHImagePickerMediaTypeCamera) allowEdit:YES complete:^(UIImage *image) {
+            [self requestUpDataPhoto:image];
+        }];
+        
+    }]];
+    [alertVC addAction:[UIAlertAction actionWithTitle:@"从相册获取照片" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+        [LHImagePickerViewController showInViewController:self libraryType:(LHImagePickerMediaTypePhotoLibrary) allowEdit:YES complete:^(UIImage *image) {
+            [self requestUpDataPhoto:image];
+        }];
+    }]];
+    [alertVC addAction:[UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil]];
+    [self presentViewController:alertVC animated:YES completion:nil];
+
+}
+
+//身高
+- (IBAction)heightBtn:(UIButton *)sender {
+    [self createLineOnePickViewWithArray:self.heightArray];
+}
+
+//体重
+- (IBAction)weightBtn:(UIButton *)sender {
+    [self createLineOnePickViewWithArray:self.weightArray];
+}
+
+//三围
+- (IBAction)bwhBtn:(UIButton *)sender {
+    NSLog(@"三围");
+
+}
+
+//鞋码
+- (IBAction)shosBtn:(UIButton *)sender {
+    [self createLineOnePickViewWithArray:kShoesSize];
+
+}
+
+//尺码
+- (IBAction)sizeBtn:(UIButton *)sender {
+    [self createLineOnePickViewWithArray:kClothesSize];
 }
 
 
+#pragma mark ----------------- 网络请求 ---------------
+/// 上传头像
+-(void)requestUpDataPhoto:(UIImage *)image {
+    [LHNetworkManager uploadPOST:@"" parameters:@{} consImage:image success:^(id responObject) {
+        
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.iconImageView.image = image;
+        });
+    } failure:^(NSError *error) {
+        
+    }];
+}
 
 
 - (void)didReceiveMemoryWarning {

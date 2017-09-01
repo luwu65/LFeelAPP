@@ -17,6 +17,9 @@
 #import "LHAccountCenterViewController.h"
 #import "LHSendBackViewController.h"
 #import "LHHomeModel.h"
+#import "LHCertificationViewController.h"
+
+
 #define kTag_CartEmptyView  3101
 #define kTag_BoxEmptyView   3102
 
@@ -185,6 +188,10 @@
         [alertVC addAction:[UIAlertAction actionWithTitle:@"寄回盒子" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
             LHSendBackViewController *sendBack = [[LHSendBackViewController alloc] init];
             [weakself.navigationController pushViewController:sendBack animated:YES];
+        }]];
+        [alertVC addAction:[UIAlertAction actionWithTitle:@"实名认证" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+            LHCertificationViewController *cerVC = [[LHCertificationViewController alloc] init];
+            [weakself.navigationController pushViewController:cerVC animated:YES];
         }]];
         [alertVC addAction:[UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil]];
         [self presentViewController:alertVC animated:YES completion:nil];

@@ -30,19 +30,14 @@
 
 - (instancetype)initWithIndex:(NSInteger)index {
     if (self = [super init]) {
-        self.size = CGSizeMake(kScreenWidth, kFit(kRowHeight)*4);
+//        self.size = CGSizeMake(kScreenWidth, kFit(kRowHeight)*4);
         self.index = index;
     }
     return self;
 }
-//- (instancetype)init {
-//    if (self = [super init]) {
-//        self.size = CGSizeMake(kScreenWidth, kFit(kRowHeight)*4);
-//    }
-//    return self;
-//}
+
 - (void)setUI {
-    self.payTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kScreenHeight-kFit(kRowHeight)*4, kScreenWidth, kFit(kRowHeight)*4) style:(UITableViewStylePlain)];
+    self.payTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kScreenHeight, kScreenWidth, kFit(kRowHeight)*4) style:(UITableViewStylePlain)];
     self.payTableView.dataSource = self;
     self.payTableView.delegate = self;
     [self.bgView addSubview:self.payTableView];
@@ -56,7 +51,7 @@
     if (!cell) {
         cell = [[LHPayWayCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"LHPayWayCell"];
         cell.nameLabel.text = @[@"信用卡分期", @"支付宝", @"微信支付", @"银联支付"][indexPath.row];
-        //    cell.payImageView.image = [UIImage imageNamed:@[@"MyBox_click_default", @"MyBox_click_default", @"MyBox_click_default", @"MyBox_click_default"][indexPath.row]];
+        cell.payImageView.image = [UIImage imageNamed:@[@"Pay_LeFenQi", @"Pay_AliPay", @"Pay_WeChatPay", @"Pay_UnionPay"][indexPath.row]];
     }
     if (self.index == indexPath.row) {
         cell.clickImageView.image = kImage(@"MyBox_clicked");
@@ -92,16 +87,28 @@
 
 #pragma mark - 移除控件
 - (void)remove {
-    [self.bgView removeFromSuperview];
-    [self removeFromSuperview];
-    [self.payTableView removeFromSuperview];
-    self.payTableView = nil;
+    [UIView animateWithDuration:0.2 animations:^{
+        CGPoint point = self.payTableView.center;
+        point.y = point.y + kFit(kRowHeight)*4;
+        self.payTableView.center = point;
+    } completion:^(BOOL finished) {
+        [self.bgView removeFromSuperview];
+        [self removeFromSuperview];
+        [self.payTableView removeFromSuperview];
+        self.payTableView = nil;
+    }];
 }
 
 #pragma mark - 显示控件
 - (void)show {
+    
     [[UIApplication sharedApplication].keyWindow addSubview:self.bgView];
     [[UIApplication sharedApplication].keyWindow addSubview:self];
+    [UIView animateWithDuration:0.2 animations:^{
+        CGPoint point = self.payTableView.center;
+        point.y = point.y - kFit(kRowHeight)*4;
+        self.payTableView.center = point;
+    }];
 }
 #pragma mark - 背景遮罩
 - (UIView *)bgView {
@@ -147,7 +154,6 @@
 
 - (void)setUI {
     self.payImageView = [[UIImageView alloc] init];
-    self.payImageView.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:self.payImageView];
     [self.payImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(10);

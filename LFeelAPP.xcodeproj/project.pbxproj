@@ -21,6 +21,10 @@
 		0F3175281F563CBC00208DD0 /* LHNotesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3175261F563CBC00208DD0 /* LHNotesViewController.m */; };
 		0F3175291F563CBC00208DD0 /* LHNotesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3175271F563CBC00208DD0 /* LHNotesViewController.xib */; };
 		0F31752B1F563E9900208DD0 /* LHPackSuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F31752A1F563E9900208DD0 /* LHPackSuccessViewController.xib */; };
+		0F3175331F57FA8700208DD0 /* LHImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3175321F57FA8600208DD0 /* LHImagePickerViewController.m */; };
+		0F3175371F57FE7500208DD0 /* LHCertificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3175351F57FE7500208DD0 /* LHCertificationViewController.m */; };
+		0F3175381F57FE7500208DD0 /* LHCertificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3175361F57FE7500208DD0 /* LHCertificationViewController.xib */; };
+		0F31753A1F58174E00208DD0 /* LHUserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3175391F58174E00208DD0 /* LHUserInfoViewController.xib */; };
 		0F3354681F0264380056FEA9 /* MDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3354671F0264380056FEA9 /* MDManager.m */; };
 		0F33547C1F0397260056FEA9 /* LHAllCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F33547B1F0397260056FEA9 /* LHAllCommentViewController.m */; };
 		0F33547F1F039C2A0056FEA9 /* LHParamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F33547E1F039C2A0056FEA9 /* LHParamCell.m */; };
@@ -200,6 +204,12 @@
 		0F3175261F563CBC00208DD0 /* LHNotesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHNotesViewController.m; sourceTree = "<group>"; };
 		0F3175271F563CBC00208DD0 /* LHNotesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHNotesViewController.xib; sourceTree = "<group>"; };
 		0F31752A1F563E9900208DD0 /* LHPackSuccessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHPackSuccessViewController.xib; sourceTree = "<group>"; };
+		0F3175311F57FA8600208DD0 /* LHImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHImagePickerViewController.h; sourceTree = "<group>"; };
+		0F3175321F57FA8600208DD0 /* LHImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHImagePickerViewController.m; sourceTree = "<group>"; };
+		0F3175341F57FE7500208DD0 /* LHCertificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHCertificationViewController.h; sourceTree = "<group>"; };
+		0F3175351F57FE7500208DD0 /* LHCertificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHCertificationViewController.m; sourceTree = "<group>"; };
+		0F3175361F57FE7500208DD0 /* LHCertificationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHCertificationViewController.xib; sourceTree = "<group>"; };
+		0F3175391F58174E00208DD0 /* LHUserInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHUserInfoViewController.xib; sourceTree = "<group>"; };
 		0F3354661F0264380056FEA9 /* MDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDManager.h; sourceTree = "<group>"; };
 		0F3354671F0264380056FEA9 /* MDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDManager.m; sourceTree = "<group>"; };
 		0F33547A1F0397260056FEA9 /* LHAllCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHAllCommentViewController.h; sourceTree = "<group>"; };
@@ -659,6 +669,9 @@
 				0F52B63E1EEF84FE007D45EC /* LHTabBarViewController.m */,
 				0F52B6401EEF8522007D45EC /* LHNavigationViewController.h */,
 				0F52B6411EEF8522007D45EC /* LHNavigationViewController.m */,
+				0F3175341F57FE7500208DD0 /* LHCertificationViewController.h */,
+				0F3175351F57FE7500208DD0 /* LHCertificationViewController.m */,
+				0F3175361F57FE7500208DD0 /* LHCertificationViewController.xib */,
 			);
 			path = BaseClass;
 			sourceTree = "<group>";
@@ -941,6 +954,7 @@
 			children = (
 				0F52B7221EF91965007D45EC /* LHUserInfoViewController.h */,
 				0F52B7231EF91965007D45EC /* LHUserInfoViewController.m */,
+				0F3175391F58174E00208DD0 /* LHUserInfoViewController.xib */,
 				0F3354E11F0A10B70056FEA9 /* LHUserInfoCell.h */,
 				0F3354E21F0A10B70056FEA9 /* LHUserInfoCell.m */,
 			);
@@ -975,6 +989,8 @@
 		0F594CA61F26107A0047DCC1 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				0F3175311F57FA8600208DD0 /* LHImagePickerViewController.h */,
+				0F3175321F57FA8600208DD0 /* LHImagePickerViewController.m */,
 				0FB793451F4E859500FDDB76 /* PublicClass */,
 				0F594CA71F2610860047DCC1 /* ShopCarNew.plist */,
 			);
@@ -1329,6 +1345,7 @@
 			files = (
 				0F52B6691EEFDE72007D45EC /* LHSpecialCollectionViewCell.xib in Resources */,
 				0F31752B1F563E9900208DD0 /* LHPackSuccessViewController.xib in Resources */,
+				0F31753A1F58174E00208DD0 /* LHUserInfoViewController.xib in Resources */,
 				0F52B6021EEF83E1007D45EC /* LaunchScreen.storyboard in Resources */,
 				0F52B5FF1EEF83E1007D45EC /* Assets.xcassets in Resources */,
 				0F31751F1F563C1C00208DD0 /* LHOftenQuestionViewController.xib in Resources */,
@@ -1338,6 +1355,7 @@
 				0F52B5FD1EEF83E1007D45EC /* Main.storyboard in Resources */,
 				0FB793611F4E9DEA00FDDB76 /* LHDistributionHeaderView.xib in Resources */,
 				0F52B66E1EEFDE87007D45EC /* LHBuyNewCollectionViewCell.xib in Resources */,
+				0F3175381F57FE7500208DD0 /* LHCertificationViewController.xib in Resources */,
 				0F52B6A51EF265D4007D45EC /* LHNewGoodsCollectionCell.xib in Resources */,
 				0F52B6A01EF25A80007D45EC /* LHNewGoodsCell.xib in Resources */,
 				0F3175291F563CBC00208DD0 /* LHNotesViewController.xib in Resources */,
@@ -1521,8 +1539,10 @@
 				0F9045BD1F1DA18F000528A2 /* UIButton+Extension.m in Sources */,
 				0F52B7251EF91965007D45EC /* LHReceiveAddressViewController.m in Sources */,
 				0F9045C01F1DA18F000528A2 /* UIImage+Extension.m in Sources */,
+				0F3175371F57FE7500208DD0 /* LHCertificationViewController.m in Sources */,
 				0F52B69F1EF25A80007D45EC /* LHNewGoodsCell.m in Sources */,
 				0FB7933B1F4AE0D600FDDB76 /* LHCollectModel.m in Sources */,
+				0F3175331F57FA8700208DD0 /* LHImagePickerViewController.m in Sources */,
 				0F3F64311F414C6E00A42084 /* LHDevider.m in Sources */,
 				0F84BAF31F1F23AB00D98999 /* LHCardHeaderView.m in Sources */,
 				0F84BB351F20B00B00D98999 /* LHMakeBillViewController.m in Sources */,

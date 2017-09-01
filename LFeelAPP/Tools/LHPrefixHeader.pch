@@ -60,7 +60,7 @@
 
 #import "LHDevider.h"
 
-
+#import "LHImagePickerViewController.h"
 
 
 

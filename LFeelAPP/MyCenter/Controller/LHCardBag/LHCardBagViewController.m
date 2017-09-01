@@ -17,10 +17,20 @@
 @property (nonatomic, assign) BOOL isFirst;
 @property (nonatomic, assign) BOOL isSecond;
 
+@property (nonatomic, strong) NSMutableArray *bankCardArray;
+
 
 @end
 
 @implementation LHCardBagViewController
+
+
+- (NSMutableArray *)bankCardArray {
+    if (!_bankCardArray) {
+        self.bankCardArray = [NSMutableArray new];
+    }
+    return _bankCardArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -225,10 +235,17 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 1) {
+        if (indexPath.row == self.bankCardArray.count) {
+            NSLog(@"添加新卡");
+        }
+    }
+    
     if (indexPath.section == 4) {
         LHMakeBillViewController *billVC = [[LHMakeBillViewController alloc] init];
         [self.navigationController pushViewController:billVC animated:YES];
     }
+    
 }
 
 
