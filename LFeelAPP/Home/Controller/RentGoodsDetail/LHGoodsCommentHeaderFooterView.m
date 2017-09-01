@@ -15,7 +15,12 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
-        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, kScreenWidth, 40)];
+        
+        LHDevider *devider = [[LHDevider alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 15)];
+        devider.backgroundColor = kColor(245, 245, 245);
+        [self addSubview:devider];
+        
+        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, kScreenWidth-30, 40)];
         self.titleLabel.font = kFont(17*kRatio);
         [self addSubview:_titleLabel];
         

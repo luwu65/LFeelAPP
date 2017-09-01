@@ -25,6 +25,7 @@
 		0F3175371F57FE7500208DD0 /* LHCertificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3175351F57FE7500208DD0 /* LHCertificationViewController.m */; };
 		0F3175381F57FE7500208DD0 /* LHCertificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3175361F57FE7500208DD0 /* LHCertificationViewController.xib */; };
 		0F31753A1F58174E00208DD0 /* LHUserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3175391F58174E00208DD0 /* LHUserInfoViewController.xib */; };
+		0F3175401F594CFA00208DD0 /* LHShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F31753F1F594CFA00208DD0 /* LHShareManager.m */; };
 		0F3354681F0264380056FEA9 /* MDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3354671F0264380056FEA9 /* MDManager.m */; };
 		0F33547C1F0397260056FEA9 /* LHAllCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F33547B1F0397260056FEA9 /* LHAllCommentViewController.m */; };
 		0F33547F1F039C2A0056FEA9 /* LHParamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F33547E1F039C2A0056FEA9 /* LHParamCell.m */; };
@@ -210,6 +211,8 @@
 		0F3175351F57FE7500208DD0 /* LHCertificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHCertificationViewController.m; sourceTree = "<group>"; };
 		0F3175361F57FE7500208DD0 /* LHCertificationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHCertificationViewController.xib; sourceTree = "<group>"; };
 		0F3175391F58174E00208DD0 /* LHUserInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHUserInfoViewController.xib; sourceTree = "<group>"; };
+		0F31753E1F594CFA00208DD0 /* LHShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHShareManager.h; sourceTree = "<group>"; };
+		0F31753F1F594CFA00208DD0 /* LHShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHShareManager.m; sourceTree = "<group>"; };
 		0F3354661F0264380056FEA9 /* MDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDManager.h; sourceTree = "<group>"; };
 		0F3354671F0264380056FEA9 /* MDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDManager.m; sourceTree = "<group>"; };
 		0F33547A1F0397260056FEA9 /* LHAllCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHAllCommentViewController.h; sourceTree = "<group>"; };
@@ -991,6 +994,8 @@
 			children = (
 				0F3175311F57FA8600208DD0 /* LHImagePickerViewController.h */,
 				0F3175321F57FA8600208DD0 /* LHImagePickerViewController.m */,
+				0F31753E1F594CFA00208DD0 /* LHShareManager.h */,
+				0F31753F1F594CFA00208DD0 /* LHShareManager.m */,
 				0FB793451F4E859500FDDB76 /* PublicClass */,
 				0F594CA71F2610860047DCC1 /* ShopCarNew.plist */,
 			);
@@ -1605,6 +1610,7 @@
 				0F9045C11F1DA18F000528A2 /* UITextField+PlaceHolder.m in Sources */,
 				0F52B5F71EEF83E1007D45EC /* AppDelegate.m in Sources */,
 				0FB793381F4A870300FDDB76 /* LHCategoryListViewController.m in Sources */,
+				0F3175401F594CFA00208DD0 /* LHShareManager.m in Sources */,
 				0FEC8D241F38533800453700 /* LHMyBoxViewController.m in Sources */,
 				0F7B0A331F45A66E004080D6 /* LHChooseTypeView.m in Sources */,
 				0F52B66D1EEFDE87007D45EC /* LHBuyNewCollectionViewCell.m in Sources */,
@@ -1806,6 +1812,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Q7FLGD52CU;
+				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LFeelAPP/Tools/LHPrefixHeader.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -1842,7 +1849,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hbk.www.LFeelAPP;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lfeel.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1854,6 +1861,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Q7FLGD52CU;
+				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LFeelAPP/Tools/LHPrefixHeader.pch";
 				INFOPLIST_FILE = LFeelAPP/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1886,7 +1894,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hbk.www.LFeelAPP;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lfeel.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

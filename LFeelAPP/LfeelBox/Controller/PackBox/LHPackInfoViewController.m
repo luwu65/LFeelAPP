@@ -45,6 +45,14 @@
     
     self.view.backgroundColor = kColor(245, 245, 245);
     
+    
+    
+    
+    
+    
+    
+    
+    
     UIView *defaultView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kFit(35))];
     defaultView.backgroundColor = kColor(245, 245, 245);
     [self.view addSubview:defaultView];

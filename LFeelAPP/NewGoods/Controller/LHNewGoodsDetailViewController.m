@@ -23,6 +23,11 @@
 
 @property (nonatomic, strong) LHNewGoodsDetailCycleView *cycleView;
 
+@property (nonatomic, strong) NSMutableArray *propertyArray;
+@property (nonatomic, strong) NSMutableArray *colorArray;
+@property (nonatomic, strong) NSMutableArray *sizeArray;
+
+
 @end
 
 @implementation LHNewGoodsDetailViewController
@@ -38,6 +43,27 @@
         self.commentArray = [NSMutableArray new];
     }
     return _commentArray;
+}
+
+- (NSMutableArray *)propertyArray {
+    if (!_propertyArray) {
+        self.propertyArray = [NSMutableArray new];
+    }
+    return _propertyArray;
+}
+
+- (NSMutableArray *)colorArray {
+    if (!_colorArray) {
+        self.colorArray = [NSMutableArray new];
+    }
+    return _colorArray;
+}
+
+- (NSMutableArray *)sizeArray {
+    if (!_sizeArray) {
+        self.sizeArray = [NSMutableArray new];
+    }
+    return _sizeArray;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -94,7 +120,14 @@
         boxVC.subPage = @"New";
         [self.navigationController pushViewController:boxVC animated:YES];
     } rightThird:@"Home_GoodsDetail_Share" rightThirdBtnAction:^{
-        
+        NSLog(@"分享");
+        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+            NSLog(@"%ld-----------%@", (long)platformType, userInfo);
+            [LHShareManager shareTitle:@"111" desc:@"222" url:@"https://www.baidu.com" image:nil Plantform:platformType completion:^(id result, NSError *error) {
+                
+            }];
+        }];
+       
     }];
     self.hbk_navgationBar.bgColor = [UIColor clearColor];
     self.hbk_navgationBar.deviderLayer.backgroundColor = [UIColor clearColor].CGColor;
@@ -104,75 +137,90 @@
 
 #pragma mark  -----------  <UITableViewDelegate, UITableViewDataSource>
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //    if (section == 0) {
-    //        return 1;
-    //    } else {
-    //        return 5;
-    //    }
-    return 1;
+    if (section == 0) {
+        return 1;
+    } else {
+        return self.propertyArray.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //    if (indexPath.section == 0) {
-    LHGoodsCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LHGoodsCommentCell"];
-    if (cell == nil) {
-        cell = [[LHGoodsCommentCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"LHGoodsCommentCell"];
-        [cell setUIWithComment];
-        cell.userNameLabel.text = @"139****4444";
-        cell.heightLabel.text = @"身高172cm";
-        cell.sizeLabel.text = @"常穿M";
-        cell.buySizeLabel.text = @"这件S";
-        cell.commentLabel.text = @"哈根哈萨克干哈开始哈噶关卡关卡关卡噶哈根哈萨克干哈开始哈噶关哈根哈萨哈根哈萨克干哈开始哈噶关卡关卡关卡噶哈根哈萨克干哈开始哈噶关哈根哈萨";
+    if (indexPath.section == 0) {
+        LHGoodsCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LHGoodsCommentCell"];
+        if (cell == nil) {
+            cell = [[LHGoodsCommentCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"LHGoodsCommentCell"];
+            [cell setUIWithComment];
+            cell.userNameLabel.text = @"139****4444";
+            cell.heightLabel.text = @"身高172cm";
+            cell.sizeLabel.text = @"常穿M";
+            cell.buySizeLabel.text = @"这件S";
+            cell.commentLabel.text = @"哈根哈萨克干哈开始哈噶关";
+        }
+        //    [cell setUINoComent];
+        [cell adjustCellWithString:@"哈根哈萨克干哈开始哈噶关"];
+        cell.photoGroupView.picUrlArray = @[@"http://testapp.gtax.cn/images/2016/11/05/812eb442b6a645a99be476d139174d3c.png!m90x90.png",@"http://testapp.gtax.cn/images/2016/11/09/64a62eaaff7b466bb8fab12a89fe5f2f.png!m90x90.png", @"https://testapp.gtax.cn/images/2016/09/30/ad0d18a937b248f88d29c2f259c14b5e.jpg!m90x90.jpg"];
+        return cell;
+    } else {
+        static NSString *cellID = @"GoodsProperty";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellID];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        LHGoodsPropertyModel *model = self.propertyArray[indexPath.row];
+        cell.textLabel.text = model.property_value;
+        cell.detailTextLabel.text = model.property_key;
+        
+        return cell;
     }
-    //    [cell setUINoComent];
-    [cell adjustCellWithString:@"哈根哈萨克干哈开始哈噶关卡关卡关卡噶哈根哈萨克干哈开始哈噶关哈根哈萨哈根哈萨克干哈开始哈噶关卡关卡关卡噶哈根哈萨克干哈开始哈噶关哈根哈萨"];
-    //    cell.photoGroupView.picUrlArray = @[@"http://testapp.gtax.cn/images/2016/11/05/812eb442b6a645a99be476d139174d3c.png!m90x90.png",
-    //                                        @"http://testapp.gtax.cn/images/2016/11/09/64a62eaaff7b466bb8fab12a89fe5f2f.png!m90x90.png",
-    //                                        @"https://testapp.gtax.cn/images/2016/09/30/ad0d18a937b248f88d29c2f259c14b5e.jpg!m90x90.jpg"];
-    cell.photoGroupView.picUrlArray = [NSMutableArray new];
-    return cell;
-    //     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //    if (indexPath.section == 0) {
-    //        return 300;
-    //    } else {
-    //        return 40;
-    //    }
-    return [LHGoodsCommentCell cellHeightWithString:@"哈根哈萨克干哈开始哈噶关卡关卡关卡噶哈根哈萨克干哈开始哈噶关哈根哈萨哈根哈萨克干哈开始哈噶关卡关卡关卡噶哈根哈萨克干哈开始哈噶关哈根哈萨"];
+        if (indexPath.section == 0) {
+            return [LHGoodsCommentCell cellHeightWithString:@"哈根哈萨克干哈开始哈噶关卡关"];
+        } else {
+            return 40;
+        }
+ 
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    //    if (section == 1) {
-    //        return 60;
-    //    } else {
-    //        return 0;
-    //    }
-    return 50;
+    if (section == 0) {
+        return 55;
+    } else {
+        return CGFLOAT_MIN;
+    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 95;
+    if (section == 0) {
+        return 95;
+    } else {
+        return CGFLOAT_MIN;
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    LHGoodsCommentHeaderView *headerView = [[LHGoodsCommentHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50)];
-    headerView.titleLabel.text = @"精品评论";
-    return headerView;
+        LHGoodsCommentHeaderView *headerView = [[LHGoodsCommentHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50)];
+        headerView.titleLabel.text = @[@"精品评论", @"产品参数"][section];
+        return headerView;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    @weakify(self);
-    LHGoodsCommentFooterView *footerView = [[LHGoodsCommentFooterView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 95)];
-    footerView.clickAllBtn = ^{
-        @strongify(self);
-        LHAllCommentViewController *commentVC = [[LHAllCommentViewController alloc] init];
-        [self.navigationController pushViewController:commentVC animated:YES];
-        NSLog(@"全部评论");
-    };
-    return footerView;
+    if (section == 0) {
+        @weakify(self);
+        LHGoodsCommentFooterView *footerView = [[LHGoodsCommentFooterView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 95)];
+        footerView.clickAllBtn = ^{
+            @strongify(self);
+            LHAllCommentViewController *commentVC = [[LHAllCommentViewController alloc] init];
+            [self.navigationController pushViewController:commentVC animated:YES];
+            NSLog(@"全部评论");
+        };
+        return footerView;
+    } else {
+        return nil;
+    }
 }
 
 #pragma mark ------------ 网络请求  ---------------
@@ -186,21 +234,28 @@
             }
             LHGoodsInfoModel *model = [[LHGoodsInfoModel alloc] init];
             [model setValuesForKeysWithDictionary:(NSDictionary *)reponseObject[@"data"][@"productInfo"]];
+            for (NSDictionary *dic in reponseObject[@"data"][@"spec"]) {
+//                [self.colorArray addObject:dic[@"property_value"]];
+            }
+            for (NSDictionary *dic in reponseObject[@"data"][@"product_property"]) {
+                LHGoodsPropertyModel *model = [[LHGoodsPropertyModel alloc] init];
+//                [model setValuesForKeysWithDictionary:dic];
+                [self.propertyArray addObject:model];
+            }
+            
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.cycleView.titleLabel.text = model.product_name;
                 self.cycleView.rentCycleView.imageURLStringsGroup = self.cycleArray;
                 self.cycleView.sizeArray = kClothesSize;
-                self.cycleView.colorArray = kShoesSize;
+                self.cycleView.colorArray = self.colorArray;
                 self.cycleView.sizeTagView.categoryLabel.text = @"尺码:";
                 self.cycleView.colorTagView.categoryLabel.text = @"颜色:";
                 self.cycleView.priceLabel.text = [NSString stringWithFormat:@"¥%.2f", [model.price_lfeel floatValue]];
                 [self.detailTableView reloadData];
+                [self hideProgressHUD];
             });
         }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [self hideProgressHUD];
-        });
     } failure:^(NSError *error) {
         NSLog(@"%@", error);
     }];

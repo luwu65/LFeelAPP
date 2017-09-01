@@ -8,6 +8,8 @@
 
 #import "LHGoodsDetailModel.h"
 
+
+
 @implementation LHGoodsInfoModel
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     if ([key isEqualToString:@"id"]) {
@@ -15,6 +17,10 @@
     }
 }
 @end
+
+
+
+
 @implementation LHGoodsPropertyModel
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     if ([key isEqualToString:@"id"]) {
@@ -22,6 +28,10 @@
     }
 }
 @end
+
+
+
+
 
 
 @implementation LHGoodsCommentModel

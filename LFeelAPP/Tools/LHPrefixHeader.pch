@@ -62,10 +62,11 @@
 
 #import "LHImagePickerViewController.h"
 
+#import <UMSocialCore/UMSocialCore.h>
 
+#import "LHShareManager.h"
 
-
-
+#import <UShareUI/UShareUI.h>
 
 
 

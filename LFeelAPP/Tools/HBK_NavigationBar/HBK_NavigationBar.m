@@ -101,7 +101,7 @@ static NSString * BackButtonImageName = @"Back_Button";
                   rightSecond:(NSString *)rightSecond
          rightSecondBtnAction:(ClickBlock)rightSecondAction
                    rightThird:(NSString *)rightThird
-         rightSecondBtnAction:(ClickBlock)rightThirdAction {
+          rightThirdBtnAction:(ClickBlock)rightThirdAction {
     if (self = [super init]) {
         self.bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 63.5)];
         [self addSubview:self.bgImageView];
@@ -194,7 +194,7 @@ static NSString * BackButtonImageName = @"Back_Button";
                 self.rightThirdBtn.titleLabel.font = [UIFont systemFontOfSize:15];
                 [self.rightThirdBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
             }
-            [self.rightThirdBtn addTarget:self action:@selector(rightSecondBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
+            [self.rightThirdBtn addTarget:self action:@selector(rightThirdBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
             self.rightThirdBlock = rightThirdAction;
             [self addSubview:self.rightThirdBtn];
         }
@@ -219,7 +219,7 @@ static NSString * BackButtonImageName = @"Back_Button";
                            rightSecond:nil
                   rightSecondBtnAction:nil
                             rightThird:nil
-                  rightSecondBtnAction:nil];
+                   rightThirdBtnAction:nil];
 }
 
 
@@ -236,7 +236,7 @@ static NSString * BackButtonImageName = @"Back_Button";
                            rightSecond:nil
                   rightSecondBtnAction:nil
                             rightThird:nil
-                  rightSecondBtnAction:nil];
+                   rightThirdBtnAction:nil];
 }
 
 
@@ -253,7 +253,7 @@ static NSString * BackButtonImageName = @"Back_Button";
                            rightSecond:nil
                   rightSecondBtnAction:nil
                             rightThird:nil
-                  rightSecondBtnAction:nil];
+                   rightThirdBtnAction:nil];
 }
 
 
@@ -272,7 +272,7 @@ static NSString * BackButtonImageName = @"Back_Button";
                            rightSecond:nil
                   rightSecondBtnAction:nil
                             rightThird:nil
-                  rightSecondBtnAction:nil];
+                   rightThirdBtnAction:nil];
 }
 
 + (instancetype)HBK_setupNavigationBarWithTitle:(NSString *)title
@@ -288,7 +288,7 @@ static NSString * BackButtonImageName = @"Back_Button";
                            rightSecond:nil
                   rightSecondBtnAction:nil
                             rightThird:nil
-                  rightSecondBtnAction:nil];
+                   rightThirdBtnAction:nil];
 }
 
 + (instancetype)HBK_setupNavigationBarWithTitle:(NSString *)title
@@ -306,7 +306,7 @@ static NSString * BackButtonImageName = @"Back_Button";
                            rightSecond:nil
                   rightSecondBtnAction:nil
                             rightThird:nil
-                  rightSecondBtnAction:nil];
+                  rightThirdBtnAction:nil];
 }
 
 
@@ -326,7 +326,7 @@ static NSString * BackButtonImageName = @"Back_Button";
                            rightSecond:rightSecond
                   rightSecondBtnAction:rightSecondAction
                             rightThird:nil
-                  rightSecondBtnAction:nil];
+                   rightThirdBtnAction:nil];
 }
 
 
@@ -348,7 +348,7 @@ static NSString * BackButtonImageName = @"Back_Button";
                            rightSecond:rightSecond
                   rightSecondBtnAction:rightSecondAction
                             rightThird:nil
-                  rightSecondBtnAction:nil];
+                   rightThirdBtnAction:nil];
 
 }
 
@@ -367,7 +367,7 @@ static NSString * BackButtonImageName = @"Back_Button";
                            rightSecond:nil
                   rightSecondBtnAction:nil
                             rightThird:nil
-                  rightSecondBtnAction:nil];
+                   rightThirdBtnAction:nil];
 
 }
 
@@ -389,7 +389,7 @@ static NSString * BackButtonImageName = @"Back_Button";
                            rightSecond:rightSecond
                   rightSecondBtnAction:rightSecondAction
                             rightThird:nil
-                  rightSecondBtnAction:nil];
+                   rightThirdBtnAction:nil];
 }
 
 
@@ -412,7 +412,7 @@ static NSString * BackButtonImageName = @"Back_Button";
                            rightSecond:rightSecond
                   rightSecondBtnAction:rightSecondAction
                             rightThird:rightThird
-                  rightSecondBtnAction:rightThirdBtnAction];
+                   rightThirdBtnAction:rightThirdBtnAction];
 }
 
 
@@ -441,6 +441,14 @@ static NSString * BackButtonImageName = @"Back_Button";
         self.rightSecondBlock();
     }
 }
+
+- (void)rightThirdBtnAction {
+    if (self.rightThirdBlock) {
+        self.rightThirdBlock();
+    }
+}
+
+
 
 @end
 

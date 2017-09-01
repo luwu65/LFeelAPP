@@ -31,11 +31,68 @@
     
     
 //    [self ZCServiceApplication:application];
+    [self setUmengShare];
     self.connect = @"Connect";
     [self KVONetworkChange];
     return YES;
 }
 
+#pragma mark --------------- 友盟------------------
+- (void)setUmengShare {
+    /* 打开调试日志 */
+    [[UMSocialManager defaultManager] openLog:YES];
+    
+    /* 设置友盟appkey */
+    [[UMSocialManager defaultManager] setUmSocialAppkey:@"58307cfa82b63559950012b3"];
+    
+    /*
+     设置微信的appKey和appSecret
+     */
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx49ee5406f2ae4192" appSecret:@"1b064bf13ad7abe92ca4833b969ee2dd" redirectURL:nil];
+    /*
+     * 移除相应平台的分享，如微信收藏
+     */
+    //[[UMSocialManager defaultManager] removePlatformProviderWithPlatformTypes:@[@(UMSocialPlatformType_WechatFavorite)]];
+    
+    /* 设置分享到QQ互联的appID
+     * U-Share SDK为了兼容大部分平台命名，统一用appKey和appSecret进行参数设置，而QQ平台仅需将appID作为U-Share的appKey参数传进即可。
+     100424468.no permission of union id
+     */
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1106089815"/*设置QQ平台的appID*/  appSecret:@"Iv8uHHcFXDUIhYG7" redirectURL:@"http://redirect_url=open.weibo.com/apps/1970404034/privilege/oauth"];
+    
+    /*
+     设置新浪的appKey和appSecret
+     */
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"1970404034"  appSecret:@"44e236b1717ca5a1d13a62a6bd0edf7e" redirectURL:@"http://redirect_url=open.weibo.com/apps/1970404034/privilege/oauth"];
+}
+
+// 支持所有iOS系统
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    //6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
+    if (!result) {
+        // 其他如支付等SDK的回调
+    }
+    return result;
+}
+
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
+    //6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响
+    BOOL result = [[UMSocialManager defaultManager]  handleOpenURL:url options:options];
+    if (!result) {
+        // 其他如支付等SDK的回调
+    }
+    return result;
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+    if (!result) {
+        // 其他如支付等SDK的回调
+    }
+    return result;
+}
 #pragma mark ------------- 监测网络状态 -------------
 
 /*
