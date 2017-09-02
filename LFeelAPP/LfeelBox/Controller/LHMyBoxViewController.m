@@ -111,14 +111,11 @@
     [self customNavBar];
     [self requestShoppingCartData];
     
-    //如果左滑右滑没有收藏, 那么就在这里收藏
+    //如果左滑右滑没有收藏, 那么就在这里请求
     if (!self.CollectionSuccess) {
         [self requstMyBoxCartData];
     }
-    
-//    [self requestShoppingCartData1];
-//    NSLog(@"+++++++++++++++++++++++++++++++++++++++++++%d", self.CollectionSuccess);
-    
+        
 }
 //监测到有收藏, 就把收藏状态改为YES
 - (void)CollectionSuccessNotification {
@@ -709,15 +706,14 @@
     [LHNetworkManager requestForGetWithUrl:kCollectionListUrl parameter:@{@"user_id":kUser_id, @"type": @1} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
-            if (reponseObject[@"data"]) {
-                for (NSDictionary *dic in reponseObject[@"data"]) {
-                    LHCollectModel *model = [[LHCollectModel alloc] init];
-                    [model setValuesForKeysWithDictionary:dic];
-                    [self.myBoxArray addObject:model];
-                }
-            } else {
-                [self emptyLfeelBoxView];
+            for (NSDictionary *dic in reponseObject[@"data"]) {
+                LHCollectModel *model = [[LHCollectModel alloc] init];
+                [model setValuesForKeysWithDictionary:dic];
+                [self.myBoxArray addObject:model];
             }
+        }
+        if (self.myBoxArray.count == 0) {
+            [self emptyLfeelBoxView];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideProgressHUD];

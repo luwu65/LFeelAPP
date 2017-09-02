@@ -24,6 +24,7 @@ typedef NS_ENUM(NSInteger, PayType) {
 
 @property (nonatomic, assign) NSInteger payType;
 
+@property (nonatomic, strong) LHAccountCenterHeaderView *headerView;
 
 @end
 
@@ -61,26 +62,28 @@ typedef NS_ENUM(NSInteger, PayType) {
     self.orderTableView.dataSource = self;
     [self.view addSubview:self.orderTableView];
     
-    LHAccountCenterHeaderView *headerView = [[LHAccountCenterHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 60)];
-    headerView.nameLabel.text = @"aaa";
-    headerView.phoneLabel.text = @"1223455856";
-    headerView.addressLabel.text = @"话不能尴尬kg哈kg哈kg啊啊";
-    headerView.clickHeaderViewBlock = ^{
+    self.headerView = [[LHAccountCenterHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 60)];
+    self.headerView.nameLabel.text = @"aaa";
+    self.headerView.phoneLabel.text = @"1223455856";
+    self.headerView.addressLabel.text = @"话不能尴尬kg哈kg哈kg啊啊";
+    @weakify(self);
+    self.headerView.clickHeaderViewBlock = ^{
+        @strongify(self);
         LHReceiveAddressViewController *receiveVC = [[LHReceiveAddressViewController alloc] init];
         receiveVC.addressBlock = ^(LHAddressModel *model) {
             NSLog(@"点击了");
-            headerView.isUpdateFrame = YES;
-            headerView.nameLabel.text = @"收货人: 黄冰珂";
-            headerView.phoneLabel.text = @"13298368875";
-            headerView.addressLabel.text = @"上海静安区爱就爱阿姐";
-            headerView.frame = CGRectMake(0, 0, kScreenWidth, kFit(85));
-            
+            self.headerView.isUpdateFrame = YES;
+            self.headerView.nameLabel.text = [NSString stringWithFormat:@"收件人: %@", model.name];
+            self.headerView.phoneLabel.text = model.mobile;
+            self.headerView.addressLabel.text = [NSString stringWithFormat:@"%@%@%@%@", model.province, model.city, model.district, model.detail_address];
+          
+            self.headerView.frame = CGRectMake(0, 0, kScreenWidth, kFit(85));
             [self.orderTableView reloadData];
             
         };
         [self.navigationController pushViewController:receiveVC animated:YES];
     };
-    self.orderTableView.tableHeaderView = headerView;
+    self.orderTableView.tableHeaderView = self.headerView;
     
     LHAccountCenterFooterView *footerView = [LHAccountCenterFooterView creatView];
     footerView.frame = CGRectMake(0, 0, kScreenWidth, kFit(300));

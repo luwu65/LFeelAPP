@@ -62,9 +62,9 @@
 //            make.centerX.mas_equalTo(self.mas_centerX);
 //        }];
         
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 80, kScreenWidth, 15)];
-        lineView.backgroundColor = kColor(245, 245, 245);
-        [self addSubview:lineView];
+//        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 80, kScreenWidth, 15)];
+//        lineView.backgroundColor = kColor(245, 245, 245);
+//        [self addSubview:lineView];
         
     }
     return self;

@@ -171,26 +171,50 @@
         self.rentCycleView.placeholderImage = placeHolderImage;
         [self addSubview:self.rentCycleView];
         
-        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(kFit(15), self.rentCycleView.maxY+5, kScreenWidth-kFit(30), kFit(25))];
+        //收藏按钮
+        self.collectionBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        self.collectionBtn.frame = CGRectMake(kScreenWidth-kFit(45), self.rentCycleView.maxY, kFit(30), kFit(30));
+        [self.collectionBtn setBackgroundImage:kImage(@"NewGoods_unLike") forState:(UIControlStateNormal)];
+        [self.collectionBtn addTarget:self action:@selector(collectionBtnAction:) forControlEvents:(UIControlEventTouchUpInside)];
+        [self addSubview:self.collectionBtn];
+        
+        //标题
+        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(kFit(15), self.rentCycleView.maxY+5, kScreenWidth-kFit(60), kFit(25))];
         self.titleLabel.backgroundColor = [UIColor whiteColor];
         self.titleLabel.font = kFont(17*kRatio);
         [self addSubview:self.titleLabel];
 
-        self.priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(kFit(15), self.titleLabel.maxY+5, kScreenWidth-kFit(30), kFit(30))];
+        
+        //库存
+        self.repertoryLabel = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth-kFit(60))/3+kFit(30), self.titleLabel.maxY+5, (kScreenWidth-kFit(60))/3, kFit(25))];
+        self.repertoryLabel.font = kFont(13);
+        self.repertoryLabel.textAlignment = NSTextAlignmentCenter;
+        self.repertoryLabel.textColor = [UIColor blackColor];
+        [self addSubview:self.repertoryLabel];
+        
+        UILabel *emsLabel = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth-kFit(60))*2/3+kFit(45), self.titleLabel.maxY+5, (kScreenWidth-kFit(60))/3, kFit(25))];
+        emsLabel.font = kFont(13);
+        emsLabel.text = @"邮费到付";
+        emsLabel.textAlignment = NSTextAlignmentRight;
+        emsLabel.textColor = [UIColor lightGrayColor];
+        [self addSubview:emsLabel];
+        
+        
+        
+        self.priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(kFit(15), self.titleLabel.maxY+5, (kScreenWidth-kFit(60))/3, kFit(25))];
         self.priceLabel.backgroundColor = [UIColor whiteColor];
         self.priceLabel.textColor = [UIColor redColor];
         self.priceLabel.font = kFont(kFit(18));
         [self addSubview:self.priceLabel];
         
-        
-        self.sizeTagView = [[LHTagView alloc] initWithFrame:CGRectMake(10, self.priceLabel.maxY, kScreenWidth-10, kFit(40))];
+        self.sizeTagView = [[LHTagView alloc] initWithFrame:CGRectMake(10, self.priceLabel.maxY+10, kScreenWidth-10, kFit(35))];
         [self addSubview:self.sizeTagView];
-        self.colorTagView = [[LHTagView alloc] initWithFrame:CGRectMake(10, self.sizeTagView.maxY, kScreenWidth-10, kFit(40))];
+        
+        self.colorTagView = [[LHTagView alloc] initWithFrame:CGRectMake(10, self.sizeTagView.maxY, kScreenWidth-10, kFit(35))];
         [self addSubview:self.colorTagView];
         
-        
         UIButton *addCart = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        addCart.frame = CGRectMake(kFit(15), self.colorTagView.maxY + kFit(10), (kScreenWidth-kFit(45))/2, kFit(45));
+        addCart.frame = CGRectMake(kFit(15), self.maxY-kFit(70), (kScreenWidth-kFit(45))/2, kFit(45));
         [addCart setTitle:@"加入购物车" forState:(UIControlStateNormal)];
         [addCart setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
         [addCart addTarget:self action:@selector(addShoppingCart) forControlEvents:(UIControlEventTouchUpInside)];
@@ -202,7 +226,7 @@
         
         
         UIButton *bugNowBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        bugNowBtn.frame = CGRectMake(addCart.maxX + kFit(15), self.colorTagView.maxY + kFit(10), (kScreenWidth-kFit(45))/2, kFit(45));
+        bugNowBtn.frame = CGRectMake(addCart.maxX + kFit(15), self.maxY-kFit(70), (kScreenWidth-kFit(45))/2, kFit(45));
         [bugNowBtn setTitle:@"立即购买" forState:(UIControlStateNormal)];
         [bugNowBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
         [bugNowBtn addTarget:self action:@selector(bugNowAction) forControlEvents:(UIControlEventTouchUpInside)];
@@ -237,14 +261,22 @@
 
 
 - (void)addShoppingCart {
-    
+    if (self.AddShoppingCartBlock) {
+        self.AddShoppingCartBlock();
+    }
 }
 
 - (void)bugNowAction {
-    
+    if (self.ClickBuyNowBlock) {
+        self.ClickBuyNowBlock();
+    }
 }
 
-
+- (void)collectionBtnAction:(UIButton *)sender {
+    
+    
+    
+}
 
 
 

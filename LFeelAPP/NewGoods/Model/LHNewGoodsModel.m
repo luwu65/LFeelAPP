@@ -57,7 +57,31 @@
 
 
 
+@implementation LHGoodsSpecModel
+
+//- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+//    if ([key isEqualToString:@"id"]) {
+//        self.id_ = value;
+//    }
+//}
 
 
 
 
+
+@end
+
+
+@implementation LHGoodsSpecDetailModel
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+    if ([key isEqualToString:@"id"]) {
+        self.id_ = value;
+    }
+}
+
+
+
+
+
+@end

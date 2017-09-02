@@ -51,10 +51,31 @@
 
 
 
+@class LHGoodsSpecDetailModel;
+@interface LHGoodsSpecModel : LHBaseModel
+
+
+@property (nonatomic, copy) NSString *property_key;
+@property (nonatomic, strong) NSArray<LHGoodsSpecDetailModel *> *property_value;
+
+
+
+@end
+
+
+@interface LHGoodsSpecDetailModel : LHBaseModel
+
+
+@property (nonatomic, copy) NSString *property_value_id;
+@property (nonatomic, copy) NSString *id_;
+@property (nonatomic, copy) NSString *spec_id;
+@property (nonatomic, copy) NSString *property_value;
+@property (nonatomic, copy) NSString *property_key;
 
 
 
 
+@end
 
 
 

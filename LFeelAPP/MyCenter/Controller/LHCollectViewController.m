@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UITableView *collecTableView;
 @property (nonatomic, strong) NSMutableArray *goodsArray;
 
+@property (nonatomic, assign) NSInteger page;
 
 @end
 
@@ -34,8 +35,9 @@
     [self collecTableView];
     
     [self setHBK_NavigationBar];
+    self.page = 1;
     
-    [self requestColloctionListData];
+    [self requestColloctionListDataWithPage:1];
     
     
 
@@ -52,9 +54,13 @@
         [self.view addSubview:self.collecTableView];
         self.collecTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             NSLog(@"刷新");
+            [self.goodsArray removeAllObjects];
+            [self requestColloctionListDataWithPage:1];
         }];
         
         self.collecTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            self.page++;
+            [self requestColloctionListDataWithPage:self.page];
             NSLog(@"加载");
         }];
     }
@@ -70,6 +76,9 @@
 
 #pragma mark --------------- <UITableViewDelegate, UITableViewDataSource> -----------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//    if (self.goodsArray.count < 10) {
+//        self.collecTableView.mj_footer.hidden = YES;
+//    }
     return self.goodsArray.count;
 }
 
@@ -94,9 +103,9 @@
 
 #pragma mark -------------- 网络请求 -------------------
 
-- (void)requestColloctionListData {
+- (void)requestColloctionListDataWithPage:(NSInteger)page {
     [self showProgressHUD];
-    [LHNetworkManager requestForGetWithUrl:kCollectionListUrl parameter:@{@"user_id":kUser_id, @"type": @0} success:^(id reponseObject) {
+    [LHNetworkManager requestForGetWithUrl:kCollectionListUrl parameter:@{@"user_id":kUser_id, @"type": @0, @"page":@(page)} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             for (NSDictionary *dic in reponseObject[@"data"]) {
@@ -105,8 +114,15 @@
                 [self.goodsArray addObject:model];
             }
         }
+        
+        if (page == [reponseObject[@"total"] integerValue]) {
+            [self.collecTableView.mj_footer endRefreshingWithNoMoreData];
+        }
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideProgressHUD];
+            [self.collecTableView.mj_footer endRefreshing];
+            [self.collecTableView.mj_header endRefreshing];
             [self.collecTableView reloadData];
         });
     } failure:^(NSError *error) {

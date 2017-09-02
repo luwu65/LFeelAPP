@@ -68,7 +68,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     LHNewGoodsCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LHNewGoodsCollectionCell" forIndexPath:indexPath];
     cell.titleLabel.font = kFont(13*kRatio);
-    cell.lfeelPriceLabel.font = kFont(12*kRatio);
+    cell.lfeelPriceLabel.hidden = YES;
     //    cell.listModel = self.goodsArray[indexPath.row];
     [cell handleCollecitonBtnAction:^(BOOL isClick) {
         //        LHGoodsListModel *model = self.goodsArray[indexPath.row];
@@ -82,7 +82,7 @@
     return cell;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake((kScreenWidth-15)/2, (kScreenWidth-15)*3/5 + kFit(40));
+    return CGSizeMake((kScreenWidth-15)/2, (kScreenWidth-15)*3/5 + kFit(30));
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {

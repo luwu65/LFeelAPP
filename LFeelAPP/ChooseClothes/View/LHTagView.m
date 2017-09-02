@@ -234,19 +234,20 @@
         btn.backgroundColor = [UIColor whiteColor];
         [btn setTitle:self.contentArray[i] forState:(UIControlStateNormal)];
         [btn setTitleColor:[UIColor blackColor]];
-        btn.titleLabel.font = kFont(15);
+        btn.titleLabel.font = kFont(13);
         btn.tag = kChooseClothesTag + i;
         NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:15]};
         CGFloat length = [self.contentArray[i] boundingRectWithSize:CGSizeMake(320, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size.width;
         if (i == 0) {
-            btn.frame = CGRectMake(10, (self.frame.size.height- kFit(30))/2, length+20, kFit(30));
+            btn.frame = CGRectMake(10, (self.frame.size.height- kFit(20))/2, length+30, kFit(20));
         } else {
-            btn.frame = CGRectMake(10 *(i + 1) + self.AllLength, (self.frame.size.height- kFit(30))/2, length+20, kFit(30));
+            btn.frame = CGRectMake(10 *(i + 1) + self.AllLength, (self.frame.size.height- kFit(20))/2, length+30, kFit(20));
         }
-        self.AllLength += (length+20);
-        
-        btn.layer.cornerRadius = 2;
+        self.AllLength += (length+30);
+        btn.layer.cornerRadius = kFit(20)/2;
         btn.layer.masksToBounds = YES;
+        btn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        btn.layer.borderWidth = 1;
         [btn addTarget:self action:@selector(selectedBtnAction:) forControlEvents:(UIControlEventTouchUpInside)];
         [self.contentView addSubview:btn];
     }
@@ -255,7 +256,17 @@
 
 
 - (void)selectedBtnAction:(UIButton *)sender {
-    NSLog(@"点击了");
+    sender.selected = !sender.selected;
+    if (sender.selected) {
+        sender.backgroundColor = [UIColor redColor];
+        [sender setTitleColor:[UIColor whiteColor]];
+        
+    } else {
+        sender.backgroundColor = [UIColor whiteColor];
+        [sender setTitleColor:[UIColor blackColor]];
+        [sender setImage:nil forState:(UIControlStateNormal)];
+        sender.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+    }
 }
 
 

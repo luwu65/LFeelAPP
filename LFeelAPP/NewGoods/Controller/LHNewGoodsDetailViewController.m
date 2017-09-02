@@ -13,6 +13,7 @@
 #import "LHAllCommentViewController.h"
 #import "LHGoodsDetailModel.h"
 #import "LHMyBoxViewController.h"
+#import "LHAccountCenterViewController.h"
 @interface LHNewGoodsDetailViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *detailTableView;
@@ -28,9 +29,13 @@
 @property (nonatomic, strong) NSMutableArray *sizeArray;
 
 
+
+
 @end
 
 @implementation LHNewGoodsDetailViewController
+
+
 - (NSMutableArray *)cycleArray {
     if (!_cycleArray) {
         self.cycleArray = [NSMutableArray new];
@@ -91,6 +96,23 @@
     
     self.cycleView.backgroundColor = [UIColor whiteColor];
     self.detailTableView.tableHeaderView = self.cycleView;
+    
+    @weakify(self);
+    self.cycleView.ClickBuyNowBlock = ^{
+        @strongify(self);
+        NSLog(@"立即购买");
+        LHAccountCenterViewController *accCenterVC = [[LHAccountCenterViewController alloc] init];
+        
+        [self.navigationController pushViewController:accCenterVC animated:YES];
+    };
+    
+    self.cycleView.AddShoppingCartBlock = ^{
+        NSLog(@"加入购物车");
+        
+        
+    };
+    
+    
 }
 
 - (void)setHBK_NavigationBar {
@@ -167,12 +189,12 @@
         static NSString *cellID = @"GoodsProperty";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
         if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellID];
+            cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleValue1) reuseIdentifier:cellID];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         LHGoodsPropertyModel *model = self.propertyArray[indexPath.row];
-        cell.textLabel.text = model.property_value;
-        cell.detailTextLabel.text = model.property_key;
+        cell.textLabel.text = model.property_key;
+        cell.detailTextLabel.text = model.property_value;
         
         return cell;
     }
@@ -189,14 +211,14 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        return 55;
+        return 60;
     } else {
-        return CGFLOAT_MIN;
+        return 60;
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if (section == 0) {
-        return 95;
+        return 80;
     } else {
         return CGFLOAT_MIN;
     }
@@ -234,23 +256,40 @@
             }
             LHGoodsInfoModel *model = [[LHGoodsInfoModel alloc] init];
             [model setValuesForKeysWithDictionary:(NSDictionary *)reponseObject[@"data"][@"productInfo"]];
+            
             for (NSDictionary *dic in reponseObject[@"data"][@"spec"]) {
-//                [self.colorArray addObject:dic[@"property_value"]];
+
+                if (!self.cycleView.sizeTagView.categoryLabel.text) {
+                    self.cycleView.sizeTagView.categoryLabel.text = [NSString stringWithFormat:@"%@: ", dic[@"property_key"]];
+                    for (NSDictionary *aDic in dic[@"property_value"]) {
+                        [self.sizeArray addObject:aDic[@"property_value"]];
+                    }
+                    self.cycleView.sizeArray = self.sizeArray;
+                } else {
+                    self.cycleView.colorTagView.categoryLabel.text = [NSString stringWithFormat:@"%@: ", dic[@"property_key"]];
+                    for (NSDictionary *aDic in dic[@"property_value"]) {
+                        [self.colorArray addObject:aDic[@"property_value"]];
+                    }
+                    self.cycleView.colorArray = self.colorArray;
+                }
             }
+            
+           
+            
+            
             for (NSDictionary *dic in reponseObject[@"data"][@"product_property"]) {
                 LHGoodsPropertyModel *model = [[LHGoodsPropertyModel alloc] init];
-//                [model setValuesForKeysWithDictionary:dic];
+                [model setValuesForKeysWithDictionary:dic];
                 [self.propertyArray addObject:model];
             }
             
+        
+            
             
             dispatch_async(dispatch_get_main_queue(), ^{
+                self.cycleView.repertoryLabel.text = @"库存13件";
                 self.cycleView.titleLabel.text = model.product_name;
                 self.cycleView.rentCycleView.imageURLStringsGroup = self.cycleArray;
-                self.cycleView.sizeArray = kClothesSize;
-                self.cycleView.colorArray = self.colorArray;
-                self.cycleView.sizeTagView.categoryLabel.text = @"尺码:";
-                self.cycleView.colorTagView.categoryLabel.text = @"颜色:";
                 self.cycleView.priceLabel.text = [NSString stringWithFormat:@"¥%.2f", [model.price_lfeel floatValue]];
                 [self.detailTableView reloadData];
                 [self hideProgressHUD];

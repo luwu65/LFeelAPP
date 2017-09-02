@@ -97,7 +97,6 @@ typedef void(^ClickCycleViewBlock)(NSInteger index);
 
 
 #pragma mark  -------------------   商品详情轮播  新品 --------------------------
-
 @interface LHNewGoodsDetailCycleView : UIView<SDCycleScrollViewDelegate>
 
 
@@ -130,10 +129,24 @@ typedef void(^ClickCycleViewBlock)(NSInteger index);
 @property (nonatomic, strong) NSArray *colorArray;
 
 @property (nonatomic, strong) LHTagView *sizeTagView;
-
 @property (nonatomic, strong) LHTagView *colorTagView;
 
+
+/**
+ 库存
+ */
+@property (nonatomic, strong) UILabel *repertoryLabel;
+
+/**
+ 收藏
+ */
+@property (nonatomic, strong) UIButton *collectionBtn;
+
+
 - (void)clickCycleBlock:(ClickCycleViewBlock)clickCycleBlock;
+
+@property (nonatomic, copy) void(^ClickBuyNowBlock)();
+@property (nonatomic, copy) void(^AddShoppingCartBlock)();
 
 
 @end

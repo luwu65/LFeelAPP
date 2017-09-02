@@ -40,26 +40,24 @@
     titleLabel.font = kFont(15);
     [self.noAddressBgView addSubview:titleLabel];
     
-    UIImageView *openImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenWidth - 40, self.frame.size.height - 10, 20, 20)];
-    openImageView.image = kImage(@"");
+    UIImageView *openImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenWidth - 30, (self.frame.size.height - 16)/2, 8, 16)];
+    openImageView.image = kImage(@"MyCenter_CardBox_OpenCell");
     [self.noAddressBgView addSubview:openImageView];
 }
 
 - (void)CreateAddressView {
-    self.addressBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, self.frame.size.height)];
-    self.addressBgView.backgroundColor = [UIColor greenColor];
+    self.addressBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kFit(85))];
+    self.addressBgView.backgroundColor = [UIColor whiteColor];
     [self addSubview:self.addressBgView];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAddressViewAction)];
-    [self.noAddressBgView addGestureRecognizer:tap];
+    [self.addressBgView addGestureRecognizer:tap];
     
-    UIImageView *addressImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kFit(10), (self.frame.size.height-kFit(15))/2, kFit(15), kFit(15))];
-    addressImageView.image = kImage(@"MyCenter_CardBox_OpenCell");
+    UIImageView *addressImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kFit(10), (self.addressBgView.frame.size.height-kFit(15))/2, kFit(12), kFit(16))];
+    addressImageView.image = kImage(@"MyBox_Address");
     [self.addressBgView addSubview:addressImageView];
     
-    UIImageView *openImageView = [[UIImageView alloc] init];//WithFrame:CGRectMake(kScreenWidth - kFit(25), (self.frame.size.height-kFit(15))/2, kFit(8), kFit(15))
-//    openImageView.size = CGSizeMake(kFit(8), kFit(15));
-//    openImageView.centerY = self.addressBgView.centerY;
+    UIImageView *openImageView = [[UIImageView alloc] init];
     openImageView.image = kImage(@"MyCenter_CardBox_OpenCell");
     [self.addressBgView addSubview:openImageView];
     [openImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -82,6 +80,7 @@
     //地址
     self.addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(kFit(30), kFit(35), kScreenWidth-kFit(60), kFit(50))];
     self.addressLabel.font = kFont(14);
+    self.addressLabel.numberOfLines = 0;
     [self.addressBgView addSubview:self.addressLabel];
     
 }

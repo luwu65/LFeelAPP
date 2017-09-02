@@ -8,14 +8,26 @@
 
 #import "LHPackInfoViewController.h"
 #import "LHPackInfoChooseView.h"
+#import "LHReceiveAddressViewController.h"
+
 @interface LHPackInfoViewController ()<LHPickViewDelegate> {
     LHPackInfoView *_firstView;
     LHPackInfoView *_secondView;
     LHPackInfoView *_thirdView;
     NSString *_ChooseID;
+    
 }
 @property (nonatomic, strong) LHPickView *linePickView;
 
+@property (nonatomic, strong) UIView *addressBgView;
+@property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) UILabel *phoneLabel;
+@property (nonatomic, strong) UILabel *addressLabel;
+@property (nonatomic, strong) UIView *noAddressBgView;
+
+
+@property (nonatomic, strong) UIView *defaultView;
+@property (nonatomic, strong) UILabel *remindLabel;
 
 @end
 
@@ -42,50 +54,43 @@
 }
 
 - (void)setupUI {
-    
     self.view.backgroundColor = kColor(245, 245, 245);
     
-    
-    
-    
-    
-    
-    
-    
-    
-    UIView *defaultView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kFit(35))];
-    defaultView.backgroundColor = kColor(245, 245, 245);
-    [self.view addSubview:defaultView];
-    
-    CustomButton *defaultBtn = [[CustomButton alloc] initWithFrame:CGRectMake(kScreenWidth-kFit(90), 0, kFit(80), kFit(35)) imageFrame:CGRectMake(10, 5, kFit(25), kFit(25)) imageName:@"MyBox_click_default" titleLabelFrame:CGRectMake(kFit(30), 0, kFit(45), kFit(35)) title:@"默认" titleColor:[UIColor blackColor] titleFont:15];
-    [defaultBtn addTarget:self action:@selector(defaultBtnAction:) forControlEvents:(UIControlEventTouchUpInside)];
-    [defaultView addSubview:defaultBtn];
+    [self CreateNoAddressView];
     
     _firstView = [LHPackInfoView creatView];
     _firstView.numLabel.text = @"第一件:";
-    _firstView.frame = CGRectMake(0, 64+kFit(35), kScreenWidth, kFit(45));
+    _firstView.frame = CGRectMake(0, self.noAddressBgView.maxY+15, kScreenWidth, kFit(45));
     [self.view addSubview:_firstView];
     
     _secondView = [LHPackInfoView creatView];
     _secondView.numLabel.text = @"第二件:";
-    _secondView.frame = CGRectMake(0, 64+kFit(35)+kFit(45), kScreenWidth, kFit(45));
+    _secondView.frame = CGRectMake(0, _firstView.maxY, kScreenWidth, kFit(45));
     [self.view addSubview:_secondView];
 
     _thirdView = [LHPackInfoView creatView];
     _thirdView.numLabel.text = @"第三件:";
-    _thirdView.frame = CGRectMake(0, 64+kFit(35)+kFit(45)*2, kScreenWidth, kFit(45));
+    _thirdView.frame = CGRectMake(0, _secondView.maxY, kScreenWidth, kFit(45));
     [self.view addSubview:_thirdView];
     
-    UILabel *remindLabel = [[UILabel alloc] init];
-    remindLabel.text = @"温馨提示:选择默认, 我们会根据您在个人信息里填写的信息选择商品大小哦~";
-    remindLabel.numberOfLines = 0;
-    remindLabel.font = kFont(12);
-    [self.view addSubview:remindLabel];
-    [remindLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.defaultView = [[UIView alloc] initWithFrame:CGRectMake(0, _thirdView.maxY+15, kScreenWidth, kFit(35))];
+    self.defaultView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.defaultView];
+    
+    CustomButton *defaultBtn = [[CustomButton alloc] initWithFrame:CGRectMake(kScreenWidth-kFit(90), 0, kFit(80), kFit(35)) imageFrame:CGRectMake(10, 5, kFit(25), kFit(25)) imageName:@"MyBox_click_default" titleLabelFrame:CGRectMake(kFit(30), 0, kFit(45), kFit(35)) title:@"默认" titleColor:[UIColor blackColor] titleFont:15];
+    [defaultBtn addTarget:self action:@selector(defaultBtnAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.defaultView addSubview:defaultBtn];
+    
+    self.remindLabel = [[UILabel alloc] init];
+    self.remindLabel.text = @"温馨提示:选择默认, 我们会根据您在个人信息里填写的信息选择商品大小哦~";
+    self.remindLabel.numberOfLines = 0;
+    self.remindLabel.font = kFont(12);
+    [self.view addSubview:self.remindLabel];
+    [self.remindLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left).offset(10);
         make.right.equalTo(self.view.mas_right).offset(-10);
         make.height.mas_equalTo(40);
-        make.top.equalTo(_thirdView.mas_bottom).offset(10);
+        make.top.equalTo(self.defaultView.mas_bottom).offset(10);
     }];
     
     
@@ -109,7 +114,62 @@
     [self.linePickView show];
 }
 
+- (void)CreateNoAddressView {
+    self.noAddressBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kFit(60))];
+    self.noAddressBgView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.noAddressBgView];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapNoAddressViewAction)];
+    [self.noAddressBgView addGestureRecognizer:tap];
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 150, kFit(60))];
+    titleLabel.text = @"收货地址";
+    titleLabel.font = kFont(15);
+    [self.noAddressBgView addSubview:titleLabel];
+    
+    UIImageView *openImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenWidth - 30, (self.noAddressBgView.frame.size.height - 20)/2, 8, 16)];
+    openImageView.image = kImage(@"MyCenter_CardBox_OpenCell");
+    [self.noAddressBgView addSubview:openImageView];
+    
+}
 
+- (void)CreateAddressView {
+    self.addressBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kFit(100))];
+    self.addressBgView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.addressBgView];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAddressViewAction)];
+    [self.addressBgView addGestureRecognizer:tap];
+    
+    UIImageView *addressImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kFit(10), (self.addressBgView.frame.size.height-kFit(15))/2, kFit(12), kFit(16))];
+    addressImageView.image = kImage(@"MyBox_Address");
+    [self.addressBgView addSubview:addressImageView];
+    
+    UIImageView *openImageView = [[UIImageView alloc] init];
+    openImageView.image = kImage(@"MyCenter_CardBox_OpenCell");
+    [self.addressBgView addSubview:openImageView];
+    [openImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.addressBgView.mas_right).offset(-10);
+        make.width.mas_equalTo(kFit(8));
+        make.height.mas_equalTo(kFit(15));
+        make.centerY.mas_equalTo(self.addressBgView.mas_centerY);
+    }];
+    
+    //姓名
+    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(kFit(30), kFit(10), (kScreenWidth-kFit(60))/2, kFit(20))];
+    self.nameLabel.font = kFont(15);
+    [self.addressBgView addSubview:self.nameLabel];
+    
+    //电话
+    self.phoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.nameLabel.maxX, kFit(10), (kScreenWidth-kFit(60))/2, kFit(20))];
+    self.phoneLabel.textAlignment = NSTextAlignmentRight;
+    [self.addressBgView addSubview:self.phoneLabel];
+    
+    //地址
+    self.addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(kFit(30), kFit(35), kScreenWidth-kFit(60), kFit(50))];
+    self.addressLabel.font = kFont(14);
+    [self.addressBgView addSubview:self.addressLabel];
+}
 
 
 
@@ -128,8 +188,70 @@
 }
 //提交
 - (void)submitAction {
+    NSLog(@"提交");
+}
+
+//没有地址时
+- (void)tapNoAddressViewAction {
+    NSLog(@"选择地址");
+    LHReceiveAddressViewController *receiveVC = [[LHReceiveAddressViewController alloc] init];
+    receiveVC.addressBlock = ^(LHAddressModel *model) {
+//        NSLog(@"%@%@%@%@", model.province, model.city, model.district, model.detail_address);
+        [self.noAddressBgView removeFromSuperview];
+        [self CreateAddressView];
+        [self updateConstraint];
+        self.nameLabel.text = model.name;
+        self.phoneLabel.text = model.mobile;
+        self.addressLabel.text = [NSString stringWithFormat:@"%@%@%@%@", model.province, model.city, model.district, model.detail_address];;
+        
+    };
+    [self.navigationController pushViewController:receiveVC animated:YES];
+}
+
+//有地址时
+- (void)tapAddressViewAction {
+    LHReceiveAddressViewController *receiveVC = [[LHReceiveAddressViewController alloc] init];
+    receiveVC.addressBlock = ^(LHAddressModel *model) {
+//        NSLog(@"%@%@%@%@", model.province, model.city, model.district, model.detail_address);
+        self.nameLabel.text = model.name;
+        self.phoneLabel.text = model.mobile;
+        self.addressLabel.text = [NSString stringWithFormat:@"%@%@%@%@", model.province, model.city, model.district, model.detail_address];
+    };
+    [self.navigationController pushViewController:receiveVC animated:YES];
+}
+
+//更新约束
+- (void)updateConstraint {
+    [_firstView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.right.left.equalTo(self.view).offset(0);
+        make.top.equalTo(self.addressBgView.mas_bottom).offset(15);
+        make.height.mas_equalTo(kFit(45));
+    }];
+    [_secondView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.right.left.equalTo(self.view).offset(0);
+        make.top.equalTo(_firstView.mas_bottom).offset(15);
+        make.height.mas_equalTo(kFit(45));
+    }];
+    [_thirdView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.right.left.equalTo(self.view).offset(0);
+        make.top.equalTo(_secondView.mas_bottom).offset(15);
+        make.height.mas_equalTo(kFit(45));
+    }];
+    [self.defaultView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.right.left.equalTo(self.view).offset(0);
+        make.top.equalTo(_thirdView.mas_bottom).offset(15);
+        make.height.mas_equalTo(kFit(45));
+    }];
+    
+    [self.remindLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(10);
+        make.right.equalTo(self.view).offset(-10);
+        make.top.equalTo(self.defaultView.mas_bottom).offset(10);
+        make.height.mas_equalTo(kFit(35));
+    }];
     
 }
+
 
 
 - (void)chooseClothesAction {

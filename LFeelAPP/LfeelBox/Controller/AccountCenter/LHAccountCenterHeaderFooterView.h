@@ -16,6 +16,7 @@ typedef void(^ClickHeaderViewBlock)();
 - (void)clickHeaderViewBlock:(ClickHeaderViewBlock)block;
 
 @property (nonatomic, strong) UIView *noAddressBgView;
+
 @property (nonatomic, strong) UIView *addressBgView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *phoneLabel;
