@@ -103,7 +103,14 @@
 - (void)requestAddAddressData {
     //地址是否默认   先默认为0 (不是默认)
     NSInteger isDefault = self.defaultSwitch.on == YES ? 1 : 0;
-    NSDictionary *dic = @{@"user_id": kUser_id, @"province": self.province, @"city": self.city, @"district": self.area, @"mobile": self.phoneTF.text, @"detail_address": self.detailAddressTF.text, @"isdefault":@(isDefault), @"name": self.nameTF.text};
+    NSDictionary *dic = @{@"user_id": kUser_id,
+                          @"province": self.province,
+                          @"city": self.city,
+                          @"district": self.area,
+                          @"mobile": self.phoneTF.text,
+                          @"detail_address": self.detailAddressTF.text,
+                          @"isdefault":@(isDefault),
+                          @"name": self.nameTF.text};
     [LHNetworkManager PostWithUrl:kAddAddressUrl parameter:dic success:^(id reponseObject) {
         NSLog(@"-----------%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {

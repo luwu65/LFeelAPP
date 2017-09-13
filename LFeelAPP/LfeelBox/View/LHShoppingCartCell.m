@@ -208,10 +208,22 @@
 //}
 
 - (void)reloadDataWithModel:(LHCartGoodsModel *)goodsModel {
-    self.titleLabel.text = goodsModel.goodsName;
+    self.titleLabel.text = goodsModel.product_name;
     self.numberLabel.text = [NSString stringWithFormat:@"%ld", goodsModel.count];
-    self.priceLabel.text = [NSString stringWithFormat:@"%ld", [goodsModel.realPrice integerValue]];
+    self.priceLabel.text = [NSString stringWithFormat:@"¥%.2lf/件", [goodsModel.price_lfeel floatValue]];
     self.clickBtn.selected = goodsModel.isSelect;
+    [self.goodsImageView sd_setImageWithURL:[NSURL URLWithString:goodsModel.url] placeholderImage:kImage(@"")];
+    for (int i = 0; i < goodsModel.property_value.count; i++) {
+        self.sizeColorLabel.text = [NSString stringWithFormat:@"%@", goodsModel.property_value[i]];
+    }
+ 
+    if (goodsModel.property_value.count == 1) {
+        self.sizeColorLabel.text = [NSString stringWithFormat:@"%@", goodsModel.property_value.firstObject];
+    } else {
+        self.sizeColorLabel.text = [NSString stringWithFormat:@"%@, %@", goodsModel.property_value.firstObject, goodsModel.property_value.lastObject];
+    }
+    
+    
     
 }
 

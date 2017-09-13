@@ -49,11 +49,19 @@ static NSString *myCenterCell = @"myCenterCell";
     }
     return _cellTitleArray;
 }
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateUserInfoSuccess" object:nil];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     //设置导航栏为透明的
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ReloadUserData:) name:@"updateUserInfoSuccess" object:nil];
 }
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
@@ -272,6 +280,12 @@ static NSString *myCenterCell = @"myCenterCell";
         [self.navigationController pushViewController:orderVC animated:YES];
     }];
 }
+//如果修改了个人信息, 根据通知展示新的数据
+- (void)ReloadUserData:(NSNotificationCenter *)center {
+    [self configureDataForUser];
+    
+}
+
 
 #pragma mark -------------------- 赋值 -------------------
 
@@ -292,6 +306,7 @@ static NSString *myCenterCell = @"myCenterCell";
         NSString *phone = [NSString stringWithFormat:@"%@****%@", [model.username substringToIndex:3], [model.username substringFromIndex:7]];
         [_headerView.nameButton setTitle:phone forState:(UIControlStateNormal)];
     }
+    [self.myCenterTableView reloadData];
 }
 
 #pragma mark ---------------

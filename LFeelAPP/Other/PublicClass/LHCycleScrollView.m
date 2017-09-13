@@ -186,31 +186,31 @@
 
         
         //库存
-        self.repertoryLabel = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth-kFit(60))/3+kFit(30), self.titleLabel.maxY+5, (kScreenWidth-kFit(60))/3, kFit(25))];
+        self.repertoryLabel = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth-kFit(30))/3+kFit(15), self.titleLabel.maxY+5, (kScreenWidth-kFit(30))/3, kFit(25))];
         self.repertoryLabel.font = kFont(13);
         self.repertoryLabel.textAlignment = NSTextAlignmentCenter;
         self.repertoryLabel.textColor = [UIColor blackColor];
         [self addSubview:self.repertoryLabel];
         
-        UILabel *emsLabel = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth-kFit(60))*2/3+kFit(45), self.titleLabel.maxY+5, (kScreenWidth-kFit(60))/3, kFit(25))];
+        UILabel *emsLabel = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth-kFit(30))*2/3+kFit(15), self.titleLabel.maxY+5, (kScreenWidth-kFit(30))/3, kFit(25))];
         emsLabel.font = kFont(13);
         emsLabel.text = @"邮费到付";
         emsLabel.textAlignment = NSTextAlignmentRight;
         emsLabel.textColor = [UIColor lightGrayColor];
         [self addSubview:emsLabel];
-        
-        
-        
-        self.priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(kFit(15), self.titleLabel.maxY+5, (kScreenWidth-kFit(60))/3, kFit(25))];
+                
+        self.priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(kFit(15), self.titleLabel.maxY+5, (kScreenWidth-kFit(30))/3, kFit(25))];
         self.priceLabel.backgroundColor = [UIColor whiteColor];
         self.priceLabel.textColor = [UIColor redColor];
-        self.priceLabel.font = kFont(kFit(18));
+        self.priceLabel.font = kFont(kFit(16));
         [self addSubview:self.priceLabel];
         
         self.sizeTagView = [[LHTagView alloc] initWithFrame:CGRectMake(10, self.priceLabel.maxY+10, kScreenWidth-10, kFit(35))];
+        self.sizeTagView.contentView.tag = kGoodsDetailTag + 100;
         [self addSubview:self.sizeTagView];
         
         self.colorTagView = [[LHTagView alloc] initWithFrame:CGRectMake(10, self.sizeTagView.maxY, kScreenWidth-10, kFit(35))];
+        self.colorTagView.contentView.tag = kGoodsDetailTag + 200;
         [self addSubview:self.colorTagView];
         
         UIButton *addCart = [UIButton buttonWithType:(UIButtonTypeCustom)];
@@ -223,7 +223,6 @@
         addCart.layer.borderColor = [UIColor redColor].CGColor;
         addCart.layer.borderWidth = 1;
         addCart.layer.cornerRadius = 2;
-        
         
         UIButton *bugNowBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
         bugNowBtn.frame = CGRectMake(addCart.maxX + kFit(15), self.maxY-kFit(70), (kScreenWidth-kFit(45))/2, kFit(45));
@@ -273,9 +272,18 @@
 }
 
 - (void)collectionBtnAction:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    if (sender.selected) {
+        [sender setBackgroundImage:[UIImage imageNamed:@"NewGoods_Like"] forState:(UIControlStateNormal)];
+        
+    } else {
+        [sender setBackgroundImage:[UIImage imageNamed:@"NewGoods_unLike"] forState:(UIControlStateNormal)];
+        
+    }
     
-    
-    
+    if (self.ClickCollectBlock) {
+        self.ClickCollectBlock();
+    }
 }
 
 

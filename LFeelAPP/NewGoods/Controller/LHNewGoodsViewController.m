@@ -267,7 +267,7 @@
         
     } else {
         LHGoodsListViewController *goodsListVC = [[LHGoodsListViewController alloc] init];
-        goodsListVC.listModel = self.goodsArray[indexPath.row];
+        goodsListVC.listModel = self.detailListArray[indexPath.row];
         [self.navigationController pushViewController:goodsListVC animated:YES];
     }
     

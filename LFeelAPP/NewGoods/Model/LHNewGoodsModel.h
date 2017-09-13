@@ -78,7 +78,14 @@
 @end
 
 
+@interface LHGoodsSizeColorModel : LHBaseModel
 
+@property (nonatomic, assign) NSInteger spec_id;
+@property (nonatomic, copy) NSString *price;
+@property (nonatomic, copy) NSString *property_value;
+@property (nonatomic, copy) NSString *remain;
+
+@end
 
 
 

@@ -53,6 +53,7 @@
 //选衣界面tag值基数
 #define kChooseClothesTag       2000
 
+#define kGoodsDetailTag         1500
 
 
 //羊角符
@@ -110,6 +111,36 @@
 
 
 
+#define kShowError(message) [MBProgressHUD showError:(message)]
+#define kShowSuccess(message)[MBProgressHUD showSuccess:message];
+
+
+/// 验证条件
+#define SLAssert(Condition, Message)\
+if (!(Condition)) {\
+kShowError(Message);\
+return;\
+}
+
+// 验证是文字是否输入
+//
+// @param __Text    文字长度
+// @param __Message 错误提示
+#define kVerifyText(__TextLength, __Message)\
+if (!__TextLength) {\
+kShowError(__Message);\
+return;\
+}
+
+// 验证手机正则
+//
+// @param __Text    文字
+// @param __Message 错误提示
+#define kVerifyPhone(__Phone, __Message)\
+if (![__Phone validateMobile]) {\
+kShowError(__Message);\
+return;\
+}
 
 
 

@@ -37,7 +37,7 @@
     __weak typeof(self) weakself = self;
     
     self.goodsImageView = [[UIImageView alloc] init];
-    self.goodsImageView.backgroundColor = [UIColor redColor];
+//    self.goodsImageView.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:self.goodsImageView];
     [self.goodsImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.mas_left).offset(5*kRatio);
@@ -95,7 +95,22 @@
 
 
 
-
+- (void)reloadDataWithModel:(LHAccountGoodsModel *)goodsModel {
+    if (![goodsModel.url isKindOfClass:[NSNull class]]) {
+        [self.goodsImageView sd_setImageWithURL:kURL(goodsModel.url) placeholderImage:kImage(@"")];
+    } else {
+        self.goodsImageView.image = [UIImage imageNamed:@""];
+    }
+    self.titleLabel.text = goodsModel.product_name;
+    if (goodsModel.property_value.count == 1) {
+        self.sizeLabel.text = [NSString stringWithFormat:@"%@", goodsModel.property_value.firstObject];
+    } else {
+        self.sizeLabel.text = [NSString stringWithFormat:@"%@,%@", goodsModel.property_value.firstObject, goodsModel.property_value.lastObject];
+    }
+    //¥%@元/件 X %@
+    self.priceLabel.text = [NSString stringWithFormat:@"¥%@元/件", goodsModel.price_lfeel];
+    self.numLabel.text = [NSString stringWithFormat:@"x %@", goodsModel.count];
+}
 
 
 

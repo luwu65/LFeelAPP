@@ -43,6 +43,7 @@
 @property (nonatomic, copy) NSString *lastlogintime;
 @property (nonatomic, copy) NSString *password;
 @property (nonatomic, copy) NSString *username;
+@property (nonatomic, copy) NSString *shose;
 
 
 

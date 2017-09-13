@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "LHShoppingCartModel.h"
 
 
 
@@ -20,6 +20,13 @@
 @property (strong, nonatomic) UILabel *sizeLabel;
 @property (strong, nonatomic) UILabel *priceLabel;
 @property (nonatomic, strong) UILabel *numLabel;
+
+
+//@property (nonatomic, strong) LHCartGoodsModel *goodsModel;
+
+
+- (void)reloadDataWithModel:(LHAccountGoodsModel *)goodsModel;
+
 
 
 

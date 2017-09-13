@@ -30,31 +30,20 @@ typedef void(^ClickHeaderViewBlock)();
 #pragma mark  --------------------------------------
 
 
-typedef void(^SelectedBlock)(UILabel *label);
-typedef void(^HandleBlock)();
+typedef void(^PayTypeBlock)(UILabel *label);
 
 @interface LHAccountCenterFooterView : UIView
 
-@property (nonatomic, copy) SelectedBlock payTypeBlock;
-@property (nonatomic, copy) SelectedBlock cheaperCardBlock;
-@property (nonatomic, copy) HandleBlock agreeBlock;
 
-- (void)selectedCheaperCardBlock:(SelectedBlock)block;
-- (void)selectedPayTypeBlock:(SelectedBlock)block;
-- (void)handleAgreeBlock:(HandleBlock)block;
+@property (nonatomic, copy) PayTypeBlock payTypeBlock;
+@property (nonatomic, copy) void (^AgreeDelegateBlock)();
 + (instancetype)creatView;
 
-//优惠券
-@property (weak, nonatomic) IBOutlet UILabel *cheaperCardLabal;
 
 //支付方式
 @property (weak, nonatomic) IBOutlet UILabel *payTypeLabel;
 
-//客户留言
-@property (weak, nonatomic) IBOutlet UITextField *explainTF;
 
-//共几件商品, 小计多少钱
-@property (weak, nonatomic) IBOutlet UILabel *shopAllPriceLabel;
 
 //乐荟商城租赁协议
 @property (weak, nonatomic) IBOutlet UILabel *delegateLabel;
@@ -76,7 +65,25 @@ typedef void(^HandleBlock)();
 
 
 
+@interface LHAccountSectionFooterView : UIView
 
++ (instancetype)creatView;
+//客户留言
+@property (weak, nonatomic) IBOutlet UITextField *explainTF;
+//共几件商品, 小计多少钱
+@property (weak, nonatomic) IBOutlet UILabel *shopAllPriceLabel;
+//优惠券
+@property (weak, nonatomic) IBOutlet UILabel *cheaperCardLabal;
+
+
+@property (nonatomic, copy) void (^CheaperCardBlock)();
+
+@property (nonatomic, copy) void (^RemarkBlock)(NSString *remark);
+
+
+
+
+@end
 
 
 

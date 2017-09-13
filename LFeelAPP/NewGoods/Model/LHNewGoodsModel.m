@@ -85,3 +85,15 @@
 
 
 @end
+
+
+@implementation LHGoodsSizeColorModel
+
+
+
+
+
+
+
+@end
+

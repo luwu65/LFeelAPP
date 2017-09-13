@@ -13,7 +13,7 @@
 #import "LHDraggableCardContainer.h"
 #import "LHDragCardView.h"
 #import "LHFloatAnimationButton.h"
-
+#import "LHLoginViewController.h"
 @interface LHChooseGoodsViewController ()<LHDraggableCardContainerDelegate, LHDraggableCardContainerDataSource>
 
 @property (nonatomic, strong) UILabel *cTitleLabel;//中文标题
@@ -55,7 +55,8 @@
 #pragma mark  -------------  网络请求  -----------------------------
 - (void)requestGoodsDataWithUrl {
     [self showProgressHUD];
-    [LHNetworkManager requestForGetWithUrl:kGoodsUrl parameter:@{@"id": self.themesModel.id_, @"user_id": kUser_id} success:^(id reponseObject) {
+    //, @"user_id": kUser_id
+    [LHNetworkManager requestForGetWithUrl:kGoodsUrl parameter:@{@"id": self.themesModel.id_} success:^(id reponseObject) {
         NSLog(@"!!!!!!%@", reponseObject);
         if ([kSTR(reponseObject[@"isError"]) isEqualToString:@"0"]) {
             for (NSDictionary *dic in reponseObject[@"data"]) {
@@ -67,6 +68,9 @@
                 }
             }
         }
+        
+        
+        NSLog(@"------------------->>> %ld", self.dataArray.count);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideProgressHUD];
             if (self.dataArray.count > 0) {
@@ -136,24 +140,26 @@
 //喜欢
 - (void)likeBtnAction {
 //    [self startAnimation];
-    if (_index < self.dataArray.count) {
-        NSLog(@"%ld", _index);
-        LHThemeGoodsModel *model = self.dataArray[_index];
-        if ([model.iscollection integerValue] == 0) {
-            [self requestCollectGoodsDataWithModel:self.dataArray[_index]];
+    if ([LHUserInfoManager isLoad]) {
+        if (_index < self.dataArray.count) {
+            NSLog(@"%ld", _index);
+            LHThemeGoodsModel *model = self.dataArray[_index];
+            if ([model.iscollection integerValue] == 0) {
+                [self requestCollectGoodsDataWithModel:self.dataArray[_index]];
+            }
         }
-    }
-    [_container movePositionWithDirection:LHDraggableDirectionRight isAutomatic:YES];
-
-    _index++;
-    if (_index < self.dataArray.count) {
-        LHThemeGoodsModel *model = self.dataArray[self.index];
-        self.cTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
-        self.eTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
+        [_container movePositionWithDirection:LHDraggableDirectionRight isAutomatic:YES];
         
-        
+        _index++;
+        if (_index < self.dataArray.count) {
+            LHThemeGoodsModel *model = self.dataArray[self.index];
+            self.cTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
+            self.eTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
+        }
+    } else {
+        LHLoginViewController *loginVC = [[LHLoginViewController alloc] init];
+        [self presentViewController:loginVC animated:YES completion:nil];
     }
-    
 }
 
 
@@ -340,37 +346,46 @@
     
     if (draggableDirection == LHDraggableDirectionRight) {
         NSLog(@"--------------- >>>  右");
-        if (_index < self.dataArray.count) {
-            NSLog(@"%ld", _index);
-            LHThemeGoodsModel *model = self.dataArray[_index];
-            if ([model.iscollection integerValue] == 0) {
-                [self requestCollectGoodsDataWithModel:self.dataArray[_index]];
+        if ([LHUserInfoManager isLoad]) {
+            if (_index < self.dataArray.count) {
+                NSLog(@"%ld", _index);
+                LHThemeGoodsModel *model = self.dataArray[_index];
+                if ([model.iscollection integerValue] == 0) {
+                    [self requestCollectGoodsDataWithModel:self.dataArray[_index]];
+                }
+            }//        [self startAnimation];
+            [cardContainerView movePositionWithDirection:draggableDirection isAutomatic:NO];
+            _index++;
+            if (_index < self.dataArray.count) {
+                LHThemeGoodsModel *model = self.dataArray[self.index];
+                self.cTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
+                self.eTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
             }
-        }//        [self startAnimation];
-        [cardContainerView movePositionWithDirection:draggableDirection isAutomatic:NO];
-        _index++;
-        if (_index < self.dataArray.count) {
-            LHThemeGoodsModel *model = self.dataArray[self.index];
-            self.cTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
-            self.eTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
+        } else {
+            LHLoginViewController *loginVC = [[LHLoginViewController alloc] init];
+            [self presentViewController:loginVC animated:YES completion:nil];
         }
     }
     if (draggableDirection == LHDraggableDirectionUp) {
         NSLog(@"--------------- >>>  上");
-        
-        if (_index < self.dataArray.count) {
-            NSLog(@"%ld", _index);
-            LHThemeGoodsModel *model = self.dataArray[_index];
-            if ([model.iscollection integerValue] == 0) {
-                [self requestCollectGoodsDataWithModel:self.dataArray[_index]];
+        if ([LHUserInfoManager isLoad]) {
+            if (_index < self.dataArray.count) {
+                NSLog(@"%ld", _index);
+                LHThemeGoodsModel *model = self.dataArray[_index];
+                if ([model.iscollection integerValue] == 0) {
+                    [self requestCollectGoodsDataWithModel:self.dataArray[_index]];
+                }
             }
-        }
-        [cardContainerView movePositionWithDirection:draggableDirection isAutomatic:NO];
-        _index++;
-        if (_index < self.dataArray.count) {
-            LHThemeGoodsModel *model = self.dataArray[self.index];
-            self.cTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
-            self.eTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
+            [cardContainerView movePositionWithDirection:draggableDirection isAutomatic:NO];
+            _index++;
+            if (_index < self.dataArray.count) {
+                LHThemeGoodsModel *model = self.dataArray[self.index];
+                self.cTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
+                self.eTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
+            }
+        } else {
+            LHLoginViewController *loginVC = [[LHLoginViewController alloc] init];
+            [self presentViewController:loginVC animated:YES completion:nil];
         }
     }
     if (draggableDirection == LHDraggableDirectionDown) {

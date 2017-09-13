@@ -26,9 +26,34 @@ typedef NS_ENUM(NSInteger, PayType) {
 
 @property (nonatomic, strong) LHAccountCenterHeaderView *headerView;
 
+@property (nonatomic, strong) NSMutableArray *shoppingCartIDArray;
+//存储请求到的店铺
+@property (nonatomic, strong) NSMutableArray *storeArray;
+//总价格
+@property (nonatomic, strong) UILabel *allPriceLabel;
+
+//地址ID
+@property (nonatomic, copy) NSString *address_id;
+
+
 @end
 
 @implementation LHAccountCenterViewController
+- (NSMutableArray *)storeArray {
+    if (!_storeArray) {
+        self.storeArray = [NSMutableArray new];
+    }
+    return _storeArray;
+}
+- (NSMutableArray *)shoppingCartIDArray {
+    if (!_shoppingCartIDArray) {
+        self.shoppingCartIDArray = [NSMutableArray new];
+        for (LHCartGoodsModel *model in self.goodsModelArray) {
+            [self.shoppingCartIDArray addObject:model.shoppingcar_id];
+        }
+    }
+    return _shoppingCartIDArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -39,7 +64,102 @@ typedef NS_ENUM(NSInteger, PayType) {
     [self setHBK_NavigationBar];
     [self setBottomView];
     [self setDefualtPayType];
+    
+    
+    [self requestAccountOrderData];
+    
 }
+
+
+#pragma mark --------------------  网络请求 --------------------
+//订单列表
+- (void)requestAccountOrderData {
+    [self showProgressHUD];
+    //拼接字符数组
+    NSMutableString *ids = [NSMutableString stringWithString:@"["];
+    for (LHCartGoodsModel *model in self.goodsModelArray) {
+        [ids appendFormat:@"'%@',",model.shoppingcar_id];
+    }
+    NSString *idStr = [NSString stringWithFormat:@"%@]",[ids substringWithRange:NSMakeRange(0, [ids length]-1)]];
+    //核心代码
+    NSMutableDictionary *paramsDict=[[NSMutableDictionary alloc]init];
+    //将字符数组装入参数字典中
+    [paramsDict setObject:idStr forKey:@"shoppingcar_id"];
+    
+    [LHNetworkManager requestForGetWithUrl:kAccOrder parameter:paramsDict success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            for (NSDictionary *dic in reponseObject[@"data"]) {
+                LHAccountStoreModel *model = [[LHAccountStoreModel alloc] init];
+                [model setValuesForKeysWithDictionary:dic];
+                [model configerGoodsArrayWithArray:dic[@"products"]];
+                [self.storeArray addObject:model];
+            }
+            self.allPriceLabel.text = [NSString stringWithFormat:@"总计: %.2f", [reponseObject[@"totalprice"] floatValue]];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self hideProgressHUD];
+            [self.orderTableView reloadData];
+            
+        });
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+//提交订单
+- (void)requestSubmitOrderData {
+    //type-->0新品购买,1租赁
+    NSMutableArray *arr = [NSMutableArray new];
+
+    for (LHCartGoodsModel *model in self.goodsModelArray) {
+//        NSDictionary *dic = [NSMutableDictionary new];
+//        [dic setValue:@(model.count) forKey:@"count"];
+//        [dic setValue:model.product_id forKey:@"product_id"];
+//        [dic setValue:model.spec_id forKey:@"spec_id"];
+//        [dic setValue:model.price_lfeel forKey:@"price_lfeel"];
+//        NSData *data=[NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
+//        NSString *jsonStr=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        NSMutableString *ids = [NSMutableString stringWithString:@"{"];
+        [ids appendFormat:@"'count':'%ld','product_id':'%@','price_lfeel':'%@','spec_id':'%@'", model.count, model.product_id, model.price_lfeel, model.spec_id];
+//        NSLog(@"jsonStr==%@",jsonStr);
+        NSString *idStr = [NSString stringWithFormat:@"%@}",[ids substringWithRange:NSMakeRange(0, [ids length]-1)]];
+        NSLog(@"%@", idStr);
+        [arr addObject:idStr];
+    }
+    NSMutableString *ids = [NSMutableString stringWithString:@"["];
+    for (NSString *aStr in arr) {
+        [ids appendFormat:@"%@,", aStr];
+        
+    }
+    NSString *products = [NSString stringWithFormat:@"%@]",[ids substringWithRange:NSMakeRange(0, [ids length]-1)]];
+    
+    
+    NSLog(@"-products------%@", products);
+    
+    //核心代码
+    NSMutableDictionary *paramsDict=[[NSMutableDictionary alloc]init];
+    //将字符数组装入参数字典中
+    [paramsDict setObject:products forKey:@"products"];
+    [paramsDict setObject:@0 forKey:@"type"];
+    [paramsDict setObject:self.address_id forKey:@"address_id"];
+    [paramsDict setObject:kUser_id forKey:@"user_id"];
+    [paramsDict setObject:@"[1,2]" forKey:@"privilege_ids"];
+
+//    NSDictionary *dic = @{@"type": @0, @"address_id": self.address_id, @"user_id": kUser_id};
+    
+    [LHNetworkManager PostWithUrl:kSubmitOrder parameter:paramsDict success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
+
 
 /*
   默认的付款方式
@@ -63,15 +183,13 @@ typedef NS_ENUM(NSInteger, PayType) {
     [self.view addSubview:self.orderTableView];
     
     self.headerView = [[LHAccountCenterHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 60)];
-    self.headerView.nameLabel.text = @"aaa";
-    self.headerView.phoneLabel.text = @"1223455856";
-    self.headerView.addressLabel.text = @"话不能尴尬kg哈kg哈kg啊啊";
     @weakify(self);
     self.headerView.clickHeaderViewBlock = ^{
         @strongify(self);
         LHReceiveAddressViewController *receiveVC = [[LHReceiveAddressViewController alloc] init];
         receiveVC.addressBlock = ^(LHAddressModel *model) {
-            NSLog(@"点击了");
+            self.address_id = model.id_;
+            NSLog(@"地址ID-------- %@", model.id_);
             self.headerView.isUpdateFrame = YES;
             self.headerView.nameLabel.text = [NSString stringWithFormat:@"收件人: %@", model.name];
             self.headerView.phoneLabel.text = model.mobile;
@@ -86,20 +204,14 @@ typedef NS_ENUM(NSInteger, PayType) {
     self.orderTableView.tableHeaderView = self.headerView;
     
     LHAccountCenterFooterView *footerView = [LHAccountCenterFooterView creatView];
-    footerView.frame = CGRectMake(0, 0, kScreenWidth, kFit(300));
-    [footerView handleAgreeBlock:^{
-        NSLog(@"同意乐荟商城租赁协议");
-    }];
-    
-    [footerView selectedCheaperCardBlock:^(UILabel *label) {
-        NSLog(@"选择优惠券");
-        
-    }];
-    
-    [footerView selectedPayTypeBlock:^(UILabel *label) {
-        NSLog(@"付款方式");
+    footerView.frame = CGRectMake(0, 0, kScreenWidth, kFit(140));
+    footerView.payTypeBlock = ^(UILabel *label) {
         [self setPayViewWithLabel:label];
-    }];
+    };
+    footerView.AgreeDelegateBlock = ^{
+        NSLog(@"同意");
+    };
+    
     
     self.orderTableView.tableFooterView = footerView;
 }
@@ -122,9 +234,12 @@ typedef NS_ENUM(NSInteger, PayType) {
     [bgView addSubview:submitBtn];
     
     UILabel *allPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth/3*2-15, kTabBarHeight)];
-    allPriceLabel.text = @"总计: 1000.00";
+//    allPriceLabel.text = @"总计: 1000.00";
     allPriceLabel.textAlignment = NSTextAlignmentRight;
+    self.allPriceLabel = allPriceLabel;
+    self.allPriceLabel.textColor = [UIColor redColor];
     [bgView addSubview:allPriceLabel];
+
     
 }
 
@@ -153,16 +268,18 @@ typedef NS_ENUM(NSInteger, PayType) {
 #pragma mark  ---------------------- Aciton -------------
 - (void)submitAction {
     NSLog(@"提交");
+    [self requestSubmitOrderData];
 
 }
 
 #pragma mark --------------  <UITableViewDelegate, UITableViewDataSource> -------------
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return self.storeArray.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    LHAccountStoreModel *model = self.storeArray[section];
+    return model.products.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -171,12 +288,9 @@ typedef NS_ENUM(NSInteger, PayType) {
     if (!cell) {
         cell = [[LHAccountGoodsCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellID];
     }
-    
-    cell.titleLabel.text = @"你好";
-    cell.sizeLabel.text = @"黑色, M码";
-    cell.priceLabel.text = @"$11111";
-    cell.numLabel.text = @"x2";
-    
+    LHAccountStoreModel *storeModel = self.storeArray[indexPath.section];
+    LHAccountGoodsModel *goodsModel = [storeModel.products objectAtIndex:indexPath.row];
+    [cell reloadDataWithModel:goodsModel];
     return cell;
 }
 
@@ -186,18 +300,33 @@ typedef NS_ENUM(NSInteger, PayType) {
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return kFit(40);
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return kFit(120);
+}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     LHAccountSectionHeaderView *view = [[LHAccountSectionHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kFit(40))];
-    view.titleLabel.text = @"乐荟海外旗舰店";
+    LHAccountStoreModel *model = self.storeArray[section];
+    view.titleLabel.text = model.shopname;
+    
     return view;
 }
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    LHAccountSectionFooterView *footerView = [LHAccountSectionFooterView creatView];
+    footerView.frame = CGRectMake(0, 0, kScreenWidth, kFit(120));
+    footerView.CheaperCardBlock = ^{
+        NSLog(@"优惠券");
+    };
+    LHAccountStoreModel *model = self.storeArray[section];
+    footerView.shopAllPriceLabel.text = [NSString stringWithFormat:@"总共 %@ 件商品, 共 %.2f 元", model.product_count, model.shop_total_money];
+    return footerView;
+}
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return CGFLOAT_MIN;
-}
+
 
 
 - (void)didReceiveMemoryWarning {

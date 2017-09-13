@@ -147,6 +147,6 @@ typedef void(^ClickCycleViewBlock)(NSInteger index);
 
 @property (nonatomic, copy) void(^ClickBuyNowBlock)();
 @property (nonatomic, copy) void(^AddShoppingCartBlock)();
-
+@property (nonatomic, copy) void(^ClickCollectBlock)();
 
 @end

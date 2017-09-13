@@ -106,26 +106,11 @@
 }
 
 + (instancetype)creatView {
-    return [self creatViewFromNibName:@"LHAccountCenterHeaderFooterView" atIndex:0];
-}
-
-- (void)selectedPayTypeBlock:(SelectedBlock)block {
-    self.payTypeBlock = block;
-}
-- (void)selectedCheaperCardBlock:(SelectedBlock)block {
-    self.cheaperCardBlock = block;
-}
-- (void)handleAgreeBlock:(HandleBlock)block {
-    self.agreeBlock = block;
+    return [self creatViewFromNibName:@"LHAccountCenterHeaderFooterView" atIndex:1];
 }
 
 
-//优惠券
-- (IBAction)cheaperCardBtn:(UIButton *)sender {
-    if (self.cheaperCardBlock) {
-        self.cheaperCardBlock(self.cheaperCardLabal);
-    }
-}
+
 
 //支付方式
 - (IBAction)payType:(UIButton *)sender {
@@ -136,8 +121,8 @@
 
 //同意协议
 - (IBAction)agreeBtn:(UIButton *)sender {
-    if (self.agreeBlock) {
-        self.agreeBlock();
+    if (self.AgreeDelegateBlock) {
+        self.AgreeDelegateBlock();
     }
 }
 
@@ -174,7 +159,32 @@
 
 
 
+@implementation LHAccountSectionFooterView
 
++ (instancetype)creatView {
+    return [self creatViewFromNibName:@"LHAccountCenterHeaderFooterView" atIndex:0];
+}
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self rm_fitAllConstraint];
+}
+
+
+//优惠券
+- (IBAction)cheaperCardBtn:(UIButton *)sender {
+    if (self.CheaperCardBlock) {
+        self.CheaperCardBlock();
+    }
+}
+
+
+
+
+
+
+
+
+@end
 
 
 

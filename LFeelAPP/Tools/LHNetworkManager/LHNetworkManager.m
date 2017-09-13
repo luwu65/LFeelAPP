@@ -159,20 +159,28 @@
     _printParameter(parameters, url);
 #endif
     [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        
         if (consImage) {
-            /**
-             //判断图片是不是png格式的文件
-             if (UIImagePNGRepresentation(image)) {
-             //返回为png图像。
-             data = UIImagePNGRepresentation(image);
-             }else {
-             //返回为JPEG图像。
-             data = UIImageJPEGRepresentation(image, 1.0);
-             }
-             */
             //1.转成NSData类型
-            NSData *data = UIImagePNGRepresentation(consImage);
+            NSData *data = UIImageJPEGRepresentation(consImage, 1.0);
+            if (data.length>100*1024) {
+                if (data.length>1024*1024) {//1M以及以上
+                    data = UIImageJPEGRepresentation(consImage, 0.2);
+                }else if (data.length>512*1024) {//0.5M-1M
+                    data = UIImageJPEGRepresentation(consImage, 0.5);
+                }else if (data.length>200*1024) {//0.25M-0.5M
+                    data = UIImageJPEGRepresentation(consImage, 0.9);
+                }
+            }
+//            //判断图片是不是png格式的文件
+//            if (UIImagePNGRepresentation(consImage)) {
+//                //返回为png图像。
+//                data = UIImagePNGRepresentation(consImage);
+//            }else {
+//                //返回为JPEG图像。
+//                data = UIImageJPEGRepresentation(consImage, 0.5);
+//            }
+            NSLog(@"---------图片大小---->>> %lu", data.length);
+
             //2.加时间
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             formatter.dateFormat = @"yyyyMMddHHmmss";

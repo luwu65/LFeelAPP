@@ -207,7 +207,7 @@
 }
 
 
-#pragma mark -----------------------------------------------------------------------------------------------
+#pragma mark ------------------------------详情-----------------------------------------------------------------
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.categoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kFit(40), frame.size.height)];
@@ -235,7 +235,7 @@
         [btn setTitle:self.contentArray[i] forState:(UIControlStateNormal)];
         [btn setTitleColor:[UIColor blackColor]];
         btn.titleLabel.font = kFont(13);
-        btn.tag = kChooseClothesTag + i;
+        btn.tag = kGoodsDetailTag + i;
         NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:15]};
         CGFloat length = [self.contentArray[i] boundingRectWithSize:CGSizeMake(320, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size.width;
         if (i == 0) {
@@ -256,6 +256,30 @@
 
 
 - (void)selectedBtnAction:(UIButton *)sender {
+    if (self.lastClickArray.count > 0) {
+        if (sender.superview.tag == kGoodsDetailTag + 100) {
+            for (UIButton *btn in self.lastClickArray) {
+                if (btn.superview.tag == kGoodsDetailTag+100) {
+                    btn.selected = NO;
+                    btn.backgroundColor = [UIColor whiteColor];
+                    [btn setTitleColor:[UIColor blackColor]];
+                    [btn setImage:nil forState:(UIControlStateNormal)];
+                    btn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+                }
+            }
+            
+        } else if (sender.superview.tag == kGoodsDetailTag + 200) {
+            for (UIButton *btn in self.lastClickArray) {
+                if (btn.superview.tag == kGoodsDetailTag+200) {
+                    btn.selected = NO;
+                    btn.backgroundColor = [UIColor whiteColor];
+                    [btn setTitleColor:[UIColor blackColor]];
+                    [btn setImage:nil forState:(UIControlStateNormal)];
+                    btn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+                }
+            }
+        }
+    }
     sender.selected = !sender.selected;
     if (sender.selected) {
         sender.backgroundColor = [UIColor redColor];
@@ -267,6 +291,11 @@
         [sender setImage:nil forState:(UIControlStateNormal)];
         sender.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     }
+    if (self.ClickTagBlock) {
+        self.ClickTagBlock(sender.tag-kGoodsDetailTag);
+    }
+    [self.lastClickArray addObject:sender];
+
 }
 
 

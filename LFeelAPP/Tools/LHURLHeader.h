@@ -12,9 +12,9 @@
 
 #pragma mark  -----------------------  URL  -------------------------
 //请求头
-#define kUrlHeader            @"http://192.168.0.132:8081/lfeel/" //本地测试环境
+//#define kUrlHeader            @"http://192.168.0.132:8081/lfeel/" //本地测试环境
 //#define kUrlHeader            @"http://47.92.149.182:8020/lfeel/" //服务器环境
-//#define kUrlHeader            @"http://120.76.215.11:8021/lfeel/" //服务器环境
+#define kUrlHeader            @"http://120.76.215.11:8021/lfeel/" //服务器环境
 
 //token
 #define kToken                     @"e895482e-7662-4aa1-bdc7-a6fb3e806ccd"
@@ -81,49 +81,29 @@
 //地址列表
 #define kAddressList               @"addr/getList"
 
-#define kShowError(message) [MBProgressHUD showError:(message)]
-#define kShowSuccess(message)[MBProgressHUD showSuccess:message];
+//加入购物车
+#define kAddshoppingCart           @"shoppingcar/addproduct"
 
+//换头像
+#define kUploadImage               @"qiniu/upload"
 
-/// 验证条件
-#define SLAssert(Condition, Message)\
-if (!(Condition)) {\
-kShowError(Message);\
-return;\
-}
+//提交个人信息
+#define kUpdateUserInfo            @"vipmanagement/update"
 
-// 验证是文字是否输入
-//
-// @param __Text    文字长度
-// @param __Message 错误提示
-#define kVerifyText(__TextLength, __Message)\
-if (!__TextLength) {\
-kShowError(__Message);\
-return;\
-}
+//购物车列表
+#define kShopppingCartList         @"shoppingcar/getList"
 
-// 验证手机正则
-//
-// @param __Text    文字
-// @param __Message 错误提示
-#define kVerifyPhone(__Phone, __Message)\
-if (![__Phone validateMobile]) {\
-kShowError(__Message);\
-return;\
-}
+//删除购物车
+#define kDeleteShoppingCart        @"shoppingcar/delete"
 
+//更新购物车
+#define kUpdateShoppingCart        @"shoppingcar/update"
 
+//结算中心列表
+#define kAccOrder                  @"order/beforeorder"
 
-
-
-
-
-
-
-
-
-
-
+//提交订单
+#define kSubmitOrder               @"order/reservation"
 
 
 

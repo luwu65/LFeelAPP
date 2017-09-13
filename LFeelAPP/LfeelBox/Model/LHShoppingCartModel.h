@@ -14,10 +14,9 @@
 
 @property (nonatomic, assign) BOOL isSelect;
 
-@property (nonatomic, copy) NSString *id_;
-@property (nonatomic, copy) NSString *shopName;
-@property (nonatomic, copy) NSString *sid;
-@property (nonatomic, strong) NSMutableArray <LHCartGoodsModel *> *goodsModelArray;
+@property (nonatomic, copy) NSString *shopname;
+@property (nonatomic, copy) NSString *shoplogo;
+@property (nonatomic, strong) NSMutableArray <LHCartGoodsModel *> *products;
 
 
 - (void)configerGoodsArrayWithArray:(NSArray *)goodsArray;
@@ -28,27 +27,63 @@
 
 
 
-//---------------------- 商品model  -------------------
+//---------------------- 购物车商品model  -------------------
 @interface LHCartGoodsModel : LHBaseModel
-
 
 @property (nonatomic, assign) BOOL isSelect;
 
-@property (copy,nonatomic)NSString *id_;
-@property (copy,nonatomic)NSString *realPrice;
-@property (copy,nonatomic)NSString *goodsType;
+@property (copy,nonatomic) NSString *remain;
+@property (copy,nonatomic) NSString *shopname;
+@property (copy,nonatomic) NSString *brand_name;
+@property (copy,nonatomic) NSString *id_;
+@property (assign,nonatomic) NSInteger count;
+@property (copy,nonatomic) NSString *price_lfeel;
+@property (copy,nonatomic) NSString *make_in;
+@property (copy,nonatomic) NSString *shop_id;
+@property (copy,nonatomic) NSString *user_id;
+@property (copy,nonatomic) NSString *url;
+@property (copy,nonatomic) NSString *spec_id;
+@property (nonatomic, copy) NSString *product_id;
 
-@property (assign,nonatomic)NSInteger count;
-@property (copy,nonatomic)NSString *orginalPrice;
-@property (copy,nonatomic)NSString *total;
-@property (copy,nonatomic)NSString *userId;
-@property (copy,nonatomic)NSString *sid;
-@property (copy,nonatomic)NSString *goodsName;
-@property (copy,nonatomic)NSString *shopId;
-@property (copy,nonatomic)NSString *goodsId;
-@property (copy,nonatomic)NSString *shopName;
-@property (copy,nonatomic)NSString *categoryId;
+@property (copy,nonatomic) NSString *product_name;
+@property (strong,nonatomic) NSMutableArray *property_value;
 
+@property (copy,nonatomic) NSString *shoppingcar_id;
+
+
+@end
+
+#pragma mark --------------- 结算中心 --------------------
+@interface LHAccountGoodsModel : LHBaseModel
+
+@property (nonatomic, copy) NSString *remain;
+@property (nonatomic, copy) NSString *brand_name;
+@property (nonatomic, copy) NSArray *property_value;
+@property (nonatomic, copy) NSString *id_;
+@property (nonatomic, copy) NSString *url;
+@property (nonatomic, copy) NSString *count;
+@property (nonatomic, copy) NSString *spec_id;
+@property (nonatomic, copy) NSString *price_lfeel;
+@property (nonatomic, copy) NSString *shop_id;
+@property (nonatomic, copy) NSString *product_name;
+@property (nonatomic, copy) NSString *product_id;
+
+
+@end
+
+
+
+@class LHAccountGoodsModel;
+@interface LHAccountStoreModel : LHBaseModel
+
+@property (nonatomic, copy) NSString *id_;
+@property (nonatomic, assign) CGFloat shop_total_money;
+@property (nonatomic, copy) NSString *product_count;
+@property (nonatomic, copy) NSString *shoplogo;
+@property (nonatomic, copy) NSString *shopname;
+@property (nonatomic, strong) NSMutableArray <LHAccountGoodsModel *> *products;
+
+- (void)configerGoodsArrayWithArray:(NSArray *)goodsArray;
 
 
 

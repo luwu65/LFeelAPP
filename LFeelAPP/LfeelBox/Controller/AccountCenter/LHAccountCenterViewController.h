@@ -7,7 +7,32 @@
 //
 
 #import "LHBaseViewController.h"
+#import "LHShoppingCartModel.h"
 
 @interface LHAccountCenterViewController : LHBaseViewController
+
+
+
+
+
+
+@property (nonatomic, strong) NSArray <LHCartGoodsModel *> *goodsModelArray;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end

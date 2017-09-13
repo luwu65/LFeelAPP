@@ -39,6 +39,7 @@
 
 
 
+#pragma mark ------------------------------商品详情, 颜色尺码的展示----------------------------------------
 
 /**
  带边框的标签, 前面带类名 例如"尺码:"
@@ -51,6 +52,8 @@
 @property (nonatomic, strong) UILabel *categoryLabel;
 
 @property (nonatomic, strong) NSArray *contentArray;
+
+
 
 @end
 
