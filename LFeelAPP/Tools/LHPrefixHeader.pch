@@ -68,7 +68,7 @@
 
 #import <UShareUI/UShareUI.h>
 
-
+#import <WXApi.h>
 
 
 

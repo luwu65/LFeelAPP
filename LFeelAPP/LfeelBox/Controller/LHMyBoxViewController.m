@@ -577,7 +577,7 @@
 - (void)headerRefreShshoppingCartTable {
     [self.storeArray removeAllObjects];
     [self.selectArray removeAllObjects];
-    [self.accrountView.allSelectBtn setImage:kImage(@"MyBox_click_default") forState:(UIControlStateNormal)];
+    self.accrountView.allSelectBtn.titleImageView.image = kImage(@"MyBox_click_default");
     self.accrountView.allSelectBtn.selected = YES;
     [self requestShoppingCartData];
     [self countPrice];

@@ -110,14 +110,16 @@ typedef NS_ENUM(NSInteger, PayType) {
 
 //提交订单
 - (void)requestSubmitOrderData {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self showProgressHUDWithTitle:@"提交订单"];
+    });
     //type-->0新品购买,1租赁
+    //pay_way 0信用卡分期 1支付宝  2微信支付  3银联
     NSMutableArray *arr = [NSMutableArray new];
     for (LHCartGoodsModel *model in self.goodsModelArray) {
         NSMutableString *ids = [NSMutableString stringWithString:@"{"];
         [ids appendFormat:@"\"count\":\"%ld\",\"product_id\":\"%@\",\"price_lfeel\":\"%@\",\"spec_id\":\"%@\"", model.count, model.product_id, model.price_lfeel, model.spec_id];
-//        NSLog(@"jsonStr==%@",jsonStr);
         NSString *idStr = [NSString stringWithFormat:@"%@}",[ids substringWithRange:NSMakeRange(0, [ids length])]];
-        NSLog(@"%@", idStr);
         [arr addObject:idStr];
     }
     NSMutableString *ids = [NSMutableString stringWithString:@"["];
@@ -125,7 +127,7 @@ typedef NS_ENUM(NSInteger, PayType) {
         [ids appendFormat:@"%@,", aStr];
     }
     NSString *products = [NSString stringWithFormat:@"%@]",[ids substringWithRange:NSMakeRange(0, [ids length]-1)]];
-    NSLog(@"-products------%@", products);
+//    NSLog(@"-products------%@", products);
     //核心代码
     NSMutableDictionary *paramsDict=[[NSMutableDictionary alloc]init];
     //将字符数组装入参数字典中
@@ -134,15 +136,21 @@ typedef NS_ENUM(NSInteger, PayType) {
     [paramsDict setObject:self.address_id forKey:@"address_id"];
     [paramsDict setObject:kUser_id forKey:@"user_id"];
     [paramsDict setObject:@"[1,2]" forKey:@"privilege_ids"];
-    
+    [paramsDict setObject:@(self.payType) forKey:@"pay_way"];
     [LHNetworkManager PostWithUrl:kSubmitOrder parameter:paramsDict success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
-        
-        
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+           dispatch_async(dispatch_get_main_queue(), ^{
+               [self hideProgressHUD];
+               [MBProgressHUD showSuccess:@"成功下单~"];
+               
+           });
+            
+            
+        }
     } failure:^(NSError *error) {
         
     }];
-    
 }
 
 

@@ -18,10 +18,10 @@ target 'LFeelAPP' do
    pod 'MJExtension', '~> 3.0.13'
    pod 'MJRefresh', '~> 3.1.12'
    pod 'MBProgressHUD', '~> 1.0.0'
-pod ‘UMengUShare/UI’
-pod ‘UMengUShare/Social/ReducedWeChat'
-pod ‘UMengUShare/Social/ReducedQQ'
-pod ‘UMengUShare/Social/ReducedSina'
+   pod ‘UMengUShare/UI’
+   pod ‘UMengUShare/Social/ReducedWeChat'
+   pod ‘UMengUShare/Social/ReducedQQ'
+   pod ‘UMengUShare/Social/ReducedSina'
 
 
 
