@@ -112,33 +112,20 @@ typedef NS_ENUM(NSInteger, PayType) {
 - (void)requestSubmitOrderData {
     //type-->0新品购买,1租赁
     NSMutableArray *arr = [NSMutableArray new];
-
     for (LHCartGoodsModel *model in self.goodsModelArray) {
-//        NSDictionary *dic = [NSMutableDictionary new];
-//        [dic setValue:@(model.count) forKey:@"count"];
-//        [dic setValue:model.product_id forKey:@"product_id"];
-//        [dic setValue:model.spec_id forKey:@"spec_id"];
-//        [dic setValue:model.price_lfeel forKey:@"price_lfeel"];
-//        NSData *data=[NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
-//        NSString *jsonStr=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        
         NSMutableString *ids = [NSMutableString stringWithString:@"{"];
-        [ids appendFormat:@"'count':'%ld','product_id':'%@','price_lfeel':'%@','spec_id':'%@'", model.count, model.product_id, model.price_lfeel, model.spec_id];
+        [ids appendFormat:@"\"count\":\"%ld\",\"product_id\":\"%@\",\"price_lfeel\":\"%@\",\"spec_id\":\"%@\"", model.count, model.product_id, model.price_lfeel, model.spec_id];
 //        NSLog(@"jsonStr==%@",jsonStr);
-        NSString *idStr = [NSString stringWithFormat:@"%@}",[ids substringWithRange:NSMakeRange(0, [ids length]-1)]];
+        NSString *idStr = [NSString stringWithFormat:@"%@}",[ids substringWithRange:NSMakeRange(0, [ids length])]];
         NSLog(@"%@", idStr);
         [arr addObject:idStr];
     }
     NSMutableString *ids = [NSMutableString stringWithString:@"["];
     for (NSString *aStr in arr) {
         [ids appendFormat:@"%@,", aStr];
-        
     }
     NSString *products = [NSString stringWithFormat:@"%@]",[ids substringWithRange:NSMakeRange(0, [ids length]-1)]];
-    
-    
     NSLog(@"-products------%@", products);
-    
     //核心代码
     NSMutableDictionary *paramsDict=[[NSMutableDictionary alloc]init];
     //将字符数组装入参数字典中
@@ -147,8 +134,6 @@ typedef NS_ENUM(NSInteger, PayType) {
     [paramsDict setObject:self.address_id forKey:@"address_id"];
     [paramsDict setObject:kUser_id forKey:@"user_id"];
     [paramsDict setObject:@"[1,2]" forKey:@"privilege_ids"];
-
-//    NSDictionary *dic = @{@"type": @0, @"address_id": self.address_id, @"user_id": kUser_id};
     
     [LHNetworkManager PostWithUrl:kSubmitOrder parameter:paramsDict success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
