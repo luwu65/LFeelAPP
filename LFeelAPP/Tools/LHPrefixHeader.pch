@@ -70,6 +70,7 @@
 
 #import <WXApi.h>
 
+#import <AlipaySDK/AlipaySDK.h>
 
 
 #import "UIView+Extension.h"

@@ -30,10 +30,19 @@
     
 }
 //获取验证码
-- (void)obtainCaptchaAction {
+- (void)obtainCaptchaAction:(UIButton *)sender {
     [LHNetworkManager PostWithUrl:kGetVerifyURL parameter:@{@"mobile": self.phoneTextField.text} success:^(id reponseObject) {
         NSLog(@"============%@----%@", reponseObject, [reponseObject class]);
-        
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showSuccess:@"发送成功"];
+                [self openCountdown:sender];
+            });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showSuccess:@"发送失败"];
+            });
+        }
     } failure:^(NSError *error) {
         NSLog(@"~~~~~~~~~~~~%@", error);
     }];
@@ -164,7 +173,7 @@
     captchaBtn.titleLabel.font = kFont(15*kRatio);
     captchaBtn.layer.cornerRadius = 5;
     captchaBtn.layer.masksToBounds = YES;
-    [captchaBtn addTarget:self action:@selector(obtainCaptchaAction) forControlEvents:(UIControlEventTouchUpInside)];
+    [captchaBtn addTarget:self action:@selector(obtainCaptchaAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:captchaBtn];
     [captchaBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.view.mas_right).offset(-20);

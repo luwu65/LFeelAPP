@@ -42,9 +42,20 @@
 @property (nonatomic, strong) NSMutableArray *chooseColorArray;
 @property (nonatomic, copy) NSString *spec_id;
 
+@property (nonatomic, strong) NSMutableDictionary *goodsInfoDic;
+
+
 @end
 
 @implementation LHNewGoodsDetailViewController
+
+- (NSMutableDictionary *)goodsInfoDic {
+    if (!_goodsInfoDic) {
+        self.goodsInfoDic = [NSMutableDictionary new];
+    }
+    return _goodsInfoDic;
+}
+
 - (NSMutableArray *)chooseSizeArray {
     if (!_chooseSizeArray) {
         self.chooseSizeArray = [NSMutableArray new];
@@ -126,82 +137,7 @@
     
     self.cycleView.backgroundColor = [UIColor whiteColor];
     self.detailTableView.tableHeaderView = self.cycleView;
-    
-    @weakify(self);
-    self.cycleView.ClickBuyNowBlock = ^{
-        @strongify(self);
-        NSLog(@"立即购买");
-        [self compareColorSize];
-        if (self.spec_id) {
-            NSLog(@"-------------------  %@  ------------------", self.spec_id);
-            LHAccountCenterViewController *accCenterVC = [[LHAccountCenterViewController alloc] init];
-            
-            [self.navigationController pushViewController:accCenterVC animated:YES];
-        } else {
-            [MBProgressHUD showError:@"请选择尺码或颜色"];
-        }
-        self.cycleView.colorTagView.ClickTagBlock = ^(NSInteger index) {
-            @strongify(self);
-            [self.chooseColorArray removeAllObjects];
-            for (LHGoodsSizeColorModel *model in self.colorSizeArray) {
-                if ([model.property_value isEqualToString:self.colorArray[index]]) {
-                    NSLog(@"--------%ld", model.spec_id);
-                    [self.chooseColorArray addObject:@(model.spec_id)];
-                }
-            }
-        };
-        
-        self.cycleView.sizeTagView.ClickTagBlock = ^(NSInteger index) {
-            @strongify(self);
-            [self.chooseSizeArray removeAllObjects];
-            //遍历所有的颜色尺码的组合
-            for (LHGoodsSizeColorModel *model in self.colorSizeArray) {
-                //找到选择的尺码
-                if ([model.property_value isEqualToString:self.sizeArray[index]]) {
-                    NSLog(@"========%ld", model.spec_id);
-                    [self.chooseSizeArray addObject:@(model.spec_id)];
-                }
-            }
-        };
-    };
-    
-    self.cycleView.AddShoppingCartBlock = ^{
-        NSLog(@"加入购物车");
-        @strongify(self);
-        [self compareColorSize];
-        
-        if (self.spec_id) {
-            NSLog(@"-------------------  %@  ------------------", self.spec_id);
-            [self requestAddShoppingCartData];
-        } else {
-            [MBProgressHUD showError:@"请选择尺码或颜色"];
-        }
-    };
-    
-    self.cycleView.colorTagView.ClickTagBlock = ^(NSInteger index) {
-        @strongify(self);
-        [self.chooseColorArray removeAllObjects];
-        for (LHGoodsSizeColorModel *model in self.colorSizeArray) {
-            if ([model.property_value isEqualToString:self.colorArray[index]]) {
-                NSLog(@"--------%ld", model.spec_id);
-                [self.chooseColorArray addObject:@(model.spec_id)];
-            }
-        }
-    };
-    
-    self.cycleView.sizeTagView.ClickTagBlock = ^(NSInteger index) {
-        @strongify(self);
-        [self.chooseSizeArray removeAllObjects];
-        //遍历所有的颜色尺码的组合
-        for (LHGoodsSizeColorModel *model in self.colorSizeArray) {
-            //找到选择的尺码
-            if ([model.property_value isEqualToString:self.sizeArray[index]]) {
-                NSLog(@"========%ld", model.spec_id);
-                [self.chooseSizeArray addObject:@(model.spec_id)];
-            }
-        }
-    };
-    
+    [self cycleClickAction];
 }
 
 - (void)setHBK_NavigationBar {
@@ -357,7 +293,6 @@
                     self.cycleView.colorTagView.categoryLabel.text = [NSString stringWithFormat:@"%@: ", dic[@"property_key"]];
                     for (NSString *str in dic[@"property_value"]) {
                         [self.colorArray addObject: str];
-                        
                     }
                     self.cycleView.colorArray = self.colorArray;
                 } else {
@@ -369,6 +304,8 @@
                 }
             }
             
+           
+            self.goodsInfoDic = reponseObject[@"data"][@"productInfo"];
             
             for (NSDictionary *dic in reponseObject[@"data"][@"product_property"]) {
                 LHGoodsPropertyModel *model = [[LHGoodsPropertyModel alloc] init];
@@ -376,11 +313,7 @@
                 [self.propertyArray addObject:model];
             }
             
-        
-            
-            
             dispatch_async(dispatch_get_main_queue(), ^{
-                
                 self.cycleView.titleLabel.text = model.product_name;
                 self.cycleView.rentCycleView.imageURLStringsGroup = self.cycleArray;
                 self.cycleView.priceLabel.text = [NSString stringWithFormat:@"¥%@", model.price_lfeel];
@@ -422,6 +355,46 @@
     }];
 }
 
+/**
+ 收藏/ 取消收藏
+ 
+ @param model 收藏或取消收藏的模型
+ */
+- (void)requestCollectGoodsDataWithModel:(LHGoodsListModel *)model {
+    NSString *url = nil;
+    if ([model.iscollection integerValue] == 0) {
+        url = kCollectionGoodsUrl;
+    } else {
+        url = kUncollectionGoodsUrl;
+    }
+    [LHNetworkManager PostWithUrl:url parameter:@{@"product_id": model.product_id, @"user_id": kUser_id, @"type": @0} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        if ([model.iscollection integerValue] == 0) {
+            if ([reponseObject[@"errorCode"] integerValue] == 200) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showSuccess:@"收藏成功"];
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showError:@"收藏失败"];
+                });
+            }
+        } else {
+            if ([reponseObject[@"errorCode"] integerValue] == 200) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showSuccess:@"取消收藏"];
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showError:@"取消收藏失败"];
+                });
+            }
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
 
 #pragma mark ---------------- Action --------------------
 
@@ -438,7 +411,94 @@
     }
 }
 
-
+/**
+ NSMutableString *ids = [NSMutableString stringWithString:@"{"];
+ [ids appendFormat:@"\"count\":\"%ld\",\"product_id\":\"%@\",\"price_lfeel\":\"%@\",\"spec_id\":\"%@\"", model.count, model.product_id, model.price_lfeel, model.spec_id];
+ NSString *idStr = [NSString stringWithFormat:@"%@}",[ids substringWithRange:NSMakeRange(0, [ids length])]];
+ */
+- (void)cycleClickAction {
+    @weakify(self);
+    self.cycleView.ClickBuyNowBlock = ^{
+        @strongify(self);
+        [self compareColorSize];
+        if (self.spec_id) {
+            NSLog(@"-------------------  %@  ------------%@------", self.spec_id, self.goodsInfoDic);
+            LHAccountCenterViewController *accCenterVC = [[LHAccountCenterViewController alloc] init];
+            accCenterVC.productInfoDic = self.goodsInfoDic;
+            accCenterVC.spec_id = [NSString stringWithFormat:@"%@", self.spec_id];
+            [self.navigationController pushViewController:accCenterVC animated:YES];
+        } else {
+            [MBProgressHUD showError:@"请选择尺码或颜色"];
+        }
+        self.cycleView.colorTagView.ClickTagBlock = ^(NSInteger index) {
+            @strongify(self);
+            [self.chooseColorArray removeAllObjects];
+            for (LHGoodsSizeColorModel *model in self.colorSizeArray) {
+                if ([model.property_value isEqualToString:self.colorArray[index]]) {
+                    NSLog(@"--------%ld", model.spec_id);
+                    [self.chooseColorArray addObject:@(model.spec_id)];
+                }
+            }
+        };
+        
+        self.cycleView.sizeTagView.ClickTagBlock = ^(NSInteger index) {
+            @strongify(self);
+            [self.chooseSizeArray removeAllObjects];
+            //遍历所有的颜色尺码的组合
+            for (LHGoodsSizeColorModel *model in self.colorSizeArray) {
+                //找到选择的尺码
+                if ([model.property_value isEqualToString:self.sizeArray[index]]) {
+                    NSLog(@"========%ld", model.spec_id);
+                    [self.chooseSizeArray addObject:@(model.spec_id)];
+                }
+            }
+        };
+    };
+    
+    self.cycleView.AddShoppingCartBlock = ^{
+        NSLog(@"加入购物车");
+        @strongify(self);
+        [self compareColorSize];
+        
+        if (self.spec_id) {
+            NSLog(@"-------------------  %@  ------------------", self.spec_id);
+            [self requestAddShoppingCartData];
+        } else {
+            [MBProgressHUD showError:@"请选择尺码或颜色"];
+        }
+    };
+    
+    self.cycleView.colorTagView.ClickTagBlock = ^(NSInteger index) {
+        @strongify(self);
+        [self.chooseColorArray removeAllObjects];
+        for (LHGoodsSizeColorModel *model in self.colorSizeArray) {
+            if ([model.property_value isEqualToString:self.colorArray[index]]) {
+                NSLog(@"--------%ld", model.spec_id);
+                [self.chooseColorArray addObject:@(model.spec_id)];
+            }
+        }
+    };
+    
+    self.cycleView.sizeTagView.ClickTagBlock = ^(NSInteger index) {
+        @strongify(self);
+        [self.chooseSizeArray removeAllObjects];
+        //遍历所有的颜色尺码的组合
+        for (LHGoodsSizeColorModel *model in self.colorSizeArray) {
+            //找到选择的尺码
+            if ([model.property_value isEqualToString:self.sizeArray[index]]) {
+                NSLog(@"========%ld", model.spec_id);
+                [self.chooseSizeArray addObject:@(model.spec_id)];
+            }
+        }
+    };
+    
+    self.cycleView.ClickCollectBlock = ^{
+        @strongify(self);
+        NSLog(@"收藏");
+        
+        
+    };
+}
 
 
 

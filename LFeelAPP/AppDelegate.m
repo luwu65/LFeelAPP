@@ -37,6 +37,7 @@
     return YES;
 }
 
+
 #pragma mark --------------- 友盟------------------
 - (void)setUmengShare {
     /* 打开调试日志 */
@@ -72,6 +73,17 @@
     BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
     if (!result) {
         // 其他如支付等SDK的回调
+        
+        if ([url.host isEqualToString:@"safepay"]) {
+            //跳转支付宝钱包进行支付，处理支付结果
+            [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+                NSLog(@"result = %@",resultDic);
+            }];
+            return YES;
+        } else {
+            
+            
+        }
     }
     return result;
 }
@@ -82,6 +94,13 @@
     BOOL result = [[UMSocialManager defaultManager]  handleOpenURL:url options:options];
     if (!result) {
         // 其他如支付等SDK的回调
+        if ([url.host isEqualToString:@"safepay"]) {
+            //跳转支付宝钱包进行支付，处理支付结果
+            [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+                NSLog(@"result = %@",resultDic);
+            }];
+            return YES;
+        }
     }
     return result;
 }
@@ -90,6 +109,55 @@
     BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
     if (!result) {
         // 其他如支付等SDK的回调
+        
+        if ([url.host isEqualToString:@"safepay"]) {
+            //跳转支付宝钱包进行支付，处理支付结果
+            [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+                
+                //      NSLog(@"result = %@",resultDic);
+                NSString *resultStatus = [resultDic objectForKey:@"resultStatus"];
+                NSString *memo;
+                if ([resultStatus intValue] == 9000) {
+                    
+                    [MBProgressHUD showSuccess:@"支付成功"];
+                    
+//                    [self performSelector:@selector(zhifubaoSuccessNotification) withObject:nil afterDelay:0.5];
+                    memo = @"支付成功!";
+                }else {
+                    switch ([resultStatus intValue]) {
+                        case 4000:
+                            memo = @"失败原因:订单支付失败!";
+                            [MBProgressHUD showSuccess:@"支付失败"];
+                            break;
+                        case 6001:
+                            memo = @"失败原因:用户中途取消!";
+                            [MBProgressHUD showSuccess:@"您已取消支付"];
+                            //发送通知返回到主界面
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"cancelPay" object:nil];
+                            break;
+                        case 6002:
+                            memo = @"失败原因:网络连接出错!";
+                            [MBProgressHUD showSuccess:@"网络连接出错"];
+                            break;
+                        case 8000:
+                            memo = @"正在处理中...";
+                            [MBProgressHUD showSuccess:@"正在处理中"];
+                            break;
+                        default:
+                            memo = [resultDic objectForKey:@"memo"];
+                            break;
+                    }
+                }
+                
+            }];
+            return YES;
+        } else if([url.host isEqualToString:@"pay"]){
+//            return [WXApi handleOpenURL:url delegate:self];
+        } else {
+            return NO;
+        }
+
+        
     }
     return result;
 }

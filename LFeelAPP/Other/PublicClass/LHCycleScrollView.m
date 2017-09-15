@@ -200,6 +200,8 @@
         [self addSubview:emsLabel];
                 
         self.priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(kFit(15), self.titleLabel.maxY+5, (kScreenWidth-kFit(30))/3, kFit(25))];
+        self.priceLabel.layer.borderWidth = 0;
+        self.priceLabel.layer.borderColor = [UIColor whiteColor].CGColor;
         self.priceLabel.backgroundColor = [UIColor whiteColor];
         self.priceLabel.textColor = [UIColor redColor];
         self.priceLabel.font = kFont(kFit(16));

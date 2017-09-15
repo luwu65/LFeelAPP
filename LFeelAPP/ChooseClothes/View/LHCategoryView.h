@@ -20,7 +20,7 @@
 @property (nonatomic, strong) UICollectionView *categoryCollectionView;
 
 
-@property (nonatomic, strong) NSMutableArray *categoryListArray;
+@property (nonatomic, strong) NSArray *categoryArray;
 
 
 

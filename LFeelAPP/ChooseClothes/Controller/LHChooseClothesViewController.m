@@ -47,11 +47,21 @@
 
 //self.allCategoryLabel
 @property (nonatomic, strong) UILabel *allCategoryLabel;
+/**
+ 一级类别
+ */
+@property (nonatomic, strong) NSMutableArray *categoryListArray;
 
 @end
 
 @implementation LHChooseClothesViewController
 
+- (NSMutableArray *)categoryListArray {
+    if (!_categoryListArray) {
+        self.categoryListArray = [NSMutableArray new];
+    }
+    return _categoryListArray;
+}
 - (NSMutableArray *)goodsArray {
     if (!_goodsArray) {
         self.goodsArray = [NSMutableArray new];
@@ -62,10 +72,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self setCollectionView];
-    [self setChooseJumpView];
-    [self setScreeningView];
-    [self setHBK_NavigationBar];
+    
+    
+    
+    
+    
+    [self requestCategoryListData];
+    
+    
+    
 }
 
 
@@ -137,9 +152,12 @@
 
     self.goodsColllectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         NSLog(@"下拉刷新");
+        [self.goodsArray removeAllObjects];
+        [self requestRecommendGoodsListData];
     }];
     self.goodsColllectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         NSLog(@"上拉加载");
+        [self requestRecommendGoodsListData];
     }];
 }
 
@@ -161,22 +179,22 @@
 
 #pragma mark ---------------------- <UICollectionViewDelegate, UICollectionViewDataSource>
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 10;
+    return self.goodsArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     LHNewGoodsCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LHNewGoodsCollectionCell" forIndexPath:indexPath];
     cell.titleLabel.font = kFont(13*kRatio);
     cell.lfeelPriceLabel.hidden = YES;
-//    cell.listModel = self.goodsArray[indexPath.row];
+    cell.listModel = self.goodsArray[indexPath.row];
     [cell handleCollecitonBtnAction:^(BOOL isClick) {
-//        LHGoodsListModel *model = self.goodsArray[indexPath.row];
-//        if (isClick) {
-//            model.iscollection = @"0";
-//        } else {
-//            model.iscollection = @"1";
-//        }
-//        [self requestCollectGoodsDataWithModel:model];
+        LHGoodsListModel *model = self.goodsArray[indexPath.row];
+        if (isClick) {
+            model.iscollection = @"0";
+        } else {
+            model.iscollection = @"1";
+        }
+        [self requestCollectGoodsDataWithModel:model];
     }];
     return cell;
 }
@@ -198,10 +216,11 @@
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     UICollectionReusableView *reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"LHCategoryView" forIndexPath:indexPath];
     LHCategoryView *categoryView = [[LHCategoryView alloc] initWithFrame:CGRectMake(0, 0, reusableView.frame.size.width, reusableView.frame.size.height)];
+    categoryView.categoryArray = self.categoryListArray;
     categoryView.ClickCategoryBlock = ^(NSInteger index) {
         NSLog(@"%ld", index);
         LHCategoryListViewController *listVC = [[LHCategoryListViewController alloc] init];
-        
+        listVC.categoryModel = self.categoryListArray[index];
         [self.navigationController pushViewController:listVC animated:YES];
     };
     
@@ -285,11 +304,70 @@
                 });
             }
         }
-        
     } failure:^(NSError *error) {
         
     }];
 }
+
+
+/**
+ 请求商品分类
+ */
+- (void)requestCategoryListData {
+    [self showProgressHUD];
+    [LHNetworkManager requestForGetWithUrl:kCategoryListUrl parameter:@{@"id": @0, @"isrent": @1} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            for (NSDictionary *dic in reponseObject[@"data"]) {
+                LHCategoryListModel *model = [[LHCategoryListModel alloc] init];
+                [model setValuesForKeysWithDictionary:dic];
+                [self.categoryListArray addObject:model];
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //之前这里有做延迟操作, 防止user_id读取太慢
+            [self requestRecommendGoodsListData];
+        });
+    } failure:^(NSError *error) {
+        
+        
+    }];
+}
+
+
+/**
+ 请求推荐的商品列表
+ */
+- (void)requestRecommendGoodsListData {
+    //recommended 是否推荐 0 --> 不推荐; 1 --> 推荐
+    //type 0 --> 购买的商品; 1 --> 租赁的商品
+    //    NSLog(@"---------------> %@", kUser_id); , @"user_id": kUser_id
+    [LHNetworkManager requestForGetWithUrl:kNewGoodsListUrl parameter:@{@"recommend": @1, @"type": @1} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            if (!self.goodsColllectionView) {
+                [self setCollectionView];
+                [self setChooseJumpView];
+                [self setScreeningView];
+                [self setHBK_NavigationBar];
+            }
+            
+            for (NSDictionary *dic in reponseObject[@"data"]) {
+                LHGoodsListModel *model = [[LHGoodsListModel alloc] init];
+                [model setValuesForKeysWithDictionary:dic];
+                [self.goodsArray addObject:model];
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self hideProgressHUD];
+            [self.goodsColllectionView.mj_header endRefreshing];
+            [self.goodsColllectionView reloadData];
+        });
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
 
 
 #pragma mark -----------------  滑动渐变 ------- 

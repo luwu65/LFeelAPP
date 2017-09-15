@@ -143,7 +143,7 @@
 
 }
 - (void)AddShoppingCartSuccessNotification {
-    NSLog(@"-----------------添加购物车了------------------");
+    NSLog(@"-----------------添加购物车 或 下订单了了------------------");
     self.AddShoppingSuccess = YES;
 }
 
@@ -337,7 +337,6 @@
         LHCartGoodsModel *goodsModel = [storeModel.products objectAtIndex:indexPath.row];
         
         __block typeof(cell) wsCell = cell;
-//        wsCell.sizeColorLabel.text = @"XL 红色";
         //数量加
         [wsCell numberOfAddBlock:^(NSInteger number) {
             wsCell.number = number;
@@ -726,6 +725,11 @@
         }
         if (self.myBoxArray.count == 0) {
             [self emptyLfeelBoxView];
+        } else {
+            if ([self.view viewWithTag:kTag_BoxEmptyView+20]) {
+                [[self.view viewWithTag:kTag_BoxEmptyView+20] removeFromSuperview];
+            }
+        
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideProgressHUD];
@@ -818,10 +822,10 @@
 
 
 - (void)emptyLfeelBoxView {
-    UIView *bottomView = [self.view viewWithTag:kTag_BoxEmptyView];
-    [bottomView removeFromSuperview];
-    [self.myBoxTableView removeFromSuperview];
-    self.myBoxTableView = nil;
+//    UIView *bottomView = [self.view viewWithTag:kTag_BoxEmptyView];
+//    [bottomView removeFromSuperview];
+//    [self.myBoxTableView removeFromSuperview];
+//    self.myBoxTableView = nil;
     
     CGFloat tabBarHeight = 49;
     if ([self.subPage isEqualToString:@"Rent"] || [self.subPage isEqualToString:@"New"]) {
@@ -830,6 +834,7 @@
         tabBarHeight = 49;
     }
     UIView *bgView = [[UIView alloc] init];
+    bgView.tag = kTag_BoxEmptyView+20;
     bgView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-kNavBarHeight-tabBarHeight);
     [self.boxScrollView addSubview:bgView];
     

@@ -9,7 +9,7 @@
 #import "LHUserInfoViewController.h"
 #import "LHUserInfoCell.h"
 #import "LHBWHPickView.h"
-
+#import "LHCertificationViewController.h"
 @interface LHUserInfoViewController ()<LHPickViewDelegate>
 
 
@@ -25,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *shoesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sizeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
+//实名认证
+@property (weak, nonatomic) IBOutlet UILabel *certifationLabel;
 
 @property (nonatomic,strong) UIView *bgView;
 
@@ -231,6 +233,13 @@
     [self createLineOnePickViewWithArray:kClothesSize];
 }
 
+//实名认证
+- (IBAction)realNameCertification:(UIButton *)sender {
+    LHCertificationViewController *cerVC = [[LHCertificationViewController alloc] init];
+    
+    [self.navigationController pushViewController:cerVC animated:YES];
+}
+
 //提交
 - (IBAction)submit:(UIButton *)sender {
     kVerifyText(self.nickNameTF.text.length, @"请输入昵称");
@@ -370,7 +379,7 @@
          self.BWHLabel.textColor = [UIColor blackColor];
     }
     if (model.shose) {
-        self.shoesLabel.text = [NSString stringWithFormat:@"%@码", model.shose];
+        self.shoesLabel.text = [NSString stringWithFormat:@"%@", model.shose];
         self.shoesLabel.textColor = [UIColor blackColor];
     }
     if (model.size) {

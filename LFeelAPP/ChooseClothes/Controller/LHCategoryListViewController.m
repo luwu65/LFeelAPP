@@ -53,7 +53,7 @@
 
 - (void)setHBK_NavigationBar {
     self.automaticallyAdjustsScrollViewInsets = NO;
-   self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"上衣" backAction:^{
+   self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:self.categoryModel.category_name backAction:^{
        [self.navigationController popViewControllerAnimated:YES];
    }];
 }

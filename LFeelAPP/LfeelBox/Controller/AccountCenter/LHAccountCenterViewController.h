@@ -19,9 +19,9 @@
 @property (nonatomic, strong) NSArray <LHCartGoodsModel *> *goodsModelArray;
 
 
+@property (nonatomic, copy) NSDictionary *productInfoDic;
 
-
-
+@property (nonatomic, copy) NSString *spec_id;
 
 
 

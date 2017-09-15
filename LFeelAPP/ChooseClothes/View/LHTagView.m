@@ -263,6 +263,7 @@
                     btn.selected = NO;
                     btn.backgroundColor = [UIColor whiteColor];
                     [btn setTitleColor:[UIColor blackColor]];
+                    btn.layer.borderColor = [UIColor lightGrayColor].CGColor;
                     [btn setImage:nil forState:(UIControlStateNormal)];
                     btn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
                 }
@@ -274,6 +275,7 @@
                     btn.selected = NO;
                     btn.backgroundColor = [UIColor whiteColor];
                     [btn setTitleColor:[UIColor blackColor]];
+                    btn.layer.borderColor = [UIColor lightGrayColor].CGColor;
                     [btn setImage:nil forState:(UIControlStateNormal)];
                     btn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
                 }
@@ -284,10 +286,12 @@
     if (sender.selected) {
         sender.backgroundColor = [UIColor redColor];
         [sender setTitleColor:[UIColor whiteColor]];
+        sender.layer.borderColor = [UIColor redColor].CGColor;
         
     } else {
         sender.backgroundColor = [UIColor whiteColor];
         [sender setTitleColor:[UIColor blackColor]];
+        sender.layer.borderColor = [UIColor lightGrayColor].CGColor;
         [sender setImage:nil forState:(UIControlStateNormal)];
         sender.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     }
@@ -295,7 +299,6 @@
         self.ClickTagBlock(sender.tag-kGoodsDetailTag);
     }
     [self.lastClickArray addObject:sender];
-
 }
 
 

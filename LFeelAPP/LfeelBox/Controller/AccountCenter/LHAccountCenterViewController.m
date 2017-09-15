@@ -11,6 +11,9 @@
 #import "LHAccountCenterHeaderFooterView.h"
 #import "LHReceiveAddressViewController.h"
 #import "LHPayWayView.h"
+#import "Order.h"
+#import "RSADataSigner.h"
+
 typedef NS_ENUM(NSInteger, PayType) {
     PayWithLBFPayType = 0,
     PayWithAliPayType,
@@ -65,27 +68,65 @@ typedef NS_ENUM(NSInteger, PayType) {
     [self setBottomView];
     [self setDefualtPayType];
     
-    
+    [self requestAddressDefaultListData];
     [self requestAccountOrderData];
     
 }
 
 
 #pragma mark --------------------  网络请求 --------------------
+
+//请求默认地址
+- (void)requestAddressDefaultListData {
+    [self showProgressHUD];
+    [LHNetworkManager requestForGetWithUrl:kAddressList parameter:@{@"user_id": kUser_id, @"isdefault": @1} success:^(id reponseObject) {
+        NSLog(@"=============%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            for (NSDictionary *dic in reponseObject[@"data"]) {
+                LHAddressModel *model = [[LHAddressModel alloc] init];
+                model.isdefault = [NSString stringWithFormat:@"%@", dic[@"isdefault"]];
+                [model setValuesForKeysWithDictionary:dic];
+                self.address_id = [NSString stringWithFormat:@"%@", model.id_];
+                NSLog(@"地址ID-------- %@", model.id_);
+                self.headerView.isUpdateFrame = YES;
+                self.headerView.nameLabel.text = [NSString stringWithFormat:@"收件人: %@", model.name];
+                self.headerView.phoneLabel.text = model.mobile;
+                self.headerView.addressLabel.text = [NSString stringWithFormat:@"%@%@%@%@", model.province, model.city, model.district, model.detail_address];
+                self.headerView.frame = CGRectMake(0, 0, kScreenWidth, kFit(85));
+                [self.orderTableView reloadData];
+            }
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self hideProgressHUD];
+        });
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
 //订单列表
 - (void)requestAccountOrderData {
     [self showProgressHUD];
-    //拼接字符数组
-    NSMutableString *ids = [NSMutableString stringWithString:@"["];
-    for (LHCartGoodsModel *model in self.goodsModelArray) {
-        [ids appendFormat:@"'%@',",model.shoppingcar_id];
-    }
-    NSString *idStr = [NSString stringWithFormat:@"%@]",[ids substringWithRange:NSMakeRange(0, [ids length]-1)]];
-    //核心代码
-    NSMutableDictionary *paramsDict=[[NSMutableDictionary alloc]init];
-    //将字符数组装入参数字典中
-    [paramsDict setObject:idStr forKey:@"shoppingcar_id"];
+    NSMutableDictionary *paramsDict=[[NSMutableDictionary alloc] init];
     
+    if (self.goodsModelArray.count > 0) {
+        //拼接字符数组
+        NSMutableString *ids = [NSMutableString stringWithString:@"["];
+        for (LHCartGoodsModel *model in self.goodsModelArray) {
+            [ids appendFormat:@"'%@',",model.shoppingcar_id];
+        }
+        NSString *idStr = [NSString stringWithFormat:@"%@]",[ids substringWithRange:NSMakeRange(0, [ids length]-1)]];
+        //核心代码
+        //将字符数组装入参数字典中
+        [paramsDict setObject:idStr forKey:@"shoppingcar_id"];
+    }
+    if (self.productInfoDic) {
+        [paramsDict setObject:self.productInfoDic[@"id"] forKey:@"product_id"];
+        [paramsDict setObject:self.spec_id forKey:@"spec_id"];
+        
+    }
     [LHNetworkManager requestForGetWithUrl:kAccOrder parameter:paramsDict success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
@@ -113,23 +154,29 @@ typedef NS_ENUM(NSInteger, PayType) {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self showProgressHUDWithTitle:@"提交订单"];
     });
-    //type-->0新品购买,1租赁
-    //pay_way 0信用卡分期 1支付宝  2微信支付  3银联
-    NSMutableArray *arr = [NSMutableArray new];
-    for (LHCartGoodsModel *model in self.goodsModelArray) {
-        NSMutableString *ids = [NSMutableString stringWithString:@"{"];
-        [ids appendFormat:@"\"count\":\"%ld\",\"product_id\":\"%@\",\"price_lfeel\":\"%@\",\"spec_id\":\"%@\"", model.count, model.product_id, model.price_lfeel, model.spec_id];
-        NSString *idStr = [NSString stringWithFormat:@"%@}",[ids substringWithRange:NSMakeRange(0, [ids length])]];
-        [arr addObject:idStr];
+    NSString *products = nil;
+    if (self.goodsModelArray) {
+        //type-->0新品购买,1租赁
+        //pay_way 0信用卡分期 1支付宝  2微信支付  3银联
+        NSMutableArray *arr = [NSMutableArray new];
+        for (LHCartGoodsModel *model in self.goodsModelArray) {
+            NSMutableString *ids = [NSMutableString stringWithString:@"{"];
+            [ids appendFormat:@"\"count\":\"%ld\",\"product_id\":\"%@\",\"price_lfeel\":\"%@\",\"spec_id\":\"%@\"", model.count, model.product_id, model.price_lfeel, model.spec_id];
+            NSString *idStr = [NSString stringWithFormat:@"%@}",[ids substringWithRange:NSMakeRange(0, [ids length])]];
+            [arr addObject:idStr];
+        }
+        NSMutableString *ids = [NSMutableString stringWithString:@"["];
+        for (NSString *aStr in arr) {
+            [ids appendFormat:@"%@,", aStr];
+        }
+        products = [NSString stringWithFormat:@"%@]",[ids substringWithRange:NSMakeRange(0, [ids length]-1)]];
+        //    NSLog(@"-products------%@", products);
     }
-    NSMutableString *ids = [NSMutableString stringWithString:@"["];
-    for (NSString *aStr in arr) {
-        [ids appendFormat:@"%@,", aStr];
+    if (self.productInfoDic) {
+        products = [NSString stringWithFormat:@"\"count\":\"1\",\"product_id\":\"%@\",\"price_lfeel\":\"%@\",\"spec_id\":\"%@\"", self.productInfoDic[@"id"], self.productInfoDic[@"price_lfeel"], self.spec_id];
     }
-    NSString *products = [NSString stringWithFormat:@"%@]",[ids substringWithRange:NSMakeRange(0, [ids length]-1)]];
-//    NSLog(@"-products------%@", products);
     //核心代码
-    NSMutableDictionary *paramsDict=[[NSMutableDictionary alloc]init];
+    NSMutableDictionary *paramsDict=[[NSMutableDictionary alloc] init];
     //将字符数组装入参数字典中
     [paramsDict setObject:products forKey:@"products"];
     [paramsDict setObject:@0 forKey:@"type"];
@@ -142,11 +189,28 @@ typedef NS_ENUM(NSInteger, PayType) {
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
            dispatch_async(dispatch_get_main_queue(), ^{
                [self hideProgressHUD];
-               [MBProgressHUD showSuccess:@"成功下单~"];
+               [[NSNotificationCenter defaultCenter] postNotificationName:@"AddShoppingCartSuccess" object:nil];
+               if ([reponseObject[@"data"][@"pay_way"] integerValue] == 0) {
+
+                   
+               } else if ([reponseObject[@"data"][@"pay_way"] integerValue] == 1) {
+                   
+                   [self payForAliPay:reponseObject[@"data"][@"data"]];
+                   
+               } else if ([reponseObject[@"data"][@"pay_way"] integerValue] == 2) {
+                   NSData *jsonData = [reponseObject[@"data"][@"data"] dataUsingEncoding:NSUTF8StringEncoding];
+                   NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:nil];
+                   NSLog(@"--------->>> %@", dic);
+                   [self payForWXPay:dic];
+               } else if ([reponseObject[@"data"][@"pay_way"] integerValue] == 3) {
+                   
+               }
                
            });
-            
-            
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self hideProgressHUD];
+            });
         }
     } failure:^(NSError *error) {
         
@@ -154,12 +218,53 @@ typedef NS_ENUM(NSInteger, PayType) {
 }
 
 
+#pragma mark  --------------- 支付方式 --------------------
+
 /*
-  默认的付款方式
+ 返回码 	含义
+ 9000 	订单支付成功
+ 8000 	正在处理中，支付结果未知（有可能已经支付成功），请查询商户订单列表中订单的支付状态
+ 4000 	订单支付失败
+ 5000 	重复请求
+ 6001 	用户中途取消
+ 6002 	网络连接出错
+ 6004 	支付结果未知（有可能已经支付成功），请查询商户订单列表中订单的支付状态
+ 其它 	其它支付错误
  */
-- (void)setDefualtPayType {
-    self.payType = PayWithAliPayType;
+//支付宝支付
+- (void)payForAliPay:(NSString *)dataString {
+    // NOTE: 调用支付结果开始支付
+    [[AlipaySDK defaultService] payOrder:dataString fromScheme:@"lfeelios" callback:^(NSDictionary *resultDic) {
+        NSLog(@"reslut = %@",resultDic);
+        if ([resultDic[@"resultStatus"] integerValue] == 9000) {
+            NSLog(@"支付成功了~~~~~~~~~~~~~哈哈哈哈哈~~~~~~~~~~~~`");
+            NSData *jsonData = [resultDic[@"result"] dataUsingEncoding:NSUTF8StringEncoding];
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:(NSJSONReadingAllowFragments) error:nil];
+            NSLog(@"%@", dic);
+        } else if ([resultDic[@"resultStatus"] integerValue] == 6001) {
+            NSLog(@"中途取消了");
+        
+        } else if ([resultDic[@"resultStatus"] integerValue] == 5000) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showError:@"请勿重复发起订单"];
+            });
+        }
+    }];
 }
+
+- (void)payForWXPay:(NSDictionary *)dic {
+    PayReq *payreq = [[PayReq alloc] init];
+    payreq.partnerId = dic[@"mch_id"];
+    payreq.prepayId = dic[@"prepay_id"];
+    payreq.nonceStr = dic[@"nonce_str"];
+    payreq.timeStamp = [dic[@"timestamp"] intValue];
+    payreq.package = dic[@"package"];
+    payreq.sign = dic[@"sign"];
+    
+    [WXApi sendReq:payreq];
+}
+
+
 
 #pragma mark  -----------------  UI  ------------------------
 - (void)setHBK_NavigationBar {
@@ -175,13 +280,13 @@ typedef NS_ENUM(NSInteger, PayType) {
     self.orderTableView.dataSource = self;
     [self.view addSubview:self.orderTableView];
     
-    self.headerView = [[LHAccountCenterHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 60)];
+    self.headerView = [[LHAccountCenterHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kFit(50))];
     @weakify(self);
     self.headerView.clickHeaderViewBlock = ^{
         @strongify(self);
         LHReceiveAddressViewController *receiveVC = [[LHReceiveAddressViewController alloc] init];
         receiveVC.addressBlock = ^(LHAddressModel *model) {
-            self.address_id = model.id_;
+            self.address_id = [NSString stringWithFormat:@"%@", model.id_];
             NSLog(@"地址ID-------- %@", model.id_);
             self.headerView.isUpdateFrame = YES;
             self.headerView.nameLabel.text = [NSString stringWithFormat:@"收件人: %@", model.name];
@@ -261,8 +366,15 @@ typedef NS_ENUM(NSInteger, PayType) {
 #pragma mark  ---------------------- Aciton -------------
 - (void)submitAction {
     NSLog(@"提交");
+    kVerifyText(self.address_id.length, @"请选择地址");
     [self requestSubmitOrderData];
 
+}
+/*
+ 默认的付款方式
+ */
+- (void)setDefualtPayType {
+    self.payType = PayWithAliPayType;
 }
 
 #pragma mark --------------  <UITableViewDelegate, UITableViewDataSource> -------------

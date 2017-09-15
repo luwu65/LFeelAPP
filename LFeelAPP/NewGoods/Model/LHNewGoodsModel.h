@@ -16,6 +16,7 @@
 @property (nonatomic, copy) NSString *createTime;
 @property (nonatomic, copy) NSString *IndexOf;
 @property (nonatomic, copy) NSString *url;
+@property (nonatomic, copy) NSString *isrent;
 
 @end
 
@@ -84,6 +85,7 @@
 @property (nonatomic, copy) NSString *price;
 @property (nonatomic, copy) NSString *property_value;
 @property (nonatomic, copy) NSString *remain;
+@property (nonatomic, copy) NSString *property_value_id;
 
 @end
 

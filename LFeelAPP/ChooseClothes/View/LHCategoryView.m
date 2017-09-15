@@ -13,6 +13,7 @@
 @interface LHCategoryView ()<UICollectionViewDelegate, UICollectionViewDataSource>
 
 
+@property (nonatomic, strong) NSMutableArray *categoryListArray;
 
 @end
 
@@ -76,13 +77,11 @@
 #pragma mark ------------ UICollectionViewDelegate, UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-//    return self.categoryListArray.count;
-    return 20;
-    
+    return self.categoryListArray.count;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     LHBrondCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LHBrondCollectionCell" forIndexPath:indexPath];
-//    cell.listModel = self.categoryListArray[indexPath.row];
+    cell.listModel = self.categoryListArray[indexPath.row];
     return cell;
 }
 
@@ -108,7 +107,10 @@
 }
 
 
-
+- (void)setCategoryArray:(NSArray *)categoryArray {
+    _categoryArray = categoryArray;
+    self.categoryListArray = [NSMutableArray arrayWithArray:categoryArray];
+}
 
 
 

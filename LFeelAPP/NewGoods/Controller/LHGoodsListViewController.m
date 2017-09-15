@@ -146,6 +146,12 @@
 - (void)LH_Refresh {
     self.goodsCollectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         NSLog(@"刷新");
+        [self.goodsArray removeAllObjects];
+        if (self.isRecommend) {
+            [self requestGoodsListDataWithModel:nil];
+        } else {
+            [self requestGoodsListDataWithModel:self.listModel];
+        }
     }];
     self.goodsCollectionView.mj_footer = [MJRefreshAutoFooter footerWithRefreshingBlock:^{
         NSLog(@"加载");

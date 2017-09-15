@@ -210,15 +210,18 @@
 - (void)setThemeGoodsModel:(LHHomeThemeGoodsModel *)themeGoodsModel {
     int i = 0;
     for (NSDictionary *dic in themeGoodsModel.value) {
+        NSLog(@"~~~~~~~~~~~~~~~~~~~~~ >>> %@", dic[@"product_url"]);
         UIButton *btn = (UIButton *)[self viewWithTag:i+1200];
         if (![dic[@"brand_name"] isKindOfClass:[NSNull class]]) {
             [btn setTitle:dic[@"brand_name"] forState:(UIControlStateNormal)];
         }
         UIImageView *imageView = (UIImageView *)[self viewWithTag:1100+i];
-//        NSLog(@"%@", [dic[@"product_url"] class]);
         if (![dic[@"product_url"] isKindOfClass: [NSNull class]]) {
-//            NSLog(@"%@", dic[@"product_url"]);
+//            NSLog(@"--------->>> %@", dic[@"product_url"]);
             [imageView sd_setImageWithURL:kURL(dic[@"product_url"]) placeholderImage:kImage(@"")];
+        } else {
+            imageView.image = kImage(@"BgImage");
+            
         }
         i++;
     }

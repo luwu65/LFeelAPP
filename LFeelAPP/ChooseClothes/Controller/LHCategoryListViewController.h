@@ -7,7 +7,31 @@
 //
 
 #import "LHBaseViewController.h"
-
+@class LHCategoryListModel;
 @interface LHCategoryListViewController : LHBaseViewController
+
+
+
+
+
+@property (nonatomic, strong) LHCategoryListModel *categoryModel;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end

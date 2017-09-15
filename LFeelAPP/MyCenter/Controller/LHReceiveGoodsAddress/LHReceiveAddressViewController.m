@@ -36,6 +36,9 @@
     [self setHBK_NavigationBar];
         
     [self requestAddressListData];
+    
+    
+    
 }
 - (void)setHBK_NavigationBar {
     self.automaticallyAdjustsScrollViewInsets = NO;

@@ -59,7 +59,6 @@
 @property (nonatomic, copy) NSString *remain;
 @property (nonatomic, copy) NSString *brand_name;
 @property (nonatomic, copy) NSArray *property_value;
-@property (nonatomic, copy) NSString *id_;
 @property (nonatomic, copy) NSString *url;
 @property (nonatomic, copy) NSString *count;
 @property (nonatomic, copy) NSString *spec_id;

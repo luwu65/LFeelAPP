@@ -136,6 +136,8 @@
                 [self.themeGoodsArray addObject:model];
             }
         }
+        
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.homeTabeView.mj_header endRefreshing];
             [self hideProgressHUD];

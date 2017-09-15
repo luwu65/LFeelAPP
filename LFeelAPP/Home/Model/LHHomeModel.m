@@ -29,12 +29,12 @@
 @implementation LHHomeThemeGoodsModel
 
 
-- (NSMutableArray *)value {
-    if (!_value) {
-        self.value = [NSMutableArray new];
-    }
-    return _value;
-}
+//- (NSMutableArray *)value {
+//    if (!_value) {
+//        self.value = [NSMutableArray new];
+//    }
+//    return _value;
+//}
 
 
 @end

@@ -25,7 +25,7 @@
 
 
 @property (nonatomic, copy) NSString *theme_id;
-@property (nonatomic, strong) NSMutableArray *value;
+@property (nonatomic, strong) NSArray *value;
 
 
 
