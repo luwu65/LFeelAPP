@@ -77,7 +77,7 @@ typedef NS_ENUM(NSInteger, PayType) {
 //请求默认地址
 - (void)requestAddressDefaultListData {
     [self showProgressHUD];
-    [LHNetworkManager requestForGetWithUrl:kAddressList parameter:@{@"user_id": kUser_id, @"isdefault": @1} success:^(id reponseObject) {
+    [LHNetworkManager requestForGetWithUrl:kAddressListUrl parameter:@{@"user_id": kUser_id, @"isdefault": @1} success:^(id reponseObject) {
         NSLog(@"=============%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             for (NSDictionary *dic in reponseObject[@"data"]) {
@@ -132,7 +132,7 @@ typedef NS_ENUM(NSInteger, PayType) {
         [paramsDict setObject:self.spec_id forKey:@"spec_id"];
         
     }
-    [LHNetworkManager requestForGetWithUrl:kAccOrder parameter:paramsDict success:^(id reponseObject) {
+    [LHNetworkManager requestForGetWithUrl:kAccOrderUrl parameter:paramsDict success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             for (NSDictionary *dic in reponseObject[@"data"]) {
@@ -189,7 +189,7 @@ typedef NS_ENUM(NSInteger, PayType) {
     [paramsDict setObject:kUser_id forKey:@"user_id"];
     [paramsDict setObject:@"[1,2]" forKey:@"privilege_ids"];
     [paramsDict setObject:@(self.payType) forKey:@"pay_way"];
-    [LHNetworkManager PostWithUrl:kSubmitOrder parameter:paramsDict success:^(id reponseObject) {
+    [LHNetworkManager PostWithUrl:kSubmitOrderUrl parameter:paramsDict success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
            dispatch_async(dispatch_get_main_queue(), ^{
@@ -320,6 +320,7 @@ typedef NS_ENUM(NSInteger, PayType) {
     };
     footerView.AgreeDelegateBlock = ^{
         NSLog(@"同意");
+        
     };
     
     self.orderTableView.tableFooterView = footerView;

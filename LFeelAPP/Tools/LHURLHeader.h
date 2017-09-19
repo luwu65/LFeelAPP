@@ -79,40 +79,72 @@
 #define kAddreessDeleteUrl         @"addr/delete"
 
 //地址列表
-#define kAddressList               @"addr/getList"
+#define kAddressListUrl               @"addr/getList"
 
 //加入购物车
-#define kAddshoppingCart           @"shoppingcar/addproduct"
+#define kAddshoppingCartUrl           @"shoppingcar/addproduct"
 
 //换头像
-#define kUploadImage               @"qiniu/upload"
+#define kUploadImageUrl               @"qiniu/upload"
 
 //提交个人信息
-#define kUpdateUserInfo            @"vipmanagement/update"
+#define kUpdateUserInfoUrl            @"vipmanagement/update"
 
 //购物车列表
-#define kShopppingCartList         @"shoppingcar/getList"
+#define kShopppingCartListUrl         @"shoppingcar/getList"
 
 //删除购物车
-#define kDeleteShoppingCart        @"shoppingcar/delete"
+#define kDeleteShoppingCartUrl        @"shoppingcar/delete"
 
 //更新购物车
-#define kUpdateShoppingCart        @"shoppingcar/update"
+#define kUpdateShoppingCartUrl        @"shoppingcar/update"
 
 //结算中心列表
-#define kAccOrder                  @"order/beforeorder"
+#define kAccOrderUrl                  @"order/beforeorder"
 
 //提交订单
-#define kSubmitOrder               @"order/reservation"
+#define kSubmitOrderUrl               @"order/reservation"
 
 //订单列表
-#define kOrderList                 @"order/getList"
+#define kOrderListUrl                 @"order/getList"
 
 //实名认证
-#define kCertification             @"vipmanagement/identity"
+#define kCertificationUrl             @"vipmanagement/identity"
 
 //产品详情
-#define kGoodsDetail                @"product/findproduct?"
+#define kGoodsDetailUrl               @"product/findproduct?"
+
+//打包盒子
+#define kPackingBoxUrl                @"application/add"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

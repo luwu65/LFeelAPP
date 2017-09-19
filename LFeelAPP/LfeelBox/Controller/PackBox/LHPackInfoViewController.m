@@ -30,6 +30,15 @@
 @property (nonatomic, strong) UILabel *remindLabel;
 //地址ID
 @property (nonatomic, copy) NSString *address_id;
+
+
+
+@property (nonatomic, copy) NSString *firstStr;
+@property (nonatomic, copy) NSString *secondStr;
+@property (nonatomic, copy) NSString *thirdStr;
+
+
+
 @end
 
 @implementation LHPackInfoViewController
@@ -194,6 +203,7 @@
 //提交
 - (void)submitAction {
     NSLog(@"提交");
+    [self requestPackingBoxData];
 }
 
 //没有地址时
@@ -262,14 +272,18 @@
     [_firstView ChooseClothesBtnBlock:^{
         _ChooseID = @"1";
         [self createLineOnePickViewWithArray:kClothesSize];
+        self.firstStr = @"第一件衣服";
         NSLog(@"第一件衣服");
     } shoesBtnBlock:^{
         _ChooseID = @"1";
         [self createLineOnePickViewWithArray:kShoesSize];
+        self.firstStr = @"第一件鞋子";
         NSLog(@"第一件鞋子");
     } bagBtnBlock:^{
+        self.firstStr = @"第一件包包";
         NSLog(@"第一件包包");
     } accBtnBlock:^{
+        self.firstStr = @"第一件配饰";
         NSLog(@"第一件配饰");
     }];
     
@@ -277,27 +291,37 @@
         _ChooseID = @"2";
         [self createLineOnePickViewWithArray:kClothesSize];
         NSLog(@"第二件衣服");
+        self.secondStr = @"第二件衣服";
     } shoesBtnBlock:^{
         _ChooseID = @"2";
         [self createLineOnePickViewWithArray:kShoesSize];
         NSLog(@"第二件鞋子");
+        self.secondStr = @"第二件鞋子";
     } bagBtnBlock:^{
         NSLog(@"第二件包包");
+        self.secondStr = @"第二件包包";
+
     } accBtnBlock:^{
         NSLog(@"第二件配饰");
+        self.secondStr = @"第二件配饰";
+
     }];
 
     [_thirdView ChooseClothesBtnBlock:^{
         _ChooseID = @"3";
         [self createLineOnePickViewWithArray:kClothesSize];
         NSLog(@"第三件衣服");
+        self.thirdStr = @"第三件衣服";
     } shoesBtnBlock:^{
         _ChooseID = @"3";
         [self createLineOnePickViewWithArray:kShoesSize];
         NSLog(@"第三件鞋子");
+        self.thirdStr = @"第三件鞋子";
     } bagBtnBlock:^{
+        self.thirdStr = @"第三件包包";
         NSLog(@"第三件包包");
     } accBtnBlock:^{
+        self.thirdStr = @"第三件配饰";
         NSLog(@"第三件配饰");
     }];
 }
@@ -307,17 +331,20 @@
 //选中pickview走的回调
 - (void)toobarDonBtnHaveClick:(LHPickView *)pickView resultString:(NSString *)resultString resultIndex:(NSInteger) index {
     if ([_ChooseID isEqualToString:@"1"]) {
-        
+        self.firstStr = [self.firstStr stringByAppendingString:[NSString stringWithFormat:@"-%@码", resultString]];
+        NSLog(@"--------->>>> %@ <<<<--------", self.firstStr);
         [_firstView.sizeBtn setTitle:resultString forState:(UIControlStateNormal)];
         [_firstView.sizeBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
         
     } else if ([_ChooseID isEqualToString:@"2"]) {
-        
+        self.secondStr = [self.secondStr stringByAppendingString:[NSString stringWithFormat:@"-%@码", resultString]];
+        NSLog(@"--------->>>> %@ <<<<--------", self.secondStr);
         [_secondView.sizeBtn setTitle:resultString forState:(UIControlStateNormal)];
         [_secondView.sizeBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
         
     } else if ([_ChooseID isEqualToString:@"3"]) {
-        
+        self.thirdStr = [self.thirdStr stringByAppendingString:[NSString stringWithFormat:@"-%@码", resultString]];
+        NSLog(@"--------->>>> %@ <<<<--------", self.thirdStr);
         [_thirdView.sizeBtn setTitle:resultString forState:(UIControlStateNormal)];
         [_thirdView.sizeBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
         
@@ -328,7 +355,7 @@
 //请求默认地址
 - (void)requestAddressDefaultListData {
     [self showProgressHUD];
-    [LHNetworkManager requestForGetWithUrl:kAddressList parameter:@{@"user_id": kUser_id, @"isdefault": @1} success:^(id reponseObject) {
+    [LHNetworkManager requestForGetWithUrl:kAddressListUrl parameter:@{@"user_id": kUser_id, @"isdefault": @1} success:^(id reponseObject) {
         NSLog(@"=============%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             for (NSDictionary *dic in reponseObject[@"data"]) {
@@ -355,7 +382,21 @@
     }];
 }
 
-
+//打包盒子
+- (void)requestPackingBoxData {
+    //0普通订单 1提现申请 2打包盒子 3寄回盒子
+    NSString *remark = [NSString stringWithFormat:@"%@,%@,%@", self.firstStr, self.secondStr, self.thirdStr];
+    [LHNetworkManager PostWithUrl:kPackingBoxUrl parameter:@{@"address_id":self.address_id, @"type":@2, @"user_id":kUser_id, @"remark": remark} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            
+        }
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
+}
 
 
 

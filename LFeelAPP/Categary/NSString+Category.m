@@ -81,8 +81,7 @@
 
 #pragma mark - 昵称
 //昵称
-+ (BOOL) validateNickname:(NSString *)nickname
-{
++ (BOOL) validateNickname:(NSString *)nickname {
     NSString *nicknameRegex = @"([a-z0-9[^A-Za-z0-9_\n\t]]{1,8})";
     NSPredicate *passWordPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",nicknameRegex];
     return [passWordPredicate evaluateWithObject:nickname];
@@ -90,8 +89,7 @@
 
 #pragma mark - 身份证号
 //身份证号
-- (BOOL) validateIdentityCard
-{
+- (BOOL) validateIdentityCard {
     BOOL flag;
     if (self.length <= 0) {
         flag = NO;
@@ -104,8 +102,7 @@
 
 
 //获取字符串高度
-+ (CGSize)getStringRect:(NSString*)aString fontSize:(CGFloat)fontSize width:(int)stringWidth
-{
++ (CGSize)getStringRect:(NSString*)aString fontSize:(CGFloat)fontSize width:(int)stringWidth {
     return [aString getStringRectWithfontSize:fontSize width:stringWidth];
 }
 

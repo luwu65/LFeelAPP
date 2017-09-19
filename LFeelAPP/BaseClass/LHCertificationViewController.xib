@@ -13,9 +13,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LHCertificationViewController">
             <connections>
                 <outlet property="IDCardTF" destination="yYf-HK-TlY" id="gob-rq-C2F"/>
+                <outlet property="hintLabel" destination="Z2f-mU-RhE" id="ZsE-mZ-iCa"/>
                 <outlet property="photoImageView" destination="Nji-8J-5sv" id="CsE-ig-X4r"/>
                 <outlet property="realNameTF" destination="vvd-3S-8D7" id="S8t-dS-seh"/>
                 <outlet property="view" destination="aHE-DC-Jgl" id="4TA-hz-GWZ"/>
+                <outlet property="warningLabel" destination="p7b-3M-xUj" id="AWF-28-xeY"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

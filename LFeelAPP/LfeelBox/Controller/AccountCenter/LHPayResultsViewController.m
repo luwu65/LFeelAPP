@@ -29,6 +29,10 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"支付结果" leftFirst:@"Back_Button" leftFirstAction:^{
         NSLog(@"返回");
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        
+        
+        
     }];
 }
 

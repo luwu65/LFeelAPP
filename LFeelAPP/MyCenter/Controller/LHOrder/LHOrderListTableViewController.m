@@ -192,7 +192,7 @@
         [dic setObject:@(type-1) forKey:@"status"];
     }
     NSLog(@"~~~>>>> ---%ld",  (long)type);
-    [LHNetworkManager requestForGetWithUrl:kOrderList parameter:dic success:^(id reponseObject) {
+    [LHNetworkManager requestForGetWithUrl:kOrderListUrl parameter:dic success:^(id reponseObject) {
         NSLog(@"----%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             for (NSDictionary *dic in reponseObject[@"data"]) {

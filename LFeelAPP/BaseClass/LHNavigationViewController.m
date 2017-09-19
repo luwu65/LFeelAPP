@@ -10,6 +10,7 @@
 #import "LHUserInfoViewController.h"
 #import <UINavigationController+FDFullscreenPopGesture.h>
 #import "AppDelegate.h"
+#import "LHPayResultsViewController.h"
 static CGFloat kDistance = 80.0f;
 
 
@@ -90,8 +91,9 @@ static CGFloat kDistance = 80.0f;
     if (self.viewControllers.count > 0) {
         viewController.hidesBottomBarWhenPushed = YES;
     }
-    if ([viewController isKindOfClass:[LHUserInfoViewController class]]) {
+    if ([viewController isKindOfClass:[LHUserInfoViewController class]] || [viewController isKindOfClass:[LHPayResultsViewController class]]) {
         self.gestureRecognizerEnabled = NO;
+        
     } else {
         self.gestureRecognizerEnabled = YES;
     }

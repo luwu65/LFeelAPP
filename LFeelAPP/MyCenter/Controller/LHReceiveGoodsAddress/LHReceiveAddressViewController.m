@@ -174,7 +174,7 @@
 //地址列表
 - (void)requestAddressListData {
     [self showProgressHUD];
-    [LHNetworkManager requestForGetWithUrl:kAddressList parameter:@{@"user_id": kUser_id} success:^(id reponseObject) {
+    [LHNetworkManager requestForGetWithUrl:kAddressListUrl parameter:@{@"user_id": kUser_id} success:^(id reponseObject) {
         NSLog(@"++++++++++++%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             for (NSDictionary *dic in reponseObject[@"data"]) {

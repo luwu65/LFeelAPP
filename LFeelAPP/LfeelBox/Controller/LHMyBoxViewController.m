@@ -98,13 +98,13 @@
     
     //如果左滑右滑被收藏过, 在这里请求
     if (self.CollectionSuccess) {
-        [self.myBoxArray removeAllObjects];
+        [self headerRefreshMyBoxTable];
         [self requstMyBoxCartData];
         self.CollectionSuccess = NO;
     }
     //如果商品详情里添加购物车了, 就在这里请求
     if (self.AddShoppingSuccess) {
-        [self.storeArray removeAllObjects];
+        [self headerRefreShshoppingCartTable];
         [self requestShoppingCartData];
         //请求过把状态改为No, 否则每次都会请求
         self.AddShoppingSuccess = NO;
@@ -503,31 +503,31 @@
     [boxView clickPackingButtonBlock:^(NSString *packBtnTitle) {
         @strongify(self);
         NSLog(@"%@", packBtnTitle);
-//        if ([packBtnTitle isEqualToString:@"打包盒子"]) {
-//            
-//            LHPackInfoViewController *packVC = [[LHPackInfoViewController alloc] init];
-//            [self.navigationController pushViewController:packVC animated:YES];
-//            
-//        } else if ([packBtnTitle isEqualToString:@"寄回盒子"]) {
-//            
-//            
-//        }
-                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
-                [alertVC addAction:[UIAlertAction actionWithTitle:@"打包盒子" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-                    NSLog(@"打包盒子");
-                    LHPackInfoViewController *packVC = [[LHPackInfoViewController alloc] init];
-                    [self.navigationController pushViewController:packVC animated:YES];
-                }]];
-                [alertVC addAction:[UIAlertAction actionWithTitle:@"寄回盒子" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-                    LHSendBackViewController *sendBack = [[LHSendBackViewController alloc] init];
-                    [self.navigationController pushViewController:sendBack animated:YES];
-                }]];
-                [alertVC addAction:[UIAlertAction actionWithTitle:@"实名认证" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-                    LHCertificationViewController *cerVC = [[LHCertificationViewController alloc] init];
-                    [self.navigationController pushViewController:cerVC animated:YES];
-                }]];
-                [alertVC addAction:[UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil]];
-                [self presentViewController:alertVC animated:YES completion:nil];
+        //        if ([packBtnTitle isEqualToString:@"打包盒子"]) {
+        //
+        //            LHPackInfoViewController *packVC = [[LHPackInfoViewController alloc] init];
+        //            [self.navigationController pushViewController:packVC animated:YES];
+        //
+        //        } else if ([packBtnTitle isEqualToString:@"寄回盒子"]) {
+        //
+        //
+        //        }
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
+        [alertVC addAction:[UIAlertAction actionWithTitle:@"打包盒子" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+            NSLog(@"打包盒子");
+            LHPackInfoViewController *packVC = [[LHPackInfoViewController alloc] init];
+            [self.navigationController pushViewController:packVC animated:YES];
+        }]];
+        [alertVC addAction:[UIAlertAction actionWithTitle:@"寄回盒子" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+            LHSendBackViewController *sendBack = [[LHSendBackViewController alloc] init];
+            [self.navigationController pushViewController:sendBack animated:YES];
+        }]];
+        [alertVC addAction:[UIAlertAction actionWithTitle:@"实名认证" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+            LHCertificationViewController *cerVC = [[LHCertificationViewController alloc] init];
+            [self.navigationController pushViewController:cerVC animated:YES];
+        }]];
+        [alertVC addAction:[UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil]];
+        [self presentViewController:alertVC animated:YES completion:nil];
     }];
 }
 
@@ -712,7 +712,7 @@
 #pragma mark ---------------------- 请求数据  ----------------------------
 //请求购物车数据
 - (void)requestShoppingCartData {
-    [LHNetworkManager requestForGetWithUrl:kShopppingCartList parameter:@{@"user_id": kUser_id} success:^(id reponseObject) {
+    [LHNetworkManager requestForGetWithUrl:kShopppingCartListUrl parameter:@{@"user_id": kUser_id} success:^(id reponseObject) {
         NSLog(@"购物车----> %@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             for (NSDictionary *dic in reponseObject[@"data"]) {
@@ -744,7 +744,7 @@
 
 //删除购物车
 - (void)requestDeleteShoppingCartData:(LHCartGoodsModel *)model {
-    [LHNetworkManager PostWithUrl:kDeleteShoppingCart parameter:@{@"spec_id": model.spec_id} success:^(id reponseObject) {
+    [LHNetworkManager PostWithUrl:kDeleteShoppingCartUrl parameter:@{@"spec_id": model.spec_id} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -763,7 +763,7 @@
 
 //更新购物车
 - (void)requestUpdateShoppingCart:(LHCartGoodsModel *)model Count:(NSInteger)count{
-    [LHNetworkManager PostWithUrl:kUpdateShoppingCart parameter:@{@"id": model.spec_id, @"count": @(count)} success:^(id reponseObject) {
+    [LHNetworkManager PostWithUrl:kUpdateShoppingCartUrl parameter:@{@"id": model.spec_id, @"count": @(count)} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             

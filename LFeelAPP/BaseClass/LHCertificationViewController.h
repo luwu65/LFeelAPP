@@ -10,4 +10,28 @@
 
 @interface LHCertificationViewController : LHBaseViewController
 
+
+
+
+@property (nonatomic, copy) NSString *certificationStr;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @end

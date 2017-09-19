@@ -276,7 +276,7 @@
 #pragma mark ------------ 网络请求  ---------------
 - (void)requestGoodsDetailData {
     [self showProgressHUD];
-    [LHNetworkManager requestForGetWithUrl:kGoodsDetail parameter:@{@"id": self.listModel.product_id, @"user_id": kUser_id} success:^(id reponseObject) {
+    [LHNetworkManager requestForGetWithUrl:kGoodsDetailUrl parameter:@{@"id": self.listModel.product_id, @"user_id": kUser_id} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             for (NSDictionary *picdic in reponseObject[@"data"][@"product_pritures"]) {
@@ -337,7 +337,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self showProgressHUD];
     });
-    [LHNetworkManager PostWithUrl:kAddshoppingCart parameter:@{@"user_id": kUser_id, @"product_id": self.listModel.product_id, @"count": @1, @"spec_id": self.spec_id} success:^(id reponseObject) {
+    [LHNetworkManager PostWithUrl:kAddshoppingCartUrl parameter:@{@"user_id": kUser_id, @"product_id": self.listModel.product_id, @"count": @1, @"spec_id": self.spec_id} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideProgressHUD];

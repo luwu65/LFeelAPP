@@ -144,7 +144,15 @@ return;\
 
 
 
-
+// 验证身份证正则
+//
+// @param __Text    文字
+// @param __Message 错误提示
+#define kIDCard(__IDCard, __Message)\
+if (![__IDCard validateIdentityCard]) {\
+kShowError(__Message);\
+return;\
+}
 
 
 

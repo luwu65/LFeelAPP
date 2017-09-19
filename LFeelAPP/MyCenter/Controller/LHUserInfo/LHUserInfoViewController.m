@@ -286,7 +286,7 @@
 /// 上传头像
 -(void)requestUpDataPhoto:(UIImage *)image {
     [self showProgressHUDWithTitle:@"上传中~"];
-    [LHNetworkManager uploadPOST:kUploadImage parameters:nil consImage:image success:^(id responObject) {
+    [LHNetworkManager uploadPOST:kUploadImageUrl parameters:nil consImage:image success:^(id responObject) {
         NSLog(@"%@", responObject);
         if ([responObject[@"errorCode"] integerValue] == 200) {
             self.iconUrl = [NSString stringWithFormat:@"%@", responObject[@"data"]];
@@ -318,7 +318,7 @@
     [aDic setValue:self.shoesLabel.text forKey:@"shose"];
     [aDic setValue:(NSString *)kUser_id forKey:@"id"];
 
-    [LHNetworkManager PostWithUrl:kUpdateUserInfo parameter:aDic success:^(id reponseObject) {
+    [LHNetworkManager PostWithUrl:kUpdateUserInfoUrl parameter:aDic success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             
