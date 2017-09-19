@@ -12,7 +12,6 @@ target 'LFeelAPP' do
    pod 'SDWebImage', '~> 4.0.0'
    pod 'Masonry', '~> 1.0.2'
    pod 'WechatOpenSDK', '~> 1.7.8'  
-   pod 'FDFullscreenPopGesture', '~> 1.1'
    pod 'ReactiveObjC', '~> 3.0.0'
    pod 'SobotKit', '~> 2.3.0'
    pod 'MJExtension', '~> 3.0.13'
@@ -22,7 +21,7 @@ target 'LFeelAPP' do
    pod ‘UMengUShare/Social/ReducedWeChat'
    pod ‘UMengUShare/Social/ReducedQQ'
    pod ‘UMengUShare/Social/ReducedSina'
-
+   pod 'FDFullscreenPopGesture', '~> 1.1'
 
 
 

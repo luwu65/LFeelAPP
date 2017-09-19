@@ -8,7 +8,12 @@
 
 #import "AppDelegate.h"
 #import "LHTabBarViewController.h"
+#import "LHUserInfoManager.h"
+#import "LHWelcomeViewController.h"
 #import <UserNotifications/UserNotifications.h>
+static char kScreenShotViewMove[] = "screenShotViewMove";
+
+
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 @interface AppDelegate ()<UNUserNotificationCenterDelegate, UIApplicationDelegate>
 
@@ -19,17 +24,15 @@
 
 @implementation AppDelegate
 
-
++ (AppDelegate *)sharedDelegate {
+    return (AppDelegate *)[UIApplication sharedApplication].delegate;
+}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    LHTabBarViewController *tabBarVC = [[LHTabBarViewController alloc] init];
-    self.window.rootViewController = tabBarVC;
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+
+    [self setupRootViewcontroller];
+    
     [IQKeyboardManager sharedManager].enable = YES;
-    
-    
 //    [self ZCServiceApplication:application];
     [self setUmengShare];
     self.connect = @"Connect";
@@ -161,6 +164,73 @@
     }
     return result;
 }
+
+#pragma mark ---------------------第一次登录- 返回 -------------
+
+- (void)setupRootViewcontroller {
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    [self.window makeKeyAndVisible];
+   
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstStart"]){
+        NSLog(@"第一次启动");
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStart"];
+        
+        [LHUserInfoManager saveUseDefaultsOjbect:@"1" forKey:@"isfirstStart"];
+        self.flagIndex = 1;
+        self.window.rootViewController = [LHWelcomeViewController new];
+        
+    } else {
+        NSLog(@"不是第一次启动");
+        [LHUserInfoManager saveUseDefaultsOjbect:@"0" forKey:@"isfirstStart"];
+        self.flagIndex = 0;
+        LHTabBarViewController *tabBarVC = [[LHTabBarViewController alloc] init];
+        self.window.rootViewController = tabBarVC;
+        [self setupScreenView];
+    }
+    
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;;
+    [UIApplication sharedApplication].statusBarHidden = NO;
+}
+
+
+///  截屏view
+- (void)setupScreenView {
+    
+    self.screenShotView = [[LHScreenShotView alloc] initWithFrame:CGRectMake(0, 0, self.window.size.width, self.window.size.height)];
+    
+    self.screenShotView.hidden = YES;
+    [self.window insertSubview:self.screenShotView atIndex:0];
+    
+    // 添加监听
+//    [self lh_addObserver];
+}
+
+/// 添加监听
+- (void)lh_addObserver {
+    [self.window.rootViewController.view addObserver:self
+                                          forKeyPath:@"transform"
+                                             options:NSKeyValueObservingOptionNew
+                                             context:kScreenShotViewMove];
+}
+
+
+
+/// 移除监听
+- (void)lh_removeObserver {
+    [self.window.rootViewController.view removeObserver:self forKeyPath:@"transform"];
+}
+
+/// 监听接收
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    
+    if (context == kScreenShotViewMove) {
+        NSValue *value  = [change objectForKey:NSKeyValueChangeNewKey];
+        CGAffineTransform newTransform = [value CGAffineTransformValue];
+        [self.screenShotView showEffectChange:CGPointMake(newTransform.tx, 0) ];
+    }
+}
+
+
 #pragma mark ------------- 监测网络状态 -------------
 
 /*

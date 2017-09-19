@@ -36,6 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor whiteColor];
     [self setUI];
     [self setHeaderView];
     [self setHBK_NavigationBar];

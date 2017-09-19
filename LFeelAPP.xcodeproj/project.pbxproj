@@ -11,6 +11,8 @@
 		0F03D9131F3B07D8002F7939 /* LHGoodsCommentHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F03D90F1F3B07D8002F7939 /* LHGoodsCommentHeaderFooterView.m */; };
 		0F03D9141F3B07D8002F7939 /* LHGoodsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F03D9111F3B07D8002F7939 /* LHGoodsDetailViewController.m */; };
 		0F03D9661F3BFCF6002F7939 /* LHHomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F03D9651F3BFCF6002F7939 /* LHHomeModel.m */; };
+		0F051FF11F70F33A00D5A819 /* LHScreenShotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F051FF01F70F33A00D5A819 /* LHScreenShotView.m */; };
+		0F051FF41F70F77000D5A819 /* LHWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F051FF31F70F77000D5A819 /* LHWelcomeViewController.m */; };
 		0F0D27B91F6BD83F006BFCB2 /* LHAddVipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0D27B51F6BD83E006BFCB2 /* LHAddVipViewController.m */; };
 		0F0D27BA1F6BD83F006BFCB2 /* LHWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0D27B71F6BD83E006BFCB2 /* LHWebViewController.m */; };
 		0F0D27BB1F6BD83F006BFCB2 /* LHWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F0D27B81F6BD83F006BFCB2 /* LHWebViewController.xib */; };
@@ -217,6 +219,10 @@
 		0F03D9111F3B07D8002F7939 /* LHGoodsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHGoodsDetailViewController.m; sourceTree = "<group>"; };
 		0F03D9641F3BFCF6002F7939 /* LHHomeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHHomeModel.h; sourceTree = "<group>"; };
 		0F03D9651F3BFCF6002F7939 /* LHHomeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHHomeModel.m; sourceTree = "<group>"; };
+		0F051FEF1F70F33A00D5A819 /* LHScreenShotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHScreenShotView.h; sourceTree = "<group>"; };
+		0F051FF01F70F33A00D5A819 /* LHScreenShotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHScreenShotView.m; sourceTree = "<group>"; };
+		0F051FF21F70F77000D5A819 /* LHWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHWelcomeViewController.h; sourceTree = "<group>"; };
+		0F051FF31F70F77000D5A819 /* LHWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHWelcomeViewController.m; sourceTree = "<group>"; };
 		0F0D27B41F6BD83E006BFCB2 /* LHAddVipViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHAddVipViewController.h; sourceTree = "<group>"; };
 		0F0D27B51F6BD83E006BFCB2 /* LHAddVipViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHAddVipViewController.m; sourceTree = "<group>"; };
 		0F0D27B61F6BD83E006BFCB2 /* LHWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHWebViewController.h; sourceTree = "<group>"; };
@@ -951,6 +957,10 @@
 				0F0D27B61F6BD83E006BFCB2 /* LHWebViewController.h */,
 				0F0D27B71F6BD83E006BFCB2 /* LHWebViewController.m */,
 				0F0D27B81F6BD83F006BFCB2 /* LHWebViewController.xib */,
+				0F051FEF1F70F33A00D5A819 /* LHScreenShotView.h */,
+				0F051FF01F70F33A00D5A819 /* LHScreenShotView.m */,
+				0F051FF21F70F77000D5A819 /* LHWelcomeViewController.h */,
+				0F051FF31F70F77000D5A819 /* LHWelcomeViewController.m */,
 			);
 			path = BaseClass;
 			sourceTree = "<group>";
@@ -1887,6 +1897,7 @@
 				0F52B6A91EF268ED007D45EC /* LHBrondCollectionCell.m in Sources */,
 				0FB793511F4E859500FDDB76 /* LHPhotoGroupView.m in Sources */,
 				0F84BB381F20B6BE00D98999 /* LHOrderGoodsCell.m in Sources */,
+				0F051FF11F70F33A00D5A819 /* LHScreenShotView.m in Sources */,
 				0FB793571F4E864500FDDB76 /* LHDistributionViewController.m in Sources */,
 				0F3F642B1F3DA73900A42084 /* LHGoodsDetailModel.m in Sources */,
 				0F120D0A1F6A514400E617AA /* APAuthV2Info.m in Sources */,
@@ -1937,6 +1948,7 @@
 				0F03D9131F3B07D8002F7939 /* LHGoodsCommentHeaderFooterView.m in Sources */,
 				0F7B79511F4280EC009DAF35 /* LHSendBackViewController.m in Sources */,
 				0F594D361F2A19F80047DCC1 /* LHDragCardView.m in Sources */,
+				0F051FF41F70F77000D5A819 /* LHWelcomeViewController.m in Sources */,
 				0F3F64281F3D527C00A42084 /* LHPayWayView.m in Sources */,
 				0F9046101F1DFCC9000528A2 /* LHScanSuccessJumpViewController.m in Sources */,
 				0FB793641F4EAA6400FDDB76 /* LHTitleSliderView.m in Sources */,

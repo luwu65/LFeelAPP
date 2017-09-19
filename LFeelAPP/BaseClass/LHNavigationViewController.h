@@ -10,4 +10,12 @@
 
 @interface LHNavigationViewController : UINavigationController
 
+@property (nonatomic, strong) NSMutableArray * screenShotArray;
+
+///  手势的可用性// default is YES
+@property (nonatomic, assign, getter=isGestureRecognizerEnabled) BOOL gestureRecognizerEnabled;
+
+
+
+
 @end
