@@ -461,6 +461,6 @@
         </view>
     </objects>
     <resources>
-        <image name="MyCenter_CardBox_OpenCell" width="16" height="16"/>
+        <image name="MyCenter_CardBox_OpenCell" width="5" height="9"/>
     </resources>
 </document>

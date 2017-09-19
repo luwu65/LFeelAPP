@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LHPayResultsViewController">
+            <connections>
+                <outlet property="leftBtn" destination="4go-k3-oxR" id="dfG-kP-iu3"/>
+                <outlet property="resultImageView" destination="egE-rz-98R" id="8TZ-H8-1lv"/>
+                <outlet property="resultsLabel" destination="JZS-4L-ldf" id="Is4-Zb-hTf"/>
+                <outlet property="rightBtn" destination="9vK-sY-3Zj" id="52S-Y2-E7F"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MyBox_packSuccess" translatesAutoresizingMaskIntoConstraints="NO" id="egE-rz-98R">
+                    <rect key="frame" x="90" y="100" width="195" height="195"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="打包成功!您的盒子会尽快进行处理!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JZS-4L-ldf">
+                    <rect key="frame" x="0.0" y="315" width="375" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="DsM-xI-5Kq"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4go-k3-oxR">
+                    <rect key="frame" x="20" y="542" width="158" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="CDF-3S-lWa"/>
+                    </constraints>
+                    <state key="normal" title="继续逛逛">
+                        <color key="titleColor" red="1" green="0.1281391285" blue="0.14585888759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" red="1" green="0.1281391285" blue="0.14585888759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="leftBtn:" destination="-1" eventType="touchUpInside" id="vv4-zh-Hbo"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9vK-sY-3Zj">
+                    <rect key="frame" x="197.5" y="542" width="157.5" height="45"/>
+                    <state key="normal" title="查看订单">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="rightBtn:" destination="-1" eventType="touchUpInside" id="raA-Bj-OHn"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="9vK-sY-3Zj" secondAttribute="trailing" constant="20" id="03B-Er-fBW"/>
+                <constraint firstItem="egE-rz-98R" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="90" id="2M9-I4-ecA"/>
+                <constraint firstAttribute="bottom" secondItem="9vK-sY-3Zj" secondAttribute="bottom" constant="80" id="4pZ-w4-mWY"/>
+                <constraint firstAttribute="trailing" secondItem="JZS-4L-ldf" secondAttribute="trailing" id="82c-Mm-Q1b"/>
+                <constraint firstItem="9vK-sY-3Zj" firstAttribute="height" secondItem="4go-k3-oxR" secondAttribute="height" id="CQz-6a-eOW"/>
+                <constraint firstItem="JZS-4L-ldf" firstAttribute="top" secondItem="egE-rz-98R" secondAttribute="bottom" constant="20" id="DLZ-wo-tf6"/>
+                <constraint firstItem="JZS-4L-ldf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Fxa-7k-JnB"/>
+                <constraint firstItem="egE-rz-98R" firstAttribute="width" secondItem="egE-rz-98R" secondAttribute="height" id="PJr-hP-570"/>
+                <constraint firstAttribute="trailing" secondItem="egE-rz-98R" secondAttribute="trailing" constant="90" id="Y5u-cq-NRc"/>
+                <constraint firstItem="4go-k3-oxR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="hxz-WB-gc3"/>
+                <constraint firstItem="9vK-sY-3Zj" firstAttribute="leading" secondItem="4go-k3-oxR" secondAttribute="trailing" constant="20" id="ii9-ik-a5Y"/>
+                <constraint firstItem="JZS-4L-ldf" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="kxV-0A-2IX"/>
+                <constraint firstItem="9vK-sY-3Zj" firstAttribute="width" secondItem="4go-k3-oxR" secondAttribute="width" id="lPq-LO-GEw"/>
+                <constraint firstItem="egE-rz-98R" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="100" id="rxn-Ll-Gbc"/>
+                <constraint firstAttribute="bottom" secondItem="4go-k3-oxR" secondAttribute="bottom" constant="80" id="z11-6l-ZJ5"/>
+            </constraints>
+            <point key="canvasLocation" x="-109.5" y="78.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="MyBox_packSuccess" width="16" height="16"/>
+    </resources>
+</document>

@@ -94,7 +94,7 @@
         }];
         
         UILabel *rmbLabel = [[UILabel alloc] init];
-        rmbLabel.text = [NSString stringWithFormat:@"分期: ￥%ld/月", [rmbStr integerValue]];;
+        rmbLabel.text = [NSString stringWithFormat:@"分期: ￥%ld/月", (long)[rmbStr integerValue]];;
         rmbLabel.textColor = [UIColor lightGrayColor];
         rmbLabel.font = kFont(15);
         [self addSubview:rmbLabel];

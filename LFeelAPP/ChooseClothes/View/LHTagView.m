@@ -46,8 +46,8 @@
         self.tagScrollView.contentSize = CGSizeMake(kScreenWidth, self.frame.size.height);
         self.contentView.size = CGSizeMake(kScreenWidth, self.frame.size.height);
     } else {
-        self.tagScrollView.contentSize = CGSizeMake(contentWidth, self.frame.size.height);
-        self.contentView.size = CGSizeMake(contentWidth, self.frame.size.height);
+        self.tagScrollView.contentSize = CGSizeMake(contentWidth+50, self.frame.size.height);
+        self.contentView.size = CGSizeMake(contentWidth+50, self.frame.size.height);
     }
 }
 

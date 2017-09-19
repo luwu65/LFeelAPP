@@ -40,8 +40,7 @@
 
 @end
 
-@implementation LHUserInfoViewController
-{
+@implementation LHUserInfoViewController {
     
     NSString *_ChooseID;
     
@@ -69,6 +68,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.view rm_fitAllConstraint];
     self.iconImageView.layer.cornerRadius = self.iconImageView.frame.size.height/2;
     self.iconImageView.image = [UIImage imageNamed:@"MyCenter_headerIcon"];
     self.iconImageView.layer.masksToBounds = YES;
@@ -76,10 +76,9 @@
     [self configureData];
     
     [self setHBK_NavigationBar];
+    
+    
 }
-
-
-
 
 #pragma mark ---------------- UI ----------------------------
 - (void)setHBK_NavigationBar {
@@ -289,7 +288,7 @@
     [LHNetworkManager uploadPOST:kUploadImage parameters:nil consImage:image success:^(id responObject) {
         NSLog(@"%@", responObject);
         if ([responObject[@"errorCode"] integerValue] == 200) {
-            self.iconUrl = responObject[@"data"];
+            self.iconUrl = [NSString stringWithFormat:@"%@", responObject[@"data"]];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self hideProgressHUD];
                 [MBProgressHUD showSuccess:@"上传成功~"];

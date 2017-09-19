@@ -18,13 +18,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    
+    self.delegate = self;
     self.navigationBar.hidden = YES;
-    
-
-    
-    
-    
     
 }
 
@@ -37,9 +32,11 @@
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     
-    
+    NSLog(@"%@", viewController);
     
 }
+
+
 
 
 

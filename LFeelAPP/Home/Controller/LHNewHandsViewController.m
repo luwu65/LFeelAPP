@@ -155,7 +155,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"%ld", self.questionArray.count);
+    NSLog(@"%ld", (unsigned long)self.questionArray.count);
     return self.questionArray.count;
 }
 

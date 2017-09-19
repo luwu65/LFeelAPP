@@ -27,11 +27,13 @@ typedef void(^GoAccrountBlock)();
 
 /*打包盒子*/
 - (instancetype)initWithFrame:(CGRect)frame packingStatusString:(NSString *)packingLabelStr packingButtonTitle:(NSString *)packingButtonTitle;
-
+@property (nonatomic, strong) UIButton *packingBtn;
 
 /*点击打包盒子的回调*/
 - (void)clickPackingButtonBlock:(ClickPackingButtonBlock)block;
 
+
+#pragma mark ---------------------------------去结算-----------------------------------------------------------------------
 /*结算按钮*/
 - (instancetype)initWithFrame:(CGRect)frame;
 
@@ -40,13 +42,6 @@ typedef void(^GoAccrountBlock)();
 
 //全选
 @property (nonatomic, strong) CustomButton *allSelectBtn;
-
-////全选
-//@property (nonatomic, copy) AllClickGoodsBlock allClickGoodsBlock;
-//
-////点击全部的回调
-//- (void)allClickGoodsBlock:(AllClickGoodsBlock)block;
-
 
 //去结算
 @property (nonatomic, copy) GoAccrountBlock goAccrountBlock;

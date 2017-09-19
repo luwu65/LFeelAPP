@@ -57,7 +57,7 @@
 @end
 
 @implementation LHMyBoxViewController
-
+#pragma mark ---------------------- 懒加载 --------------------------
 - (NSMutableArray *)myBoxArray {
     if (!_myBoxArray) {
         self.myBoxArray = [NSMutableArray new];
@@ -132,24 +132,17 @@
     if (!self.AddShoppingSuccess) {
         [self requestShoppingCartData];
     }
+    //添加观察者, 如果再其他页面添加了收藏, 或是添加了购物车, 就在方法里改变BOOL值,
+    //根据BOOL值的去请求, 避免在viewWillAppear里每次都请求数据 浪费流量,也避免其他地方添加了购物车或收藏,此页面没有请求.
+    //作此操作, 提升了用户体验
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(CollectionSuccessNotification) name:@"CollectionSuccess" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AddShoppingCartSuccessNotification) name:@"AddShoppingCartSuccess" object:nil];
     
 }
-//监测到有收藏, 就把收藏状态改为YES
-- (void)CollectionSuccessNotification {
-    NSLog(@"~~~~~~~~~~~~~~~~~~~~~~~~右滑收藏了~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    self.CollectionSuccess = YES;
 
-}
-- (void)AddShoppingCartSuccessNotification {
-    NSLog(@"-----------------添加购物车 或 下订单了了------------------");
-    self.AddShoppingSuccess = YES;
-}
 
 #pragma mark -----------------------  初始化UI控件 --------------------------------
 - (void)setUI {
-    __weak typeof(self) weakself = self;
     CGFloat tabBarHeight = 49;
     if ([self.subPage isEqualToString:@"Rent"] || [self.subPage isEqualToString:@"New"]) {
         tabBarHeight = 0;
@@ -197,26 +190,10 @@
     [self.shoppingCartTableView registerClass:[LHCartHeaderView class] forHeaderFooterViewReuseIdentifier:@"LHCartHeaderView"];
     
     // ----------------------------------------------  打包 底栏  ----------------------------------
-    LHPackingBoxView *packView = [[LHPackingBoxView alloc] initWithFrame:CGRectMake(0, kScreenHeight-kNavBarHeight-tabBarHeight-kAllBarHeight*kRatio, kScreenWidth, kAllBarHeight*kRatio) packingStatusString:@"   随机打包三件给你" packingButtonTitle:@"打包盒子"];
-    [packView clickPackingButtonBlock:^(NSString *packBtnTitle) {
-        
-        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
-        [alertVC addAction:[UIAlertAction actionWithTitle:@"打包盒子" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-            NSLog(@"打包盒子");
-            LHPackInfoViewController *packVC = [[LHPackInfoViewController alloc] init];
-            [weakself.navigationController pushViewController:packVC animated:YES];
-        }]];
-        [alertVC addAction:[UIAlertAction actionWithTitle:@"寄回盒子" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-            LHSendBackViewController *sendBack = [[LHSendBackViewController alloc] init];
-            [weakself.navigationController pushViewController:sendBack animated:YES];
-        }]];
-        [alertVC addAction:[UIAlertAction actionWithTitle:@"实名认证" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-            LHCertificationViewController *cerVC = [[LHCertificationViewController alloc] init];
-            [weakself.navigationController pushViewController:cerVC animated:YES];
-        }]];
-        [alertVC addAction:[UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil]];
-        [self presentViewController:alertVC animated:YES completion:nil];
-    }];
+    LHPackingBoxView *packView = [[LHPackingBoxView alloc] initWithFrame:CGRectMake(0, kScreenHeight-kNavBarHeight-tabBarHeight-kAllBarHeight*kRatio, kScreenWidth, kAllBarHeight*kRatio) packingStatusString:@"   随机打包三件给你" packingButtonTitle:nil];
+    [packView.packingBtn setTitle:@"打包盒子" forState:(UIControlStateNormal)];
+    //将点击事件分离出去, 此方法内仅处理UI事件
+    [self packOrBackBoxAction:packView];
     [leftBgView addSubview:packView];
     
     //---------------------------------------------------  结算 底栏  --------------------------------
@@ -224,20 +201,7 @@
     self.allSelectBtn = self.accrountView.allSelectBtn;
     [self.allSelectBtn addTarget:self action:@selector(selectAllBtnAction:) forControlEvents:(UIControlEventTouchUpInside)];
     self.accrountView.priceLabel.attributedText = [self LHSetString:@"¥0.00"];
-    [self.accrountView goAccrountGoodsBlock:^{
-        NSLog(@"去结算");
-        if (self.selectArray.count == 0) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD showError:@"您还没有选中商品哦!"];
-            });
-        } else {
-#warning --------------- 去结算 --------------
-            LHAccountCenterViewController *accountVC = [[LHAccountCenterViewController alloc] init];
-            accountVC.goodsModelArray = self.selectArray;
-            [self.navigationController pushViewController:accountVC animated:YES];
-        }
-        
-    }];
+    [self goAccrountGoods:self.accrountView];
     [rightBgView addSubview:self.accrountView];
 }
 
@@ -252,19 +216,8 @@
     layer.backgroundColor = HexColorInt32_t(DDDDDD).CGColor;
     [self.view.layer addSublayer:layer];
     
-    __weak typeof(self) weakself = self;
     LHSegmentControlView *segView = [[LHSegmentControlView alloc] initWithFrame:CGRectMake((kScreenWidth-150)/2, 20, 150, 42) titleArray:@[@"换衣盒", @"购物车"] titleFont:kFont(15) titleDefineColor:[UIColor blackColor] titleSelectedColor:[UIColor redColor]];
-    [segView clickTitleButtonBlock:^(NSInteger index) {
-        if (index == 0) {
-            [UIView animateWithDuration:0.3 animations:^{
-                weakself.boxScrollView.contentOffset = CGPointMake(0, 0);
-            }];
-        } else {
-            [UIView animateWithDuration:0.3 animations:^{
-                weakself.boxScrollView.contentOffset = CGPointMake(kScreenWidth, 0);
-            }];
-        }
-    }];
+    [self segmentControlClickAction:segView];
     [bgView addSubview: segView];
 
     if ([self.subPage isEqualToString:@"New"]) {
@@ -289,13 +242,13 @@
                 }
             }
         }
-    } else if ([self.subPage isEqualToString:@"New"]) {
+    } else if ([self.subPage isEqualToString:@"Rent"]) {
         UIButton *backBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
         [backBtn setImage:kImage(@"Back_Button") forState:(UIControlStateNormal)];
         backBtn.frame = CGRectMake(0, 20, 44, 44);
         [backBtn addTarget:self action:@selector(backAction) forControlEvents:(UIControlEventTouchUpInside)];
-        [bgView addSubview:backBtn];
-        
+        [bgView addSubview:backBtn];        
+        self.boxScrollView.contentOffset = CGPointMake(0, 0);
     }
 }
 
@@ -335,50 +288,7 @@
         }
         LHCartStoreModel *storeModel = self.storeArray[indexPath.section];
         LHCartGoodsModel *goodsModel = [storeModel.products objectAtIndex:indexPath.row];
-        
-        __block typeof(cell) wsCell = cell;
-        //数量加
-        [wsCell numberOfAddBlock:^(NSInteger number) {
-            wsCell.number = number;
-            goodsModel.count = number;
-            
-            [storeModel.products replaceObjectAtIndex:indexPath.row withObject:goodsModel];
-            if ([self.selectArray containsObject:goodsModel]) {
-                [self.selectArray removeObject:goodsModel];
-                [self.selectArray addObject:goodsModel];
-                [self countPrice];
-            }
-            [self requestUpdateShoppingCart:goodsModel Count:number];
-        }];
-        //数量减
-        [wsCell numberOfSubBlock:^(NSInteger number) {
-            wsCell.number = number;
-            goodsModel.count = number;
-            [storeModel.products replaceObjectAtIndex:indexPath.row withObject:goodsModel];
-            if ([self.selectArray containsObject:goodsModel]) {
-                [self.selectArray removeObject:goodsModel];
-                [self.selectArray addObject:goodsModel];
-                [self countPrice];
-            }
-            [self requestUpdateShoppingCart:goodsModel Count:number];
-        }];
-        
-        //选中按钮
-        [wsCell clickWithCellBlock:^(BOOL isClick) {
-            goodsModel.isSelect = isClick;
-            if (isClick) {
-//                NSLog(@"选了第%ld分区 第%ld行", indexPath.section,indexPath.row);
-                [self.selectArray addObject:goodsModel];
-//                NSLog(@"%@", storeModel);
-            } else {
-//                NSLog(@"取消了第%ld分区 第%ld行", indexPath.section,indexPath.row);
-                [self.selectArray removeObject:goodsModel];
-                
-            }
-            [self verityAllSelectState];
-            [self verityGroupSelectState:indexPath.section];
-            [self countPrice];
-        }];
+        [self shoppingCartCellClickAction:cell storeModel:storeModel goodsModel:goodsModel indexPath:indexPath];
         [cell reloadDataWithModel:goodsModel];
         return cell;
     }
@@ -391,32 +301,8 @@
         view.title = model.shopname;
         [view.storeImageView sd_setImageWithURL:kURL(model.shoplogo) placeholderImage:kImage(@"")];
         view.isSelect = model.isSelect;
-//        __weak typeof(self) weakSelf = self;
-        [view clickWithHeaderViewBlock:^(BOOL isClick) {
-//            NSLog(@"------------------------->>> %d", isClick);
-            model.isSelect = isClick;
-            if (isClick) {
-//                NSLog(@"选了%ld分区", section);
-                for (LHCartGoodsModel *goodsModel in model.products) {
-                    goodsModel.isSelect = YES;
-                    if (![self.selectArray containsObject:goodsModel]) {
-                        [self.selectArray addObject:goodsModel];
-                    }
-                }
-            } else {
-//                NSLog(@"取消了%ld分区", section);
-                for (LHCartGoodsModel *goodsModel in model.products) {
-                    goodsModel.isSelect = NO;
-                    if ([self.selectArray containsObject:goodsModel]) {
-                        [self.selectArray removeObject:goodsModel];
-                    }
-                }
-            }
-//            NSLog(@"******%@", self.selectArray);
-            [self verityAllSelectState];
-            [tableView reloadData];
-            [self countPrice];
-        }];
+        //点击事件, 全选
+        [self shoppingCartSectionHeaderAction:view storeModel:model];
         return view;
     }
     return nil;
@@ -433,7 +319,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (tableView == self.shoppingCartTableView) {
-        return 35*kRatio;
+        return kFit(35);
     }
     return CGFLOAT_MIN;
 }
@@ -484,7 +370,6 @@
                     [self emptyShoppingCartView];
                 }
                 //如果删除的时候数据紊乱,可延迟0.5s刷新一下
-//                [self performSelector:@selector(reloadTable) withObject:nil afterDelay:0.5];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.shoppingCartTableView reloadData];
                 });
@@ -518,6 +403,10 @@
 
 
 #pragma mark  ------------------   Action -------------------
+
+/**
+ 返回
+ */
 - (void)backAction {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -532,6 +421,24 @@
 }
 
 
+/**
+ 换衣盒和购物车切换
+
+ @param segView segView
+ */
+- (void)segmentControlClickAction:(LHSegmentControlView *)segView {
+    [segView clickTitleButtonBlock:^(NSInteger index) {
+        if (index == 0) {
+            [UIView animateWithDuration:0.3 animations:^{
+                self.boxScrollView.contentOffset = CGPointMake(0, 0);
+            }];
+        } else {
+            [UIView animateWithDuration:0.3 animations:^{
+                self.boxScrollView.contentOffset = CGPointMake(kScreenWidth, 0);
+            }];
+        }
+    }];
+}
 
 // --- 全选按钮点击事件
 - (void)selectAllBtnAction:(CustomButton *)sender {
@@ -567,7 +474,7 @@
     [self.myBoxArray removeAllObjects];
     [self requstMyBoxCartData];
 }
-
+//换衣盒刷新
 - (void)footerRefreshMyBoxTable {
     
     
@@ -582,13 +489,177 @@
     [self countPrice];
     
 }
-
+//购物车加载
 - (void)footerRefreshShoppingCartTable {
     
     
 }
 
+/*
+ 打包盒子, 寄回盒子 点击事件
+ */
+- (void)packOrBackBoxAction:(LHPackingBoxView *)boxView {
+    @weakify(self);
+    [boxView clickPackingButtonBlock:^(NSString *packBtnTitle) {
+        @strongify(self);
+        NSLog(@"%@", packBtnTitle);
+//        if ([packBtnTitle isEqualToString:@"打包盒子"]) {
+//            
+//            LHPackInfoViewController *packVC = [[LHPackInfoViewController alloc] init];
+//            [self.navigationController pushViewController:packVC animated:YES];
+//            
+//        } else if ([packBtnTitle isEqualToString:@"寄回盒子"]) {
+//            
+//            
+//        }
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
+                [alertVC addAction:[UIAlertAction actionWithTitle:@"打包盒子" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+                    NSLog(@"打包盒子");
+                    LHPackInfoViewController *packVC = [[LHPackInfoViewController alloc] init];
+                    [self.navigationController pushViewController:packVC animated:YES];
+                }]];
+                [alertVC addAction:[UIAlertAction actionWithTitle:@"寄回盒子" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+                    LHSendBackViewController *sendBack = [[LHSendBackViewController alloc] init];
+                    [self.navigationController pushViewController:sendBack animated:YES];
+                }]];
+                [alertVC addAction:[UIAlertAction actionWithTitle:@"实名认证" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+                    LHCertificationViewController *cerVC = [[LHCertificationViewController alloc] init];
+                    [self.navigationController pushViewController:cerVC animated:YES];
+                }]];
+                [alertVC addAction:[UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil]];
+                [self presentViewController:alertVC animated:YES completion:nil];
+    }];
+}
+
+
+/**
+ 去结算
+
+ @param accView 结算的View
+ */
+- (void)goAccrountGoods:(LHPackingBoxView *)accView {
+    [accView goAccrountGoodsBlock:^{
+        NSLog(@"去结算");
+        if (self.selectArray.count == 0) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showError:@"您还没有选中商品哦!"];
+            });
+        } else {
+            LHAccountCenterViewController *accountVC = [[LHAccountCenterViewController alloc] init];
+            accountVC.goodsModelArray = self.selectArray;
+            
+            [self.navigationController pushViewController:accountVC animated:YES];
+        }
+    }];
+}
+
+/**
+ 购物车cell的点击事件, 加商品, 减商品, 选中商品
+ 
+ @param cell 购物车cell
+ @param storeModel 店铺model
+ @param goodsModel 商品model
+ @param indexPath  cell坐标
+ */
+- (void)shoppingCartCellClickAction:(LHShoppingCartCell *)cell
+                         storeModel:(LHCartStoreModel *)storeModel
+                         goodsModel:(LHCartGoodsModel *)goodsModel
+                          indexPath:(NSIndexPath *)indexPath {
+    __block typeof(cell) wsCell = cell;
+    //数量加
+    [wsCell numberOfAddBlock:^(NSInteger number) {
+        wsCell.number = number;
+        goodsModel.count = number;
+        
+        [storeModel.products replaceObjectAtIndex:indexPath.row withObject:goodsModel];
+        if ([self.selectArray containsObject:goodsModel]) {
+            [self.selectArray removeObject:goodsModel];
+            [self.selectArray addObject:goodsModel];
+            [self countPrice];
+        }
+        [self requestUpdateShoppingCart:goodsModel Count:number];
+    }];
+    //数量减
+    [wsCell numberOfSubBlock:^(NSInteger number) {
+        wsCell.number = number;
+        goodsModel.count = number;
+        [storeModel.products replaceObjectAtIndex:indexPath.row withObject:goodsModel];
+        if ([self.selectArray containsObject:goodsModel]) {
+            [self.selectArray removeObject:goodsModel];
+            [self.selectArray addObject:goodsModel];
+            [self countPrice];
+        }
+        [self requestUpdateShoppingCart:goodsModel Count:number];
+    }];
+    
+    //选中按钮
+    [wsCell clickWithCellBlock:^(BOOL isClick) {
+        goodsModel.isSelect = isClick;
+        if (isClick) {
+            //                NSLog(@"选了第%ld分区 第%ld行", indexPath.section,indexPath.row);
+            [self.selectArray addObject:goodsModel];
+            //                NSLog(@"%@", storeModel);
+        } else {
+            //                NSLog(@"取消了第%ld分区 第%ld行", indexPath.section,indexPath.row);
+            [self.selectArray removeObject:goodsModel];
+            
+        }
+        [self verityAllSelectState];
+        [self verityGroupSelectState:indexPath.section];
+        [self countPrice];
+    }];
+}
+
+/**
+ 选中某个分区
+
+ @param headerView 区头View
+ @param storeModel 店铺model
+ */
+- (void)shoppingCartSectionHeaderAction:(LHCartHeaderView *)headerView
+                             storeModel:(LHCartStoreModel *)storeModel {
+    [headerView clickWithHeaderViewBlock:^(BOOL isClick) {
+        //            NSLog(@"------------------------->>> %d", isClick);
+        storeModel.isSelect = isClick;
+        if (isClick) {
+            //                NSLog(@"选了%ld分区", section);
+            for (LHCartGoodsModel *goodsModel in storeModel.products) {
+                goodsModel.isSelect = YES;
+                if (![self.selectArray containsObject:goodsModel]) {
+                    [self.selectArray addObject:goodsModel];
+                }
+            }
+        } else {
+            //                NSLog(@"取消了%ld分区", section);
+            for (LHCartGoodsModel *goodsModel in storeModel.products) {
+                goodsModel.isSelect = NO;
+                if ([self.selectArray containsObject:goodsModel]) {
+                    [self.selectArray removeObject:goodsModel];
+                }
+            }
+        }
+        //            NSLog(@"******%@", self.selectArray);
+        [self verityAllSelectState];
+        [self.shoppingCartTableView reloadData];
+        [self countPrice];
+    }];
+}
+//监测到有收藏, 就把收藏状态改为YES
+- (void)CollectionSuccessNotification {
+    NSLog(@"~~~~~~~~~~~~~~~~~~~~~~~~右滑收藏了~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    self.CollectionSuccess = YES;
+    
+}
+
+/**
+ 添加购物车 或 下订单了, 就改变状态
+ */
+- (void)AddShoppingCartSuccessNotification {
+    NSLog(@"-----------------添加购物车 或 下订单了了------------------");
+    self.AddShoppingSuccess = YES;
+}
 #pragma mark  --------------  判断是否全选等    价格的计算  ----------------------
+//某个分区是否全选
 - (void)verityGroupSelectState:(NSInteger)section {
     // 判断某个区的商品是否全选
     LHCartStoreModel *tempShop = self.storeArray[section];
@@ -617,7 +688,7 @@
     NSString *string = [NSString stringWithFormat:@"￥%.2f",totlePrice];
     self.accrountView.priceLabel.attributedText = [self LHSetString:string];
 }
-
+//是否全选
 - (void)verityAllSelectState {
     NSInteger count = 0;
     for (LHCartStoreModel *shop in self.storeArray) {

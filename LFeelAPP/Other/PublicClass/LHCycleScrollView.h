@@ -59,8 +59,8 @@ typedef void(^ClickCycleViewBlock)(NSInteger index);
 
 
 #pragma mark  -------------------   商品详情轮播  租赁 --------------------------
-#import "LHTagView.h"
 
+#import "LHTagView.h"
 //商品详情轮播
 @interface LHRentGoodsDetailCycleView : UIView<SDCycleScrollViewDelegate>
 
@@ -90,6 +90,8 @@ typedef void(^ClickCycleViewBlock)(NSInteger index);
 @property (nonatomic, strong) LHTagView *tagView;
 
 - (void)clickCycleBlock:(ClickCycleViewBlock)clickCycleBlock;
+
+@property (nonatomic, copy) void (^AddMyBoxBlock)(UIButton *sender);
 
 
 @end

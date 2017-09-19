@@ -105,12 +105,14 @@
 //提交订单
 #define kSubmitOrder               @"order/reservation"
 
+//订单列表
+#define kOrderList                 @"order/getList"
 
+//实名认证
+#define kCertification             @"vipmanagement/identity"
 
-
-
-
-
+//产品详情
+#define kGoodsDetail                @"product/findproduct?"
 
 
 

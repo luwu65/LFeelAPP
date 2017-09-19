@@ -27,6 +27,8 @@
     [self setUI];
 }
 
+
+#pragma mark -------------- UI ------------------
 - (void)setUI {
     UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     bgImageView.image = [UIImage imageNamed:@"AddVip_bgImageView"];
@@ -108,7 +110,7 @@
     
 }
 
-
+#pragma mark  -------------- Action -----------
 - (void)yearBtnAction:(CustomButton *)sender {
     self.halfYearBtn.chooseImageView.image = [UIImage imageNamed:@"MyBox_click_default"];
     if (self.halfYearBtn.selected == YES) {
@@ -136,9 +138,9 @@
         sender.chooseImageView.image = [UIImage imageNamed:@"MyBox_clicked"];
         
     }
-    
 }
 
+//立即购买
 - (void)buyVipAction {
     
     
@@ -147,6 +149,31 @@
 - (void)backBtnAction {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+#pragma mark ------------- 网络请求 -------------------
+- (void)requestAddVipData {
+    
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

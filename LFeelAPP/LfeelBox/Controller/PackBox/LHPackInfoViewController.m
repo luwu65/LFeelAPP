@@ -28,7 +28,8 @@
 
 @property (nonatomic, strong) UIView *defaultView;
 @property (nonatomic, strong) UILabel *remindLabel;
-
+//地址ID
+@property (nonatomic, copy) NSString *address_id;
 @end
 
 @implementation LHPackInfoViewController
@@ -42,6 +43,10 @@
     [self setHBK_NavigationBar];
     
     [self chooseClothesAction];
+    
+    [self requestAddressDefaultListData];
+    
+    
 }
 
 
@@ -202,7 +207,7 @@
         [self updateConstraint];
         self.nameLabel.text = model.name;
         self.phoneLabel.text = model.mobile;
-        self.addressLabel.text = [NSString stringWithFormat:@"%@%@%@%@", model.province, model.city, model.district, model.detail_address];;
+        self.addressLabel.text = [NSString stringWithFormat:@"%@%@%@%@", model.province, model.city, model.district, model.detail_address];
         
     };
     [self.navigationController pushViewController:receiveVC animated:YES];
@@ -240,7 +245,7 @@
     [self.defaultView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.right.left.equalTo(self.view).offset(0);
         make.top.equalTo(_thirdView.mas_bottom).offset(15);
-        make.height.mas_equalTo(kFit(45));
+        make.height.mas_equalTo(kFit(35));
     }];
     
     [self.remindLabel mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -249,7 +254,6 @@
         make.top.equalTo(self.defaultView.mas_bottom).offset(10);
         make.height.mas_equalTo(kFit(35));
     }];
-    
 }
 
 
@@ -320,8 +324,36 @@
     }
 }
 
-
-
+#pragma mark --------------------------- 网络请求 ----------------------
+//请求默认地址
+- (void)requestAddressDefaultListData {
+    [self showProgressHUD];
+    [LHNetworkManager requestForGetWithUrl:kAddressList parameter:@{@"user_id": kUser_id, @"isdefault": @1} success:^(id reponseObject) {
+        NSLog(@"=============%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            for (NSDictionary *dic in reponseObject[@"data"]) {
+                LHAddressModel *model = [[LHAddressModel alloc] init];
+                model.isdefault = [NSString stringWithFormat:@"%@", dic[@"isdefault"]];
+                [model setValuesForKeysWithDictionary:dic];
+                self.address_id = [NSString stringWithFormat:@"%@", model.id_];
+                NSLog(@"地址ID-------- %@", model.id_);
+                [self.noAddressBgView removeFromSuperview];
+                [self CreateAddressView];
+                [self updateConstraint];
+                self.nameLabel.text = model.name;
+                self.phoneLabel.text = model.mobile;
+                self.addressLabel.text = [NSString stringWithFormat:@"%@%@%@%@", model.province, model.city, model.district, model.detail_address];
+            }
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self hideProgressHUD];
+        });
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
 
 
 

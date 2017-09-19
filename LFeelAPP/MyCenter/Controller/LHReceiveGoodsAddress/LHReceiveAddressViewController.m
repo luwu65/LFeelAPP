@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UITableView *addressTableView;
 
 @property (nonatomic, strong) NSMutableArray<LHAddressModel *> *addressArray;
+@property (nonatomic, strong) UIView *emptyBgView;
 
 
 @end
@@ -40,6 +41,9 @@
     
     
 }
+
+#pragma mark ---------------- UI -------------------
+
 - (void)setHBK_NavigationBar {
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"我的地址" backAction:^{
@@ -70,10 +74,25 @@
     }];
     
     
+}
+- (void)addEmptyView {
+    self.emptyBgView = [[UIView alloc] init];
+    self.emptyBgView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight-kNavBarHeight);
+    [self.view addSubview:self.emptyBgView];
     
+    UIImageView *emptyImageView = [[UIImageView alloc] initWithImage:kImage(@"MyCenter_addressEmpty")];
+    emptyImageView.frame = CGRectMake(kFit(100), kFit(104), kScreenWidth-kFit(200), kScreenWidth-kFit(200));
+    [self.emptyBgView addSubview:emptyImageView];
+    
+    UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, emptyImageView.maxY+kFit(20), kScreenWidth, 25)];
+    textLabel.text = @"您还没有添加地址, 点击右上角添加地址吧~";
+    textLabel.font = kFont(15*kRatio);
+    textLabel.textColor = [UIColor lightGrayColor];
+    textLabel.textAlignment = NSTextAlignmentCenter;
+    [self.emptyBgView addSubview:textLabel];
 }
 
-
+#pragma mark -------------------- UITableViewDelegate, UITableViewDataSource --------------
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.addressArray.count;
 }
@@ -126,7 +145,7 @@
     if (!self.addressBlock) {
         return;
     }
-    NSLog(@"---- %ld ----", indexPath.section);
+    NSLog(@"---- %ld ----", (long)indexPath.section);
     LHAddressModel *model = [[LHAddressModel alloc] init];
     [self.addressArray addObject: model];
     if (self.addressBlock) {
@@ -135,6 +154,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+#pragma mark ---------------- Action ---------------------
 - (void)clickAddressBlock:(ClickAddressBlock)block {
     self.addressBlock = block;
 }
@@ -164,7 +184,11 @@
                 [self.addressArray addObject:model];
             }
         }
-
+        if (self.addressArray.count == 0) {
+            [self addEmptyView];
+        } else {
+            [self.emptyBgView removeFromSuperview];
+        }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideProgressHUD];
             [self.addressTableView.mj_header endRefreshing];
@@ -189,7 +213,14 @@
                 [MBProgressHUD showSuccess:@"删除成功"];
                 [self.addressTableView reloadData];
             });
+            if (self.addressArray.count == 0) {
+                [self addEmptyView];
+            } else {
+                [self.emptyBgView removeFromSuperview];
+            }
         }
+        
+        
     } failure:^(NSError *error) {
         
     }];

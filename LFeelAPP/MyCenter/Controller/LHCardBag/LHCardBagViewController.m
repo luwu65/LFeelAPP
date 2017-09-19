@@ -181,12 +181,12 @@
         if (section == 0) {
             self.isFirst = isClick;
             if (!isClick) {
-                NSLog(@"合上%ld分区", section);
+                NSLog(@"合上%ld分区", (long)section);
                 [UIView animateWithDuration:0.2 animations:^{
                     headerView.openImageView.transform = CGAffineTransformRotate(headerView.openImageView.transform, M_PI);
                 }];
             } else {
-                NSLog(@"展开%ld分区", section);
+                NSLog(@"展开%ld分区", (long)section);
                 [UIView animateWithDuration:0.2 animations:^{
                     headerView.openImageView.transform = CGAffineTransformRotate(headerView.openImageView.transform, -M_PI);
                 }];

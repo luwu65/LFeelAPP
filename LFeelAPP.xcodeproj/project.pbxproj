@@ -14,6 +14,9 @@
 		0F0D27B91F6BD83F006BFCB2 /* LHAddVipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0D27B51F6BD83E006BFCB2 /* LHAddVipViewController.m */; };
 		0F0D27BA1F6BD83F006BFCB2 /* LHWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0D27B71F6BD83E006BFCB2 /* LHWebViewController.m */; };
 		0F0D27BB1F6BD83F006BFCB2 /* LHWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F0D27B81F6BD83F006BFCB2 /* LHWebViewController.xib */; };
+		0F0D27BF1F6FAE20006BFCB2 /* LHPayResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0D27BD1F6FAE20006BFCB2 /* LHPayResultsViewController.m */; };
+		0F0D27C01F6FAE20006BFCB2 /* LHPayResultsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F0D27BE1F6FAE20006BFCB2 /* LHPayResultsViewController.xib */; };
+		0F0D27C31F6FC564006BFCB2 /* LHOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0D27C21F6FC564006BFCB2 /* LHOrderModel.m */; };
 		0F120C1E1F663A9B00E617AA /* LHBWHPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F120C1D1F663A9B00E617AA /* LHBWHPickView.m */; };
 		0F120C201F663AAE00E617AA /* LHBWHPickView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F120C1F1F663AAE00E617AA /* LHBWHPickView.xib */; };
 		0F120C891F6A2C6E00E617AA /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0F120C871F6A2C6E00E617AA /* AlipaySDK.bundle */; };
@@ -219,6 +222,11 @@
 		0F0D27B61F6BD83E006BFCB2 /* LHWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHWebViewController.h; sourceTree = "<group>"; };
 		0F0D27B71F6BD83E006BFCB2 /* LHWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHWebViewController.m; sourceTree = "<group>"; };
 		0F0D27B81F6BD83F006BFCB2 /* LHWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHWebViewController.xib; sourceTree = "<group>"; };
+		0F0D27BC1F6FAE20006BFCB2 /* LHPayResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHPayResultsViewController.h; sourceTree = "<group>"; };
+		0F0D27BD1F6FAE20006BFCB2 /* LHPayResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHPayResultsViewController.m; sourceTree = "<group>"; };
+		0F0D27BE1F6FAE20006BFCB2 /* LHPayResultsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHPayResultsViewController.xib; sourceTree = "<group>"; };
+		0F0D27C11F6FC564006BFCB2 /* LHOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHOrderModel.h; sourceTree = "<group>"; };
+		0F0D27C21F6FC564006BFCB2 /* LHOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHOrderModel.m; sourceTree = "<group>"; };
 		0F120C1C1F663A9B00E617AA /* LHBWHPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHBWHPickView.h; sourceTree = "<group>"; };
 		0F120C1D1F663A9B00E617AA /* LHBWHPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHBWHPickView.m; sourceTree = "<group>"; };
 		0F120C1F1F663AAE00E617AA /* LHBWHPickView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHBWHPickView.xib; sourceTree = "<group>"; };
@@ -1177,6 +1185,8 @@
 				0FB793431F4BFC6700FDDB76 /* LHOrderListTableViewController.m */,
 				0FB7933C1F4B19B500FDDB76 /* LHOrderHeaderFooterView.h */,
 				0FB7933D1F4B19B500FDDB76 /* LHOrderHeaderFooterView.m */,
+				0F0D27C11F6FC564006BFCB2 /* LHOrderModel.h */,
+				0F0D27C21F6FC564006BFCB2 /* LHOrderModel.m */,
 			);
 			path = LHOrder;
 			sourceTree = "<group>";
@@ -1441,6 +1451,9 @@
 				0F3F642C1F41495500A42084 /* LHAccountCenterHeaderFooterView.xib */,
 				0FEC8D0B1F38533800453700 /* LHAccountCenterViewController.h */,
 				0FEC8D0C1F38533800453700 /* LHAccountCenterViewController.m */,
+				0F0D27BC1F6FAE20006BFCB2 /* LHPayResultsViewController.h */,
+				0F0D27BD1F6FAE20006BFCB2 /* LHPayResultsViewController.m */,
+				0F0D27BE1F6FAE20006BFCB2 /* LHPayResultsViewController.xib */,
 				0F3F64261F3D527C00A42084 /* LHPayWayView.h */,
 				0F3F64271F3D527C00A42084 /* LHPayWayView.m */,
 			);
@@ -1648,6 +1661,7 @@
 				0F52B6AA1EF268ED007D45EC /* LHBrondCollectionCell.xib in Resources */,
 				0F31751A1F563BE500208DD0 /* LHAboutMeViewController.xib in Resources */,
 				0F52B69B1EF24DE4007D45EC /* LHMyCenterCell.xib in Resources */,
+				0F0D27C01F6FAE20006BFCB2 /* LHPayResultsViewController.xib in Resources */,
 				0FB7936D1F4FAE0F00FDDB76 /* LHEditAddressViewController.xib in Resources */,
 				0F7B79571F428FA8009DAF35 /* LHPackInfoChooseView.xib in Resources */,
 				0F52B7381EFA1328007D45EC /* city.plist in Resources */,
@@ -1895,6 +1909,7 @@
 				0F52B64B1EEF8ADA007D45EC /* LHHomeViewController.m in Sources */,
 				0F9045C11F1DA18F000528A2 /* UITextField+PlaceHolder.m in Sources */,
 				0F120D021F6A2FA800E617AA /* openssl_wrapper.m in Sources */,
+				0F0D27C31F6FC564006BFCB2 /* LHOrderModel.m in Sources */,
 				0F0D27BA1F6BD83F006BFCB2 /* LHWebViewController.m in Sources */,
 				0F52B5F71EEF83E1007D45EC /* AppDelegate.m in Sources */,
 				0FB793381F4A870300FDDB76 /* LHCategoryListViewController.m in Sources */,
@@ -1929,6 +1944,7 @@
 				0F52B6601EEFB86E007D45EC /* LHHomeTableViewCell.m in Sources */,
 				0F0D27B91F6BD83F006BFCB2 /* LHAddVipViewController.m in Sources */,
 				0F52B69A1EF24DE4007D45EC /* LHMyCenterCell.m in Sources */,
+				0F0D27BF1F6FAE20006BFCB2 /* LHPayResultsViewController.m in Sources */,
 				0FEC8D031F37F06300453700 /* HBK_NavigationBar.m in Sources */,
 				0FB793501F4E859500FDDB76 /* LHCycleScrollView.m in Sources */,
 				0F594D331F2A13B80047DCC1 /* LHDraggableCardContainer.m in Sources */,

@@ -77,7 +77,7 @@
 #pragma mark  ---------------------  网络请求  ---------------------
 //轮播图数据
 - (void)requestCycleScrollViewData {
-    [self showProgressHUDWithTitle:@"加载中"];
+    [self showProgressHUDWithTitle:@"加载中..."];
     //请求之前先把之前数组里的数据清除, 防止下拉刷新重复添加
     [self.cycleImageArray removeAllObjects];
     [LHNetworkManager requestForGetWithUrl:kCycleViewUrl parameter:nil success:^(id reponseObject) {
@@ -161,7 +161,7 @@
     self.homeTabeView.tableHeaderView = self.cycleScrollView;
     
     [self.cycleScrollView clickCycleBlock:^(NSInteger index) {
-        NSLog(@"点击了第%ld张", index);
+        NSLog(@"点击了第%ld张", (long)index);
     }];
     
     @weakify(self);

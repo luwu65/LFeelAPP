@@ -70,7 +70,7 @@
         }
         
         
-        NSLog(@"------------------->>> %ld", self.dataArray.count);
+        NSLog(@"------------------->>> %ld", (unsigned long)self.dataArray.count);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideProgressHUD];
             if (self.dataArray.count > 0) {
@@ -142,7 +142,7 @@
 //    [self startAnimation];
     if ([LHUserInfoManager isLoad]) {
         if (_index < self.dataArray.count) {
-            NSLog(@"%ld", _index);
+            NSLog(@"%ld", (long)_index);
             LHThemeGoodsModel *model = self.dataArray[_index];
             if ([model.iscollection integerValue] == 0) {
                 [self requestCollectGoodsDataWithModel:self.dataArray[_index]];
@@ -348,7 +348,7 @@
         NSLog(@"--------------- >>>  右");
         if ([LHUserInfoManager isLoad]) {
             if (_index < self.dataArray.count) {
-                NSLog(@"%ld", _index);
+                NSLog(@"%ld", (long)_index);
                 LHThemeGoodsModel *model = self.dataArray[_index];
                 if ([model.iscollection integerValue] == 0) {
                     [self requestCollectGoodsDataWithModel:self.dataArray[_index]];
@@ -370,7 +370,7 @@
         NSLog(@"--------------- >>>  上");
         if ([LHUserInfoManager isLoad]) {
             if (_index < self.dataArray.count) {
-                NSLog(@"%ld", _index);
+                NSLog(@"%ld", (long)_index);
                 LHThemeGoodsModel *model = self.dataArray[_index];
                 if ([model.iscollection integerValue] == 0) {
                     [self requestCollectGoodsDataWithModel:self.dataArray[_index]];

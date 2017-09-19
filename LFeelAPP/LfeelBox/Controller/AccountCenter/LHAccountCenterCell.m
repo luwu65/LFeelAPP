@@ -113,7 +113,21 @@
 }
 
 
-
+- (void)reloadDataWithLHOrderProductModel:(LHOrderProductModel *)orderModel {
+    self.priceLabel.text = [NSString stringWithFormat:@"¥%@/件", orderModel.price];
+    self.numLabel.text = [NSString stringWithFormat:@"x %@", orderModel.count];
+    if (![orderModel.url isKindOfClass:[NSNull class]]) {
+        [self.goodsImageView sd_setImageWithURL:kURL(orderModel.url) placeholderImage:kImage(@"")];
+    } else {
+        self.goodsImageView.image = [UIImage imageNamed:@""];
+    }
+    self.titleLabel.text = orderModel.name;
+    if (orderModel.property_value.count == 1) {
+        self.sizeLabel.text = [NSString stringWithFormat:@"%@", orderModel.property_value.firstObject];
+    } else {
+        self.sizeLabel.text = [NSString stringWithFormat:@"%@,%@", orderModel.property_value.firstObject, orderModel.property_value.lastObject];
+    }
+}
 
 
 

@@ -179,7 +179,7 @@
 //                //返回为JPEG图像。
 //                data = UIImageJPEGRepresentation(consImage, 0.5);
 //            }
-            NSLog(@"---------图片大小---->>> %lu", data.length);
+            NSLog(@"---------图片大小---->>> %lu", (unsigned long)data.length);
 
             //2.加时间
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

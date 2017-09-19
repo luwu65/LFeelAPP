@@ -55,7 +55,7 @@
     [self requestGoodsDetailData];
 }
 
-
+#pragma mark --------------------- UI -----------------------
 - (void)setUI {
     self.detailTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:(UITableViewStyleGrouped)];
     self.detailTableView.dataSource = self;
@@ -64,6 +64,7 @@
     
     self.cycleView = [[LHRentGoodsDetailCycleView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth*1.2 + kFit(125)) imageFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth*1.2) placeHolderImage:kImage(@"")];
 
+    [self cycleClickAction:self.cycleView];
     self.cycleView.backgroundColor = [UIColor whiteColor];
     self.detailTableView.tableHeaderView = self.cycleView;
 }
@@ -96,8 +97,13 @@
         [self.navigationController pushViewController:myBoxVC animated:YES];
         
     } rightThird:@"Home_GoodsDetail_Share" rightThirdBtnAction:^{
-        
-        
+        NSLog(@"分享");
+        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+            NSLog(@"%ld-----------%@", (long)platformType, userInfo);
+            [LHShareManager shareTitle:@"111" desc:@"222" url:@"https://www.baidu.com" image:nil Plantform:platformType completion:^(id result, NSError *error) {
+                
+            }];
+        }];
     }];
     
     
@@ -208,24 +214,23 @@
     }];
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#pragma mark  -------------- Action ----------------
+//点击事件
+- (void)cycleClickAction:(LHRentGoodsDetailCycleView *)cycleView {
+    //选择尺码等
+    self.cycleView.tagView.ClickTagBlock = ^(NSInteger index) {
+        NSLog(@"%ld", (long)index);
+    };
+    //点击轮播图图片
+    [self.cycleView clickCycleBlock:^(NSInteger index) {
+        
+    }];
+    //点击加入我的盒子
+    self.cycleView.AddMyBoxBlock = ^(UIButton *sender) {
+        NSLog(@"加入我的收藏");
+    };
+    
+}
 
 #pragma mark ----- 滑动的时候改变导航栏的透明度
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

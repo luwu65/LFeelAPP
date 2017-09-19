@@ -10,7 +10,7 @@
 #import "LHOrderListTableViewController.h"
 #import "LHTitleSliderView.h"
 
-#define kScrollHeight kScreenHeight-kNavBarHeight-42
+#define kScrollHeight kScreenHeight-kNavBarHeight-kFit(44)
 @interface LHMyOrderViewController ()<UIScrollViewDelegate>
 
 
@@ -52,7 +52,7 @@
 }
 
 - (void)setScrollViewUI {
-    self.myOrderScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kNavBarHeight+42, kScreenWidth, kScrollHeight)];
+    self.myOrderScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kNavBarHeight+kFit(44), kScreenWidth, kScrollHeight)];
     self.myOrderScrollView.contentSize = CGSizeMake(kScreenWidth*self.titleArray.count, kScrollHeight);
     self.myOrderScrollView.pagingEnabled = YES;
     self.myOrderScrollView.delegate = self;
@@ -61,6 +61,7 @@
 
     for (int i = 0; i < self.titleArray.count; i++) {
         LHOrderListTableViewController *orderTVC = [[LHOrderListTableViewController alloc] initWithStyle:(UITableViewStyleGrouped)];
+        orderTVC.type = i;
         [self addChildViewController:orderTVC];
     }
 }

@@ -178,7 +178,7 @@
 //重写setter方法
 - (void)setNumber:(NSInteger)number {
     _number = number;
-    self.numberLabel.text = [NSString stringWithFormat:@"%ld", number];
+    self.numberLabel.text = [NSString stringWithFormat:@"%ld", (long)number];
 }
 
 - (void)setIsClick:(BOOL)isClick {
@@ -209,7 +209,7 @@
 
 - (void)reloadDataWithModel:(LHCartGoodsModel *)goodsModel {
     self.titleLabel.text = goodsModel.product_name;
-    self.numberLabel.text = [NSString stringWithFormat:@"%ld", goodsModel.count];
+    self.numberLabel.text = [NSString stringWithFormat:@"%ld", (long)goodsModel.count];
     self.priceLabel.text = [NSString stringWithFormat:@"¥%.2lf/件", [goodsModel.price_lfeel floatValue]];
     self.clickBtn.selected = goodsModel.isSelect;
     [self.goodsImageView sd_setImageWithURL:[NSURL URLWithString:goodsModel.url] placeholderImage:kImage(@"")];

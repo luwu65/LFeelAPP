@@ -32,14 +32,14 @@
         packLabel.textColor = [UIColor lightGrayColor];
         [self addSubview:packLabel];
         
-        UIButton *packBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
-        packBtn.frame = CGRectMake(kScreenWidth/3*2, 0, kScreenWidth/3, kAllBarHeight*kRatio);
-        [packBtn setTitle:packingButtonTitle forState:(UIControlStateNormal)];
-        packBtn.backgroundColor = [UIColor redColor];
-        packBtn.titleLabel.font = kFont(16*kRatio);
-        [packBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-        [packBtn addTarget:self action:@selector(handldPacking:) forControlEvents:(UIControlEventTouchUpInside)];
-        [self addSubview:packBtn];
+        self.packingBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
+        self.packingBtn.frame = CGRectMake(kScreenWidth/3*2, 0, kScreenWidth/3, kAllBarHeight*kRatio);
+//        [self.packingBtn setTitle:packingButtonTitle forState:(UIControlStateNormal)];
+        self.packingBtn.backgroundColor = [UIColor redColor];
+        self.packingBtn.titleLabel.font = kFont(16*kRatio);
+        [self.packingBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+        [self.packingBtn addTarget:self action:@selector(handldPacking:) forControlEvents:(UIControlEventTouchUpInside)];
+        [self addSubview:self.packingBtn];
     }
     return self;
 }
@@ -55,7 +55,7 @@
     self.clickPackingBtnBlock = block;
 }
 
-
+#pragma  mark ------------------------- 结算 --------------------------
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];

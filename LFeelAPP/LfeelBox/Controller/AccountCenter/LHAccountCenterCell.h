@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LHShoppingCartModel.h"
-
+#import "LHOrderModel.h"
 
 
 @interface LHAccountGoodsCell : UITableViewCell
@@ -28,7 +28,7 @@
 - (void)reloadDataWithModel:(LHAccountGoodsModel *)goodsModel;
 
 
-
+- (void)reloadDataWithLHOrderProductModel:(LHOrderProductModel *)orderModel;
 
 
 @end

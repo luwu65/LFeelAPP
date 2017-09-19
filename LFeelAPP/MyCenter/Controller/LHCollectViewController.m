@@ -9,12 +9,17 @@
 #import "LHCollectViewController.h"
 #import "LHMyBoxCell.h"
 #import "LHCollectModel.h"
+
+
+
 @interface LHCollectViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *collecTableView;
 @property (nonatomic, strong) NSMutableArray *goodsArray;
 
 @property (nonatomic, assign) NSInteger page;
+
+@property (nonatomic, strong) UIView *emptyBgView;
 
 @end
 
@@ -52,17 +57,9 @@
         self.collecTableView.delegate = self;
         self.collecTableView.tableFooterView = [[UIView alloc] init];
         [self.view addSubview:self.collecTableView];
-        self.collecTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-            NSLog(@"刷新");
-            [self.goodsArray removeAllObjects];
-            [self requestColloctionListDataWithPage:1];
-        }];
-        
-        self.collecTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-            self.page++;
-            [self requestColloctionListDataWithPage:self.page];
-            NSLog(@"加载");
-        }];
+        self.collecTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshTableView)];
+        self.collecTableView.mj_footer = [MJRefreshAutoFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefreshTableView)];
+
     }
     return _collecTableView;
 }
@@ -74,11 +71,38 @@
     }];
 }
 
+- (void)addEmptyView {
+    self.emptyBgView = [[UIView alloc] init];
+    self.emptyBgView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight-kNavBarHeight);
+    [self.view addSubview:self.emptyBgView];
+    
+    UIImageView *emptyImageView = [[UIImageView alloc] initWithImage:kImage(@"MyBox_Empty_MyBox")];
+    emptyImageView.frame = CGRectMake(kFit(100), kFit(104), kScreenWidth-kFit(200), kScreenWidth-kFit(200));
+    [self.emptyBgView addSubview:emptyImageView];
+    
+    UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, emptyImageView.maxY+kFit(20), kScreenWidth, 25)];
+    textLabel.text = @"收藏夹还是空的哟~";
+    textLabel.font = kFont(15*kRatio);
+    textLabel.textColor = [UIColor lightGrayColor];
+    textLabel.textAlignment = NSTextAlignmentCenter;
+    [self.emptyBgView addSubview:textLabel];
+    
+    UIButton *goBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    goBtn.frame = CGRectMake(40*kRatio, kScreenHeight-kNavBarHeight - 100*kRatio, kScreenWidth-80*kRatio, 40*kRatio);
+    [goBtn setTitle:@"逛逛新品~" forState:(UIControlStateNormal)];
+    [goBtn setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
+    goBtn.layer.masksToBounds = YES;
+    goBtn.layer.borderColor = [UIColor redColor].CGColor;
+    goBtn.layer.borderWidth = 1;
+    goBtn.layer.cornerRadius = 2;
+    [goBtn addTarget:self action:@selector(handleGoHomeAction) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.emptyBgView addSubview:goBtn];
+}
+
+
+
 #pragma mark --------------- <UITableViewDelegate, UITableViewDataSource> -----------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    if (self.goodsArray.count < 10) {
-//        self.collecTableView.mj_footer.hidden = YES;
-//    }
     return self.goodsArray.count;
 }
 
@@ -118,7 +142,11 @@
         if (page == [reponseObject[@"total"] integerValue]) {
             [self.collecTableView.mj_footer endRefreshingWithNoMoreData];
         }
-        
+        if (self.goodsArray.count == 0) {
+            [self addEmptyView];
+        } else {
+            [self.emptyBgView removeFromSuperview];
+        }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideProgressHUD];
             [self.collecTableView.mj_footer endRefreshing];
@@ -130,10 +158,28 @@
     }];
 }
 
+#pragma mark --------------  Action ---------------
+//刷新
+- (void)headerRefreshTableView {
+    NSLog(@"刷新");
+    [self.goodsArray removeAllObjects];
+    [self requestColloctionListDataWithPage:0];
+    
+}
 
+//加载
+- (void)footerRefreshTableView {
+    self.page++;
+    [self requestColloctionListDataWithPage:self.page];
+    NSLog(@"加载");
+}
 
-
-
+//逛逛新品
+- (void)handleGoHomeAction {
+    NSLog(@"逛逛新品");
+    self.tabBarController.selectedIndex = 3;
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 
 

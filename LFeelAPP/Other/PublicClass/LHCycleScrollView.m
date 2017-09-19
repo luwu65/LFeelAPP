@@ -126,6 +126,7 @@
         addBox.frame = CGRectMake(kFit(15), self.tagView.maxY+kFit(10), kScreenWidth - kFit(30), kFit(40));
         [addBox setTitle:@"加入我的盒子" forState:(UIControlStateNormal)];
         [addBox setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
+        [addBox addTarget:self action:@selector(addMyBox:) forControlEvents:(UIControlEventTouchUpInside)];
         [self addSubview:addBox];
         addBox.layer.masksToBounds = YES;
         addBox.layer.borderColor = [UIColor redColor].CGColor;
@@ -150,6 +151,14 @@
 - (void)clickCycleBlock:(ClickCycleViewBlock)clickCycleBlock {
     self.clickCycleBlock = clickCycleBlock;
 }
+
+- (void)addMyBox:(UIButton *)sender {
+    if (self.AddMyBoxBlock) {
+        self.AddMyBoxBlock(sender);
+    }
+}
+
+
 
 
 @end

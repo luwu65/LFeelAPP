@@ -51,9 +51,10 @@
     self.statusLabel = [[UILabel alloc] init];
     self.statusLabel.font = kFont(14);
     self.statusLabel.textColor = [UIColor redColor];
+    self.statusLabel.textAlignment = NSTextAlignmentRight;
     [bgView addSubview:self.statusLabel];
     [self.statusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.contentView.mas_right).offset(10);
+        make.right.equalTo(self.contentView.mas_right).offset(-10);
         make.centerY.mas_equalTo(bgView.mas_centerY);
         make.height.mas_equalTo(kFit(20));
         make.width.mas_equalTo(kFit(80));
@@ -113,10 +114,21 @@
         make.left.equalTo(self.contentView.mas_left).offset(0);
     }];
     
+    
+    self.bottomView = [[UIView alloc] init];
+    [self.contentView addSubview:self.bottomView];
+    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView.mas_left).offset(0);
+        make.right.equalTo(self.contentView.mas_right).offset(0);
+        make.top.equalTo(devider.mas_bottom).offset(0);
+        make.height.mas_equalTo(kFit(45));
+    }];
+    
+    
     self.rightBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    [self.leftBtn addTarget:self action:@selector(handleRightBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.rightBtn addTarget:self action:@selector(handleRightBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     self.rightBtn.titleLabel.font = kFont(15);
-    [self.contentView addSubview:self.rightBtn];
+    [self.bottomView addSubview:self.rightBtn];
     [self.rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contentView.mas_right).offset(-10);
         make.top.equalTo(devider.mas_bottom).offset(kFit(10));
@@ -127,7 +139,7 @@
     self.leftBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [self.leftBtn addTarget:self action:@selector(handleLeftBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     self.leftBtn.titleLabel.font = kFont(15);
-    [self.contentView addSubview:self.leftBtn];
+    [self.bottomView addSubview:self.leftBtn];
     [self.leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.rightBtn.mas_left).offset(-10);
         make.top.equalTo(devider.mas_bottom).offset(kFit(10));

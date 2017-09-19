@@ -218,7 +218,7 @@
     LHCategoryView *categoryView = [[LHCategoryView alloc] initWithFrame:CGRectMake(0, 0, reusableView.frame.size.width, reusableView.frame.size.height)];
     categoryView.categoryArray = self.categoryListArray;
     categoryView.ClickCategoryBlock = ^(NSInteger index) {
-        NSLog(@"%ld", index);
+        NSLog(@"%ld", (long)index);
         LHCategoryListViewController *listVC = [[LHCategoryListViewController alloc] init];
         listVC.categoryModel = self.categoryListArray[index];
         [self.navigationController pushViewController:listVC animated:YES];

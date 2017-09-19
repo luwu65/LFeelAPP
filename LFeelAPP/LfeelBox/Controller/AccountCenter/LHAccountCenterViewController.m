@@ -13,7 +13,7 @@
 #import "LHPayWayView.h"
 #import "Order.h"
 #import "RSADataSigner.h"
-
+#import "LHPayResultsViewController.h"
 typedef NS_ENUM(NSInteger, PayType) {
     PayWithLBFPayType = 0,
     PayWithAliPayType,
@@ -69,8 +69,6 @@ typedef NS_ENUM(NSInteger, PayType) {
     [self setDefualtPayType];
     
     [self requestAddressDefaultListData];
-    [self requestAccountOrderData];
-    
 }
 
 
@@ -95,6 +93,13 @@ typedef NS_ENUM(NSInteger, PayType) {
                 self.headerView.frame = CGRectMake(0, 0, kScreenWidth, kFit(85));
                 [self.orderTableView reloadData];
             }
+            
+            [self requestAccountOrderData];
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showError:@"请求错误"];
+            });
+        
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -161,7 +166,7 @@ typedef NS_ENUM(NSInteger, PayType) {
         NSMutableArray *arr = [NSMutableArray new];
         for (LHCartGoodsModel *model in self.goodsModelArray) {
             NSMutableString *ids = [NSMutableString stringWithString:@"{"];
-            [ids appendFormat:@"\"count\":\"%ld\",\"product_id\":\"%@\",\"price_lfeel\":\"%@\",\"spec_id\":\"%@\"", model.count, model.product_id, model.price_lfeel, model.spec_id];
+            [ids appendFormat:@"\"count\":\"%ld\",\"product_id\":\"%@\",\"price_lfeel\":\"%@\",\"spec_id\":\"%@\",\"shop_id\":\"%@\"", (long)model.count, model.product_id, model.price_lfeel, model.spec_id, model.shop_id];
             NSString *idStr = [NSString stringWithFormat:@"%@}",[ids substringWithRange:NSMakeRange(0, [ids length])]];
             [arr addObject:idStr];
         }
@@ -173,7 +178,7 @@ typedef NS_ENUM(NSInteger, PayType) {
         //    NSLog(@"-products------%@", products);
     }
     if (self.productInfoDic) {
-        products = [NSString stringWithFormat:@"\"count\":\"1\",\"product_id\":\"%@\",\"price_lfeel\":\"%@\",\"spec_id\":\"%@\"", self.productInfoDic[@"id"], self.productInfoDic[@"price_lfeel"], self.spec_id];
+        products = [NSString stringWithFormat:@"[{\"count\":\"1\",\"product_id\":\"%@\",\"price_lfeel\":\"%@\",\"spec_id\":\"%@\", \"shop_id\":\"%@\"}]", self.productInfoDic[@"id"], self.productInfoDic[@"price_lfeel"], self.spec_id, self.productInfoDic[@"shop_id"]];
     }
     //核心代码
     NSMutableDictionary *paramsDict=[[NSMutableDictionary alloc] init];
@@ -235,23 +240,30 @@ typedef NS_ENUM(NSInteger, PayType) {
 - (void)payForAliPay:(NSString *)dataString {
     // NOTE: 调用支付结果开始支付
     [[AlipaySDK defaultService] payOrder:dataString fromScheme:@"lfeelios" callback:^(NSDictionary *resultDic) {
+        LHPayResultsViewController *payResultVC = [[LHPayResultsViewController alloc] init];
         NSLog(@"reslut = %@",resultDic);
         if ([resultDic[@"resultStatus"] integerValue] == 9000) {
             NSLog(@"支付成功了~~~~~~~~~~~~~哈哈哈哈哈~~~~~~~~~~~~`");
             NSData *jsonData = [resultDic[@"result"] dataUsingEncoding:NSUTF8StringEncoding];
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:(NSJSONReadingAllowFragments) error:nil];
             NSLog(@"%@", dic);
+            payResultVC.resultDic = dic;
         } else if ([resultDic[@"resultStatus"] integerValue] == 6001) {
-            NSLog(@"中途取消了");
+            NSLog(@"中途取消了, 跳转到支付失败的页面");
+            
         
         } else if ([resultDic[@"resultStatus"] integerValue] == 5000) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD showError:@"请勿重复发起订单"];
             });
         }
+        payResultVC.payType = 1;
+        payResultVC.payResultStr = [NSString stringWithFormat:@"%@", resultDic[@"resultStatus"]];
+        [self.navigationController pushViewController:payResultVC animated:YES];
     }];
 }
 
+//微信支付
 - (void)payForWXPay:(NSDictionary *)dic {
     PayReq *payreq = [[PayReq alloc] init];
     payreq.partnerId = dic[@"mch_id"];
@@ -310,7 +322,6 @@ typedef NS_ENUM(NSInteger, PayType) {
         NSLog(@"同意");
     };
     
-    
     self.orderTableView.tableFooterView = footerView;
 }
 
@@ -347,7 +358,7 @@ typedef NS_ENUM(NSInteger, PayType) {
 - (void)setPayViewWithLabel:(UILabel *)label {
     LHPayWayView *payView = [[LHPayWayView alloc] initWithIndex:self.payType];
     [payView clickPayWayBlock:^(NSInteger index) {
-        NSLog(@"%ld", index);
+        NSLog(@"%ld", (long)index);
         self.payType = index;
         if (0 == index) {
          label.text = @"信用卡分期";

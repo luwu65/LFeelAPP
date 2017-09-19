@@ -33,8 +33,9 @@
 @property (nonatomic, strong) UIButton *rightBtn;
 
 @property (nonatomic, copy) void (^ClickBtnBlock)(UIButton *sender);
+//@property (nonatomic, copy) void (^ClickRightBtnBlock)(UIButton *sender);
 
-
+@property (nonatomic, strong) UIView *bottomView;
 
 
 @end

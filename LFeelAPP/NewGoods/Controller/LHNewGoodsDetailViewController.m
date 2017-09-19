@@ -114,6 +114,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    //从客服页面返回过来, 要隐藏掉navigationBar, 避免系统的navigationBar覆盖掉自定义的navigationBar
     self.navigationController.navigationBar.hidden = YES;
     
 }
@@ -127,6 +128,8 @@
     
     [self requestGoodsDetailData];
 }
+
+#pragma mark -------------------------  UI -------------------------
 - (void)setUI {
     self.detailTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:(UITableViewStyleGrouped)];
     self.detailTableView.dataSource = self;
@@ -273,7 +276,7 @@
 #pragma mark ------------ 网络请求  ---------------
 - (void)requestGoodsDetailData {
     [self showProgressHUD];
-    [LHNetworkManager requestForGetWithUrl:@"product/findproduct?" parameter:@{@"id": self.listModel.product_id, @"user_id": kUser_id} success:^(id reponseObject) {
+    [LHNetworkManager requestForGetWithUrl:kGoodsDetail parameter:@{@"id": self.listModel.product_id, @"user_id": kUser_id} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             for (NSDictionary *picdic in reponseObject[@"data"][@"product_pritures"]) {
@@ -411,13 +414,10 @@
     }
 }
 
-/**
- NSMutableString *ids = [NSMutableString stringWithString:@"{"];
- [ids appendFormat:@"\"count\":\"%ld\",\"product_id\":\"%@\",\"price_lfeel\":\"%@\",\"spec_id\":\"%@\"", model.count, model.product_id, model.price_lfeel, model.spec_id];
- NSString *idStr = [NSString stringWithFormat:@"%@}",[ids substringWithRange:NSMakeRange(0, [ids length])]];
- */
+
 - (void)cycleClickAction {
     @weakify(self);
+    //立即购买
     self.cycleView.ClickBuyNowBlock = ^{
         @strongify(self);
         [self compareColorSize];
@@ -430,31 +430,8 @@
         } else {
             [MBProgressHUD showError:@"请选择尺码或颜色"];
         }
-        self.cycleView.colorTagView.ClickTagBlock = ^(NSInteger index) {
-            @strongify(self);
-            [self.chooseColorArray removeAllObjects];
-            for (LHGoodsSizeColorModel *model in self.colorSizeArray) {
-                if ([model.property_value isEqualToString:self.colorArray[index]]) {
-                    NSLog(@"--------%ld", model.spec_id);
-                    [self.chooseColorArray addObject:@(model.spec_id)];
-                }
-            }
-        };
-        
-        self.cycleView.sizeTagView.ClickTagBlock = ^(NSInteger index) {
-            @strongify(self);
-            [self.chooseSizeArray removeAllObjects];
-            //遍历所有的颜色尺码的组合
-            for (LHGoodsSizeColorModel *model in self.colorSizeArray) {
-                //找到选择的尺码
-                if ([model.property_value isEqualToString:self.sizeArray[index]]) {
-                    NSLog(@"========%ld", model.spec_id);
-                    [self.chooseSizeArray addObject:@(model.spec_id)];
-                }
-            }
-        };
     };
-    
+    //加入购物车
     self.cycleView.AddShoppingCartBlock = ^{
         NSLog(@"加入购物车");
         @strongify(self);
@@ -467,18 +444,18 @@
             [MBProgressHUD showError:@"请选择尺码或颜色"];
         }
     };
-    
+    //选择颜色
     self.cycleView.colorTagView.ClickTagBlock = ^(NSInteger index) {
         @strongify(self);
         [self.chooseColorArray removeAllObjects];
         for (LHGoodsSizeColorModel *model in self.colorSizeArray) {
             if ([model.property_value isEqualToString:self.colorArray[index]]) {
-                NSLog(@"--------%ld", model.spec_id);
+                NSLog(@"--------%ld", (long)model.spec_id);
                 [self.chooseColorArray addObject:@(model.spec_id)];
             }
         }
     };
-    
+    //选择尺码
     self.cycleView.sizeTagView.ClickTagBlock = ^(NSInteger index) {
         @strongify(self);
         [self.chooseSizeArray removeAllObjects];
@@ -486,12 +463,12 @@
         for (LHGoodsSizeColorModel *model in self.colorSizeArray) {
             //找到选择的尺码
             if ([model.property_value isEqualToString:self.sizeArray[index]]) {
-                NSLog(@"========%ld", model.spec_id);
+                NSLog(@"========%ld", (long)model.spec_id);
                 [self.chooseSizeArray addObject:@(model.spec_id)];
             }
         }
     };
-    
+    //收藏
     self.cycleView.ClickCollectBlock = ^{
         @strongify(self);
         NSLog(@"收藏");
