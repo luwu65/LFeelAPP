@@ -26,15 +26,17 @@
         lineView.backgroundColor = kColor(245, 245, 245);
         [self addSubview:lineView];
         
-        UILabel *packLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, kScreenWidth/3*2, kAllBarHeight*kRatio-4)];
-        packLabel.text = packingLabelStr;
-        packLabel.font = kFont(16*kRatio);
-        packLabel.textColor = [UIColor lightGrayColor];
-        [self addSubview:packLabel];
+        self.statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, kScreenWidth/3*2, kAllBarHeight*kRatio-4)];
+        if (packingLabelStr) {
+            self.statusLabel.text = packingLabelStr;
+        }
+        self.statusLabel.font = kFont(13*kRatio);
+        self.statusLabel.textAlignment = NSTextAlignmentCenter;
+        self.statusLabel.textColor = [UIColor lightGrayColor];
+        [self addSubview:self.statusLabel];
         
         self.packingBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
         self.packingBtn.frame = CGRectMake(kScreenWidth/3*2, 0, kScreenWidth/3, kAllBarHeight*kRatio);
-//        [self.packingBtn setTitle:packingButtonTitle forState:(UIControlStateNormal)];
         self.packingBtn.backgroundColor = [UIColor redColor];
         self.packingBtn.titleLabel.font = kFont(16*kRatio);
         [self.packingBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];

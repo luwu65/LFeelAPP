@@ -38,21 +38,17 @@
 - (void)setHBK_NavigationBar {
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"打包成功" backAction:^{
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }];
 }
 
 //继续逛逛
 - (IBAction)Continue:(UIButton *)sender {
-    
-    
+    self.tabBarController.selectedIndex = 0;
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-//查看订单
-- (IBAction)cheakOrder:(UIButton *)sender {
 
-    
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

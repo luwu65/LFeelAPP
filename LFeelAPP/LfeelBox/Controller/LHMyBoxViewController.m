@@ -18,7 +18,7 @@
 #import "LHSendBackViewController.h"
 #import "LHHomeModel.h"
 #import "LHCertificationViewController.h"
-
+#import "LHLoginViewController.h"
 
 #define kTag_CartEmptyView  3101
 #define kTag_BoxEmptyView   3102
@@ -44,6 +44,9 @@
 
 //底部结算栏
 @property (nonatomic, strong) LHPackingBoxView *accrountView;
+
+//底部打包栏
+@property (nonatomic, strong) LHPackingBoxView *packView;
 
 @property (nonatomic, strong) NSMutableArray *myBoxArray;
 
@@ -99,16 +102,18 @@
     //如果左滑右滑被收藏过, 在这里请求
     if (self.CollectionSuccess) {
         [self headerRefreshMyBoxTable];
-        [self requstMyBoxCartData];
         self.CollectionSuccess = NO;
     }
     //如果商品详情里添加购物车了, 就在这里请求
     if (self.AddShoppingSuccess) {
         [self headerRefreShshoppingCartTable];
-        [self requestShoppingCartData];
         //请求过把状态改为No, 否则每次都会请求
         self.AddShoppingSuccess = NO;
     }
+    
+    //盒子状态
+    [self requestPackingBoxStatusData];
+    
 }
 
 - (void)dealloc {
@@ -132,11 +137,17 @@
     if (!self.AddShoppingSuccess) {
         [self requestShoppingCartData];
     }
+
+    
+    
     //添加观察者, 如果再其他页面添加了收藏, 或是添加了购物车, 就在方法里改变BOOL值,
     //根据BOOL值的去请求, 避免在viewWillAppear里每次都请求数据 浪费流量,也避免其他地方添加了购物车或收藏,此页面没有请求.
     //作此操作, 提升了用户体验
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(CollectionSuccessNotification) name:@"CollectionSuccess" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AddShoppingCartSuccessNotification) name:@"AddShoppingCartSuccess" object:nil];
+    
+    
+   
     
 }
 
@@ -190,11 +201,12 @@
     [self.shoppingCartTableView registerClass:[LHCartHeaderView class] forHeaderFooterViewReuseIdentifier:@"LHCartHeaderView"];
     
     // ----------------------------------------------  打包 底栏  ----------------------------------
-    LHPackingBoxView *packView = [[LHPackingBoxView alloc] initWithFrame:CGRectMake(0, kScreenHeight-kNavBarHeight-tabBarHeight-kAllBarHeight*kRatio, kScreenWidth, kAllBarHeight*kRatio) packingStatusString:@"   随机打包三件给你" packingButtonTitle:nil];
-    [packView.packingBtn setTitle:@"打包盒子" forState:(UIControlStateNormal)];
+    self.packView = [[LHPackingBoxView alloc] initWithFrame:CGRectMake(0, kScreenHeight-kNavBarHeight-tabBarHeight-kAllBarHeight*kRatio, kScreenWidth, kAllBarHeight*kRatio) packingStatusString:nil packingButtonTitle:nil];
+//    [self.packView.packingBtn setTitle:@"打包盒子" forState:(UIControlStateNormal)];
+//    self.packView.statusLabel.text = @"时尚搭配师搭配三件最适合的给您";
     //将点击事件分离出去, 此方法内仅处理UI事件
-    [self packOrBackBoxAction:packView];
-    [leftBgView addSubview:packView];
+    [self packOrBackBoxStatusAction:self.packView];
+    [leftBgView addSubview:self.packView];
     
     //---------------------------------------------------  结算 底栏  --------------------------------
     self.accrountView = [[LHPackingBoxView alloc] initWithFrame:CGRectMake(0, kScreenHeight-kNavBarHeight-tabBarHeight-kAllBarHeight*kRatio, kScreenWidth, kAllBarHeight*kRatio)];
@@ -278,7 +290,6 @@
             cell = [[LHMyBoxCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"LHMyBoxCell"];
         }
         cell.collectModel = self.myBoxArray[indexPath.row];
-        
         return cell;
     } else {
         static NSString *cellID = @"LHShoppingCartCell";
@@ -331,9 +342,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 //    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    
+    NSLog(@"点击了");
     
 }
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.shoppingCartTableView) {
         if (editingStyle == UITableViewCellEditingStyleDelete) {
@@ -498,36 +514,56 @@
 /*
  打包盒子, 寄回盒子 点击事件
  */
-- (void)packOrBackBoxAction:(LHPackingBoxView *)boxView {
+- (void)packOrBackBoxStatusAction:(LHPackingBoxView *)boxView {
     @weakify(self);
+    //此处, 首先判断有没有登录, 其次再判断有没有实名认证, 如果没有实名认证 再实名认证
     [boxView clickPackingButtonBlock:^(NSString *packBtnTitle) {
         @strongify(self);
-        NSLog(@"%@", packBtnTitle);
-        //        if ([packBtnTitle isEqualToString:@"打包盒子"]) {
-        //
-        //            LHPackInfoViewController *packVC = [[LHPackInfoViewController alloc] init];
-        //            [self.navigationController pushViewController:packVC animated:YES];
-        //
-        //        } else if ([packBtnTitle isEqualToString:@"寄回盒子"]) {
-        //
-        //
-        //        }
-        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
-        [alertVC addAction:[UIAlertAction actionWithTitle:@"打包盒子" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-            NSLog(@"打包盒子");
-            LHPackInfoViewController *packVC = [[LHPackInfoViewController alloc] init];
-            [self.navigationController pushViewController:packVC animated:YES];
-        }]];
-        [alertVC addAction:[UIAlertAction actionWithTitle:@"寄回盒子" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-            LHSendBackViewController *sendBack = [[LHSendBackViewController alloc] init];
-            [self.navigationController pushViewController:sendBack animated:YES];
-        }]];
-        [alertVC addAction:[UIAlertAction actionWithTitle:@"实名认证" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-            LHCertificationViewController *cerVC = [[LHCertificationViewController alloc] init];
-            [self.navigationController pushViewController:cerVC animated:YES];
-        }]];
-        [alertVC addAction:[UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil]];
-        [self presentViewController:alertVC animated:YES completion:nil];
+        if ([[LHUserInfoManager getUserInfo].isreal integerValue] == 0) {
+            [self showAlertViewWithTitle:@"您还没有实名认证哦~" yes:@"去认证" no:@"放弃" yesHandler:^(UIAlertAction * _Nullable action) {
+                //未实名认证
+                LHCertificationViewController *cerVC = [[LHCertificationViewController alloc] init];
+                [self.navigationController pushViewController:cerVC animated:YES];
+            } noHandler:^(UIAlertAction * _Nullable action) {
+                
+            }];
+        } else if ([[LHUserInfoManager getUserInfo].isreal integerValue] == 1) {
+            //实名认证中
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showMessage:@"实名认证中, 请耐心等待!"];
+            });
+            
+        } else if ([[LHUserInfoManager getUserInfo].isreal integerValue] == 2) {
+            //实名认证通过
+            NSLog(@"%@", packBtnTitle);
+            if ([packBtnTitle isEqualToString:@"打包盒子"]) {
+                LHPackInfoViewController *packVC = [[LHPackInfoViewController alloc] init];
+                [self.navigationController pushViewController:packVC animated:YES];
+            } else if ([packBtnTitle isEqualToString:@"打包中"]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showMessage:@"请您耐心等待,您的乐荟盒子24小时之内发出~"];
+                });
+            } else if ([packBtnTitle isEqualToString:@"确认收货"]) {
+                
+                
+            } else if ([packBtnTitle isEqualToString:@"寄回盒子"]) {
+                LHSendBackViewController *sendBack = [[LHSendBackViewController alloc] init];
+                [self.navigationController pushViewController:sendBack animated:YES];
+            } else if ([packBtnTitle isEqualToString:@"寄回中"]) {
+                
+                
+            }
+        } else if ([[LHUserInfoManager getUserInfo].isreal integerValue] == 3) {
+            //实名认证不通过
+            [self showAlertViewWithTitle:@"实名认证不通过, 请重新认证!" yes:@"去认证" no:@"放弃" yesHandler:^(UIAlertAction * _Nullable action) {
+                LHCertificationViewController *cerVC = [[LHCertificationViewController alloc] init];
+                [self.navigationController pushViewController:cerVC animated:YES];
+            } noHandler:^(UIAlertAction * _Nullable action) {
+                
+                
+            }];
+        }
+        
     }];
 }
 
@@ -658,6 +694,9 @@
     NSLog(@"-----------------添加购物车 或 下订单了了------------------");
     self.AddShoppingSuccess = YES;
 }
+
+
+
 #pragma mark  --------------  判断是否全选等    价格的计算  ----------------------
 //某个分区是否全选
 - (void)verityGroupSelectState:(NSInteger)section {
@@ -831,6 +870,44 @@
     
 }
 
+//盒子状态
+- (void)requestPackingBoxStatusData {
+    // 0-打包盒子; 1-打包中; 2-待收货; 3-已收货, 等待寄回;   -1---未知错误,请联系客服, 4-寄回中,待收货
+    [LHNetworkManager requestForGetWithUrl:kBoxStatusUrl parameter:@{@"user_id": kUser_id} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            if ([reponseObject[@"data"] integerValue] == 0) {
+                
+                [self.packView.packingBtn setTitle:@"打包盒子" forState:(UIControlStateNormal)];
+                self.packView.statusLabel.text = @"时尚搭配师搭配三件最适合的给您";
+                
+            } else if ([reponseObject[@"data"] integerValue] == 1) {
+                [self.packView.packingBtn setTitle:@"打包中" forState:(UIControlStateNormal)];
+                self.packView.statusLabel.text = @"您的乐荟盒子正在打包中";
+                
+            } else if ([reponseObject[@"data"] integerValue] == 2) {
+                [self.packView.packingBtn setTitle:@"确认收货" forState:(UIControlStateNormal)];
+                self.packView.statusLabel.text = @"物流信息";
+                
+            } else if ([reponseObject[@"data"] integerValue] == 3) {
+                [self.packView.packingBtn setTitle:@"寄回盒子" forState:(UIControlStateNormal)];
+                self.packView.statusLabel.text = @"换新盒子喽!~~";
+                
+            } else if ([reponseObject[@"data"] integerValue] == 4) {
+                [self.packView.packingBtn setTitle:@"寄回中" forState:(UIControlStateNormal)];
+                self.packView.statusLabel.text = @"正在路上...";
+                
+            } else if ([reponseObject[@"data"] integerValue] == -1) {
+//                [self.packView.packingBtn setTitle:@"打包盒子" forState:(UIControlStateNormal)];
+//                self.packView.statusLabel.text = @"时尚搭配师搭配三件最适合的给您";
+                
+            }
+        }
+    } failure:^(NSError *error) {
+       
+        
+    }];
+}
 
 
 
@@ -850,11 +927,6 @@
 #pragma mark ---------------  换衣盒 和 购物车为空的时候的展示  ------------------------
 
 - (void)emptyShoppingCartView {
-//    UIView *bottomView = [self.view viewWithTag:kTag_CartEmptyView];
-//    [bottomView removeFromSuperview];
-//    [self.shoppingCartTableView removeFromSuperview];
-//    self.shoppingCartTableView = nil;
-//    self.accrountView.hidden = YES;
     CGFloat tabBarHeight = 49;
     if ([self.subPage isEqualToString:@"Rent"] || [self.subPage isEqualToString:@"New"]) {
         tabBarHeight = 0;
@@ -893,11 +965,6 @@
 
 
 - (void)emptyLfeelBoxView {
-//    UIView *bottomView = [self.view viewWithTag:kTag_BoxEmptyView];
-//    [bottomView removeFromSuperview];
-//    [self.myBoxTableView removeFromSuperview];
-//    self.myBoxTableView = nil;
-    
     CGFloat tabBarHeight = 49;
     if ([self.subPage isEqualToString:@"Rent"] || [self.subPage isEqualToString:@"New"]) {
         tabBarHeight = 0;

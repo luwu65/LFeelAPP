@@ -29,6 +29,12 @@ typedef void(^GoAccrountBlock)();
 - (instancetype)initWithFrame:(CGRect)frame packingStatusString:(NSString *)packingLabelStr packingButtonTitle:(NSString *)packingButtonTitle;
 @property (nonatomic, strong) UIButton *packingBtn;
 
+/**
+ 状态label
+ */
+@property (nonatomic, strong) UILabel *statusLabel;
+
+
 /*点击打包盒子的回调*/
 - (void)clickPackingButtonBlock:(ClickPackingButtonBlock)block;
 

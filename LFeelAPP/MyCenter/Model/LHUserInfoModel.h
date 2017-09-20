@@ -11,7 +11,7 @@
 @interface LHUserInfoModel : LHBaseModel<NSCoding>
 
 
-
+@property (nonatomic, copy) NSString *isreal;
 @property (nonatomic, copy) NSString *logincount;
 @property (nonatomic, copy) NSString *birthday;
 @property (nonatomic, copy) NSString *money;
@@ -30,7 +30,7 @@
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *size;
 @property (nonatomic, copy) NSString *vip_start_time;
-@property (nonatomic, copy) NSString *real_id;
+@property (nonatomic, copy) NSString *role_id;//权限控制
 @property (nonatomic, copy) NSString *id_;
 @property (nonatomic, copy) NSString *level;
 @property (nonatomic, copy) NSString *mobile;

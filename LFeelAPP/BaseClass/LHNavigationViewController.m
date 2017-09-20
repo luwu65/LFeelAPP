@@ -11,6 +11,10 @@
 #import <UINavigationController+FDFullscreenPopGesture.h>
 #import "AppDelegate.h"
 #import "LHPayResultsViewController.h"
+#import "LHPackSuccessViewController.h"
+#import "LHMyBoxViewController.h"
+
+
 static CGFloat kDistance = 80.0f;
 
 
@@ -33,7 +37,9 @@ static CGFloat kDistance = 80.0f;
     self.fd_fullscreenPopGestureRecognizer.enabled = YES;
     self.interactivePopGestureRecognizer.enabled = NO;
     self.fd_fullscreenPopGestureRecognizer.delegate = self;
+
     [self.fd_fullscreenPopGestureRecognizer addTarget:self action:@selector(panGesIng:)];
+    self.fd_fullscreenPopGestureRecognizer.delegate = self;
     [self.view addGestureRecognizer:self.fd_fullscreenPopGestureRecognizer];
     
 }
@@ -91,7 +97,7 @@ static CGFloat kDistance = 80.0f;
     if (self.viewControllers.count > 0) {
         viewController.hidesBottomBarWhenPushed = YES;
     }
-    if ([viewController isKindOfClass:[LHUserInfoViewController class]] || [viewController isKindOfClass:[LHPayResultsViewController class]]) {
+    if ([viewController isKindOfClass:[LHUserInfoViewController class]] || [viewController isKindOfClass:[LHPayResultsViewController class]] || [viewController isKindOfClass:[LHPackSuccessViewController class]] || [viewController isKindOfClass:[LHMyBoxViewController class]]) {
         self.gestureRecognizerEnabled = NO;
         
     } else {
@@ -114,6 +120,7 @@ static CGFloat kDistance = 80.0f;
 - (instancetype)initWithRootViewController:(UIViewController *)rootViewController {
     if (self = [super init]) {
         self.viewControllers = @[rootViewController];
+        
     }
     return self;
 }
@@ -159,8 +166,16 @@ static CGFloat kDistance = 80.0f;
     return arr;
 }
 
-
-
+//防止手势冲突——防止UITableView的点击事件和手势事件冲突
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    // 输出点击的view的类名
+    // NSLog(@"%@", NSStringFromClass([touch.view class]));
+    // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+        return NO;
+    }
+    return  YES;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

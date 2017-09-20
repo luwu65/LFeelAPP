@@ -27,11 +27,6 @@
     self.clothesBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.clothesBtn.layer.borderWidth = 1;
     
-    [self.shoesBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
-    self.shoesBtn.backgroundColor = [UIColor whiteColor];
-    self.shoesBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.shoesBtn.layer.borderWidth = 1;
-    
     [self.bagBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
     self.bagBtn.backgroundColor = [UIColor whiteColor];
     self.bagBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -55,12 +50,7 @@
     [sender setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     sender.backgroundColor = [UIColor redColor];
     sender.layer.borderColor = [UIColor redColor].CGColor;
-    
-    [self.shoesBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
-    self.shoesBtn.backgroundColor = [UIColor whiteColor];
-    self.shoesBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.shoesBtn.layer.borderWidth = 1;
-    
+
     [self.bagBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
     self.bagBtn.backgroundColor = [UIColor whiteColor];
     self.bagBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -77,33 +67,7 @@
     }
 }
 
-/*
- 鞋子
- */
-- (IBAction)shoesBtn:(UIButton *)sender {
-    [sender setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-    sender.backgroundColor = [UIColor redColor];
-    sender.layer.borderColor = [UIColor redColor].CGColor;
-    
-    [self.clothesBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
-    self.clothesBtn.backgroundColor = [UIColor whiteColor];
-    self.clothesBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.clothesBtn.layer.borderWidth = 1;
-    
-    [self.bagBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
-    self.bagBtn.backgroundColor = [UIColor whiteColor];
-    self.bagBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.bagBtn.layer.borderWidth = 1;
-    
-    [self.accBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
-    self.accBtn.backgroundColor = [UIColor whiteColor];
-    self.accBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.accBtn.layer.borderWidth = 1;
-    
-    if (self.shoesBlock) {
-        self.shoesBlock();
-    }
-}
+
 /*
  包包
  */
@@ -117,11 +81,6 @@
     self.clothesBtn.backgroundColor = [UIColor whiteColor];
     self.clothesBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.clothesBtn.layer.borderWidth = 1;
-    
-    [self.shoesBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
-    self.shoesBtn.backgroundColor = [UIColor whiteColor];
-    self.shoesBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.shoesBtn.layer.borderWidth = 1;
     
     [self.accBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
     self.accBtn.backgroundColor = [UIColor whiteColor];
@@ -148,11 +107,7 @@
     self.clothesBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.clothesBtn.layer.borderWidth = 1;
     
-    [self.shoesBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
-    self.shoesBtn.backgroundColor = [UIColor whiteColor];
-    self.shoesBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.shoesBtn.layer.borderWidth = 1;
-    
+
     [self.bagBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
     self.bagBtn.backgroundColor = [UIColor whiteColor];
     self.bagBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -169,14 +124,107 @@
 //----------------------------------------
 
 - (void)ChooseClothesBtnBlock:(ChooseTypeBlock)clothesBlock
-                shoesBtnBlock:(ChooseTypeBlock)shoesBlock
                   bagBtnBlock:(ChooseTypeBlock)bagBlock
                   accBtnBlock:(ChooseTypeBlock)accBlock {
     self.clothesBlock = clothesBlock;
-    self.shoesBlock = shoesBlock;
     self.bagBlock = bagBlock;
     self.accBlock = accBlock;
 }
+
+
+- (void)defaultChooseData:(UIButton *)sender sizeStr:(NSString *)sizeStr {
+    if (sender == self.clothesBtn) {
+        NSLog(@"aaaaaaaaaaaaa");
+        [sender setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+        sender.backgroundColor = [UIColor redColor];
+        sender.layer.borderColor = [UIColor redColor].CGColor;
+        
+        [self.bagBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
+        self.bagBtn.backgroundColor = [UIColor whiteColor];
+        self.bagBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        self.bagBtn.layer.borderWidth = 1;
+        
+        [self.accBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
+        self.accBtn.backgroundColor = [UIColor whiteColor];
+        self.accBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        self.accBtn.layer.borderWidth = 1;
+        
+        [self.sizeBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+        [self.sizeBtn setTitle:sizeStr forState:(UIControlStateNormal)];
+        
+        
+    } else if (sender == self.bagBtn) {
+        [sender setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+        sender.backgroundColor = [UIColor redColor];
+        sender.layer.borderColor = [UIColor redColor].CGColor;
+        
+        [self.clothesBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
+        self.clothesBtn.backgroundColor = [UIColor whiteColor];
+        self.clothesBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        self.clothesBtn.layer.borderWidth = 1;
+        
+        [self.accBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
+        self.accBtn.backgroundColor = [UIColor whiteColor];
+        self.accBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        self.accBtn.layer.borderWidth = 1;
+        
+        [self.sizeBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
+        [self.sizeBtn setTitle:@"NONE" forState:(UIControlStateNormal)];
+    } else if (sender == self.accBtn) {
+        [sender setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+        sender.backgroundColor = [UIColor redColor];
+        sender.layer.borderColor = [UIColor redColor].CGColor;
+        
+        [self.clothesBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
+        self.clothesBtn.backgroundColor = [UIColor whiteColor];
+        self.clothesBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        self.clothesBtn.layer.borderWidth = 1;
+        
+        
+        [self.bagBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
+        self.bagBtn.backgroundColor = [UIColor whiteColor];
+        self.bagBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        self.bagBtn.layer.borderWidth = 1;
+        
+        [self.sizeBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
+        [self.sizeBtn setTitle:@"NONE" forState:(UIControlStateNormal)];
+        
+    }
+}
+
+
+
+- (void)cancelDefault {
+    [self.clothesBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
+    self.clothesBtn.backgroundColor = [UIColor whiteColor];
+    self.clothesBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.clothesBtn.layer.borderWidth = 1;
+    
+    [self.bagBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
+    self.bagBtn.backgroundColor = [UIColor whiteColor];
+    self.bagBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.bagBtn.layer.borderWidth = 1;
+    
+    [self.accBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
+    self.accBtn.backgroundColor = [UIColor whiteColor];
+    self.accBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.accBtn.layer.borderWidth = 1;
+    
+    [self.sizeBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
+    [self.sizeBtn setTitle:@"NONE" forState:(UIControlStateNormal)];
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

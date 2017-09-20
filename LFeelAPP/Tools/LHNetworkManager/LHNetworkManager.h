@@ -56,6 +56,7 @@ typedef NS_ENUM(NSInteger, RequestMethodType) {
 + (void)uploadPOST:(NSString *)url
         parameters:(NSDictionary *)parameters
          consImage:(UIImage *)consImage
+         imageName:(NSString *)imageName
            success:(void(^)(id responObject))successBlock
            failure:(void(^)(NSError *error))failureBlock;
 

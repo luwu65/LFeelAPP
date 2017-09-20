@@ -38,7 +38,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V9z-2h-Plj">
-                    <rect key="frame" x="20" y="542" width="157.5" height="45"/>
+                    <rect key="frame" x="20" y="562" width="335" height="45"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="Slb-pP-qQp"/>
                     </constraints>
@@ -60,26 +60,6 @@
                         <action selector="Continue:" destination="-1" eventType="touchUpInside" id="xlX-tK-L8Y"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WUA-zU-VIF">
-                    <rect key="frame" x="197.5" y="542" width="157.5" height="45"/>
-                    <state key="normal" title="查看订单">
-                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                            <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                            <real key="value" value="1"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="2"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="cheakOrder:" destination="-1" eventType="touchUpInside" id="306-Gp-axd"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -87,15 +67,11 @@
                 <constraint firstItem="lYj-pR-ocd" firstAttribute="top" secondItem="S4F-RX-uwn" secondAttribute="bottom" constant="20" id="9SL-Uu-CAz"/>
                 <constraint firstItem="V9z-2h-Plj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="AMf-Kh-Di6"/>
                 <constraint firstItem="lYj-pR-ocd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="GFj-Ef-u9C"/>
-                <constraint firstItem="WUA-zU-VIF" firstAttribute="leading" secondItem="V9z-2h-Plj" secondAttribute="trailing" constant="20" id="Jxq-bG-Puk"/>
                 <constraint firstItem="S4F-RX-uwn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="90" id="RfF-IH-Chg"/>
-                <constraint firstItem="WUA-zU-VIF" firstAttribute="width" secondItem="V9z-2h-Plj" secondAttribute="width" id="S6A-nY-94q"/>
-                <constraint firstAttribute="bottom" secondItem="V9z-2h-Plj" secondAttribute="bottom" constant="80" id="Zaa-vg-eYt"/>
+                <constraint firstAttribute="bottom" secondItem="V9z-2h-Plj" secondAttribute="bottom" constant="60" id="Zaa-vg-eYt"/>
                 <constraint firstAttribute="trailing" secondItem="S4F-RX-uwn" secondAttribute="trailing" constant="90" id="c4d-JE-ZjR"/>
-                <constraint firstAttribute="trailing" secondItem="WUA-zU-VIF" secondAttribute="trailing" constant="20" id="gIX-SF-lW7"/>
-                <constraint firstItem="WUA-zU-VIF" firstAttribute="height" secondItem="V9z-2h-Plj" secondAttribute="height" id="mja-9g-GHm"/>
                 <constraint firstAttribute="trailing" secondItem="lYj-pR-ocd" secondAttribute="trailing" id="nmL-GP-zhO"/>
-                <constraint firstAttribute="bottom" secondItem="WUA-zU-VIF" secondAttribute="bottom" constant="80" id="wSN-zt-0IO"/>
+                <constraint firstAttribute="trailing" secondItem="V9z-2h-Plj" secondAttribute="trailing" constant="20" id="qUN-gL-106"/>
             </constraints>
             <point key="canvasLocation" x="24.5" y="51.5"/>
         </view>

@@ -13,8 +13,7 @@ typedef void(^ChooseTypeBlock)();
 @interface LHPackInfoView : UIView
 /*衣服*/
 @property (weak, nonatomic) IBOutlet UIButton *clothesBtn;
-/*鞋子*/
-@property (weak, nonatomic) IBOutlet UIButton *shoesBtn;
+
 /*包包*/
 @property (weak, nonatomic) IBOutlet UIButton *bagBtn;
 /*配饰*/
@@ -32,16 +31,15 @@ typedef void(^ChooseTypeBlock)();
 
 
 - (void)ChooseClothesBtnBlock:(ChooseTypeBlock)clothesBlock
-                shoesBtnBlock:(ChooseTypeBlock)shoesBlock
                   bagBtnBlock:(ChooseTypeBlock)bagBlock
                   accBtnBlock:(ChooseTypeBlock)accBlock;
 
 
 
+- (void)defaultChooseData:(UIButton *)sender sizeStr:(NSString *)sizeStr;
 
 
-
-
+- (void)cancelDefault;
 
 
 

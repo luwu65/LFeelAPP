@@ -231,11 +231,11 @@
 #pragma mark ------------------ 没有数据的时候 ---------------
 - (UIView *)emptyView {
     if (!_emptyView) {
-        _emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 64 + kFit(44), kScreenWidth, kScreenHeight-64-kFit(44))];
+        _emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-kFit(44))];
         [self.view addSubview:_emptyView];
         
         UIImageView *emptyImageView = [[UIImageView alloc] initWithImage:kImage(@"MyCenter_NoOrder")];
-        emptyImageView.frame = CGRectMake(kFit(100), 50, kScreenWidth-kFit(200), kScreenWidth-kFit(200));
+        emptyImageView.frame = CGRectMake(kFit(100), kFit(60), kScreenWidth-kFit(200), kScreenWidth-kFit(200));
         [self.emptyView addSubview:emptyImageView];
         
         UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, emptyImageView.maxY+kFit(20), kScreenWidth, 25)];
@@ -287,6 +287,15 @@
     //显示loading
     [self.HUD showAnimated:YES];
 }
+
+
+
+
+
+
+
+
+
 
 
 

@@ -62,6 +62,8 @@ static NSString *myCenterCell = @"myCenterCell";
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ReloadUserData:) name:@"updateUserInfoSuccess" object:nil];
+    
+    [self configureDataForUser];
 }
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
@@ -81,7 +83,7 @@ static NSString *myCenterCell = @"myCenterCell";
     
     [self setHBK_NavigationBar];
     
-    [self configureDataForUser];
+    
 }
 
 #pragma mark ---------------  UI ------------------

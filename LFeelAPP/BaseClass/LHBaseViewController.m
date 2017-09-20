@@ -84,7 +84,18 @@
     [self presentViewController:alertC animated:YES completion:nil];
 }
 
-
+- (void)showAlertViewWithTitle:(NSString *)title yes:(NSString *)yes no:(NSString *)no yesHandler:(void (^ __nullable)(UIAlertAction *action))yesHandler noHandler:(void (^ __nullable)(UIAlertAction *action))noHandler {
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"提示" message:title preferredStyle:(UIAlertControllerStyleAlert)];
+    if (yes) {
+        UIAlertAction *sureAction = [UIAlertAction actionWithTitle:yes style:(UIAlertActionStyleDefault) handler:yesHandler];
+        [alertC addAction:sureAction];
+    }
+    if (no) {
+        UIAlertAction *noAction = [UIAlertAction actionWithTitle:no style:(UIAlertActionStyleCancel) handler:noHandler];
+        [alertC addAction:noAction];
+    }
+    [self presentViewController:alertC animated:YES completion:nil];
+}
 
 
 

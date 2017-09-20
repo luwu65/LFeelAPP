@@ -9,7 +9,9 @@
 #import "LHPackInfoViewController.h"
 #import "LHPackInfoChooseView.h"
 #import "LHReceiveAddressViewController.h"
-
+#import "LHUserInfoModel.h"
+#import "LHUserInfoViewController.h"
+#import "LHPackSuccessViewController.h"
 @interface LHPackInfoViewController ()<LHPickViewDelegate> {
     LHPackInfoView *_firstView;
     LHPackInfoView *_secondView;
@@ -191,18 +193,45 @@
 #pragma mark  ----------------------  Action -----------
 //默认
 - (void)defaultBtnAction:(CustomButton *)sender {
-    sender.selected = !sender.selected;
-    if (sender.selected) {
-        NSLog(@"选中默认");
-        sender.titleImageView.image = kImage(@"MyBox_clicked");
+    LHUserInfoModel *model = [LHUserInfoManager getUserInfo];
+    if (!model.size) {
+        @weakify(self);
+        [self showAlertViewWithTitle:@"您还没有填写个人信息哦, 前往个人中心完善信息?" yes:@"去完善" no:@"不去了" yesHandler:^(UIAlertAction * _Nullable action) {
+            @strongify(self);
+            LHUserInfoViewController *userInfoVC = [[LHUserInfoViewController alloc] init];
+            [self.navigationController pushViewController:userInfoVC animated:YES];
+        } noHandler:^(UIAlertAction * _Nullable action) {
+            
+        }];
     } else {
-        NSLog(@"取消选中默认");
-        sender.titleImageView.image = kImage(@"MyBox_click_default");
+        sender.selected = !sender.selected;
+        if (sender.selected) {
+            NSLog(@"选中默认");
+            self.firstStr = [NSString stringWithFormat:@"第一件衣服-%@码", model.size];
+            self.secondStr = [NSString stringWithFormat:@"第二件包包"];
+            self.thirdStr = @"第三件配饰";
+            [_firstView defaultChooseData:_firstView.clothesBtn sizeStr:[NSString stringWithFormat:@"%@", model.size]];
+            [_secondView defaultChooseData:_secondView.bagBtn sizeStr:@"NONE"];
+            [_thirdView defaultChooseData:_thirdView.accBtn sizeStr:@"NONE"];
+            sender.titleImageView.image = kImage(@"MyBox_clicked");
+        } else {
+            NSLog(@"取消选中默认");
+            self.firstStr = nil;
+            self.secondStr = nil;
+            self.thirdStr = nil;
+            [_firstView cancelDefault];
+            [_secondView cancelDefault];
+            [_thirdView cancelDefault];
+            sender.titleImageView.image = kImage(@"MyBox_click_default");
+        }
     }
 }
 //提交
 - (void)submitAction {
     NSLog(@"提交");
+    kVerifyText(self.firstStr.length, @"请选择第一件商品");
+    kVerifyText(self.secondStr.length, @"请选择第二件商品");
+    kVerifyText(self.thirdStr.length, @"请选择第三件商品");
     [self requestPackingBoxData];
 }
 
@@ -274,11 +303,6 @@
         [self createLineOnePickViewWithArray:kClothesSize];
         self.firstStr = @"第一件衣服";
         NSLog(@"第一件衣服");
-    } shoesBtnBlock:^{
-        _ChooseID = @"1";
-        [self createLineOnePickViewWithArray:kShoesSize];
-        self.firstStr = @"第一件鞋子";
-        NSLog(@"第一件鞋子");
     } bagBtnBlock:^{
         self.firstStr = @"第一件包包";
         NSLog(@"第一件包包");
@@ -292,11 +316,6 @@
         [self createLineOnePickViewWithArray:kClothesSize];
         NSLog(@"第二件衣服");
         self.secondStr = @"第二件衣服";
-    } shoesBtnBlock:^{
-        _ChooseID = @"2";
-        [self createLineOnePickViewWithArray:kShoesSize];
-        NSLog(@"第二件鞋子");
-        self.secondStr = @"第二件鞋子";
     } bagBtnBlock:^{
         NSLog(@"第二件包包");
         self.secondStr = @"第二件包包";
@@ -312,11 +331,6 @@
         [self createLineOnePickViewWithArray:kClothesSize];
         NSLog(@"第三件衣服");
         self.thirdStr = @"第三件衣服";
-    } shoesBtnBlock:^{
-        _ChooseID = @"3";
-        [self createLineOnePickViewWithArray:kShoesSize];
-        NSLog(@"第三件鞋子");
-        self.thirdStr = @"第三件鞋子";
     } bagBtnBlock:^{
         self.thirdStr = @"第三件包包";
         NSLog(@"第三件包包");
@@ -385,13 +399,28 @@
 //打包盒子
 - (void)requestPackingBoxData {
     //0普通订单 1提现申请 2打包盒子 3寄回盒子
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self showProgressHUDWithTitle:@"提交中"];
+    });
     NSString *remark = [NSString stringWithFormat:@"%@,%@,%@", self.firstStr, self.secondStr, self.thirdStr];
     [LHNetworkManager PostWithUrl:kPackingBoxUrl parameter:@{@"address_id":self.address_id, @"type":@2, @"user_id":kUser_id, @"remark": remark} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
-            
+            dispatch_async(dispatch_get_main_queue(), ^{
+
+                [self hideProgressHUD];
+                [MBProgressHUD showSuccess:@"提交成功"];
+            });
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                LHPackSuccessViewController *packingVC = [[LHPackSuccessViewController alloc] init];
+                [self.navigationController pushViewController:packingVC animated:YES];
+            });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self hideProgressHUD];
+                [MBProgressHUD showError:reponseObject[@"errorDesc"]];
+            });
         }
-        
     } failure:^(NSError *error) {
         
         

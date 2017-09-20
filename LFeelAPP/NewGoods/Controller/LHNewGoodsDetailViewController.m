@@ -465,6 +465,13 @@
             if ([model.property_value isEqualToString:self.sizeArray[index]]) {
                 NSLog(@"========%ld", (long)model.spec_id);
                 [self.chooseSizeArray addObject:@(model.spec_id)];
+                
+//                for (<#type *object#> in <#collection#>) {
+//                    <#statements#>
+//                }
+                
+                
+                
             }
         }
     };

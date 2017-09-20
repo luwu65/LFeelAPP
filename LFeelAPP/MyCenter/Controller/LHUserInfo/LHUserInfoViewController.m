@@ -286,7 +286,7 @@
 /// 上传头像
 -(void)requestUpDataPhoto:(UIImage *)image {
     [self showProgressHUDWithTitle:@"上传中~"];
-    [LHNetworkManager uploadPOST:kUploadImageUrl parameters:nil consImage:image success:^(id responObject) {
+    [LHNetworkManager uploadPOST:kUploadImageUrl parameters:nil consImage:image imageName:@"image" success:^(id responObject) {
         NSLog(@"%@", responObject);
         if ([responObject[@"errorCode"] integerValue] == 200) {
             self.iconUrl = [NSString stringWithFormat:@"%@", responObject[@"data"]];
@@ -385,6 +385,17 @@
     if (model.size) {
         self.sizeLabel.text = model.size;
         self.sizeLabel.textColor = [UIColor blackColor];
+    }
+    
+    if ([model.isreal integerValue] == 0) {
+        self.certifationLabel.text = @"未认证";
+        self.certifationLabel.textColor = [UIColor lightGrayColor];
+    } else if ([model.isreal integerValue] == 1) {
+        self.certifationLabel.text = @"审核中";
+        self.certifationLabel.textColor = [UIColor redColor];
+    } else if ([model.isreal integerValue] == 2) {
+        self.certifationLabel.text = @"已认证";
+        self.certifationLabel.textColor = [UIColor blackColor];
     }
     
     self.chest = model.chest;

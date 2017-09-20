@@ -22,7 +22,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MhJ-38-YVy">
-                    <rect key="frame" x="75" y="9" width="50" height="30"/>
+                    <rect key="frame" x="80.5" y="9" width="50" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="ppT-o6-mF8"/>
                         <constraint firstAttribute="width" constant="50" id="wZt-mc-O2H"/>
@@ -42,29 +42,8 @@
                         <action selector="clothesBtn:" destination="iN0-l3-epB" eventType="touchUpInside" id="AV5-M5-1pv"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ves-1f-krp">
-                    <rect key="frame" x="135" y="9" width="50" height="30"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="50" id="3N5-5w-ELk"/>
-                        <constraint firstAttribute="height" constant="30" id="FFD-sy-zYs"/>
-                    </constraints>
-                    <state key="normal" title="鞋子">
-                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                            <real key="value" value="1"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                            <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="shoesBtn:" destination="iN0-l3-epB" eventType="touchUpInside" id="4E6-D3-CZZ"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aHn-jt-7Ws">
-                    <rect key="frame" x="195" y="9" width="50" height="30"/>
+                    <rect key="frame" x="140.5" y="9" width="50" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="Lyh-CL-b6J"/>
                         <constraint firstAttribute="width" constant="50" id="oyg-uh-ECZ"/>
@@ -85,7 +64,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eCc-jm-1qO">
-                    <rect key="frame" x="255" y="9" width="50" height="30"/>
+                    <rect key="frame" x="200.5" y="9" width="50" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="JW0-72-W0M"/>
                         <constraint firstAttribute="width" constant="50" id="KQ6-q7-qOM"/>
@@ -119,15 +98,13 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="aHn-jt-7Ws" firstAttribute="leading" secondItem="Ves-1f-krp" secondAttribute="trailing" constant="10" id="0DS-5a-Sxd"/>
                 <constraint firstItem="GV5-2n-BTo" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="6Q7-jY-Pka"/>
-                <constraint firstItem="Ves-1f-krp" firstAttribute="leading" secondItem="MhJ-38-YVy" secondAttribute="trailing" constant="10" id="AHf-R4-V3R"/>
                 <constraint firstItem="MhJ-38-YVy" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="E6y-5B-tez"/>
                 <constraint firstAttribute="trailing" secondItem="GV5-2n-BTo" secondAttribute="trailing" constant="10" id="HJQ-Fr-mNA"/>
                 <constraint firstItem="tep-w4-ZDG" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="PaU-NJ-Iuf"/>
                 <constraint firstItem="eCc-jm-1qO" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Rzp-ZL-Xsr"/>
-                <constraint firstItem="GV5-2n-BTo" firstAttribute="leading" secondItem="eCc-jm-1qO" secondAttribute="trailing" constant="10" id="UMA-iV-q7Z"/>
-                <constraint firstItem="Ves-1f-krp" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="YVY-s8-lKF"/>
+                <constraint firstItem="aHn-jt-7Ws" firstAttribute="leading" secondItem="MhJ-38-YVy" secondAttribute="trailing" constant="10" id="Ugg-Sk-PVU"/>
+                <constraint firstItem="MhJ-38-YVy" firstAttribute="leading" secondItem="tep-w4-ZDG" secondAttribute="trailing" constant="20" id="d2b-9j-h8b"/>
                 <constraint firstItem="tep-w4-ZDG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="f0h-bS-lHD"/>
                 <constraint firstItem="eCc-jm-1qO" firstAttribute="leading" secondItem="aHn-jt-7Ws" secondAttribute="trailing" constant="10" id="m6a-9m-JE7"/>
                 <constraint firstItem="aHn-jt-7Ws" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="zkg-Xb-H0d"/>
@@ -139,7 +116,6 @@
                 <outlet property="bagBtn" destination="aHn-jt-7Ws" id="dqr-Xa-gPu"/>
                 <outlet property="clothesBtn" destination="MhJ-38-YVy" id="f7i-XV-xWf"/>
                 <outlet property="numLabel" destination="tep-w4-ZDG" id="cMU-9n-NvS"/>
-                <outlet property="shoesBtn" destination="Ves-1f-krp" id="BW9-jD-aPR"/>
                 <outlet property="sizeBtn" destination="GV5-2n-BTo" id="PeA-yH-Xh3"/>
             </connections>
             <point key="canvasLocation" x="10.5" y="-47"/>

@@ -146,6 +146,7 @@
 + (void)uploadPOST:(NSString *)url
         parameters:(NSDictionary *)parameters
          consImage:(UIImage *)consImage
+         imageName:(NSString *)imageName
            success:(void(^)(id responObject))successBlock
            failure:(void(^)(NSError *error))failureBlock {
     
@@ -187,7 +188,7 @@
             NSString *str = [formatter stringFromDate:[NSDate date]];
             //转成文件格式
             NSString *fileName = [NSString stringWithFormat:@"%@.png", str];
-            [formData appendPartWithFileData:data name:@"image"  fileName:fileName mimeType:@"image/png"];
+            [formData appendPartWithFileData:data name:[NSString stringWithFormat:@"%@", imageName]  fileName:fileName mimeType:@"image/png"];
         }
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         //        KMyLog(@"------------------------%f", 1.0 *uploadProgress.completedUnitCount / uploadProgress.totalUnitCount);

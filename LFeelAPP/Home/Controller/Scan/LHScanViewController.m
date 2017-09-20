@@ -113,20 +113,19 @@
                 self.ScanContentBlock(obj.stringValue);
             }
             [self.navigationController popViewControllerAnimated:YES];
-        }
-        
-        
-        if ([obj.stringValue hasPrefix:@"http"]) {
-            // 提示：如果需要对url或者名片等信息进行扫描，可以在此进行扩展！
-            LHScanSuccessJumpViewController *jumpVC = [[LHScanSuccessJumpViewController alloc] init];
-            jumpVC.jump_URL = obj.stringValue;
-            [self.navigationController pushViewController:jumpVC animated:YES];
-            
-        } else { // 扫描结果为条形码
-            
-            LHScanSuccessJumpViewController *jumpVC = [[LHScanSuccessJumpViewController alloc] init];
-            jumpVC.jump_bar_code = obj.stringValue;
-            [self.navigationController pushViewController:jumpVC animated:YES];
+        } else {
+            if ([obj.stringValue hasPrefix:@"http"]) {
+                // 提示：如果需要对url或者名片等信息进行扫描，可以在此进行扩展！
+                LHScanSuccessJumpViewController *jumpVC = [[LHScanSuccessJumpViewController alloc] init];
+                jumpVC.jump_URL = obj.stringValue;
+                [self.navigationController pushViewController:jumpVC animated:YES];
+                
+            } else { // 扫描结果为条形码
+                
+                LHScanSuccessJumpViewController *jumpVC = [[LHScanSuccessJumpViewController alloc] init];
+                jumpVC.jump_bar_code = obj.stringValue;
+                [self.navigationController pushViewController:jumpVC animated:YES];
+            }
         }
     }
 }

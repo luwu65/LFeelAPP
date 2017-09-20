@@ -45,13 +45,13 @@
         scanVC.controller_ID = @"LHSendBackViewController";
         scanVC.ScanContentBlock = ^(NSString *content) {
             NSLog(@"%@", content);
-            [self.numberBtn setTitle:content forState:(UIControlStateNormal)];
-            [self.numberBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+            self.expressNumTF.text = content;
         };
         [self.navigationController pushViewController:scanVC animated:YES];
     }];
 }
 
+#pragma mark ------------------------------ Aciton ------------------------
 //选择数量
 - (IBAction)sendBackCountAction:(UIButton *)sender {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
@@ -81,7 +81,36 @@
 
 }
 
+#pragma mrak  ------------------- 网络请求 ------------------------
 
+//打包盒子
+- (void)requestPackingBoxData {
+    //0普通订单 1提现申请 2打包盒子 3寄回盒子
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self showProgressHUDWithTitle:@"提交中..."];
+    });
+    [LHNetworkManager PostWithUrl:kPackingBoxUrl parameter:@{@"type":@2, @"user_id":kUser_id} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self hideProgressHUD];
+                [MBProgressHUD showSuccess:@"提交成功"];
+            });
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                
+            });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self hideProgressHUD];
+                [MBProgressHUD showError:reponseObject[@"errorDesc"]];
+            });
+        }
+    } failure:^(NSError *error) {
+        
+        
+    }];
+}
 
 
 
