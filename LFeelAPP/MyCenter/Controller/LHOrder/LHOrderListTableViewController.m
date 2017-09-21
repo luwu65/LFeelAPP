@@ -31,9 +31,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.tableView registerClass:[LHAccountGoodsCell class] forCellReuseIdentifier:@"LHAccountGoodsCell"];
+    
+    
+    UITableView * tableView = self.tableView;
+    tableView.backgroundColor = [UIColor clearColor];
+    tableView.rowHeight = Fit(114);
+    
+    [tableView registerClass:[LHAccountGoodsCell class] forCellReuseIdentifier:@"LHAccountGoodsCell"];
     
     [self requestMyOrderListWithType:self.type];
+    
+//    tableView.mj_header = [MJRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerReferenceData)];
+//    tableView.mj_footer = [MJRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerReferenceData)];
+    
+    @weakify(self);
+    tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self);
+        [self requestMyOrderListWithType:self.type];
+    }];
+    
+    tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self);
+        [self requestMyOrderListWithType:self.type];
+    
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -209,11 +231,15 @@
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView.mj_header endRefreshing];
+                [self.tableView.mj_footer endRefreshing];
                 [self hideProgressHUD];
                 [self.tableView reloadData];
             });
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView.mj_header endRefreshing];
+                [self.tableView.mj_footer endRefreshing];
                 [self hideProgressHUD];
                 [MBProgressHUD showError:@"请求错误"];
             });
@@ -225,13 +251,22 @@
 
 
 #pragma mark ------------- Action ---------------------
-
-
-
+//下拉刷新
+- (void)headerReferenceData {
+    [self requestMyOrderListWithType:self.type];
+    
+}
+//上拉加载
+- (void)footerReferenceData {
+    
+    [self requestMyOrderListWithType:self.type];
+    
+}
 #pragma mark ------------------ 没有数据的时候 ---------------
 - (UIView *)emptyView {
     if (!_emptyView) {
         _emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-kFit(44))];
+        _emptyView.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:_emptyView];
         
         UIImageView *emptyImageView = [[UIImageView alloc] initWithImage:kImage(@"MyCenter_NoOrder")];

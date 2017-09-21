@@ -10,4 +10,42 @@
 
 @interface LHPackSuccessViewController : UIViewController
 
+
+
+
+//判断是从哪个控制器跳转的
+@property (nonatomic, copy) NSString *Controller_ID;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @end

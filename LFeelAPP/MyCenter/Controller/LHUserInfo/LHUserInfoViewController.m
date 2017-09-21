@@ -64,6 +64,11 @@
     return _heightArray;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self configureData];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -73,7 +78,7 @@
     self.iconImageView.image = [UIImage imageNamed:@"MyCenter_headerIcon"];
     self.iconImageView.layer.masksToBounds = YES;
     self.view.backgroundColor = [UIColor whiteColor];
-    [self configureData];
+//    [self configureData];
     
     [self setHBK_NavigationBar];
     

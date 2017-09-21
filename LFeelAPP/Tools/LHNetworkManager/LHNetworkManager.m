@@ -161,16 +161,19 @@
 #endif
     [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         if (consImage) {
-            //1.转成NSData类型
             NSData *data = UIImageJPEGRepresentation(consImage, 1.0);
-            if (data.length>100*1024) {
-                if (data.length>1024*1024) {//1M以及以上
-                    data = UIImageJPEGRepresentation(consImage, 0.2);
-                }else if (data.length>512*1024) {//0.5M-1M
-                    data = UIImageJPEGRepresentation(consImage, 0.5);
-                }else if (data.length>200*1024) {//0.25M-0.5M
-                    data = UIImageJPEGRepresentation(consImage, 0.9);
+            if (![imageName isEqualToString:@"certification"]) {
+                //1.转成NSData类型
+                if (data.length>100*1024) {
+                    if (data.length>1024*1024) {//1M以及以上
+                        data = UIImageJPEGRepresentation(consImage, 0.2);
+                    }else if (data.length>512*1024) {//0.5M-1M
+                        data = UIImageJPEGRepresentation(consImage, 0.5);
+                    }else if (data.length>200*1024) {//0.25M-0.5M
+                        data = UIImageJPEGRepresentation(consImage, 0.9);
+                    }
                 }
+                NSLog(@"---------图片大小---->>> %lu", (unsigned long)data.length);
             }
 //            //判断图片是不是png格式的文件
 //            if (UIImagePNGRepresentation(consImage)) {
@@ -180,7 +183,6 @@
 //                //返回为JPEG图像。
 //                data = UIImageJPEGRepresentation(consImage, 0.5);
 //            }
-            NSLog(@"---------图片大小---->>> %lu", (unsigned long)data.length);
 
             //2.加时间
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

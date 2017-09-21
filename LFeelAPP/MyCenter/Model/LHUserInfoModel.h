@@ -11,7 +11,15 @@
 @interface LHUserInfoModel : LHBaseModel<NSCoding>
 
 
-@property (nonatomic, copy) NSString *isreal;
+
+
+
+
+
+
+@property (nonatomic, copy) NSString *real_name;
+@property (nonatomic, copy) NSString *id_num;
+@property (nonatomic, copy) NSString *id_positive;
 @property (nonatomic, copy) NSString *logincount;
 @property (nonatomic, copy) NSString *birthday;
 @property (nonatomic, copy) NSString *money;
@@ -22,7 +30,6 @@
 @property (nonatomic, copy) NSString *sex;
 @property (nonatomic, copy) NSString *chest;
 @property (nonatomic, copy) NSString *parent_id;
-@property (nonatomic, copy) NSString *id_num;
 @property (nonatomic, copy) NSString *percentage;
 @property (nonatomic, copy) NSString *invitation_code;
 @property (nonatomic, copy) NSString *position_id;
@@ -44,10 +51,11 @@
 @property (nonatomic, copy) NSString *password;
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *shose;
-
-
-
-
+@property (nonatomic, copy) NSString *remark;
+@property (nonatomic, copy) NSString *shop_id;
+@property (nonatomic, copy) NSString *id_reverse;
+@property (nonatomic, copy) NSString *status;//实名认证状态
+@property (nonatomic, copy) NSString *isreal;//实名认证状态
 
 
 

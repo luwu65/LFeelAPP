@@ -119,8 +119,8 @@
 //盒子状态
 #define kBoxStatusUrl                 @"application/getStatus"
 
-
-
+//盒子确定收货
+#define kBoxReceiveGoodsUrl           @"application/update"
 
 
 

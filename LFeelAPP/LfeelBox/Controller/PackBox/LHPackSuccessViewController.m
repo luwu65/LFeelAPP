@@ -31,9 +31,18 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-
-    
     [self setHBK_NavigationBar];
+    
+    
+    if ([self.Controller_ID isEqualToString:@"LHSendBackViewController"]) {
+        self.textLabel.text = @"系统已收到通知,请耐心等待哦~";
+    }
+    
+    
+    
+    
+    
+    
 }
 - (void)setHBK_NavigationBar {
     self.automaticallyAdjustsScrollViewInsets = NO;

@@ -10,7 +10,7 @@
 
 @interface LHBaseViewController ()
 
-@property (nonatomic, strong) MBProgressHUD *HUD;
+
 
 @end
 
@@ -21,6 +21,7 @@
         self.HUD = [[MBProgressHUD alloc] initWithView:self.view];
         self.HUD.bezelView.color = [UIColor colorWithWhite:0.0 alpha:1];
         self.HUD.contentColor = [UIColor whiteColor];
+//        self.HUD.mode = MBProgressHUDModeAnnularDeterminate;
         self.HUD.animationType = MBProgressHUDAnimationFade;
         [self.view addSubview:_HUD];
     }

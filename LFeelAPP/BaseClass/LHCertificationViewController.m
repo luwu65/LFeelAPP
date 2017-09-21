@@ -8,6 +8,9 @@
 
 #import "LHCertificationViewController.h"
 
+
+
+
 @interface LHCertificationViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *realNameTF;
 @property (weak, nonatomic) IBOutlet UITextField *IDCardTF;
@@ -32,24 +35,25 @@
     [self.view rm_fitAllConstraint];
     [self setHBK_NavigationBar];
     
-    if ([self.certificationStr isEqualToString:@"未认证"]) {
-        
-        
-    } else if ([self.certificationStr isEqualToString:@"审核中"]) {
-        self.warningLabel.text = @"审核中...";
-        self.realNameTF.userInteractionEnabled = NO;
-        self.IDCardTF.userInteractionEnabled = NO;
-        self.photoImageView.userInteractionEnabled = NO;
+    [self configureData];
+    
+    
+    //isreal 0->待审核
+    if ([[LHUserInfoManager getUserInfo].isreal integerValue] == 1) {//审核中
+        self.warningLabel.text = @"审核中, 不可更改...";
         [self.hbk_navgationBar.rightFirstBtn setTitle:@"审核中" forState:(UIControlStateNormal)];
         self.hbk_navgationBar.rightFirstBtn.userInteractionEnabled = NO;
-    } else if ([self.certificationStr isEqualToString:@"已认证"]) {
+        [self closeUserInteractionEnabled];
+    } else if ([[LHUserInfoManager getUserInfo].isreal integerValue] == 2) {//通过
         self.warningLabel.text = @"已完成实名认证,不可更改!";
-        self.realNameTF.userInteractionEnabled = NO;
-        self.IDCardTF.userInteractionEnabled = NO;
-        self.photoImageView.userInteractionEnabled = NO;
-        [self.hbk_navgationBar.rightFirstBtn setTitle:@"审核中" forState:(UIControlStateNormal)];
-        self.hbk_navgationBar.rightFirstBtn.userInteractionEnabled = NO;
-    }
+        self.hbk_navgationBar.rightFirstBtn.hidden = YES;
+        [self closeUserInteractionEnabled];
+
+    } else if ([[LHUserInfoManager getUserInfo].isreal integerValue] == 3) {//审核驳回
+        self.warningLabel.text = @"请重新实名认证!";
+        
+        
+    }   
 }
 
 
@@ -78,7 +82,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [LHImagePickerViewController showInViewController:self libraryType:(LHImagePickerMediaTypeCamera) allowEdit:YES complete:^(UIImage *image) {
                 [self requestUploadIDCardPhotoData:image];
-                self.photoImageView.image = image;
+                
             }];
         });
     }]];
@@ -86,7 +90,6 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [LHImagePickerViewController showInViewController:self libraryType:(LHImagePickerMediaTypePhotoLibrary) allowEdit:YES complete:^(UIImage *image) {
                 [self requestUploadIDCardPhotoData:image];
-                self.photoImageView.image = image;
             }];
         });
     }]];
@@ -158,6 +161,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self hideProgressHUD];
                 [MBProgressHUD showSuccess:@"上传成功"];
+                self.photoImageView.image = image;
             });
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -169,6 +173,23 @@
     }];
 }
 
+- (void)configureData {
+    LHUserInfoModel *model = [LHUserInfoManager getUserInfo];
+    self.realNameTF.text = model.real_name;
+    self.IDCardTF.text = model.id_num;
+    [self.photoImageView sd_setImageWithURL:kURL(model.id_positive) placeholderImage:kImage(@"MyBox_Certification")];
+    
+    NSLog(@"%@------------%@--------------%@", model.real_name, model.id_num, model.id_positive);
+}
+
+- (void)closeUserInteractionEnabled {
+    self.realNameTF.userInteractionEnabled = NO;
+    self.IDCardTF.userInteractionEnabled = NO;
+    self.photoImageView.userInteractionEnabled = NO;
+    self.hbk_navgationBar.rightFirstBtn.userInteractionEnabled = NO;
+    self.hintLabel.hidden = YES;
+    
+}
 
 
 

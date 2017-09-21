@@ -57,6 +57,11 @@
 @property (nonatomic, assign) BOOL AddShoppingSuccess;
 
 
+/**
+ 乐荟盒子订单id
+ */
+@property (nonatomic, assign) NSInteger BoxOrderID;
+
 @end
 
 @implementation LHMyBoxViewController
@@ -530,7 +535,7 @@
         } else if ([[LHUserInfoManager getUserInfo].isreal integerValue] == 1) {
             //实名认证中
             dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD showMessage:@"实名认证中, 请耐心等待!"];
+                [MBProgressHUD showSuccess:@"实名认证中, 请耐心等待!"];
             });
             
         } else if ([[LHUserInfoManager getUserInfo].isreal integerValue] == 2) {
@@ -541,16 +546,21 @@
                 [self.navigationController pushViewController:packVC animated:YES];
             } else if ([packBtnTitle isEqualToString:@"打包中"]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [MBProgressHUD showMessage:@"请您耐心等待,您的乐荟盒子24小时之内发出~"];
+                    [MBProgressHUD showSuccess:@"请您耐心等待,您的乐荟盒子24小时之内发出~"];
                 });
             } else if ([packBtnTitle isEqualToString:@"确认收货"]) {
-                
-                
+                [self showAlertViewWithTitle:@"确定您已收到乐荟盒子?" yes:@"收到了" no:@"没收到" yesHandler:^(UIAlertAction * _Nullable action) {
+                    [self requestBoxReceiveGoodsData];
+                } noHandler:^(UIAlertAction * _Nullable action) {
+                    
+                }];
             } else if ([packBtnTitle isEqualToString:@"寄回盒子"]) {
                 LHSendBackViewController *sendBack = [[LHSendBackViewController alloc] init];
                 [self.navigationController pushViewController:sendBack animated:YES];
             } else if ([packBtnTitle isEqualToString:@"寄回中"]) {
-                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showSuccess:@"正在路上..."];
+                });
                 
             }
         } else if ([[LHUserInfoManager getUserInfo].isreal integerValue] == 3) {
@@ -870,7 +880,9 @@
     
 }
 
-//盒子状态
+/*
+ 盒子状态
+ */
 - (void)requestPackingBoxStatusData {
     // 0-打包盒子; 1-打包中; 2-待收货; 3-已收货, 等待寄回;   -1---未知错误,请联系客服, 4-寄回中,待收货
     [LHNetworkManager requestForGetWithUrl:kBoxStatusUrl parameter:@{@"user_id": kUser_id} success:^(id reponseObject) {
@@ -902,6 +914,7 @@
 //                self.packView.statusLabel.text = @"时尚搭配师搭配三件最适合的给您";
                 
             }
+            self.BoxOrderID = [reponseObject[@"id"] integerValue];
         }
     } failure:^(NSError *error) {
        
@@ -910,7 +923,19 @@
 }
 
 
-
+/**
+ 盒子确认收货
+ */
+- (void)requestBoxReceiveGoodsData {
+    [LHNetworkManager PostWithUrl:kBoxReceiveGoodsUrl parameter:@{@"user_id":kUser_id,@"type":@2,@"id":@(self.BoxOrderID), @"status":@2} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            [self requestPackingBoxStatusData];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
 
 
 #pragma  mark ----------- >>>  富文本  <<< -------------------
