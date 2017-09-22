@@ -13,7 +13,31 @@
 @end
 
 
+@interface LHAddVipModel : NSObject
 
+
+@property (nonatomic, copy) NSString *property_value_id;
+@property (nonatomic, copy) NSString *spec_id;
+@property (nonatomic, copy) NSString *price;
+@property (nonatomic, copy) NSString *property_value;
+@property (nonatomic, copy) NSString *remain;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@end
 
 
 

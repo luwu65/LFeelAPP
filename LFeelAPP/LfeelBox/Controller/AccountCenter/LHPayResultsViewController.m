@@ -30,9 +30,6 @@
     self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"支付结果" leftFirst:@"Back_Button" leftFirstAction:^{
         NSLog(@"返回");
         [self.navigationController popToRootViewControllerAnimated:YES];
-        
-        
-        
     }];
 }
 
@@ -40,6 +37,7 @@
 - (void)judgePayStatus {
     if (self.payType == 0) {
         
+    
         
     } else if (self.payType == 1) {
         if ([self.payResultStr isEqualToString:@"9000"]) {
@@ -49,8 +47,14 @@
         } else {
             self.resultImageView.image = kImage(@"MyBox_Pay_Fail");
             self.resultsLabel.text = @"支付失败! 请重新支付!";
-            [self.leftBtn setTitle:@"重新支付" forState:(UIControlStateNormal)];            
-            
+            [self.leftBtn setTitle:@"重新支付" forState:(UIControlStateNormal)];
+            [self.leftBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.view).offset(20);
+                make.right.equalTo(self.view).offset(-20);
+                make.bottom.equalTo(self.view).offset(-20);
+                make.height.mas_equalTo(50);
+            }];
+            [self.rightBtn removeFromSuperview];
         }
     } else if (self.payType == 2) {
         

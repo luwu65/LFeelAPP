@@ -43,6 +43,8 @@
 		0F120D031F6A2FA800E617AA /* RSADataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F120CFA1F6A2FA800E617AA /* RSADataSigner.m */; };
 		0F120D041F6A2FA800E617AA /* RSADataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F120CFC1F6A2FA800E617AA /* RSADataVerifier.m */; };
 		0F120D0A1F6A514400E617AA /* APAuthV2Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F120D091F6A514400E617AA /* APAuthV2Info.m */; };
+		0F1D0C441F74F7A400071F85 /* LHLeBaiPayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D0C431F74F7A300071F85 /* LHLeBaiPayView.m */; };
+		0F1D0C461F74F7E900071F85 /* LHLeBaiPayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F1D0C451F74F7E900071F85 /* LHLeBaiPayView.xib */; };
 		0F2F17CE1F319EC0006DE053 /* LHChooseClothesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2F17CD1F319EC0006DE053 /* LHChooseClothesViewController.m */; };
 		0F3175191F563BE500208DD0 /* LHAboutMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3175171F563BE500208DD0 /* LHAboutMeViewController.m */; };
 		0F31751A1F563BE500208DD0 /* LHAboutMeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3175181F563BE500208DD0 /* LHAboutMeViewController.xib */; };
@@ -341,6 +343,9 @@
 		0F120CFC1F6A2FA800E617AA /* RSADataVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataVerifier.m; sourceTree = "<group>"; };
 		0F120D081F6A514400E617AA /* APAuthV2Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APAuthV2Info.h; sourceTree = "<group>"; };
 		0F120D091F6A514400E617AA /* APAuthV2Info.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APAuthV2Info.m; sourceTree = "<group>"; };
+		0F1D0C421F74F7A300071F85 /* LHLeBaiPayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHLeBaiPayView.h; sourceTree = "<group>"; };
+		0F1D0C431F74F7A300071F85 /* LHLeBaiPayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHLeBaiPayView.m; sourceTree = "<group>"; };
+		0F1D0C451F74F7E900071F85 /* LHLeBaiPayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHLeBaiPayView.xib; sourceTree = "<group>"; };
 		0F2F17CC1F319EC0006DE053 /* LHChooseClothesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHChooseClothesViewController.h; sourceTree = "<group>"; };
 		0F2F17CD1F319EC0006DE053 /* LHChooseClothesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHChooseClothesViewController.m; sourceTree = "<group>"; };
 		0F3175161F563BE500208DD0 /* LHAboutMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHAboutMeViewController.h; sourceTree = "<group>"; };
@@ -795,6 +800,16 @@
 				0F120CFC1F6A2FA800E617AA /* RSADataVerifier.m */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		0F1D0C411F74F3FA00071F85 /* LBFPay */ = {
+			isa = PBXGroup;
+			children = (
+				0F1D0C421F74F7A300071F85 /* LHLeBaiPayView.h */,
+				0F1D0C431F74F7A300071F85 /* LHLeBaiPayView.m */,
+				0F1D0C451F74F7E900071F85 /* LHLeBaiPayView.xib */,
+			);
+			path = LBFPay;
 			sourceTree = "<group>";
 		};
 		0F2F17C81F319E83006DE053 /* ChooseClothes */ = {
@@ -1445,6 +1460,7 @@
 			children = (
 				0FEC8D0D1F38533800453700 /* LHMyBoxViewController.h */,
 				0FEC8D0E1F38533800453700 /* LHMyBoxViewController.m */,
+				0F1D0C411F74F3FA00071F85 /* LBFPay */,
 				0F7B79421F427F5F009DAF35 /* PackBox */,
 				0FEC8D061F38533800453700 /* AccountCenter */,
 			);
@@ -1659,6 +1675,7 @@
 				0F3F642D1F41495500A42084 /* LHAccountCenterHeaderFooterView.xib in Resources */,
 				0F594CA81F2610860047DCC1 /* ShopCarNew.plist in Resources */,
 				0F120C891F6A2C6E00E617AA /* AlipaySDK.bundle in Resources */,
+				0F1D0C461F74F7E900071F85 /* LHLeBaiPayView.xib in Resources */,
 				0F52B5FD1EEF83E1007D45EC /* Main.storyboard in Resources */,
 				0FB793611F4E9DEA00FDDB76 /* LHDistributionHeaderView.xib in Resources */,
 				0F52B66E1EEFDE87007D45EC /* LHBuyNewCollectionViewCell.xib in Resources */,
@@ -1944,6 +1961,7 @@
 				0F03D9141F3B07D8002F7939 /* LHGoodsDetailViewController.m in Sources */,
 				0F52B7361EFA11AA007D45EC /* LHCityChooseView.m in Sources */,
 				0F9046211F1EF20F000528A2 /* LHCardBagViewController.m in Sources */,
+				0F1D0C441F74F7A400071F85 /* LHLeBaiPayView.m in Sources */,
 				0F52B5F41EEF83E1007D45EC /* main.m in Sources */,
 				0F03D9131F3B07D8002F7939 /* LHGoodsCommentHeaderFooterView.m in Sources */,
 				0F7B79511F4280EC009DAF35 /* LHSendBackViewController.m in Sources */,

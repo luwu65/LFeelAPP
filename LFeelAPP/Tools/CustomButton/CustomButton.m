@@ -78,29 +78,29 @@
 
 
 
-- (instancetype)initWithFrame:(CGRect)frame time:(NSString *)timeStr rmb:(NSString *)rmbStr {
+- (instancetype)initWithVipBtnFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
         
-        UILabel *timeLabel = [[UILabel alloc] init];
-        timeLabel.text = timeStr;
-        timeLabel.font = kFont(15);
-        [self addSubview:timeLabel];
-        [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        self.timeLabel = [[UILabel alloc] init];
+//        self.timeLabel.text = timeStr;
+        self.timeLabel.font = kFont(15);
+        [self addSubview:self.timeLabel];
+        [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.mas_left).offset(10);
             make.top.equalTo(self.mas_top).offset(10);
             make.height.mas_offset(25);
             make.width.mas_equalTo(150);
         }];
         
-        UILabel *rmbLabel = [[UILabel alloc] init];
-        rmbLabel.text = [NSString stringWithFormat:@"分期: ￥%ld/月", (long)[rmbStr integerValue]];;
-        rmbLabel.textColor = [UIColor lightGrayColor];
-        rmbLabel.font = kFont(15);
-        [self addSubview:rmbLabel];
-        [rmbLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        self.mouthMoneyLabel = [[UILabel alloc] init];
+//        self.mouthMoneyLabel.text = [NSString stringWithFormat:@"分期: ￥%ld/月", (long)[rmbStr integerValue]];;
+        self.mouthMoneyLabel.textColor = [UIColor lightGrayColor];
+        self.mouthMoneyLabel.font = kFont(15);
+        [self addSubview:self.mouthMoneyLabel];
+        [self.mouthMoneyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.mas_left).offset(10);
-            make.top.equalTo(timeLabel.mas_bottom).offset(10);
+            make.top.equalTo(self.timeLabel.mas_bottom).offset(10);
             make.height.mas_equalTo(25);
             make.width.mas_equalTo(150);
         }];
@@ -115,12 +115,12 @@
             make.width.mas_equalTo(25);
         }];
         
-        UILabel *allRmb = [[UILabel alloc] init];
-        allRmb.text = [NSString stringWithFormat:@"￥%ld", [rmbStr integerValue]*[timeStr integerValue]];
-        allRmb.font = kFont(15);
-        allRmb.textAlignment = NSTextAlignmentRight;
-        [self addSubview:allRmb];
-        [allRmb mas_makeConstraints:^(MASConstraintMaker *make) {
+        self.allMoneyLabel = [[UILabel alloc] init];
+//        self.allMoneyLabel.text = [NSString stringWithFormat:@"￥%ld", [rmbStr integerValue]*[timeStr integerValue]];
+        self.allMoneyLabel.font = kFont(15);
+        self.allMoneyLabel.textAlignment = NSTextAlignmentRight;
+        [self addSubview:self.allMoneyLabel];
+        [self.allMoneyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.chooseImageView.mas_left).offset(-10);
             make.centerY.equalTo(self.mas_centerY);
             make.height.mas_equalTo(25);
@@ -133,7 +133,19 @@
 }
 
 
-
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    if (self.imageView.x < self.titleLabel.x) {
+        
+        self.titleLabel.x = self.imageView.x;
+        
+        self.imageView.x = self.titleLabel.maxX + 5;
+    }
+    
+    
+    
+}
 
 
 @end

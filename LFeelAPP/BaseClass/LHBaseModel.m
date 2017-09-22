@@ -11,3 +11,6 @@
 @implementation LHBaseModel
 
 @end
+@implementation LHAddVipModel
+
+@end

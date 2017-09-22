@@ -41,9 +41,6 @@
     
     [self requestMyOrderListWithType:self.type];
     
-//    tableView.mj_header = [MJRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerReferenceData)];
-//    tableView.mj_footer = [MJRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerReferenceData)];
-    
     @weakify(self);
     tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         @strongify(self);
@@ -61,9 +58,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-    
-    
-    
 }
 ///刷新
 - (void)reloadData{

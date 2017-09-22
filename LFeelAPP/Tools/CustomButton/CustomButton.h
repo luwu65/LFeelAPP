@@ -46,8 +46,12 @@
 
 //加入会员button按钮
 @property (nonatomic, strong) UIImageView *chooseImageView;//为改变选中状态
-- (instancetype)initWithFrame:(CGRect)frame time:(NSString *)timeStr rmb:(NSString *)rmbStr;
 
+- (instancetype)initWithVipBtnFrame:(CGRect)frame;
+
+@property (nonatomic, strong) UILabel *timeLabel;
+@property (nonatomic, strong) UILabel *allMoneyLabel;
+@property (nonatomic, strong) UILabel *mouthMoneyLabel;
 
 
 
