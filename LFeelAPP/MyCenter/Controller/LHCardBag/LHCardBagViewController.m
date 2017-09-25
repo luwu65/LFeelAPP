@@ -39,11 +39,26 @@
     self.isSecond = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     
+    [self requestBankListData];
+    
     [self setupUI];
     [self setHBK_NavigationBar];
+    
+    
+}
+#pragma mark -------------------------- 网络请求 --------------------------
+
+- (void)requestBankListData {
+    [LHNetworkManager requestForGetWithUrl:kBankListUrl parameter:@{@"user_id": kUser_id} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
-
+#pragma mark ----------------------- UI --------------------------------
 - (void)setupUI {
     self.cardTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64) style:(UITableViewStylePlain)];
     self.cardTableView.bounces = NO;
@@ -247,6 +262,14 @@
     }
     
 }
+
+#pragma mark ----------------------  Action -----------------------------
+
+
+
+
+
+
 
 
 - (void)didReceiveMemoryWarning {

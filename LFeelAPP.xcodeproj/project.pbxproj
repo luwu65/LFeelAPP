@@ -43,13 +43,19 @@
 		0F120D031F6A2FA800E617AA /* RSADataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F120CFA1F6A2FA800E617AA /* RSADataSigner.m */; };
 		0F120D041F6A2FA800E617AA /* RSADataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F120CFC1F6A2FA800E617AA /* RSADataVerifier.m */; };
 		0F120D0A1F6A514400E617AA /* APAuthV2Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F120D091F6A514400E617AA /* APAuthV2Info.m */; };
-		0F1D0C441F74F7A400071F85 /* LHLeBaiView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D0C431F74F7A300071F85 /* LHLeBaiView.m */; };
-		0F1D0C461F74F7E900071F85 /* LHLeBaiView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F1D0C451F74F7E900071F85 /* LHLeBaiView.xib */; };
 		0F1D0C4A1F75E45200071F85 /* LHAddBankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D0C481F75E45200071F85 /* LHAddBankCardViewController.m */; };
 		0F1D0C4B1F75E45200071F85 /* LHAddBankCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F1D0C491F75E45200071F85 /* LHAddBankCardViewController.xib */; };
-		0F1D0C4E1F75F02300071F85 /* LHLeBaiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D0C4D1F75F02300071F85 /* LHLeBaiViewController.m */; };
-		0F1D0C511F75F04200071F85 /* LHLeBaiPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D0C501F75F04200071F85 /* LHLeBaiPayViewController.m */; };
-		0F1D0C541F75F0D300071F85 /* LHLeBaiPayAgainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D0C531F75F0D300071F85 /* LHLeBaiPayAgainViewController.m */; };
+		0F1D0C5C1F78A82500071F85 /* LHLeBaiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D0C5A1F78A82500071F85 /* LHLeBaiViewController.m */; };
+		0F1D0C5D1F78A82500071F85 /* LHLeBaiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F1D0C5B1F78A82500071F85 /* LHLeBaiViewController.xib */; };
+		0F1D0C611F78A83D00071F85 /* LHLeBaiPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D0C5F1F78A83D00071F85 /* LHLeBaiPayViewController.m */; };
+		0F1D0C621F78A83D00071F85 /* LHLeBaiPayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F1D0C601F78A83D00071F85 /* LHLeBaiPayViewController.xib */; };
+		0F1D0C661F78A85400071F85 /* LHLeBaiPayAgainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D0C641F78A85400071F85 /* LHLeBaiPayAgainViewController.m */; };
+		0F1D0C671F78A85400071F85 /* LHLeBaiPayAgainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F1D0C651F78A85400071F85 /* LHLeBaiPayAgainViewController.xib */; };
+		0F1D0C711F790ABB00071F85 /* LHBillHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D0C6A1F790ABB00071F85 /* LHBillHeaderFooterView.m */; };
+		0F1D0C721F790ABB00071F85 /* LHBillHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D0C6C1F790ABB00071F85 /* LHBillHistoryViewController.m */; };
+		0F1D0C731F790ABB00071F85 /* LHMakeBillViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D0C6E1F790ABB00071F85 /* LHMakeBillViewController.m */; };
+		0F1D0C741F790ABB00071F85 /* LHOrderGoodsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D0C701F790ABB00071F85 /* LHOrderGoodsCell.m */; };
+		0F1D0C771F790AEE00071F85 /* LHBankCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D0C761F790AEE00071F85 /* LHBankCardModel.m */; };
 		0F2F17CE1F319EC0006DE053 /* LHChooseClothesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2F17CD1F319EC0006DE053 /* LHChooseClothesViewController.m */; };
 		0F3175191F563BE500208DD0 /* LHAboutMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3175171F563BE500208DD0 /* LHAboutMeViewController.m */; };
 		0F31751A1F563BE500208DD0 /* LHAboutMeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3175181F563BE500208DD0 /* LHAboutMeViewController.xib */; };
@@ -145,10 +151,6 @@
 		0F7B79571F428FA8009DAF35 /* LHPackInfoChooseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F7B79561F428FA8009DAF35 /* LHPackInfoChooseView.xib */; };
 		0F8277D41F013209004D2A06 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8277D31F013209004D2A06 /* Foundation+Log.m */; };
 		0F84BAF31F1F23AB00D98999 /* LHCardHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F84BAF21F1F23AB00D98999 /* LHCardHeaderView.m */; };
-		0F84BB351F20B00B00D98999 /* LHMakeBillViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F84BB341F20B00B00D98999 /* LHMakeBillViewController.m */; };
-		0F84BB381F20B6BE00D98999 /* LHOrderGoodsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F84BB371F20B6BE00D98999 /* LHOrderGoodsCell.m */; };
-		0F84BB3B1F20E87600D98999 /* LHBillHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F84BB3A1F20E87600D98999 /* LHBillHeaderFooterView.m */; };
-		0F84BB3E1F21953B00D98999 /* LHBillHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F84BB3D1F21953B00D98999 /* LHBillHistoryViewController.m */; };
 		0F84BB411F219AE400D98999 /* LHChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F84BB401F219AE400D98999 /* LHChangePasswordViewController.m */; };
 		0F9045061F138193000528A2 /* LHBoxHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9045051F138193000528A2 /* LHBoxHistoryViewController.m */; };
 		0F9045091F13832F000528A2 /* LHPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9045081F13832F000528A2 /* LHPickView.m */; };
@@ -348,18 +350,28 @@
 		0F120CFC1F6A2FA800E617AA /* RSADataVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataVerifier.m; sourceTree = "<group>"; };
 		0F120D081F6A514400E617AA /* APAuthV2Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APAuthV2Info.h; sourceTree = "<group>"; };
 		0F120D091F6A514400E617AA /* APAuthV2Info.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APAuthV2Info.m; sourceTree = "<group>"; };
-		0F1D0C421F74F7A300071F85 /* LHLeBaiView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHLeBaiView.h; sourceTree = "<group>"; };
-		0F1D0C431F74F7A300071F85 /* LHLeBaiView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHLeBaiView.m; sourceTree = "<group>"; };
-		0F1D0C451F74F7E900071F85 /* LHLeBaiView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHLeBaiView.xib; sourceTree = "<group>"; };
 		0F1D0C471F75E45200071F85 /* LHAddBankCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHAddBankCardViewController.h; sourceTree = "<group>"; };
 		0F1D0C481F75E45200071F85 /* LHAddBankCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHAddBankCardViewController.m; sourceTree = "<group>"; };
 		0F1D0C491F75E45200071F85 /* LHAddBankCardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHAddBankCardViewController.xib; sourceTree = "<group>"; };
-		0F1D0C4C1F75F02300071F85 /* LHLeBaiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHLeBaiViewController.h; sourceTree = "<group>"; };
-		0F1D0C4D1F75F02300071F85 /* LHLeBaiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHLeBaiViewController.m; sourceTree = "<group>"; };
-		0F1D0C4F1F75F04200071F85 /* LHLeBaiPayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHLeBaiPayViewController.h; sourceTree = "<group>"; };
-		0F1D0C501F75F04200071F85 /* LHLeBaiPayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHLeBaiPayViewController.m; sourceTree = "<group>"; };
-		0F1D0C521F75F0D300071F85 /* LHLeBaiPayAgainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHLeBaiPayAgainViewController.h; sourceTree = "<group>"; };
-		0F1D0C531F75F0D300071F85 /* LHLeBaiPayAgainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHLeBaiPayAgainViewController.m; sourceTree = "<group>"; };
+		0F1D0C591F78A82500071F85 /* LHLeBaiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHLeBaiViewController.h; sourceTree = "<group>"; };
+		0F1D0C5A1F78A82500071F85 /* LHLeBaiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHLeBaiViewController.m; sourceTree = "<group>"; };
+		0F1D0C5B1F78A82500071F85 /* LHLeBaiViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHLeBaiViewController.xib; sourceTree = "<group>"; };
+		0F1D0C5E1F78A83D00071F85 /* LHLeBaiPayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHLeBaiPayViewController.h; sourceTree = "<group>"; };
+		0F1D0C5F1F78A83D00071F85 /* LHLeBaiPayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHLeBaiPayViewController.m; sourceTree = "<group>"; };
+		0F1D0C601F78A83D00071F85 /* LHLeBaiPayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHLeBaiPayViewController.xib; sourceTree = "<group>"; };
+		0F1D0C631F78A85400071F85 /* LHLeBaiPayAgainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHLeBaiPayAgainViewController.h; sourceTree = "<group>"; };
+		0F1D0C641F78A85400071F85 /* LHLeBaiPayAgainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHLeBaiPayAgainViewController.m; sourceTree = "<group>"; };
+		0F1D0C651F78A85400071F85 /* LHLeBaiPayAgainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHLeBaiPayAgainViewController.xib; sourceTree = "<group>"; };
+		0F1D0C691F790ABB00071F85 /* LHBillHeaderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHBillHeaderFooterView.h; sourceTree = "<group>"; };
+		0F1D0C6A1F790ABB00071F85 /* LHBillHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHBillHeaderFooterView.m; sourceTree = "<group>"; };
+		0F1D0C6B1F790ABB00071F85 /* LHBillHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHBillHistoryViewController.h; sourceTree = "<group>"; };
+		0F1D0C6C1F790ABB00071F85 /* LHBillHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHBillHistoryViewController.m; sourceTree = "<group>"; };
+		0F1D0C6D1F790ABB00071F85 /* LHMakeBillViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHMakeBillViewController.h; sourceTree = "<group>"; };
+		0F1D0C6E1F790ABB00071F85 /* LHMakeBillViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHMakeBillViewController.m; sourceTree = "<group>"; };
+		0F1D0C6F1F790ABB00071F85 /* LHOrderGoodsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHOrderGoodsCell.h; sourceTree = "<group>"; };
+		0F1D0C701F790ABB00071F85 /* LHOrderGoodsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHOrderGoodsCell.m; sourceTree = "<group>"; };
+		0F1D0C751F790AEE00071F85 /* LHBankCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHBankCardModel.h; sourceTree = "<group>"; };
+		0F1D0C761F790AEE00071F85 /* LHBankCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHBankCardModel.m; sourceTree = "<group>"; };
 		0F2F17CC1F319EC0006DE053 /* LHChooseClothesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHChooseClothesViewController.h; sourceTree = "<group>"; };
 		0F2F17CD1F319EC0006DE053 /* LHChooseClothesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHChooseClothesViewController.m; sourceTree = "<group>"; };
 		0F3175161F563BE500208DD0 /* LHAboutMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHAboutMeViewController.h; sourceTree = "<group>"; };
@@ -533,14 +545,6 @@
 		0F8277D31F013209004D2A06 /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+Log.m"; sourceTree = "<group>"; };
 		0F84BAF11F1F23AB00D98999 /* LHCardHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHCardHeaderView.h; sourceTree = "<group>"; };
 		0F84BAF21F1F23AB00D98999 /* LHCardHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHCardHeaderView.m; sourceTree = "<group>"; };
-		0F84BB331F20B00B00D98999 /* LHMakeBillViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHMakeBillViewController.h; sourceTree = "<group>"; };
-		0F84BB341F20B00B00D98999 /* LHMakeBillViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHMakeBillViewController.m; sourceTree = "<group>"; };
-		0F84BB361F20B6BE00D98999 /* LHOrderGoodsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHOrderGoodsCell.h; sourceTree = "<group>"; };
-		0F84BB371F20B6BE00D98999 /* LHOrderGoodsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHOrderGoodsCell.m; sourceTree = "<group>"; };
-		0F84BB391F20E87600D98999 /* LHBillHeaderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHBillHeaderFooterView.h; sourceTree = "<group>"; };
-		0F84BB3A1F20E87600D98999 /* LHBillHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHBillHeaderFooterView.m; sourceTree = "<group>"; };
-		0F84BB3C1F21953B00D98999 /* LHBillHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHBillHistoryViewController.h; sourceTree = "<group>"; };
-		0F84BB3D1F21953B00D98999 /* LHBillHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHBillHistoryViewController.m; sourceTree = "<group>"; };
 		0F84BB3F1F219AE400D98999 /* LHChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHChangePasswordViewController.h; sourceTree = "<group>"; };
 		0F84BB401F219AE400D98999 /* LHChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHChangePasswordViewController.m; sourceTree = "<group>"; };
 		0F9045041F138193000528A2 /* LHBoxHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHBoxHistoryViewController.h; sourceTree = "<group>"; };
@@ -819,17 +823,32 @@
 		0F1D0C411F74F3FA00071F85 /* LBFPay */ = {
 			isa = PBXGroup;
 			children = (
-				0F1D0C421F74F7A300071F85 /* LHLeBaiView.h */,
-				0F1D0C431F74F7A300071F85 /* LHLeBaiView.m */,
-				0F1D0C451F74F7E900071F85 /* LHLeBaiView.xib */,
-				0F1D0C4C1F75F02300071F85 /* LHLeBaiViewController.h */,
-				0F1D0C4D1F75F02300071F85 /* LHLeBaiViewController.m */,
-				0F1D0C4F1F75F04200071F85 /* LHLeBaiPayViewController.h */,
-				0F1D0C501F75F04200071F85 /* LHLeBaiPayViewController.m */,
-				0F1D0C521F75F0D300071F85 /* LHLeBaiPayAgainViewController.h */,
-				0F1D0C531F75F0D300071F85 /* LHLeBaiPayAgainViewController.m */,
+				0F1D0C591F78A82500071F85 /* LHLeBaiViewController.h */,
+				0F1D0C5A1F78A82500071F85 /* LHLeBaiViewController.m */,
+				0F1D0C5B1F78A82500071F85 /* LHLeBaiViewController.xib */,
+				0F1D0C5E1F78A83D00071F85 /* LHLeBaiPayViewController.h */,
+				0F1D0C5F1F78A83D00071F85 /* LHLeBaiPayViewController.m */,
+				0F1D0C601F78A83D00071F85 /* LHLeBaiPayViewController.xib */,
+				0F1D0C631F78A85400071F85 /* LHLeBaiPayAgainViewController.h */,
+				0F1D0C641F78A85400071F85 /* LHLeBaiPayAgainViewController.m */,
+				0F1D0C651F78A85400071F85 /* LHLeBaiPayAgainViewController.xib */,
 			);
 			path = LBFPay;
+			sourceTree = "<group>";
+		};
+		0F1D0C681F790ABB00071F85 /* MyBill */ = {
+			isa = PBXGroup;
+			children = (
+				0F1D0C691F790ABB00071F85 /* LHBillHeaderFooterView.h */,
+				0F1D0C6A1F790ABB00071F85 /* LHBillHeaderFooterView.m */,
+				0F1D0C6B1F790ABB00071F85 /* LHBillHistoryViewController.h */,
+				0F1D0C6C1F790ABB00071F85 /* LHBillHistoryViewController.m */,
+				0F1D0C6D1F790ABB00071F85 /* LHMakeBillViewController.h */,
+				0F1D0C6E1F790ABB00071F85 /* LHMakeBillViewController.m */,
+				0F1D0C6F1F790ABB00071F85 /* LHOrderGoodsCell.h */,
+				0F1D0C701F790ABB00071F85 /* LHOrderGoodsCell.m */,
+			);
+			path = MyBill;
 			sourceTree = "<group>";
 		};
 		0F2F17C81F319E83006DE053 /* ChooseClothes */ = {
@@ -1411,23 +1430,18 @@
 		0F90461E1F1EF20F000528A2 /* LHCardBag */ = {
 			isa = PBXGroup;
 			children = (
+				0F1D0C681F790ABB00071F85 /* MyBill */,
 				0F90461F1F1EF20F000528A2 /* LHCardBagViewController.h */,
 				0F9046201F1EF20F000528A2 /* LHCardBagViewController.m */,
 				0F1D0C471F75E45200071F85 /* LHAddBankCardViewController.h */,
 				0F1D0C481F75E45200071F85 /* LHAddBankCardViewController.m */,
 				0F1D0C491F75E45200071F85 /* LHAddBankCardViewController.xib */,
-				0F84BB331F20B00B00D98999 /* LHMakeBillViewController.h */,
-				0F84BB341F20B00B00D98999 /* LHMakeBillViewController.m */,
-				0F84BB3C1F21953B00D98999 /* LHBillHistoryViewController.h */,
-				0F84BB3D1F21953B00D98999 /* LHBillHistoryViewController.m */,
-				0F84BB391F20E87600D98999 /* LHBillHeaderFooterView.h */,
-				0F84BB3A1F20E87600D98999 /* LHBillHeaderFooterView.m */,
-				0F84BB361F20B6BE00D98999 /* LHOrderGoodsCell.h */,
-				0F84BB371F20B6BE00D98999 /* LHOrderGoodsCell.m */,
 				0F9046221F1EF256000528A2 /* LHCardCell.h */,
 				0F9046231F1EF256000528A2 /* LHCardCell.m */,
 				0F84BAF11F1F23AB00D98999 /* LHCardHeaderView.h */,
 				0F84BAF21F1F23AB00D98999 /* LHCardHeaderView.m */,
+				0F1D0C751F790AEE00071F85 /* LHBankCardModel.h */,
+				0F1D0C761F790AEE00071F85 /* LHBankCardModel.m */,
 			);
 			path = LHCardBag;
 			sourceTree = "<group>";
@@ -1692,15 +1706,17 @@
 				0F31752B1F563E9900208DD0 /* LHPackSuccessViewController.xib in Resources */,
 				0F31753A1F58174E00208DD0 /* LHUserInfoViewController.xib in Resources */,
 				0F52B6021EEF83E1007D45EC /* LaunchScreen.storyboard in Resources */,
+				0F1D0C671F78A85400071F85 /* LHLeBaiPayAgainViewController.xib in Resources */,
 				0F52B5FF1EEF83E1007D45EC /* Assets.xcassets in Resources */,
 				0F31751F1F563C1C00208DD0 /* LHOftenQuestionViewController.xib in Resources */,
+				0F1D0C5D1F78A82500071F85 /* LHLeBaiViewController.xib in Resources */,
 				0F7B79521F4280EC009DAF35 /* LHSendBackViewController.xib in Resources */,
 				0F3F642D1F41495500A42084 /* LHAccountCenterHeaderFooterView.xib in Resources */,
 				0F1D0C4B1F75E45200071F85 /* LHAddBankCardViewController.xib in Resources */,
 				0F594CA81F2610860047DCC1 /* ShopCarNew.plist in Resources */,
 				0F120C891F6A2C6E00E617AA /* AlipaySDK.bundle in Resources */,
-				0F1D0C461F74F7E900071F85 /* LHLeBaiView.xib in Resources */,
 				0F52B5FD1EEF83E1007D45EC /* Main.storyboard in Resources */,
+				0F1D0C621F78A83D00071F85 /* LHLeBaiPayViewController.xib in Resources */,
 				0FB793611F4E9DEA00FDDB76 /* LHDistributionHeaderView.xib in Resources */,
 				0F52B66E1EEFDE87007D45EC /* LHBuyNewCollectionViewCell.xib in Resources */,
 				0F3175381F57FE7500208DD0 /* LHCertificationViewController.xib in Resources */,
@@ -1897,7 +1913,6 @@
 				0F3F64311F414C6E00A42084 /* LHDevider.m in Sources */,
 				0F84BAF31F1F23AB00D98999 /* LHCardHeaderView.m in Sources */,
 				0F120D041F6A2FA800E617AA /* RSADataVerifier.m in Sources */,
-				0F84BB351F20B00B00D98999 /* LHMakeBillViewController.m in Sources */,
 				0F52B6C91EF3D7AC007D45EC /* LHTextCell.m in Sources */,
 				0F52B6541EEF8B0E007D45EC /* LHNewGoodsViewController.m in Sources */,
 				0FEC8D2B1F38533800453700 /* LHSegmentControlView.m in Sources */,
@@ -1916,18 +1931,18 @@
 				0F52B7491F00E4DC007D45EC /* LhCaptchaLoginViewController.m in Sources */,
 				0F52B6BC1EF3B0D5007D45EC /* LHScrollView.m in Sources */,
 				0F52B6391EEF84BA007D45EC /* LHBaseViewController.m in Sources */,
+				0F1D0C661F78A85400071F85 /* LHLeBaiPayAgainViewController.m in Sources */,
 				0F3F64251F3C51C500A42084 /* UIButton+badge.m in Sources */,
 				0F1D0C4A1F75E45200071F85 /* LHAddBankCardViewController.m in Sources */,
 				0F9045A41F1DA02C000528A2 /* UIView+Extension.m in Sources */,
 				0F31751E1F563C1C00208DD0 /* LHOftenQuestionViewController.m in Sources */,
+				0F1D0C731F790ABB00071F85 /* LHMakeBillViewController.m in Sources */,
 				0F33547C1F0397260056FEA9 /* LHAllCommentViewController.m in Sources */,
 				0F84BB411F219AE400D98999 /* LHChangePasswordViewController.m in Sources */,
-				0F1D0C541F75F0D300071F85 /* LHLeBaiPayAgainViewController.m in Sources */,
 				0F33547F1F039C2A0056FEA9 /* LHParamCell.m in Sources */,
 				0F120D001F6A2FA800E617AA /* base64.m in Sources */,
 				0F52B6421EEF8522007D45EC /* LHNavigationViewController.m in Sources */,
 				0F52B72A1EF91B21007D45EC /* LHReceiveAddressCell.m in Sources */,
-				0F1D0C4E1F75F02300071F85 /* LHLeBaiViewController.m in Sources */,
 				0FEC8D2C1F38533800453700 /* LHShoppingCartCell.m in Sources */,
 				0FEC8D2A1F38533800453700 /* LHPackingBoxView.m in Sources */,
 				0FEA5A8C1F3031760095532D /* LHAddressModel.m in Sources */,
@@ -1940,7 +1955,6 @@
 				0F9045BC1F1DA18F000528A2 /* NSString+Category.m in Sources */,
 				0F52B6A91EF268ED007D45EC /* LHBrondCollectionCell.m in Sources */,
 				0FB793511F4E859500FDDB76 /* LHPhotoGroupView.m in Sources */,
-				0F84BB381F20B6BE00D98999 /* LHOrderGoodsCell.m in Sources */,
 				0F051FF11F70F33A00D5A819 /* LHScreenShotView.m in Sources */,
 				0FB793571F4E864500FDDB76 /* LHDistributionViewController.m in Sources */,
 				0F3F642B1F3DA73900A42084 /* LHGoodsDetailModel.m in Sources */,
@@ -1956,7 +1970,8 @@
 				0F52B6CF1EF7A67F007D45EC /* LHUserInfoManager.m in Sources */,
 				0F52B63F1EEF84FE007D45EC /* LHTabBarViewController.m in Sources */,
 				0F7B79481F427F5F009DAF35 /* LHPackSuccessViewController.m in Sources */,
-				0F84BB3B1F20E87600D98999 /* LHBillHeaderFooterView.m in Sources */,
+				0F1D0C721F790ABB00071F85 /* LHBillHistoryViewController.m in Sources */,
+				0F1D0C741F790ABB00071F85 /* LHOrderGoodsCell.m in Sources */,
 				0F52B6681EEFDE72007D45EC /* LHSpecialCollectionViewCell.m in Sources */,
 				0F52B7241EF91965007D45EC /* LHMyOrderViewController.m in Sources */,
 				0F9045091F13832F000528A2 /* LHPickView.m in Sources */,
@@ -1969,27 +1984,26 @@
 				0F52B5F71EEF83E1007D45EC /* AppDelegate.m in Sources */,
 				0FB793381F4A870300FDDB76 /* LHCategoryListViewController.m in Sources */,
 				0F3175401F594CFA00208DD0 /* LHShareManager.m in Sources */,
+				0F1D0C611F78A83D00071F85 /* LHLeBaiPayViewController.m in Sources */,
 				0FEC8D241F38533800453700 /* LHMyBoxViewController.m in Sources */,
 				0F7B0A331F45A66E004080D6 /* LHChooseTypeView.m in Sources */,
 				0F52B66D1EEFDE87007D45EC /* LHBuyNewCollectionViewCell.m in Sources */,
 				0F52B6961EF2491C007D45EC /* LHOrderFormView.m in Sources */,
 				0F52B72D1EF9452B007D45EC /* LHEditAddressViewController.m in Sources */,
-				0F84BB3E1F21953B00D98999 /* LHBillHistoryViewController.m in Sources */,
 				0F52B7271EF91965007D45EC /* LHUserInfoViewController.m in Sources */,
 				0F3175281F563CBC00208DD0 /* LHNotesViewController.m in Sources */,
 				0F52B7441EFF8A5A007D45EC /* LHLoginViewController.m in Sources */,
 				0F52B6BF1EF3B596007D45EC /* LHNewHandsViewController.m in Sources */,
 				0F9045C21F1DA18F000528A2 /* UIView+AdaptivePerfect.m in Sources */,
+				0F1D0C771F790AEE00071F85 /* LHBankCardModel.m in Sources */,
 				0F7B79471F427F5F009DAF35 /* LHPackInfoViewController.m in Sources */,
 				0F52B6D21EF7A6F5007D45EC /* LHUserInfoModel.m in Sources */,
 				0F120D011F6A2FA800E617AA /* NSDataEx.m in Sources */,
-				0F1D0C511F75F04200071F85 /* LHLeBaiPayViewController.m in Sources */,
 				0FB793351F4A786300FDDB76 /* LHCategoryView.m in Sources */,
 				0F9045BA1F1DA18F000528A2 /* NSDate+Extension.m in Sources */,
 				0F03D9141F3B07D8002F7939 /* LHGoodsDetailViewController.m in Sources */,
 				0F52B7361EFA11AA007D45EC /* LHCityChooseView.m in Sources */,
 				0F9046211F1EF20F000528A2 /* LHCardBagViewController.m in Sources */,
-				0F1D0C441F74F7A400071F85 /* LHLeBaiView.m in Sources */,
 				0F52B5F41EEF83E1007D45EC /* main.m in Sources */,
 				0F03D9131F3B07D8002F7939 /* LHGoodsCommentHeaderFooterView.m in Sources */,
 				0F7B79511F4280EC009DAF35 /* LHSendBackViewController.m in Sources */,
@@ -2014,10 +2028,12 @@
 				0F3175191F563BE500208DD0 /* LHAboutMeViewController.m in Sources */,
 				0F52B6D61EF7A837007D45EC /* LHNetworkManager.m in Sources */,
 				0F90460D1F1DFC7F000528A2 /* LHScanViewController.m in Sources */,
+				0F1D0C5C1F78A82500071F85 /* LHLeBaiViewController.m in Sources */,
 				0FEC8D231F38533800453700 /* LHAccountCenterViewController.m in Sources */,
 				0F7B0A301F44779C004080D6 /* LHFloatAnimationButton.m in Sources */,
 				0F52B6B61EF3783B007D45EC /* LHMyCenterHeaderView.m in Sources */,
 				0FEC8D221F38533800453700 /* LHAccountCenterHeaderFooterView.m in Sources */,
+				0F1D0C711F790ABB00071F85 /* LHBillHeaderFooterView.m in Sources */,
 				0F52B6511EEF8AFB007D45EC /* LHMyCenterViewController.m in Sources */,
 				0F2F17CE1F319EC0006DE053 /* LHChooseClothesViewController.m in Sources */,
 				0F9046191F1EEC52000528A2 /* LHNewGoodsDetailViewController.m in Sources */,

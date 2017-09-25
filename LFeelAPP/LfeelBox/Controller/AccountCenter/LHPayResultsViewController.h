@@ -12,10 +12,15 @@
 
 
 
+/**
+ 支付结果状态码
+ */
 @property (nonatomic, copy) NSString *payResultStr;
 
+//付款完成的订单号等信息
 @property (nonatomic, copy) NSDictionary *resultDic;
 
+//付款类型
 @property (nonatomic, assign) NSInteger payType;
 
 

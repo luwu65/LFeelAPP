@@ -268,7 +268,6 @@ typedef NS_ENUM(NSInteger, PayType) {
 
 
 
-
 //选择付款方式
 - (void)setPayViewWithLabel:(UILabel *)label {
     LHPayWayView *payView = [[LHPayWayView alloc] initWithIndex:self.payType];

@@ -358,10 +358,14 @@
         NSLog(@"%@", reponseObject);
         if ([kSTR(reponseObject[@"isError"]) isEqualToString:@"0"]) {
             [LHUserInfoManager cleanUserInfo];
+            [LHUserInfoManager removeUseDefaultsForKey:@"token"];
             LHUserInfoModel *model = [[LHUserInfoModel alloc] init];
             NSDictionary *dic = reponseObject[@"data"];
             [model setValuesForKeysWithDictionary:dic[@"user"]];
             [LHUserInfoManager saveUserInfoWithModel:model];
+            //保存token
+            [LHUserInfoManager saveUseDefaultsOjbect:dic[@"token"] forKey:@"token"];
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self hideProgressHUD];
                 [self dismissViewControllerAnimated:YES completion:nil];

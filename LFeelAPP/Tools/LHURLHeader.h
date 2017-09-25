@@ -12,11 +12,11 @@
 
 #pragma mark  -----------------------  URL  -------------------------
 //请求头
-#define kUrlHeader            @"http://192.168.0.132:8081/lfeel/" //本地测试环境
-//#define kUrlHeader            @"http://120.76.215.11:8021/lfeel/" //服务器环境
+//#define kUrlHeader            @"http://192.168.0.132:8081/lfeel/" //本地测试环境
+#define kUrlHeader            @"http://120.76.215.11:8021/lfeel/" //服务器环境
 
 //token
-#define kToken                     @"e895482e-7662-4aa1-bdc7-a6fb3e806ccd"
+#define kToken                     [LHUserInfoManager getUseDefaultsOjbectForKey:@"token"]
 
 //验证码登录
 #define kVerifyLoginURL            @"vipmanagement/verifylogin"
@@ -122,12 +122,14 @@
 //盒子确定收货
 #define kBoxReceiveGoodsUrl           @"application/update"
 
+//乐百分发送验证码
+#define kLeBaiSendCodeUrl             @"order/lbfsmsCode"
 
+//乐百分支付
+#define kLebaiPayUrl                  @"order/pay"
 
-
-
-
-
+//银行卡列表
+#define kBankListUrl                   @"bank/getList"
 
 
 

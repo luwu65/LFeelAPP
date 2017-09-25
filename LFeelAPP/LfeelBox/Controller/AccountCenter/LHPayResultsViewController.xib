@@ -16,7 +16,7 @@
                 <outlet property="resultImageView" destination="egE-rz-98R" id="8TZ-H8-1lv"/>
                 <outlet property="resultsLabel" destination="JZS-4L-ldf" id="Is4-Zb-hTf"/>
                 <outlet property="rightBtn" destination="9vK-sY-3Zj" id="52S-Y2-E7F"/>
-                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="ije-uZ-mcw"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

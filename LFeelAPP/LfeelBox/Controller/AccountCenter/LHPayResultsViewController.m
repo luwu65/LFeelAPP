@@ -36,9 +36,22 @@
 #pragma mark ---------------- Action -----------------
 - (void)judgePayStatus {
     if (self.payType == 0) {
-        
-    
-        
+        if ([self.payResultStr isEqualToString:@"0000"]) {
+            self.resultImageView.image = kImage(@"MyBox_Pay_Success");
+            self.resultsLabel.text = @"支付成功! 您的订单会尽快进行处理!";
+            [self.leftBtn setTitle:@"继续购物" forState:(UIControlStateNormal)];
+        } else {
+            self.resultImageView.image = kImage(@"MyBox_Pay_Fail");
+            self.resultsLabel.text = @"支付失败! 请重新支付!";
+            [self.leftBtn setTitle:@"重新支付" forState:(UIControlStateNormal)];
+            [self.leftBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.view).offset(20);
+                make.right.equalTo(self.view).offset(-20);
+                make.bottom.equalTo(self.view).offset(-20);
+                make.height.mas_equalTo(50);
+            }];
+            [self.rightBtn removeFromSuperview];
+        }
     } else if (self.payType == 1) {
         if ([self.payResultStr isEqualToString:@"9000"]) {
             self.resultImageView.image = kImage(@"MyBox_Pay_Success");
@@ -70,8 +83,7 @@
 //继续购物/重新支付
 - (IBAction)leftBtn:(UIButton *)sender {
     if ([sender.titleLabel.text isEqualToString:@"继续购物"]) {
-        self.tabBarController.selectedIndex = 3;
-        
+        [self.navigationController popToRootViewControllerAnimated:YES];
     } else if ([sender.titleLabel.text isEqualToString:@"重新支付"]) {
         
         

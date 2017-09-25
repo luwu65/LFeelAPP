@@ -41,6 +41,7 @@ typedef NS_ENUM(NSInteger, PayType) {
 //地址ID
 @property (nonatomic, copy) NSString *address_id;
 
+@property (nonatomic, assign) CGFloat allPrice;
 
 @end
 
@@ -145,6 +146,7 @@ typedef NS_ENUM(NSInteger, PayType) {
                 [self.storeArray addObject:model];
             }
             self.allPriceLabel.text = [NSString stringWithFormat:@"总计: %.2f", [reponseObject[@"totalprice"] floatValue]];
+            self.allPrice = [reponseObject[@"totalprice"] floatValue];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideProgressHUD];
@@ -160,16 +162,17 @@ typedef NS_ENUM(NSInteger, PayType) {
 //提交订单
 - (void)requestSubmitOrderData {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self showProgressHUDWithTitle:@"提交订单"];
+        [self showProgressHUDWithTitle:@"提交订单中"];
     });
     NSString *products = nil;
+    //如果是购物车过来的
     if (self.goodsModelArray) {
         //type-->0新品购买,1租赁
         //pay_way 0信用卡分期 1支付宝  2微信支付  3银联
         NSMutableArray *arr = [NSMutableArray new];
         for (LHCartGoodsModel *model in self.goodsModelArray) {
             NSMutableString *ids = [NSMutableString stringWithString:@"{"];
-            [ids appendFormat:@"\"count\":\"%ld\",\"product_id\":\"%@\",\"price_lfeel\":\"%@\",\"spec_id\":\"%@\",\"shop_id\":\"%@\"", (long)model.count, model.product_id, model.price_lfeel, model.spec_id, model.shop_id];
+            [ids appendFormat:@"\"count\":\"%ld\",\"product_id\":\"%@\",\"spec_id\":\"%@\",\"shop_id\":\"%@\"", (long)model.count, model.product_id, model.spec_id, model.shop_id];
             NSString *idStr = [NSString stringWithFormat:@"%@}",[ids substringWithRange:NSMakeRange(0, [ids length])]];
             [arr addObject:idStr];
         }
@@ -180,8 +183,9 @@ typedef NS_ENUM(NSInteger, PayType) {
         products = [NSString stringWithFormat:@"%@]",[ids substringWithRange:NSMakeRange(0, [ids length]-1)]];
         //    NSLog(@"-products------%@", products);
     }
+    //如果是详情的
     if (self.productInfoDic) {
-        products = [NSString stringWithFormat:@"[{\"count\":\"1\",\"product_id\":\"%@\",\"price_lfeel\":\"%@\",\"spec_id\":\"%@\", \"shop_id\":\"%@\"}]", self.productInfoDic[@"id"], self.productInfoDic[@"price_lfeel"], self.spec_id, self.productInfoDic[@"shop_id"]];
+        products = [NSString stringWithFormat:@"[{\"count\":\"1\",\"product_id\":\"%@\",\"spec_id\":\"%@\", \"shop_id\":\"%@\"}]", self.productInfoDic[@"id"], self.spec_id, self.productInfoDic[@"shop_id"]];
     }
     //核心代码
     NSMutableDictionary *paramsDict=[[NSMutableDictionary alloc] init];
@@ -196,23 +200,33 @@ typedef NS_ENUM(NSInteger, PayType) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
            dispatch_async(dispatch_get_main_queue(), ^{
-               [self hideProgressHUD];
+               
                [[NSNotificationCenter defaultCenter] postNotificationName:@"AddShoppingCartSuccess" object:nil];
                if ([reponseObject[@"data"][@"pay_way"] integerValue] == 0) {
-                   LHLeBaiViewController *LBFVC = [[LHLeBaiViewController alloc] init];
-                   
-                   [self.navigationController pushViewController:LBFVC animated:YES];
+                   //乐百分支付
+                   dispatch_async(dispatch_get_main_queue(), ^{
+                       [self showProgressHUDWithTitle:@"提交成功, 去付款"];
+//                       [MBProgressHUD showSuccess:@"提交成功, 去付款"];
+                   });
+                   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                       [self hideProgressHUD];
+                       LHLeBaiViewController *LBFVC = [[LHLeBaiViewController alloc] init];
+                       LBFVC.orderDic = reponseObject[@"data"];
+                       [self.navigationController pushViewController:LBFVC animated:YES];
+                   });
                    
                } else if ([reponseObject[@"data"][@"pay_way"] integerValue] == 1) {
-                   
+                   //支付宝支付
                    [self payForAliPay:reponseObject[@"data"][@"data"]];
                    
                } else if ([reponseObject[@"data"][@"pay_way"] integerValue] == 2) {
+                   //微信支付
                    NSData *jsonData = [reponseObject[@"data"][@"data"] dataUsingEncoding:NSUTF8StringEncoding];
                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:nil];
                    NSLog(@"--------->>> %@", dic);
                    [self payForWXPay:dic];
                } else if ([reponseObject[@"data"][@"pay_way"] integerValue] == 3) {
+                   //银联支付
                    
                }
                
@@ -384,8 +398,18 @@ typedef NS_ENUM(NSInteger, PayType) {
 - (void)submitAction {
     NSLog(@"提交");
     kVerifyText(self.address_id.length, @"请选择地址");
-    [self requestSubmitOrderData];
-
+#warning ------------------------ 在这里判断金额 ---------------------------
+    if (self.payType != 0) {
+        [self requestSubmitOrderData];
+    } else {
+        if (self.allPrice < 600) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showError:@"分期最小金额为600元"];
+            });
+        } else {
+            [self requestSubmitOrderData];
+        }
+    }
 }
 /*
  默认的付款方式
