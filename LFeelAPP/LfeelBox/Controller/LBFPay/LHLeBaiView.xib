@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="v6y-Lg-bF7" customClass="LFLeiBaiPayView">
+        <view contentMode="scaleToFill" id="v6y-Lg-bF7" customClass="LHLeBaiView">
             <rect key="frame" x="0.0" y="0.0" width="375" height="581"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -136,16 +136,26 @@
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="PKr-gp-2xA">
                                     <rect key="frame" x="347" y="14" width="16" height="16"/>
                                 </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bnc-p1-Zde">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <connections>
+                                        <action selector="LeBaiAction:" destination="v6y-Lg-bF7" eventType="touchUpInside" id="aVA-qb-yLn"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="X0v-fw-HNH" firstAttribute="leading" secondItem="itX-RA-nlT" secondAttribute="trailing" constant="10" id="4HA-Oc-bhx"/>
                                 <constraint firstAttribute="height" constant="44" id="6bj-fr-Ppx"/>
                                 <constraint firstItem="itX-RA-nlT" firstAttribute="centerY" secondItem="ZcJ-At-MG8" secondAttribute="centerY" id="8Mg-YL-2iv"/>
+                                <constraint firstItem="X8F-gA-Erl" firstAttribute="top" secondItem="Bnc-p1-Zde" secondAttribute="bottom" id="8S0-DL-DbF"/>
                                 <constraint firstAttribute="trailing" secondItem="ycr-Ls-rqR" secondAttribute="trailing" constant="25" id="9eY-TO-5Tj"/>
                                 <constraint firstItem="PKr-gp-2xA" firstAttribute="centerY" secondItem="ZcJ-At-MG8" secondAttribute="centerY" id="DIT-v9-rUw"/>
+                                <constraint firstAttribute="trailing" secondItem="Bnc-p1-Zde" secondAttribute="trailing" id="FeZ-Mi-MV0"/>
                                 <constraint firstItem="X0v-fw-HNH" firstAttribute="centerY" secondItem="itX-RA-nlT" secondAttribute="centerY" id="PaB-3V-ThU"/>
+                                <constraint firstItem="Bnc-p1-Zde" firstAttribute="leading" secondItem="ZcJ-At-MG8" secondAttribute="leading" id="SfF-5J-Fd8"/>
                                 <constraint firstAttribute="bottom" secondItem="X8F-gA-Erl" secondAttribute="bottom" id="aOY-Nk-biE"/>
+                                <constraint firstItem="Bnc-p1-Zde" firstAttribute="top" secondItem="ZcJ-At-MG8" secondAttribute="top" id="i4G-vo-kwx"/>
                                 <constraint firstItem="ycr-Ls-rqR" firstAttribute="centerY" secondItem="ZcJ-At-MG8" secondAttribute="centerY" id="jTW-uy-RbX"/>
                                 <constraint firstItem="itX-RA-nlT" firstAttribute="leading" secondItem="ZcJ-At-MG8" secondAttribute="leading" constant="12" id="uyh-Th-iCv"/>
                                 <constraint firstItem="X8F-gA-Erl" firstAttribute="leading" secondItem="ZcJ-At-MG8" secondAttribute="leading" id="xBE-8j-xeg"/>
@@ -480,6 +490,7 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="_next:" destination="v6y-Lg-bF7" eventType="touchUpInside" id="Zn7-IY-kA5"/>
+                        <action selector="nextPageAction:" destination="v6y-Lg-bF7" eventType="touchUpInside" id="Yqa-9C-75t"/>
                     </connections>
                 </button>
             </subviews>
@@ -517,7 +528,8 @@
             <nil key="simulatedTopBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="_amount" destination="sod-yg-pPF" id="VP0-Qo-arx"/>
+                <outlet property="LeBaicount" destination="Bnc-p1-Zde" id="8vQ-bB-GLG"/>
+                <outlet property="_amount" destination="sod-yg-pPF" id="ExR-ME-5Bc"/>
                 <outlet property="_everyMoney" destination="gjm-I0-ND2" id="FI4-cc-cbs"/>
                 <outlet property="_firstMoney" destination="yJY-2Y-R4V" id="QUk-mc-AZp"/>
                 <outlet property="_handlingCharge" destination="zeg-ON-IzR" id="ztv-1E-LKv"/>
@@ -527,9 +539,9 @@
                 <outlet property="_stagesView" destination="ZcJ-At-MG8" id="2cM-XA-4nt"/>
                 <outlet property="_totalMoney" destination="0d9-I7-WI9" id="SEy-Of-ksK"/>
             </connections>
-            <point key="canvasLocation" x="-224" y="-216"/>
+            <point key="canvasLocation" x="-224.5" y="-216.5"/>
         </view>
-        <view contentMode="scaleToFill" id="7tS-9e-BC3" customClass="LFLeiBaiPayView2">
+        <view contentMode="scaleToFill" id="7tS-9e-BC3" customClass="LHLeBaiPayView">
             <rect key="frame" x="0.0" y="0.0" width="375" height="607"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -1126,7 +1138,7 @@
             </connections>
             <point key="canvasLocation" x="-225" y="465"/>
         </view>
-        <view contentMode="scaleToFill" id="1lC-BJ-eiG" customClass="LFLeiBaiPayView3">
+        <view contentMode="scaleToFill" id="1lC-BJ-eiG" customClass="LHLeBaiPayAgainView">
             <rect key="frame" x="0.0" y="0.0" width="375" height="607"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>

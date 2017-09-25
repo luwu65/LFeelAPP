@@ -14,6 +14,9 @@
 #import "Order.h"
 #import "RSADataSigner.h"
 #import "LHPayResultsViewController.h"
+#import "LHLeBaiViewController.h"
+
+
 typedef NS_ENUM(NSInteger, PayType) {
     PayWithLBFPayType = 0,
     PayWithAliPayType,
@@ -196,7 +199,9 @@ typedef NS_ENUM(NSInteger, PayType) {
                [self hideProgressHUD];
                [[NSNotificationCenter defaultCenter] postNotificationName:@"AddShoppingCartSuccess" object:nil];
                if ([reponseObject[@"data"][@"pay_way"] integerValue] == 0) {
-
+                   LHLeBaiViewController *LBFVC = [[LHLeBaiViewController alloc] init];
+                   
+                   [self.navigationController pushViewController:LBFVC animated:YES];
                    
                } else if ([reponseObject[@"data"][@"pay_way"] integerValue] == 1) {
                    

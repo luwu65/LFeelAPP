@@ -12,7 +12,7 @@
 @interface LHBaseViewController : UIViewController
 
 
-@property (nonatomic, strong) MBProgressHUD * HUD;
+@property (nonatomic, strong) MBProgressHUD *HUD;
 
 
 //显示loading动画
