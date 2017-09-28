@@ -33,9 +33,7 @@
 
 @interface LHOrderProductModel : LHBaseModel
 
-
-
-@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *brand_name;
 @property (nonatomic, copy) NSString *shopname;
 @property (nonatomic, copy) NSArray *property_value;
 @property (nonatomic, copy) NSString *product_name;
@@ -48,8 +46,9 @@
 @property (nonatomic, copy) NSString *order_no;
 @property (nonatomic, copy) NSString *status;
 @property (nonatomic, copy) NSString *shop_id;
-
 @property (nonatomic, copy) NSString *count;
+@property (nonatomic, copy) NSString *nick_name;
+
 
 
 

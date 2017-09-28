@@ -33,9 +33,16 @@
     
     [self setUI];
     [self thirdLogin];
-
+    
+    
+    //15627284287.13298368875
+    //    self.phoneTextField.text = @"15627284287";
+    self.phoneTextField.text = @"13298368875";
+    self.passwordTextField.text = @"123456";
+    [self requestLoginData];
     
 }
+
 
 #pragma mark --------------- UI ------------------
 - (void)setUI {

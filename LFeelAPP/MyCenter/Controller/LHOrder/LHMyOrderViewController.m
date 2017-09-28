@@ -47,7 +47,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:self.titleArray[self.index] backAction:^{
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }];
 }
 

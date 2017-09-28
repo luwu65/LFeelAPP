@@ -121,7 +121,7 @@
     } else {
         self.goodsImageView.image = [UIImage imageNamed:@""];
     }
-    self.titleLabel.text = orderModel.name;
+    self.titleLabel.text = orderModel.product_name;
     if (orderModel.property_value.count == 1) {
         self.sizeLabel.text = [NSString stringWithFormat:@"%@", orderModel.property_value.firstObject];
     } else {

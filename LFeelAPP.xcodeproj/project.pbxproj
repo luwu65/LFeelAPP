@@ -82,6 +82,7 @@
 		0F3F64311F414C6E00A42084 /* LHDevider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F64301F414C6E00A42084 /* LHDevider.m */; };
 		0F3F64431F41993E00A42084 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F64421F41993E00A42084 /* MBProgressHUD+MJ.m */; };
 		0F3F64451F419C6100A42084 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0F3F64441F419C6100A42084 /* MBProgressHUD.bundle */; };
+		0F508FB31F7B8AEB007D7F49 /* LHEditCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F508FB21F7B8AEB007D7F49 /* LHEditCommentViewController.m */; };
 		0F52B5F41EEF83E1007D45EC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F52B5F31EEF83E1007D45EC /* main.m */; };
 		0F52B5F71EEF83E1007D45EC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F52B5F61EEF83E1007D45EC /* AppDelegate.m */; };
 		0F52B5FD1EEF83E1007D45EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F52B5FB1EEF83E1007D45EC /* Main.storyboard */; };
@@ -415,6 +416,8 @@
 		0F3F64411F41993E00A42084 /* MBProgressHUD+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+MJ.h"; sourceTree = "<group>"; };
 		0F3F64421F41993E00A42084 /* MBProgressHUD+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+MJ.m"; sourceTree = "<group>"; };
 		0F3F64441F419C6100A42084 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
+		0F508FB11F7B8AEB007D7F49 /* LHEditCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHEditCommentViewController.h; sourceTree = "<group>"; };
+		0F508FB21F7B8AEB007D7F49 /* LHEditCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHEditCommentViewController.m; sourceTree = "<group>"; };
 		0F52B5EF1EEF83E1007D45EC /* LFeelAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LFeelAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F52B5F31EEF83E1007D45EC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0F52B5F51EEF83E1007D45EC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1247,6 +1250,8 @@
 				0F52B71A1EF91965007D45EC /* LHMyOrderViewController.m */,
 				0FB793421F4BFC6700FDDB76 /* LHOrderListTableViewController.h */,
 				0FB793431F4BFC6700FDDB76 /* LHOrderListTableViewController.m */,
+				0F508FB11F7B8AEB007D7F49 /* LHEditCommentViewController.h */,
+				0F508FB21F7B8AEB007D7F49 /* LHEditCommentViewController.m */,
 				0FB7933C1F4B19B500FDDB76 /* LHOrderHeaderFooterView.h */,
 				0FB7933D1F4B19B500FDDB76 /* LHOrderHeaderFooterView.m */,
 				0F0D27C11F6FC564006BFCB2 /* LHOrderModel.h */,
@@ -1896,6 +1901,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F508FB31F7B8AEB007D7F49 /* LHEditCommentViewController.m in Sources */,
 				0FEC8D271F38533800453700 /* LHShoppingCartModel.m in Sources */,
 				0F9045BE1F1DA18F000528A2 /* UIColor+Extension.m in Sources */,
 				0F7B79551F428F80009DAF35 /* LHPackInfoChooseView.m in Sources */,

@@ -11,11 +11,12 @@
 #import "LHUserInfoManager.h"
 #import "LHWelcomeViewController.h"
 #import <UserNotifications/UserNotifications.h>
+
 static char kScreenShotViewMove[] = "screenShotViewMove";
 
 
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
-@interface AppDelegate ()<UNUserNotificationCenterDelegate, UIApplicationDelegate>
+@interface AppDelegate ()<UNUserNotificationCenterDelegate, UIApplicationDelegate, WXApiDelegate>
 
 @property (nonatomic, copy) NSString *connect;
 
@@ -32,11 +33,18 @@ static char kScreenShotViewMove[] = "screenShotViewMove";
 
     [self setupRootViewcontroller];
     
+    //WXApi的成员函数，向微信终端程序注册第三方应用
+    [WXApi registerApp:@"wx1fbf06e00893efc4"];
+    
     [IQKeyboardManager sharedManager].enable = YES;
 //    [self ZCServiceApplication:application];
     [self setUmengShare];
     self.connect = @"Connect";
     [self KVONetworkChange];
+    
+
+    
+    
     return YES;
 }
 
@@ -52,7 +60,7 @@ static char kScreenShotViewMove[] = "screenShotViewMove";
     /*
      设置微信的appKey和appSecret
      */
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx49ee5406f2ae4192" appSecret:@"1b064bf13ad7abe92ca4833b969ee2dd" redirectURL:nil];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx1fbf06e00893efc4" appSecret:@"6467a014f90576c22d37454cf1cbca33" redirectURL:nil];
     /*
      * 移除相应平台的分享，如微信收藏
      */
@@ -83,13 +91,14 @@ static char kScreenShotViewMove[] = "screenShotViewMove";
                 NSLog(@"result = %@",resultDic);
             }];
             return YES;
-        } else {
+        } else if([url.host isEqualToString:@"pay"]) {
             
-            
+            return [WXApi handleOpenURL:url delegate:self];
         }
     }
     return result;
 }
+
 
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
@@ -103,6 +112,9 @@ static char kScreenShotViewMove[] = "screenShotViewMove";
                 NSLog(@"result = %@",resultDic);
             }];
             return YES;
+        } else if([url.host isEqualToString:@"pay"]) {
+            
+            return [WXApi handleOpenURL:url delegate:self];
         }
     }
     return result;
@@ -112,50 +124,16 @@ static char kScreenShotViewMove[] = "screenShotViewMove";
     BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
     if (!result) {
         // 其他如支付等SDK的回调
-        
         if ([url.host isEqualToString:@"safepay"]) {
             //跳转支付宝钱包进行支付，处理支付结果
             [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
                 
-                //      NSLog(@"result = %@",resultDic);
-                NSString *resultStatus = [resultDic objectForKey:@"resultStatus"];
-                NSString *memo;
-                if ([resultStatus intValue] == 9000) {
-                    
-                    [MBProgressHUD showSuccess:@"支付成功"];
-                    
-//                    [self performSelector:@selector(zhifubaoSuccessNotification) withObject:nil afterDelay:0.5];
-                    memo = @"支付成功!";
-                }else {
-                    switch ([resultStatus intValue]) {
-                        case 4000:
-                            memo = @"失败原因:订单支付失败!";
-                            [MBProgressHUD showSuccess:@"支付失败"];
-                            break;
-                        case 6001:
-                            memo = @"失败原因:用户中途取消!";
-                            [MBProgressHUD showSuccess:@"您已取消支付"];
-                            //发送通知返回到主界面
-                            [[NSNotificationCenter defaultCenter] postNotificationName:@"cancelPay" object:nil];
-                            break;
-                        case 6002:
-                            memo = @"失败原因:网络连接出错!";
-                            [MBProgressHUD showSuccess:@"网络连接出错"];
-                            break;
-                        case 8000:
-                            memo = @"正在处理中...";
-                            [MBProgressHUD showSuccess:@"正在处理中"];
-                            break;
-                        default:
-                            memo = [resultDic objectForKey:@"memo"];
-                            break;
-                    }
-                }
+                NSLog(@"result = %@",resultDic);
                 
             }];
             return YES;
         } else if([url.host isEqualToString:@"pay"]){
-//            return [WXApi handleOpenURL:url delegate:self];
+            return [WXApi handleOpenURL:url delegate:self];
         } else {
             return NO;
         }
@@ -164,6 +142,20 @@ static char kScreenShotViewMove[] = "screenShotViewMove";
     }
     return result;
 }
+#pragma mark ----------------------- WXApiDelegate
+-(void)onResp:(BaseResp *)resp {
+    if ([resp isKindOfClass:[PayResp class]]) {
+        PayResp *response=(PayResp*)resp;  // 微信终端返回给第三方的关于支付结果的结构体
+        if (response.errCode == WXSuccess) {
+            NSLog(@"支付成功");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"WX_PaySuccess" object:nil];
+        } else {
+            [MBProgressHUD showError:@"支付失败"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"PayError" object:nil];
+        }
+    }
+}
+
 
 #pragma mark ---------------------第一次登录- 返回 -------------
 

@@ -7,7 +7,7 @@
 //
 
 #import "LHNetworkManager.h"
-
+#import "LHLoginViewController.h"
 
 
 #define ContentType @"application/json"
@@ -19,8 +19,7 @@
     static LHNetworkManager *manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        manager = [[LHNetworkManager
-                    alloc]init];
+        manager = [[LHNetworkManager alloc] init];
     });
     return manager;
 }
@@ -44,7 +43,7 @@
     /**设置可接受的数据类型*/
     manager.responseSerializer.acceptableContentTypes =[NSSet setWithObjects:@"text/html",@"application/json", @"text/json", nil];
     
-    url = [NSString stringWithFormat:@"%@%@", kUrlHeader, url];
+    url = [NSString stringWithFormat:@"%@%@", kBaseUrl, url];
     if (![url hasSuffix:@"?"]) {
         url = [url stringByAppendingString:@"?"];
     }
@@ -55,7 +54,10 @@
     [manager GET:url parameters:dic progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         //将请求成功返回的结果会调回去
-        success(responseObject);
+        if (success) {
+            success(responseObject);
+        }
+        if (_judgeLoginStatus(responseObject)) return ;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         //回调请求失败的错误信息
         aError(error);
@@ -82,7 +84,7 @@
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:kToken forHTTPHeaderField:@"token"];
     
-    url = [NSString stringWithFormat:@"%@%@", kUrlHeader, url];
+    url = [NSString stringWithFormat:@"%@%@", kBaseUrl, url];
     if (![url hasSuffix:@"?"]) {
         url = [url stringByAppendingString:@"?"];
     }
@@ -93,7 +95,10 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         //请求成功结果的回调
-        success(responseObject);
+        if (success) {
+            success(responseObject);
+        }
+        if (_judgeLoginStatus(responseObject)) return ;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         //请求失败结果的回调
         aError(error);
@@ -105,7 +110,7 @@
           parameter:(NSDictionary *)dic
             success:(void(^)(id reponseObject))success
             failure:(void(^)(NSError *error))aError{
-    url = [NSString stringWithFormat:@"%@%@", kUrlHeader, url];
+    url = [NSString stringWithFormat:@"%@%@", kBaseUrl, url];
     if (![url hasSuffix:@"?"]) {
         url = [url stringByAppendingString:@"?"];
     }
@@ -126,7 +131,10 @@
         if (!error) {
             id dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
             //            NSLog(@"1111111111%@", dic);
-            success(dic);
+            if (_judgeLoginStatus(dic)) return ;
+            if (success) {
+                success(dic);
+            }
             
         } else {
             //            NSLog(@"2222222222%@", [error localizedDescription]);
@@ -152,7 +160,7 @@
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"application/json",@"image/jpeg", @"image/png", @"application/octet-stream", @"text/json",nil];
-    url = [NSString stringWithFormat:@"%@%@", kUrlHeader, url];
+    url = [NSString stringWithFormat:@"%@%@", kBaseUrl, url];
     if (![url hasSuffix:@"?"]) {
         url = [url stringByAppendingString:@"?"];
     }
@@ -195,7 +203,10 @@
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         //        KMyLog(@"------------------------%f", 1.0 *uploadProgress.completedUnitCount / uploadProgress.totalUnitCount);
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        successBlock(responseObject);
+        if (_judgeLoginStatus(responseObject)) return ;
+        if (successBlock) {
+            successBlock(responseObject);
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failureBlock(error);
     }];
@@ -213,7 +224,7 @@
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"application/json", nil];
-    url = [NSString stringWithFormat:@"%@%@", kUrlHeader, url];
+    url = [NSString stringWithFormat:@"%@%@", kBaseUrl, url];
     if (![url hasSuffix:@"?"]) {
         url = [url stringByAppendingString:@"?"];
     }
@@ -240,8 +251,11 @@
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-        successBlock(responseObject);
+        if (_judgeLoginStatus(responseObject)) return ;
+
+        if (successBlock) {
+            successBlock(responseObject);
+        }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failureBlock(error);
@@ -276,9 +290,21 @@ static void _printParameter(NSDictionary * p, NSString * urlString) {
 }
 
 
-
-
-
+static bool _judgeLoginStatus(NSDictionary *dic) {
+    if ([dic[@"errorCode"] integerValue] == 430) {
+        [LHUserInfoManager removeUseDefaultsForKey:@"token"];
+        [LHUserInfoManager cleanUserInfo];
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"登录过期, 请重新登录" message:nil preferredStyle:(UIAlertControllerStyleAlert)];
+        [alert addAction:[UIAlertAction actionWithTitle:@"去登录" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+            LHLoginViewController *loginVC = [[LHLoginViewController alloc] init];
+            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:loginVC animated:YES completion:nil];
+        }]];
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+        return YES;
+    }
+    return NO;
+}
 
 
 

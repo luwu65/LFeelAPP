@@ -770,13 +770,13 @@
                 [model configerGoodsArrayWithArray:dic[@"products"]];
                 [self.storeArray addObject:model];
             }
-        }
-        if (self.storeArray.count == 0) {
-            [self emptyShoppingCartView];
-        } else {
-            if ([self.view viewWithTag:kTag_CartEmptyView+10]) {
-                
-                [[self.view viewWithTag:kTag_CartEmptyView+10] removeFromSuperview];
+            if (self.storeArray.count == 0) {
+                [self emptyShoppingCartView];
+            } else {
+                if ([self.view viewWithTag:kTag_CartEmptyView+10]) {
+                    
+                    [[self.view viewWithTag:kTag_CartEmptyView+10] removeFromSuperview];
+                }
             }
         }
         NSLog(@"购物车里商品数量%lu", (unsigned long)self.storeArray.count);
@@ -842,14 +842,14 @@
                 [model setValuesForKeysWithDictionary:dic];
                 [self.myBoxArray addObject:model];
             }
-        }
-        if (self.myBoxArray.count == 0) {
-            [self emptyLfeelBoxView];
-        } else {
-            if ([self.view viewWithTag:kTag_BoxEmptyView+20]) {
-                [[self.view viewWithTag:kTag_BoxEmptyView+20] removeFromSuperview];
+            if (self.myBoxArray.count == 0) {
+                [self emptyLfeelBoxView];
+            } else {
+                if ([self.view viewWithTag:kTag_BoxEmptyView+20]) {
+                    [[self.view viewWithTag:kTag_BoxEmptyView+20] removeFromSuperview];
+                }
+                
             }
-        
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideProgressHUD];
@@ -999,6 +999,7 @@
     UIView *bgView = [[UIView alloc] init];
     bgView.tag = kTag_BoxEmptyView+20;
     bgView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-kNavBarHeight-tabBarHeight);
+    bgView.backgroundColor = kColor(245, 245, 245);
     [self.boxScrollView addSubview:bgView];
     
     UIImageView *emptyImageView = [[UIImageView alloc] initWithImage:kImage(@"MyBox_Empty_MyBox")];

@@ -9,6 +9,8 @@
 #import "LHLeBaiViewController.h"
 #import "LHLeBaiPayViewController.h"
 #import "LHLeBaiPayAgainViewController.h"
+#import "LHPayResultsViewController.h"
+
 @interface LHLeBaiViewController ()<LHPickViewDelegate>
 
 /**
@@ -65,7 +67,12 @@
     // Do any additional setup after loading the view from its nib.
     
     [self setHBK_NavigationBar];
-    [self configureDataWithPrice:[self.orderDic[@"total_fee"] floatValue] Count:6];
+    if (self.orderModel) {
+        [self configureDataWithPrice:[self.orderModel.shop_price floatValue] Count:6];
+    } else {
+        [self configureDataWithPrice:[self.orderDic[@"total_fee"] floatValue] Count:6];
+        
+    }
     
 }
 
@@ -73,7 +80,15 @@
 - (void)setHBK_NavigationBar {
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"信用卡分期" backAction:^{
-        [self.navigationController popViewControllerAnimated:YES];
+        [self showAlertViewWithTitle:@"确定放弃分期付款?" yesHandler:^(UIAlertAction * _Nullable action) {
+            LHPayResultsViewController *resultVC = [[LHPayResultsViewController alloc] init];
+            resultVC.resultDic = self.orderDic;
+            resultVC.payType = 0;
+            resultVC.payResultStr = @"0100";
+            [self.navigationController pushViewController:resultVC animated:YES];
+        } noHandler:^(UIAlertAction * _Nullable action) {
+            
+        }];
     }];
 }
 - (void)createLineOnePickViewWithArray:(NSArray *)array {
@@ -89,9 +104,7 @@
 #pragma mark ------------------- Action ---------------------
 //选择分期  6/12期
 - (IBAction)selectedCount:(UIButton *)sender {
-    
     [self createLineOnePickViewWithArray:@[@"6期", @"12期"]];
-    
 }
 
 /**
@@ -101,8 +114,8 @@
     LHLeBaiPayViewController *payVC = [[LHLeBaiPayViewController alloc] init];
     payVC.orderDic = self.orderDic;
     payVC.count = self.count;
+    payVC.orderModel = self.orderModel;
     [self.navigationController pushViewController:payVC animated:YES];
-    
 }
 
 - (void)configureDataWithPrice:(CGFloat)price Count:(NSInteger)count {
@@ -114,7 +127,6 @@
     self.handingChargeLabel.text = @"0.00";
     self.laterChargeLabel.text = [NSString stringWithFormat:@"%.2f", price/count];
     self.allPriceLabel.text = [NSString stringWithFormat:@"%.2f", price];
-    
 }
 
 

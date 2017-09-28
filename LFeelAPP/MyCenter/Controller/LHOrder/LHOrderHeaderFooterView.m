@@ -20,6 +20,15 @@
     return self;
 }
 
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self setUI];
+    }
+    return self;
+}
+
+
+
 - (void)setUI {
     UIView *lineView = [[UIView alloc] init];
     lineView.backgroundColor = kColor(245, 245, 245);
@@ -93,6 +102,14 @@
     return self;
 }
 
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self setUI];
+    }
+    return self;
+}
+
+
 - (void)setUI {
     self.allLabel = [[UILabel alloc] init];
     self.allLabel.textAlignment = NSTextAlignmentRight;
@@ -127,7 +144,7 @@
     
     self.rightBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [self.rightBtn addTarget:self action:@selector(handleRightBtn:) forControlEvents:(UIControlEventTouchUpInside)];
-    self.rightBtn.titleLabel.font = kFont(15);
+    self.rightBtn.titleLabel.font = kFont(kFit(13));
     [self.bottomView addSubview:self.rightBtn];
     [self.rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contentView.mas_right).offset(-10);
@@ -135,10 +152,12 @@
         make.height.mas_equalTo(kFit(25));
         make.width.mas_equalTo(kFit(80));
     }];
+    self.rightBtn.layer.cornerRadius = kFit(25)/2;
+    self.rightBtn.layer.masksToBounds = YES;
     
     self.leftBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [self.leftBtn addTarget:self action:@selector(handleLeftBtn:) forControlEvents:(UIControlEventTouchUpInside)];
-    self.leftBtn.titleLabel.font = kFont(15);
+    self.leftBtn.titleLabel.font = kFont(kFit(13));
     [self.bottomView addSubview:self.leftBtn];
     [self.leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.rightBtn.mas_left).offset(-10);
@@ -146,6 +165,8 @@
         make.height.mas_equalTo(kFit(25));
         make.width.mas_equalTo(kFit(80));
     }];
+    self.leftBtn.layer.cornerRadius = kFit(25)/2;
+    self.leftBtn.layer.masksToBounds = YES;
 }
 
 - (void)handleRightBtn:(UIButton *)rightBtn {

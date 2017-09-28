@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "LHBankCardModel.h"
 @interface LHCardCell : UITableViewCell
 
 @property (nonatomic, strong) UIImageView *bankImageView;
@@ -15,6 +15,10 @@
 @property (nonatomic, strong) UILabel *bankClassLabel;
 @property (nonatomic, strong) UILabel *bankNumLabel;
 @property (nonatomic, strong) UIButton *cancelBtn;
+
+
+@property (nonatomic, strong) LHBankCardModel *bankModel;
+
 
 
 @end

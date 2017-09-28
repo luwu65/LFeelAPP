@@ -93,7 +93,7 @@
     [self.bankClassLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.bankImageView.mas_right).offset(10);
         make.right.equalTo(self.cancelBtn.mas_left).offset(-10);
-        make.top.equalTo(_bankLabel.mas_bottom).offset(5);
+        make.top.equalTo(_bankLabel.mas_bottom).offset(15);
         make.height.mas_equalTo(25*kRatio);
     }];
     
@@ -110,6 +110,14 @@
     }];
     
 }
+
+- (void)setBankModel:(LHBankCardModel *)bankModel {
+    self.bankNumLabel.text = bankModel.bank_no;
+    self.bankImageView.backgroundColor = kRandomColor;
+    self.bankLabel.text = @"中国***银行";
+}
+
+
 
 
 @end

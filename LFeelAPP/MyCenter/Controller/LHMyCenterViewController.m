@@ -127,7 +127,7 @@ static NSString *myCenterCell = @"myCenterCell";
     footerView.backgroundColor = kColor(245, 245, 245);
     UIButton *callBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [callBtn setTitle:@"客服热线: 020-37889773" forState:(UIControlStateNormal)];
-    callBtn.frame = CGRectMake(80, 20, kScreenWidth-160, 40);
+    callBtn.frame = CGRectMake(0, 20, kScreenWidth, 40);
     [callBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
     callBtn.titleLabel.font = kFont(14);
     [callBtn addTarget:self action:@selector(callBtnAction) forControlEvents:(UIControlEventTouchUpInside)];

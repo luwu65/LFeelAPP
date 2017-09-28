@@ -7,7 +7,7 @@
 //
 
 #import "LHPayResultsViewController.h"
-
+#import "LHMyOrderViewController.h"
 @interface LHPayResultsViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *resultImageView;
 @property (weak, nonatomic) IBOutlet UILabel *resultsLabel;
@@ -44,13 +44,7 @@
             self.resultImageView.image = kImage(@"MyBox_Pay_Fail");
             self.resultsLabel.text = @"支付失败! 请重新支付!";
             [self.leftBtn setTitle:@"重新支付" forState:(UIControlStateNormal)];
-            [self.leftBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.view).offset(20);
-                make.right.equalTo(self.view).offset(-20);
-                make.bottom.equalTo(self.view).offset(-20);
-                make.height.mas_equalTo(50);
-            }];
-            [self.rightBtn removeFromSuperview];
+       
         }
     } else if (self.payType == 1) {
         if ([self.payResultStr isEqualToString:@"9000"]) {
@@ -61,18 +55,19 @@
             self.resultImageView.image = kImage(@"MyBox_Pay_Fail");
             self.resultsLabel.text = @"支付失败! 请重新支付!";
             [self.leftBtn setTitle:@"重新支付" forState:(UIControlStateNormal)];
-            [self.leftBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.view).offset(20);
-                make.right.equalTo(self.view).offset(-20);
-                make.bottom.equalTo(self.view).offset(-20);
-                make.height.mas_equalTo(50);
-            }];
-            [self.rightBtn removeFromSuperview];
+
         }
     } else if (self.payType == 2) {
-        
-        
-        
+        if ([self.payResultStr isEqualToString:@"Success"]) {
+            self.resultImageView.image = kImage(@"MyBox_Pay_Success");
+            self.resultsLabel.text = @"支付成功! 您的订单会尽快进行处理!";
+            [self.leftBtn setTitle:@"继续购物" forState:(UIControlStateNormal)];
+        } else {
+            self.resultImageView.image = kImage(@"MyBox_Pay_Fail");
+            self.resultsLabel.text = @"支付失败! 请重新支付!";
+            [self.leftBtn setTitle:@"重新支付" forState:(UIControlStateNormal)];
+            
+        }
     } else if (self.payType == 3) {
         
         
@@ -91,9 +86,10 @@
 }
 //查看订单
 - (IBAction)rightBtn:(UIButton *)sender {
-    
-    
-    
+    NSLog(@"查看订单");
+    LHMyOrderViewController *orderVC = [[LHMyOrderViewController alloc] init];
+    orderVC.index = 0;
+    [self.navigationController pushViewController:orderVC animated:YES];
 }
 
 

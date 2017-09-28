@@ -293,8 +293,10 @@
             [self.newsGoodTableView reloadData];
             //之前这里有做延迟操作, 防止user_id读取太慢
             [self requestRecommendGoodsListData];
-            //默认选中第一行
-            [self.newsGoodTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
+            if (self.categoryListArray.count > 0) {
+                //默认选中第一行
+                [self.newsGoodTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
+            }
         });
     } failure:^(NSError *error) {
         

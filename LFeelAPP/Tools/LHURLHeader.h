@@ -11,9 +11,9 @@
 
 
 #pragma mark  -----------------------  URL  -------------------------
-//请求头
-//#define kUrlHeader            @"http://192.168.0.132:8081/lfeel/" //本地测试环境
-#define kUrlHeader            @"http://120.76.215.11:8021/lfeel/" //服务器环境
+
+#define kBaseUrl            @"http://192.168.0.110:8081/lfeel/" //本地测试环境
+//#define kBaseUrl            @"http://120.76.215.11:8021/lfeel/" //服务器环境
 
 //token
 #define kToken                     [LHUserInfoManager getUseDefaultsOjbectForKey:@"token"]
@@ -51,31 +51,31 @@
 //type 0 --> 购买的商品; 1 --> 租赁的商品
 
 //商品列表
-#define kNewGoodsListUrl           @"product/getList"
+#define kNewGoodsListUrl            @"product/getList"
 
 //商品类别 左边TableView
-#define kCategoryListUrl           @"category/getchildren"
+#define kCategoryListUrl            @"category/getchildren"
 
 //某一类别下的子标题  比如男装下的 上衣 裤子
-#define kCategoryDetailListUrl     @"category/getchildren"
+#define kCategoryDetailListUrl      @"category/getchildren"
 
 //添加收藏
-#define kCollectionGoodsUrl        @"collection/add"
+#define kCollectionGoodsUrl         @"collection/add"
 
 //删除收藏
-#define kUncollectionGoodsUrl      @"collection/delete"
+#define kUncollectionGoodsUrl       @"collection/delete"
 
 //收藏列表
-#define kCollectionListUrl         @"collection/getList"
+#define kCollectionListUrl          @"collection/getList"
 
 //添加地址
-#define kAddAddressUrl             @"addr/add"
+#define kAddAddressUrl              @"addr/add"
 
 //修改地址
-#define kAddressUpdateUrl          @"addr/update"
+#define kAddressUpdateUrl           @"addr/update"
 
 //删除地址
-#define kAddreessDeleteUrl         @"addr/delete"
+#define kAddreessDeleteUrl          @"addr/delete"
 
 //地址列表
 #define kAddressListUrl               @"addr/getList"
@@ -129,15 +129,17 @@
 #define kLebaiPayUrl                  @"order/pay"
 
 //银行卡列表
-#define kBankListUrl                   @"bank/getList"
+#define kBankListUrl                  @"bank/getList"
 
 
+//确认收货
+#define kComfirmGoodsUrl              @"order/update"
 
+//评论列表
+#define kCommentListUrl               @"comment/getList"
 
-
-
-
-
+//添加银行卡
+#define kAddBankCardUrl               @"bank/add"
 
 
 

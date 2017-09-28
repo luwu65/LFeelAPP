@@ -27,8 +27,11 @@
     
     
     [self setHBK_NavigationBar];
+    
+    [self requestCommentList];
 }
 
+#pragma mark ----------------- UI -------------------------
 - (void)setHBK_NavigationBar {
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"全部评论" backAction:^{
@@ -37,9 +40,8 @@
 }
 
 
-
 - (void)setUI {
-    self.allTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64) style:(UITableViewStylePlain)];
+    self.allTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64) style:(UITableViewStylePlain)];
     self.allTableView.delegate = self;
     self.allTableView.dataSource = self;
     [self.view addSubview:self.allTableView];
@@ -59,6 +61,21 @@
     }
     return cell;
 }
+
+#pragma mark ------------------- 网络请求 ---------------------------------
+- (void)requestCommentList {
+    
+    [LHNetworkManager requestForGetWithUrl:kCommentListUrl parameter:@{@"user_id": kUser_id, @"product_id": self.product_id} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        
+        
+        
+    } failure:^(NSError *error) {
+       
+        
+    }];
+}
+
 
 
 - (void)didReceiveMemoryWarning {

@@ -7,6 +7,9 @@
 //
 
 #import "LHBaseViewController.h"
+#import "LHOrderModel.h"
+
+
 
 @interface LHLeBaiPayViewController : LHBaseViewController
 
@@ -32,10 +35,8 @@
 
 
 
-
-
-
-
+//我的订单里发起支付, 就传订单model
+@property (nonatomic, strong) LHOrderModel *orderModel;
 
 
 

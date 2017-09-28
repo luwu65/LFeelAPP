@@ -10,6 +10,9 @@
 #import "LHAccountCenterCell.h"
 #import "LHOrderHeaderFooterView.h"
 #import "LHOrderModel.h"
+#import "LHPayWayView.h"
+#import "LHLeBaiViewController.h"
+#import "LHEditCommentViewController.h"
 @interface LHOrderListTableViewController ()
 @property (nonatomic, strong) NSMutableArray *storeArray;
 
@@ -17,6 +20,7 @@
 
 @property (nonatomic, strong) UIView *emptyView;
 
+@property (nonatomic, assign) NSInteger page;
 
 @end
 
@@ -32,42 +36,40 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tableView.backgroundColor = kColor(245, 245, 245);
+    [self.tableView registerClass:[LHAccountGoodsCell class] forCellReuseIdentifier:@"LHAccountGoodsCell"];
     
-    UITableView * tableView = self.tableView;
-    tableView.backgroundColor = [UIColor clearColor];
-    tableView.rowHeight = Fit(114);
-    
-    [tableView registerClass:[LHAccountGoodsCell class] forCellReuseIdentifier:@"LHAccountGoodsCell"];
-    
-    [self requestMyOrderListWithType:self.type];
+    [self requestMyOrderListWithType:self.type page:1];
+    self.page = 1;
     
     @weakify(self);
-    tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        @strongify(self);
-        [self requestMyOrderListWithType:self.type];
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        NSLog(@"%ld", self.page);
+        [self requestMyOrderListWithType:self.type page:self.page];
     }];
     
-    tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         @strongify(self);
-        [self requestMyOrderListWithType:self.type];
-    
+        [self.storeArray removeAllObjects];
+        [self requestMyOrderListWithType:self.type page:1];
     }];
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-///刷新
-- (void)reloadData{
-    self.needRefresh = NO;
-    [self.tableView.mj_header beginRefreshing];
-}
 
 
-#pragma mark - Table view data source
+
+
+#pragma mark ------------------------------ Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (self.storeArray.count < 5) {
+        self.tableView.mj_footer.hidden = YES;
+    } else {
+        self.tableView.mj_footer.hidden = NO;
+    }
     return self.storeArray.count;
 }
 
@@ -101,6 +103,7 @@
     } else if ([model.status integerValue] == 1) {
         headerView.statusLabel.text = @"待发货";
         
+        
     } else if ([model.status integerValue] == 2) {
         headerView.statusLabel.text = @"待收货";
 
@@ -110,15 +113,15 @@
         
     }
     
-    
     return headerView;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    LHOrderFooterView *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"LHOrderFooterView"];
-    if (!footerView) {
-        footerView = [[LHOrderFooterView alloc] initWithReuseIdentifier:@"LHOrderFooterView"];
-    }
+//    LHOrderFooterView *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"LHOrderFooterView"];
+//    if (!footerView) {
+//        footerView = [[LHOrderFooterView alloc] initWithReuseIdentifier:@"LHOrderFooterView"];
+//    }
+    LHOrderFooterView *footerView = [[LHOrderFooterView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 80)];
     LHOrderModel *model = self.storeArray[section];
     footerView.allLabel.text = [NSString stringWithFormat:@"总共%@件商品, 共%@元(运费到付)", model.shop_count, model.shop_price];
     
@@ -131,8 +134,7 @@
         [footerView.rightBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
         footerView.rightBtn.backgroundColor = [UIColor redColor];
     } else if ([model.status integerValue] == 1) {//待发货
-        [footerView.bottomView removeFromSuperview];
-
+        footerView.bottomView.hidden = YES;
     } else if ([model.status integerValue] == 2) {//待收货
         [footerView.leftBtn setTitle:@"查看物流" forState:(UIControlStateNormal)];
         [footerView.leftBtn setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
@@ -142,6 +144,14 @@
         [footerView.rightBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
         footerView.rightBtn.backgroundColor = [UIColor redColor];
     } else if ([model.status integerValue] == 3) {//已收货\待收货
+        [footerView.leftBtn setTitle:@"删除订单" forState:(UIControlStateNormal)];
+        [footerView.leftBtn setTitleColor:[UIColor lightGrayColor] forState:(UIControlStateNormal)];
+        footerView.leftBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        footerView.leftBtn.layer.borderWidth = 1;
+        [footerView.rightBtn setTitle:@"评价" forState:(UIControlStateNormal)];
+        [footerView.rightBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+        footerView.rightBtn.backgroundColor = [UIColor redColor];
+        
         
     } else if ([model.status integerValue] == 4) {
         
@@ -153,19 +163,37 @@
 
     footerView.ClickBtnBlock = ^(UIButton *sender) {
         NSLog(@"%@--------%ld", sender.titleLabel.text, section);
-        if ([sender.titleLabel.text isEqualToString:@"去付款"]) {
-        
-            
+        if ([sender.titleLabel.text isEqualToString:@"去支付"]) {
+            [self setPayViewWithLabel:nil section:section];
             
         } else if ([sender.titleLabel.text isEqualToString:@"取消订单"]) {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定要取消订单?" message:nil preferredStyle:(UIAlertControllerStyleAlert)];
-            [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+            [self showAlertViewWithTitle:@"确定要取消订单?" yes:@"确定" no:@"取消" yesHandler:^(UIAlertAction *action) {
                 
-            }]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+            } noHandler:^(UIAlertAction *action) {
                 
-            }]];
-            [self presentViewController:alert animated:YES completion:nil];
+            }];
+        } else if ([sender.titleLabel.text isEqualToString:@"查看物流"]) {
+            
+            
+            
+            
+        } else if ([sender.titleLabel.text isEqualToString:@"确认收货"]) {
+            [self showAlertViewWithTitle:@"确认您已收到货物?" yes:@"收到了" no:@"没有" yesHandler:^(UIAlertAction *action) {
+                [self requestComfirmReceiveGoodsWithModel:self.storeArray[section]];
+            } noHandler:^(UIAlertAction *action) {
+                
+            }];
+            
+        } else if ([sender.titleLabel.text isEqualToString:@"删除订单"]) {
+            [self showAlertViewWithTitle:@"确认删除订单?" yes:@"确认" no:@"取消" yesHandler:^(UIAlertAction *action) {
+                [self requestDeleteOrderWithModel:self.storeArray[section]];
+            } noHandler:^(UIAlertAction *action) {
+                
+            }];
+        } else if ([sender.titleLabel.text isEqualToString:@"评价"]) {
+            LHEditCommentViewController *editCVC = [[LHEditCommentViewController alloc] init];
+            
+            [self.navigationController pushViewController:editCVC animated:YES];
         }
         
     };
@@ -200,14 +228,16 @@
 
 #pragma mark ------------------ 网络请求 -------------------
 //订单状态 0待付款 1待发货 2待收货 3已收货（完成） 4申请退换 5退换中 6退换完成
-- (void)requestMyOrderListWithType:(NSInteger)type {
+- (void)requestMyOrderListWithType:(NSInteger)type page:(NSInteger)page{
     [self showProgressHUDWithTitle:@"加载中..."];
     NSMutableDictionary *dic = [NSMutableDictionary new];
     [dic setObject:kUser_id forKey:@"user_id"];
     if (type != 0) {
         [dic setObject:@(type-1) forKey:@"status"];
     }
-    NSLog(@"~~~>>>> ---%ld",  (long)type);
+    [dic setObject:@(page) forKey:@"page"];
+    [dic setObject:@0 forKey:@"level"];
+//    [self.tableView.mj_footer resetNoMoreData];
     [LHNetworkManager requestForGetWithUrl:kOrderListUrl parameter:dic success:^(id reponseObject) {
         NSLog(@"----%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
@@ -218,15 +248,21 @@
                 [self.storeArray addObject:model];
             }
             
+            
             if (self.storeArray.count == 0) {
                 [self emptyView];
             } else {
                 [_emptyView removeFromSuperview];
             }
             
+            self.page = [reponseObject[@"pageInfo"][@"page"] integerValue] + 1;
+            
+            if (page == [reponseObject[@"pageInfo"][@"total_page"] integerValue]) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView.mj_header endRefreshing];
-                [self.tableView.mj_footer endRefreshing];
                 [self hideProgressHUD];
                 [self.tableView reloadData];
             });
@@ -244,18 +280,104 @@
 }
 
 
+/**
+ 重新付款提交订单
+ */
+- (void)requestSubmitOrderData{
+    
+    
+    
+}
+
+/**
+ 确认收货
+ */
+- (void)requestComfirmReceiveGoodsWithModel:(LHOrderModel *)model {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self showProgressHUD];
+    });
+    
+    [LHNetworkManager PostWithUrl:kComfirmGoodsUrl parameter:@{@"order_no": model.order_no, @"status": @3} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showSuccess:@"确认收货!"];
+            });
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView.mj_header beginRefreshing];
+            [self hideProgressHUD];
+        });
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+/**
+ 删除订单
+ */
+- (void)requestDeleteOrderWithModel:(LHOrderModel *)model {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self showProgressHUD];
+    });
+    [LHNetworkManager PostWithUrl:kComfirmGoodsUrl parameter:@{@"order_no": model.order_no, @"deleteStatus": @1} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showSuccess:@"删除成功!"];
+            });
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView.mj_header beginRefreshing];
+            [self hideProgressHUD];
+        });
+    } failure:^(NSError *error) {
+        
+    }];
+    
+    
+}
+
 #pragma mark ------------- Action ---------------------
-//下拉刷新
-- (void)headerReferenceData {
-    [self requestMyOrderListWithType:self.type];
+//选择付款方式
+- (void)setPayViewWithLabel:(UILabel *)label section:(NSInteger)section {
+    LHOrderModel *orderModel = self.storeArray[section];
     
+    LHPayWayView *payView = [[LHPayWayView alloc] initWithIndex:-1];
+    @weakify(self);
+    [payView clickPayWayBlock:^(NSInteger index) {
+        @strongify(self);
+        NSLog(@"%ld", (long)index);
+        if (0 == index) {
+            if ([orderModel.shop_price floatValue] < 600) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showError:@"分期最小金额为600元"];
+                });
+            } else {
+                LHLeBaiViewController *lebaiVC = [[LHLeBaiViewController alloc] init];
+                lebaiVC.orderModel = orderModel;
+                [self.navigationController pushViewController:lebaiVC animated:YES];
+            }
+        } else if (1 == index) {
+            
+            
+        } else if (2 == index) {
+            
+            
+        } else if (3 == index) {
+            
+        }
+    }];
+    [payView show];
 }
-//上拉加载
-- (void)footerReferenceData {
-    
-    [self requestMyOrderListWithType:self.type];
-    
+
+
+///刷新
+- (void)reloadData{
+    self.needRefresh = NO;
+    [self.tableView.mj_header beginRefreshing];
 }
+
 #pragma mark ------------------ 没有数据的时候 ---------------
 - (UIView *)emptyView {
     if (!_emptyView) {
@@ -318,8 +440,19 @@
 }
 
 
-
-
+#pragma mark ------------------ 弹框 ---------------------
+- (void)showAlertViewWithTitle:(NSString *)title yes:(NSString *)yes no:(NSString *)no yesHandler:(void (^ __nullable)(UIAlertAction *action))yesHandler noHandler:(void (^ __nullable)(UIAlertAction *action))noHandler {
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"提示" message:title preferredStyle:(UIAlertControllerStyleAlert)];
+    if (yes) {
+        UIAlertAction *sureAction = [UIAlertAction actionWithTitle:yes style:(UIAlertActionStyleDefault) handler:yesHandler];
+        [alertC addAction:sureAction];
+    }
+    if (no) {
+        UIAlertAction *noAction = [UIAlertAction actionWithTitle:no style:(UIAlertActionStyleCancel) handler:noHandler];
+        [alertC addAction:noAction];
+    }
+    [self presentViewController:alertC animated:YES completion:nil];
+}
 
 
 

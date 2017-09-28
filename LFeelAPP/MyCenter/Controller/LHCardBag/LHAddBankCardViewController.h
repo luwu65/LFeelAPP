@@ -10,4 +10,30 @@
 
 @interface LHAddBankCardViewController : LHBaseViewController
 
+
+
+@property (nonatomic, copy) void (^AddBankCard)();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @end

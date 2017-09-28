@@ -13,7 +13,7 @@
 #import "LHPayResultsViewController.h"
 #import "LHPackSuccessViewController.h"
 #import "LHMyBoxViewController.h"
-
+#import "LHLeBaiViewController.h"
 
 static CGFloat kDistance = 80.0f;
 
@@ -97,7 +97,7 @@ static CGFloat kDistance = 80.0f;
     if (self.viewControllers.count > 0) {
         viewController.hidesBottomBarWhenPushed = YES;
     }
-    if ([viewController isKindOfClass:[LHUserInfoViewController class]] || [viewController isKindOfClass:[LHPayResultsViewController class]] || [viewController isKindOfClass:[LHPackSuccessViewController class]] || [viewController isKindOfClass:[LHMyBoxViewController class]]) {
+    if ([viewController isKindOfClass:[LHUserInfoViewController class]] || [viewController isKindOfClass:[LHPayResultsViewController class]] || [viewController isKindOfClass:[LHPackSuccessViewController class]] || [viewController isKindOfClass:[LHMyBoxViewController class]] || [viewController isKindOfClass:[LHLeBaiViewController class]]) {
         self.gestureRecognizerEnabled = NO;
         
     } else {

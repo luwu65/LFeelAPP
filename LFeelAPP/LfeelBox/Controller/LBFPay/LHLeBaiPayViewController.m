@@ -88,18 +88,42 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self showProgressHUDWithTitle:@"付款中"];
     });
-    NSDictionary *dic = @{@"name": self.nameTF.text,
-                          @"idCard": self.IDCardTF.text,
-                          @"accNo":self.bankCardTF.text,
-                          @"validDate": [NSString stringWithFormat:@"%@%@", self.mouthTF.text, self.yearTF.text],
-                          @"cvn": self.CVN2TF.text,
-                          @"phone": self.phoneTF.text,
-                          @"smsCode": self.smsCodeTF.text,
-                          @"txnTerms": @(self.count),
-                          @"txnAmt": self.orderDic[@"total_fee"],
-                          @"pay_way": self.orderDic[@"pay_way"],
-                          @"order_no":self.orderDic[@"order_no"],
-                          @"user_id": kUser_id};
+    NSMutableDictionary *dic = [NSMutableDictionary new];
+//  @{@"name": self.nameTF.text,
+//                          @"idCard": self.IDCardTF.text,
+//                          @"accNo":self.bankCardTF.text,
+//                          @"validDate": [NSString stringWithFormat:@"%@%@", self.mouthTF.text, self.yearTF.text],
+//                          @"cvn": self.CVN2TF.text,
+//                          @"phone": self.phoneTF.text,
+//                          @"smsCode": self.smsCodeTF.text,
+//                          @"txnTerms": @(self.count),
+//                          @"txnAmt": self.orderDic[@"total_fee"],
+//                          @"pay_way": self.orderDic[@"pay_way"],
+//                          @"order_no":self.orderDic[@"order_no"],
+//                          @"user_id": kUser_id};
+    [dic setObject:self.nameTF.text forKey:@"name"];
+    [dic setObject:self.IDCardTF.text forKey:@"idCard"];
+    [dic setObject:self.bankCardTF.text forKey:@"accNo"];
+    [dic setObject:[NSString stringWithFormat:@"%@%@", self.mouthTF.text, self.yearTF.text] forKey:@"validDate"];
+    [dic setObject:self.CVN2TF.text forKey:@"cvn"];
+    [dic setObject:self.phoneTF.text forKey:@"phone"];
+    [dic setObject:self.smsCodeTF.text forKey:@"smsCode"];
+    [dic setObject:@(self.count) forKey:@"txnTerms"];
+
+    [dic setObject:kUser_id forKey:@"user_id"];
+
+    
+    if (self.orderModel) {
+        [dic setObject:self.orderModel.order_no forKey:@"order_no"];
+        [dic setObject:self.orderModel.shop_price forKey:@"txnAmt"];
+        [dic setObject:@0 forKey:@"pay_way"];
+
+    } else {
+        [dic setObject:self.orderDic[@"total_fee"] forKey:@"txnAmt"];
+        [dic setObject:self.orderDic[@"pay_way"] forKey:@"pay_way"];
+        [dic setObject:self.orderDic[@"order_no"] forKey:@"order_no"];
+
+    }
     [LHNetworkManager PostWithUrl:kLebaiPayUrl parameter:dic success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         LHPayResultsViewController *payResultVC = [[LHPayResultsViewController alloc] init];

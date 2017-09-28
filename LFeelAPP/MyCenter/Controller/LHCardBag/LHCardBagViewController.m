@@ -10,6 +10,7 @@
 #import "LHCardCell.h"
 #import "LHCardHeaderView.h"
 #import "LHMakeBillViewController.h"
+#import "LHAddBankCardViewController.h"
 @interface LHCardBagViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *cardTableView;
@@ -39,20 +40,27 @@
     self.isSecond = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [self requestBankListData];
     
     [self setupUI];
     [self setHBK_NavigationBar];
     
+    [self requestBankListData];
     
 }
 #pragma mark -------------------------- 网络请求 --------------------------
 
 - (void)requestBankListData {
+    [self.bankCardArray removeAllObjects];
     [LHNetworkManager requestForGetWithUrl:kBankListUrl parameter:@{@"user_id": kUser_id} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
-        
-        
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            for (NSDictionary *dic in reponseObject[@"data"]) {
+                LHBankCardModel *model = [[LHBankCardModel alloc] init];
+                [model setValuesForKeysWithDictionary:dic];
+                [self.bankCardArray addObject:model];
+            }
+            [self.cardTableView reloadSections:[[NSIndexSet alloc]initWithIndex:1] withRowAnimation:(UITableViewRowAnimationAutomatic)];
+        }
     } failure:^(NSError *error) {
         
     }];
@@ -90,7 +98,7 @@
     } else if (section == 1) {
         if (self.isFirst) {
             //这里返回信用卡的行数, +1 是加上添加信用卡那一行
-            return 2;
+            return self.bankCardArray.count + 1;
         } else {
             return 0;
         }
@@ -115,12 +123,12 @@
     static NSString *billCell = @"LHBillCardCell";
     static NSString *spaceCell = @"spaceCell";
     if (indexPath.section == 1) {
-        if (indexPath.row == 0) {
+        if (indexPath.row < self.bankCardArray.count) {
             LHCardCell *cell = [tableView dequeueReusableCellWithIdentifier:cardCell];
             if (!cell) {
                 cell = [[LHCardCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cardCell];
             }
-            
+            cell.bankModel = self.bankCardArray[indexPath.row];
             
             return cell;
         } else {
@@ -253,6 +261,11 @@
     if (indexPath.section == 1) {
         if (indexPath.row == self.bankCardArray.count) {
             NSLog(@"添加新卡");
+            LHAddBankCardViewController *addCardVC = [[LHAddBankCardViewController alloc] init];
+            addCardVC.AddBankCard = ^{
+                [self requestBankListData];
+            };
+            [self.navigationController pushViewController:addCardVC animated:YES];
         }
     }
     

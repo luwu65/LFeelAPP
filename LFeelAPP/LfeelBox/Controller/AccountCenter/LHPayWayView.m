@@ -31,7 +31,9 @@
 - (instancetype)initWithIndex:(NSInteger)index {
     if (self = [super init]) {
 //        self.size = CGSizeMake(kScreenWidth, kFit(kRowHeight)*4);
-        self.index = index;
+        if (index) {
+            self.index = index;
+        }
     }
     return self;
 }
@@ -53,8 +55,12 @@
         cell.nameLabel.text = @[@"信用卡分期", @"支付宝", @"微信支付", @"银联支付"][indexPath.row];
         cell.payImageView.image = [UIImage imageNamed:@[@"Pay_LeFenQi", @"Pay_AliPay", @"Pay_WeChatPay", @"Pay_UnionPay"][indexPath.row]];
     }
-    if (self.index == indexPath.row) {
-        cell.clickImageView.image = kImage(@"MyBox_clicked");
+    if (self.index) {
+        if (self.index == indexPath.row) {
+            cell.clickImageView.image = kImage(@"MyBox_clicked");
+        } else {
+            cell.clickImageView.image = kImage(@"MyBox_click_default");
+        }
     } else {
         cell.clickImageView.image = kImage(@"MyBox_click_default");
     }

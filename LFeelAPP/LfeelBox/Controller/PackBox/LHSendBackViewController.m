@@ -81,17 +81,15 @@
 - (IBAction)submitAction:(UIButton *)sender {
     kVerifyText(self.nameTF.text.length, @"请输入姓名");
     kVerifyText(self.phoneTF.text, @"请输入正确的电话号码");
+    kVerifyText(self.expressNumTF.text.length, @"请输入快递单号");
     if ([self.numberBtn.titleLabel.text isEqualToString:@"数量"]) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD showError:@"请选择寄回数量"];
         });
     } else {
-        
         [self requestPackingBoxData];
-        
     }
-
-}
+}   
 
 #pragma mrak  ------------------- 网络请求 ------------------------
 

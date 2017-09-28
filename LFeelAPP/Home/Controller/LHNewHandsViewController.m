@@ -66,38 +66,36 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (_index == 0) {
-        self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"新手指导" backAction:^{
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
-        [self setUIWithNewHands];
-        
-    } else if (_index == 1) {
-        self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"清洗报告" backAction:^{
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
-        [self setUIWithClean];
-        
-    } else if (_index == 2){
-        self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"会员权利" backAction:^{
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
-        [self setUIWithNewHandsUnderstand];
-        
-    } else if (_index == 3) {
-        self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"租用流程" backAction:^{
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
-        [self setUIWithRentStep];
-        
-    }
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.view.backgroundColor = [UIColor whiteColor];
     
+    if (_index == 0) {
+        [self setUIWithNewHands];
+        self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"新手指导" backAction:^{
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+    } else if (_index == 1) {
+        [self setUIWithClean];
+        self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"清洗报告" backAction:^{
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+    } else if (_index == 2){
+        [self setUIWithNewHandsUnderstand];
+        self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"会员权利" backAction:^{
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+    } else if (_index == 3) {
+        [self setUIWithRentStep];
+        self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"租用流程" backAction:^{
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+    }
 }
 
 

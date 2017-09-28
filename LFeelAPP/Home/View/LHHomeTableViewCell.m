@@ -129,7 +129,7 @@
         sLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         sLayout.itemSize = CGSizeMake(kScreenWidth*3/5, kScreenWidth*4/5);
         self.specialCollectionView = [[UICollectionView alloc] initWithFrame:CollectionRect collectionViewLayout:sLayout];
-        self.specialCollectionView.backgroundColor = [UIColor yellowColor];
+        self.specialCollectionView.backgroundColor = [UIColor whiteColor];
 
         [self addSubview:self.specialCollectionView];
         [self.specialCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {

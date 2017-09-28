@@ -12,7 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LHAddBankCardViewController">
             <connections>
                 <outlet property="IDCardTF" destination="tvI-EH-9qA" id="8ld-rI-d1t"/>
-                <outlet property="bankCard" destination="Mcu-FG-a3F" id="sZE-Qs-Fhz"/>
+                <outlet property="bankCardTF" destination="Mcu-FG-a3F" id="k4Q-db-bkX"/>
                 <outlet property="captchaTF" destination="RRK-St-SrT" id="c9c-qo-i7R"/>
                 <outlet property="captchalBtn" destination="nNE-8o-XMJ" id="ThG-Ou-CiF"/>
                 <outlet property="nameTF" destination="kmA-uD-FY3" id="bhF-bz-scQ"/>

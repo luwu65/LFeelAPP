@@ -40,7 +40,7 @@
     } else {
         [self requestGoodsListDataWithModel:self.listModel];
     }
-    [self LH_Refresh];
+   
 }
 
 
@@ -82,7 +82,7 @@
     self.goodsCollectionView.delegate = self;
     self.goodsCollectionView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.goodsCollectionView];
-
+    [self LH_Refresh];
     [self.goodsCollectionView registerNib:[UINib nibWithNibName:@"LHNewGoodsCollectionCell" bundle:nil] forCellWithReuseIdentifier:@"LHNewGoodsCollectionCell"];
 }
 - (void)setHBK_NavigationBar {
@@ -130,16 +130,11 @@
     self.priceBtnClickIndex++;
     if (self.priceBtnClickIndex == 1) {//从大到小排序
         [sender setImage:[UIImage imageNamed:@"NewGoods_price_up"] forState:(UIControlStateNormal)];
-        
-        
     } else if (self.priceBtnClickIndex == 2) {//从小到大排序
         [sender setImage:[UIImage imageNamed:@"NewGoods_price_down"] forState:(UIControlStateNormal)];
-        
     } else if (_priceBtnClickIndex == 3) {//默认
         self.priceBtnClickIndex = 0;
         [sender setImage:[UIImage imageNamed:@"NewGoods_price_default"] forState:(UIControlStateNormal)];
-
-        
     }
 }
 
@@ -153,8 +148,13 @@
             [self requestGoodsListDataWithModel:self.listModel];
         }
     }];
-    self.goodsCollectionView.mj_footer = [MJRefreshAutoFooter footerWithRefreshingBlock:^{
+    self.goodsCollectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         NSLog(@"加载");
+        if (self.isRecommend) {
+            [self requestGoodsListDataWithModel:nil];
+        } else {
+            [self requestGoodsListDataWithModel:self.listModel];
+        }
     }];
 }
 
@@ -206,6 +206,7 @@
  请求推荐的商品列表
  */
 - (void)requestGoodsListDataWithModel:(LHCategoryDetailListModel *)model {
+    [self showProgressHUD];
     //recommended 是否推荐 0 --> 不推荐; 1 --> 推荐
     //type 0 --> 购买的商品; 1 --> 租赁的商品 , @"user_id": kUser_id
     NSMutableDictionary *dic = [NSMutableDictionary new];
@@ -224,8 +225,13 @@
                 [model setValuesForKeysWithDictionary:dic];
                 [self.goodsArray addObject:model];
             }
+        
+        
         }
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self hideProgressHUD];
+            [self.goodsCollectionView.mj_header endRefreshing];
+            [self.goodsCollectionView.mj_footer endRefreshing];
             [self.goodsCollectionView reloadData];
         });
     } failure:^(NSError *error) {

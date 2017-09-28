@@ -62,6 +62,11 @@ typedef NS_ENUM(NSInteger, PayType) {
     return _shoppingCartIDArray;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"WX_PaySuccess" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PayError" object:nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -71,7 +76,7 @@ typedef NS_ENUM(NSInteger, PayType) {
     [self setHBK_NavigationBar];
     [self setBottomView];
     [self setDefualtPayType];
-    
+    [self addNotification];
     [self requestAddressDefaultListData];
 }
 
@@ -200,7 +205,7 @@ typedef NS_ENUM(NSInteger, PayType) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
            dispatch_async(dispatch_get_main_queue(), ^{
-               
+               [self hideProgressHUD];
                [[NSNotificationCenter defaultCenter] postNotificationName:@"AddShoppingCartSuccess" object:nil];
                if ([reponseObject[@"data"][@"pay_way"] integerValue] == 0) {
                    //乐百分支付
@@ -220,10 +225,11 @@ typedef NS_ENUM(NSInteger, PayType) {
                    [self payForAliPay:reponseObject[@"data"][@"data"]];
                    
                } else if ([reponseObject[@"data"][@"pay_way"] integerValue] == 2) {
+                   
                    //微信支付
                    NSData *jsonData = [reponseObject[@"data"][@"data"] dataUsingEncoding:NSUTF8StringEncoding];
                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:nil];
-                   NSLog(@"--------->>> %@", dic);
+                   
                    [self payForWXPay:dic];
                } else if ([reponseObject[@"data"][@"pay_way"] integerValue] == 3) {
                    //银联支付
@@ -284,17 +290,18 @@ typedef NS_ENUM(NSInteger, PayType) {
 
 //微信支付
 - (void)payForWXPay:(NSDictionary *)dic {
+    NSLog(@"--------->>> %@", dic);
     PayReq *payreq = [[PayReq alloc] init];
-    payreq.partnerId = dic[@"mch_id"];
-    payreq.prepayId = dic[@"prepay_id"];
-    payreq.nonceStr = dic[@"nonce_str"];
+    payreq.openID = dic[@"appid"];
+    payreq.partnerId = dic[@"partnerid"];
+    payreq.prepayId = dic[@"prepayid"];
+    payreq.nonceStr = dic[@"noncestr"];
     payreq.timeStamp = [dic[@"timestamp"] intValue];
     payreq.package = dic[@"package"];
     payreq.sign = dic[@"sign"];
     
     [WXApi sendReq:payreq];
 }
-
 
 
 #pragma mark  -----------------  UI  ------------------------
@@ -341,7 +348,6 @@ typedef NS_ENUM(NSInteger, PayType) {
         NSLog(@"同意");
         
     };
-    
     self.orderTableView.tableFooterView = footerView;
 }
 
@@ -395,10 +401,13 @@ typedef NS_ENUM(NSInteger, PayType) {
 
 
 #pragma mark  ---------------------- Aciton -------------
+
+/**
+ 提交订单
+ */
 - (void)submitAction {
     NSLog(@"提交");
     kVerifyText(self.address_id.length, @"请选择地址");
-#warning ------------------------ 在这里判断金额 ---------------------------
     if (self.payType != 0) {
         [self requestSubmitOrderData];
     } else {
@@ -416,6 +425,29 @@ typedef NS_ENUM(NSInteger, PayType) {
  */
 - (void)setDefualtPayType {
     self.payType = PayWithAliPayType;
+}
+
+- (void)addNotification {
+    //微信跳转到成功的界面
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goToSuccessPayResultVC) name:@"WX_PaySuccess" object:nil];
+    
+    //取消支付(进入待支付订单界面)
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goToErrorPayResultVC) name:@"PayError" object:nil];
+}
+
+//支付成功
+- (void)goToSuccessPayResultVC {
+    LHPayResultsViewController *payResultVC = [[LHPayResultsViewController alloc] init];
+    payResultVC.payType = 2;
+    payResultVC.payResultStr = @"Success";
+    [self.navigationController pushViewController:payResultVC animated:YES];
+}
+//支付失败
+- (void)goToErrorPayResultVC {
+    LHPayResultsViewController *payResultVC = [[LHPayResultsViewController alloc] init];
+    payResultVC.payType = 2;
+    payResultVC.payResultStr = @"Error";
+    [self.navigationController pushViewController:payResultVC animated:YES];
 }
 
 #pragma mark --------------  <UITableViewDelegate, UITableViewDataSource> -------------

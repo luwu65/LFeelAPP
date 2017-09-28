@@ -9,6 +9,7 @@
 #import "LHAddVipViewController.h"
 #import "LHPayWayView.h"
 #import "LHPayResultsViewController.h"
+#import "LHLeBaiViewController.h"
 typedef NS_ENUM(NSInteger, PayType) {
     PayWithLBFPayType = 0,
     PayWithAliPayType,
@@ -51,6 +52,7 @@ typedef NS_ENUM(NSInteger, PayType) {
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     self.isClick = NO;
+    self.clickIndex = 3;
     [self setUI];
     [self requestAddVipData];
     [self setDefualtPayType];
@@ -148,12 +150,12 @@ typedef NS_ENUM(NSInteger, PayType) {
     sender.selected = !sender.selected;
     if (sender.selected == NO) {
         sender.chooseImageView.image = [UIImage imageNamed:@"MyBox_click_default"];
+        self.clickIndex = 3;
         
     } else {
         sender.chooseImageView.image = [UIImage imageNamed:@"MyBox_clicked"];
+        self.clickIndex = 0;
     }
-    
-    self.clickIndex = 0;
 }
 
 - (void)halfYearBtnAction:(CustomButton *)sender {
@@ -163,16 +165,25 @@ typedef NS_ENUM(NSInteger, PayType) {
     }
     sender.selected = !sender.selected;
     if (sender.selected == NO) {
-        sender.chooseImageView.image = [UIImage imageNamed:@"MyBox_click_default"];        
+        sender.chooseImageView.image = [UIImage imageNamed:@"MyBox_click_default"];
+        self.clickIndex = 3;
     } else {
         sender.chooseImageView.image = [UIImage imageNamed:@"MyBox_clicked"];
+        self.clickIndex = 1;
     }
-    self.clickIndex = 1;
 }
 
 //立即购买
 - (void)buyVipAction {
-    [self setPayViewWithLabel:nil];
+    NSLog(@"%ld", self.clickIndex);
+    if (self.clickIndex == 3) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD showError:@"请选择期数"];
+        });
+    } else {
+        
+        [self setPayViewWithLabel:nil];
+    }
     
 }
 
@@ -194,18 +205,19 @@ typedef NS_ENUM(NSInteger, PayType) {
             }
             
             self.goodsInfoDic = reponseObject[@"data"][@"productInfo"];
+            
+            LHAddVipModel *aModel = self.vipArray.firstObject;
+            self.yearBtn.allMoneyLabel.text = [NSString stringWithFormat:@"¥%@", aModel.price];
+            self.yearBtn.mouthMoneyLabel.text = [NSString stringWithFormat:@"分期: ¥%ld/月", [aModel.price integerValue]/[aModel.property_value integerValue]];
+            self.yearBtn.timeLabel.text = [NSString stringWithFormat:@"%@个月", aModel.property_value];
+            
+            
+            LHAddVipModel *bModel = self.vipArray.lastObject;
+            self.halfYearBtn.allMoneyLabel.text = [NSString stringWithFormat:@"¥%@", bModel.price];
+            self.halfYearBtn.mouthMoneyLabel.text = [NSString stringWithFormat:@"分期: ¥%ld/月", [bModel.price integerValue]/[bModel.property_value integerValue]];
+            self.halfYearBtn.timeLabel.text = [NSString stringWithFormat:@"%@个月", bModel.property_value];
         }
         
-        LHAddVipModel *aModel = self.vipArray.firstObject;
-        self.yearBtn.allMoneyLabel.text = [NSString stringWithFormat:@"¥%@", aModel.price];
-        self.yearBtn.mouthMoneyLabel.text = [NSString stringWithFormat:@"分期: ¥%ld/月", [aModel.price integerValue]/[aModel.property_value integerValue]];
-        self.yearBtn.timeLabel.text = [NSString stringWithFormat:@"%@个月", aModel.property_value];
-        
-        
-        LHAddVipModel *bModel = self.vipArray.lastObject;
-        self.halfYearBtn.allMoneyLabel.text = [NSString stringWithFormat:@"¥%@", bModel.price];
-        self.halfYearBtn.mouthMoneyLabel.text = [NSString stringWithFormat:@"分期: ¥%ld/月", [bModel.price integerValue]/[bModel.property_value integerValue]];
-        self.halfYearBtn.timeLabel.text = [NSString stringWithFormat:@"%@个月", bModel.property_value];
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -240,7 +252,17 @@ typedef NS_ENUM(NSInteger, PayType) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self hideProgressHUD];
                 if ([reponseObject[@"data"][@"pay_way"] integerValue] == 0) {
-                    
+                    //乐百分支付
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self showProgressHUDWithTitle:@"提交成功, 去付款"];
+                        //                       [MBProgressHUD showSuccess:@"提交成功, 去付款"];
+                    });
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self hideProgressHUD];
+                        LHLeBaiViewController *LBFVC = [[LHLeBaiViewController alloc] init];
+                        LBFVC.orderDic = reponseObject[@"data"];
+                        [self.navigationController pushViewController:LBFVC animated:YES];
+                    });
                     
                 } else if ([reponseObject[@"data"][@"pay_way"] integerValue] == 1) {
                     
@@ -270,28 +292,11 @@ typedef NS_ENUM(NSInteger, PayType) {
 
 //选择付款方式
 - (void)setPayViewWithLabel:(UILabel *)label {
-    LHPayWayView *payView = [[LHPayWayView alloc] initWithIndex:self.payType];
+    LHPayWayView *payView = [[LHPayWayView alloc] initWithIndex:NULL];
     [payView clickPayWayBlock:^(NSInteger index) {
         NSLog(@"%ld", (long)index);
         self.payType = index;
-        if (0 == index) {
-            label.text = @"信用卡分期";
-            [self requestSubmitOrderData];
-            
-        } else if (1 == index) {
-            label.text = @"支付宝";
-            [self requestSubmitOrderData];
-            
-        } else if (2 == index) {
-            label.text = @"微信支付";
-            [self requestSubmitOrderData];
-            
-        } else {
-            label.text = @"银联支付";
-            [self requestSubmitOrderData];
-            
-            
-        }
+        [self requestSubmitOrderData];
     }];
     [payView show];
 }
@@ -306,7 +311,6 @@ typedef NS_ENUM(NSInteger, PayType) {
 
 
 #pragma mark  --------------- 支付方式 --------------------
-
 /*
  返回码 	含义
  9000 	订单支付成功

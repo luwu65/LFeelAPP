@@ -10,4 +10,31 @@
 
 @interface LHAllCommentViewController : LHBaseViewController
 
+
+
+
+
+
+//产品ID
+@property (nonatomic, copy) NSString *product_id;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @end

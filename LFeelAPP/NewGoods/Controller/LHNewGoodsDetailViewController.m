@@ -264,6 +264,7 @@
         footerView.clickAllBtn = ^{
             @strongify(self);
             LHAllCommentViewController *commentVC = [[LHAllCommentViewController alloc] init];
+            commentVC.product_id = self.goodsInfoDic[@"id"];
             [self.navigationController pushViewController:commentVC animated:YES];
             NSLog(@"全部评论");
         };
@@ -274,6 +275,7 @@
 }
 
 #pragma mark ------------ 网络请求  ---------------
+//商品详情
 - (void)requestGoodsDetailData {
     [self showProgressHUD];
     [LHNetworkManager requestForGetWithUrl:kGoodsDetailUrl parameter:@{@"id": self.listModel.product_id, @"user_id": kUser_id} success:^(id reponseObject) {
@@ -465,12 +467,6 @@
             if ([model.property_value isEqualToString:self.sizeArray[index]]) {
                 NSLog(@"========%ld", (long)model.spec_id);
                 [self.chooseSizeArray addObject:@(model.spec_id)];
-                
-//                for (<#type *object#> in <#collection#>) {
-//                    <#statements#>
-//                }
-                
-                
                 
             }
         }

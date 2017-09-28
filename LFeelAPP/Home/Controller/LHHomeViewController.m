@@ -126,7 +126,7 @@
     //请求之前先把之前数组里的数据清除, 防止下拉刷新重复添加
     [self.themeGoodsArray removeAllObjects];
     //@"limit":@3,在首页限制3件
-    [LHNetworkManager requestForGetWithUrl:kGoodsUrl parameter:@{@"page":@1, @"pronum": @3} success:^(id reponseObject) {
+    [LHNetworkManager requestForGetWithUrl:kGoodsUrl parameter:@{@"page":@1, @"limit": @3} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([kSTR(reponseObject[@"isError"]) isEqualToString:@"0"]) {
             for (NSDictionary *adic in reponseObject[@"data"]) {
