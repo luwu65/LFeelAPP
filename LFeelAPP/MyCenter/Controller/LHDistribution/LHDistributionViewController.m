@@ -47,14 +47,21 @@
 - (void)setHBK_NavigationBar {
 //    self.automaticallyAdjustsScrollViewInsets = NO;
     self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"分销收益" leftFirst:@"Login_Back_write" leftFirstAction:^{
-        [self.navigationController popViewControllerAnimated:YES];
-    } rightFirst:@"提现" rightFirstBtnAction:^{
+        //此处有卡顿, 添加主线程进行
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+    } rightFirst:@"申请提现" rightFirstBtnAction:^{
         NSLog(@"提现");
         
         
         
     }];
-    self.hbk_navgationBar.rightFirstBtn.frame = CGRectMake(kScreenWidth-60, 31, 50, 25);
+    self.hbk_navgationBar.rightFirstBtn.titleLabel.font = kFont(kFit(13));
+    NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:kFit(13)]};
+    CGFloat length = [@"申请提现" boundingRectWithSize:CGSizeMake(320, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size.width;
+    
+    self.hbk_navgationBar.rightFirstBtn.frame = CGRectMake(kScreenWidth-length-20, 31, length+10, 25);
     self.hbk_navgationBar.bgColor = [UIColor clearColor];
     self.hbk_navgationBar.deviderLayer.backgroundColor = [UIColor clearColor].CGColor;
     self.hbk_navgationBar.titleLabel.textColor = [UIColor clearColor];
@@ -62,7 +69,7 @@
     self.hbk_navgationBar.rightFirstBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     self.hbk_navgationBar.rightFirstBtn.layer.borderWidth = 1;
     self.hbk_navgationBar.rightFirstBtn.layer.masksToBounds = YES;
-    self.hbk_navgationBar.rightFirstBtn.titleLabel.font = kFont(15);
+    
     [self.hbk_navgationBar.rightFirstBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
 }
 
@@ -215,12 +222,7 @@
     CGFloat alphy = y / 150 > 1.0 ? 1.0 : y / 150;
     self.hbk_navgationBar.bgColor = [UIColor colorWithRed:256 green:0 blue:0 alpha:alphy];
     self.hbk_navgationBar.titleLabel.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:alphy];
-    
 }
-
-
-
-
 
 
 - (void)didReceiveMemoryWarning {

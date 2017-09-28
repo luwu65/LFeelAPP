@@ -114,7 +114,7 @@
 - (void)setBankModel:(LHBankCardModel *)bankModel {
     self.bankNumLabel.text = bankModel.bank_no;
     self.bankImageView.backgroundColor = kRandomColor;
-    self.bankLabel.text = @"中国***银行";
+    self.bankLabel.text = @"******银行";
 }
 
 

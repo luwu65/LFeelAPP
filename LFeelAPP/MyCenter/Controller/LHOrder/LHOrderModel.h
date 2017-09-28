@@ -12,6 +12,7 @@
 @interface LHOrderModel : LHBaseModel
 
 
+@property (nonatomic, copy) NSString *addTime;
 
 @property (nonatomic, copy) NSString *shop_logo;
 @property (nonatomic, copy) NSString *order_no;

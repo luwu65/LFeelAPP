@@ -83,6 +83,7 @@
 		0F3F64431F41993E00A42084 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F64421F41993E00A42084 /* MBProgressHUD+MJ.m */; };
 		0F3F64451F419C6100A42084 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0F3F64441F419C6100A42084 /* MBProgressHUD.bundle */; };
 		0F508FB31F7B8AEB007D7F49 /* LHEditCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F508FB21F7B8AEB007D7F49 /* LHEditCommentViewController.m */; };
+		0F508FB61F7CC3BE007D7F49 /* HBKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F508FB51F7CC3BD007D7F49 /* HBKTextView.m */; };
 		0F52B5F41EEF83E1007D45EC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F52B5F31EEF83E1007D45EC /* main.m */; };
 		0F52B5F71EEF83E1007D45EC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F52B5F61EEF83E1007D45EC /* AppDelegate.m */; };
 		0F52B5FD1EEF83E1007D45EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F52B5FB1EEF83E1007D45EC /* Main.storyboard */; };
@@ -418,6 +419,8 @@
 		0F3F64441F419C6100A42084 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
 		0F508FB11F7B8AEB007D7F49 /* LHEditCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHEditCommentViewController.h; sourceTree = "<group>"; };
 		0F508FB21F7B8AEB007D7F49 /* LHEditCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHEditCommentViewController.m; sourceTree = "<group>"; };
+		0F508FB41F7CC3BD007D7F49 /* HBKTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBKTextView.h; sourceTree = "<group>"; };
+		0F508FB51F7CC3BD007D7F49 /* HBKTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBKTextView.m; sourceTree = "<group>"; };
 		0F52B5EF1EEF83E1007D45EC /* LFeelAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LFeelAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F52B5F31EEF83E1007D45EC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0F52B5F51EEF83E1007D45EC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1343,6 +1346,8 @@
 		0F594CA61F26107A0047DCC1 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				0F508FB41F7CC3BD007D7F49 /* HBKTextView.h */,
+				0F508FB51F7CC3BD007D7F49 /* HBKTextView.m */,
 				0F3175311F57FA8600208DD0 /* LHImagePickerViewController.h */,
 				0F3175321F57FA8600208DD0 /* LHImagePickerViewController.m */,
 				0F31753E1F594CFA00208DD0 /* LHShareManager.h */,
@@ -1978,6 +1983,7 @@
 				0F7B79481F427F5F009DAF35 /* LHPackSuccessViewController.m in Sources */,
 				0F1D0C721F790ABB00071F85 /* LHBillHistoryViewController.m in Sources */,
 				0F1D0C741F790ABB00071F85 /* LHOrderGoodsCell.m in Sources */,
+				0F508FB61F7CC3BE007D7F49 /* HBKTextView.m in Sources */,
 				0F52B6681EEFDE72007D45EC /* LHSpecialCollectionViewCell.m in Sources */,
 				0F52B7241EF91965007D45EC /* LHMyOrderViewController.m in Sources */,
 				0F9045091F13832F000528A2 /* LHPickView.m in Sources */,

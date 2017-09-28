@@ -17,7 +17,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *CVN2TF;
 @property (weak, nonatomic) IBOutlet UITextField *phoneTF;
 @property (weak, nonatomic) IBOutlet UITextField *smsCodeTF;
-@property (weak, nonatomic) IBOutlet UITextView *remarkTV;
 
 @end
 

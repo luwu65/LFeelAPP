@@ -13,6 +13,8 @@
 #import "LHPayWayView.h"
 #import "LHLeBaiViewController.h"
 #import "LHEditCommentViewController.h"
+#import "LHPayResultsViewController.h"
+
 @interface LHOrderListTableViewController ()
 @property (nonatomic, strong) NSMutableArray *storeArray;
 
@@ -102,7 +104,6 @@
         
     } else if ([model.status integerValue] == 1) {
         headerView.statusLabel.text = @"待发货";
-        
         
     } else if ([model.status integerValue] == 2) {
         headerView.statusLabel.text = @"待收货";
@@ -248,7 +249,6 @@
                 [self.storeArray addObject:model];
             }
             
-            
             if (self.storeArray.count == 0) {
                 [self emptyView];
             } else {
@@ -283,10 +283,27 @@
 /**
  重新付款提交订单
  */
-- (void)requestSubmitOrderData{
-    
-    
-    
+- (void)requestSubmitOrderDataWithModel:(LHOrderModel *)model payType:(NSInteger)payType {
+    [LHNetworkManager PostWithUrl:kLebaiPayUrl parameter:@{@"order_no": model.order_no, @"pay_way": @(payType)} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            if (payType == 1) {
+                
+                [self payForAliPay:reponseObject[@"data"]];
+                
+            } else if (payType == 2){
+                
+                [self payForWXPay:reponseObject[@"data"]];
+                
+            }
+        }
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self reloadData];
+//        });
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 /**
@@ -334,9 +351,67 @@
     } failure:^(NSError *error) {
         
     }];
-    
-    
 }
+
+
+#pragma mark  --------------- 支付方式 --------------------
+
+/*
+ 返回码 	含义
+ 9000 	订单支付成功
+ 8000 	正在处理中，支付结果未知（有可能已经支付成功），请查询商户订单列表中订单的支付状态
+ 4000 	订单支付失败
+ 5000 	重复请求
+ 6001 	用户中途取消
+ 6002 	网络连接出错
+ 6004 	支付结果未知（有可能已经支付成功），请查询商户订单列表中订单的支付状态
+ 其它 	其它支付错误
+ */
+//支付宝支付
+- (void)payForAliPay:(NSString *)dataString {
+    // NOTE: 调用支付结果开始支付
+    [[AlipaySDK defaultService] payOrder:dataString fromScheme:@"lfeelios" callback:^(NSDictionary *resultDic) {
+        LHPayResultsViewController *payResultVC = [[LHPayResultsViewController alloc] init];
+        NSLog(@"reslut = %@",resultDic);
+        if ([resultDic[@"resultStatus"] integerValue] == 9000) {
+            NSLog(@"支付成功了~~~~~~~~~~~~~哈哈哈哈哈~~~~~~~~~~~~`");
+            NSData *jsonData = [resultDic[@"result"] dataUsingEncoding:NSUTF8StringEncoding];
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:(NSJSONReadingAllowFragments) error:nil];
+            NSLog(@"%@", dic);
+            payResultVC.resultDic = dic;
+        } else if ([resultDic[@"resultStatus"] integerValue] == 6001) {
+            NSLog(@"中途取消了, 跳转到支付失败的页面");
+            
+            
+        } else if ([resultDic[@"resultStatus"] integerValue] == 5000) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showError:@"请勿重复发起订单"];
+            });
+        }
+        payResultVC.payType = 1;
+        payResultVC.payResultStr = [NSString stringWithFormat:@"%@", resultDic[@"resultStatus"]];
+        [self.navigationController pushViewController:payResultVC animated:YES];
+    }];
+}
+
+//微信支付
+- (void)payForWXPay:(NSString *)dataString {
+    NSData *jsonData = [dataString dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:nil];
+    NSLog(@"--------->>> %@", dic);
+    
+    PayReq *payreq = [[PayReq alloc] init];
+    payreq.openID = dic[@"appid"];
+    payreq.partnerId = dic[@"partnerid"];
+    payreq.prepayId = dic[@"prepayid"];
+    payreq.nonceStr = dic[@"noncestr"];
+    payreq.timeStamp = [dic[@"timestamp"] intValue];
+    payreq.package = dic[@"package"];
+    payreq.sign = dic[@"sign"];
+    
+    [WXApi sendReq:payreq];
+}
+
 
 #pragma mark ------------- Action ---------------------
 //选择付款方式
@@ -359,10 +434,11 @@
                 [self.navigationController pushViewController:lebaiVC animated:YES];
             }
         } else if (1 == index) {
-            
+            [self requestSubmitOrderDataWithModel:orderModel payType:1];
             
         } else if (2 == index) {
-            
+            [self requestSubmitOrderDataWithModel:orderModel payType:2];
+
             
         } else if (3 == index) {
             

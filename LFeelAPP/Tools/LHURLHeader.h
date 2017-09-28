@@ -125,7 +125,7 @@
 //乐百分发送验证码
 #define kLeBaiSendCodeUrl             @"order/lbfsmsCode"
 
-//乐百分支付
+//乐百分支付 / 再次支付接口
 #define kLebaiPayUrl                  @"order/pay"
 
 //银行卡列表

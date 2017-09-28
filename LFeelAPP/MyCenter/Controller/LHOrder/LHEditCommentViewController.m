@@ -27,13 +27,20 @@
 #pragma mark ---------------------  UI -------------------
 - (void)setHBK_NavigationBar {
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
     self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"评价" backAction:^{
         [self.navigationController popToRootViewControllerAnimated:YES];
     }];
 }
 
+
+
+
+
 #pragma mark ------------------------Action ----------------------
+
+
+
+
 
 
 

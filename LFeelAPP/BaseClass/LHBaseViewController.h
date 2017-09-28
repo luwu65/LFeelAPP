@@ -61,7 +61,18 @@
 - (void)openZCServiceWithProduct:(id _Nullable )productInfo;
 
 
+/**
+  支付宝 支付
+ @param dataString 调起支付宝传的参数
+ */
+- (void)payForAliPay:(NSString *_Nullable)dataString;
 
+
+/**
+ 微信支付
+ @param dataString 微信支付传的参数
+ */
+- (void)payForWXPay:(NSString *_Nullable)dataString;
 
 
 

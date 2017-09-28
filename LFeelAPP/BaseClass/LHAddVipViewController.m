@@ -269,10 +269,8 @@ typedef NS_ENUM(NSInteger, PayType) {
                     [self payForAliPay:reponseObject[@"data"][@"data"]];
                     
                 } else if ([reponseObject[@"data"][@"pay_way"] integerValue] == 2) {
-                    NSData *jsonData = [reponseObject[@"data"][@"data"] dataUsingEncoding:NSUTF8StringEncoding];
-                    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:nil];
-                    NSLog(@"--------->>> %@", dic);
-                    [self payForWXPay:dic];
+
+                    [self payForWXPay:reponseObject[@"data"][@"data"]];
                 } else if ([reponseObject[@"data"][@"pay_way"] integerValue] == 3) {
                     
                 }
@@ -307,59 +305,6 @@ typedef NS_ENUM(NSInteger, PayType) {
  */
 - (void)setDefualtPayType {
     self.payType = PayWithAliPayType;
-}
-
-
-#pragma mark  --------------- 支付方式 --------------------
-/*
- 返回码 	含义
- 9000 	订单支付成功
- 8000 	正在处理中，支付结果未知（有可能已经支付成功），请查询商户订单列表中订单的支付状态
- 4000 	订单支付失败
- 5000 	重复请求
- 6001 	用户中途取消
- 6002 	网络连接出错
- 6004 	支付结果未知（有可能已经支付成功），请查询商户订单列表中订单的支付状态
- 其它 	其它支付错误
- */
-//支付宝支付
-- (void)payForAliPay:(NSString *)dataString {
-    // NOTE: 调用支付结果开始支付
-    [[AlipaySDK defaultService] payOrder:dataString fromScheme:@"lfeelios" callback:^(NSDictionary *resultDic) {
-        LHPayResultsViewController *payResultVC = [[LHPayResultsViewController alloc] init];
-        NSLog(@"reslut = %@",resultDic);
-        if ([resultDic[@"resultStatus"] integerValue] == 9000) {
-            NSLog(@"支付成功了~~~~~~~~~~~~~哈哈哈哈哈~~~~~~~~~~~~`");
-            NSData *jsonData = [resultDic[@"result"] dataUsingEncoding:NSUTF8StringEncoding];
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:(NSJSONReadingAllowFragments) error:nil];
-            NSLog(@"%@", dic);
-            payResultVC.resultDic = dic;
-        } else if ([resultDic[@"resultStatus"] integerValue] == 6001) {
-            NSLog(@"中途取消了, 跳转到支付失败的页面");
-            
-            
-        } else if ([resultDic[@"resultStatus"] integerValue] == 5000) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD showError:@"请勿重复发起订单"];
-            });
-        }
-        payResultVC.payType = 1;
-        payResultVC.payResultStr = [NSString stringWithFormat:@"%@", resultDic[@"resultStatus"]];
-        [self.navigationController pushViewController:payResultVC animated:YES];
-    }];
-}
-
-//微信支付
-- (void)payForWXPay:(NSDictionary *)dic {
-    PayReq *payreq = [[PayReq alloc] init];
-    payreq.partnerId = dic[@"mch_id"];
-    payreq.prepayId = dic[@"prepay_id"];
-    payreq.nonceStr = dic[@"nonce_str"];
-    payreq.timeStamp = [dic[@"timestamp"] intValue];
-    payreq.package = dic[@"package"];
-    payreq.sign = dic[@"sign"];
-    
-    [WXApi sendReq:payreq];
 }
 
 
