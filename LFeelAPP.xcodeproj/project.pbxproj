@@ -75,6 +75,9 @@
 		0F33547C1F0397260056FEA9 /* LHAllCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F33547B1F0397260056FEA9 /* LHAllCommentViewController.m */; };
 		0F33547F1F039C2A0056FEA9 /* LHParamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F33547E1F039C2A0056FEA9 /* LHParamCell.m */; };
 		0F3354E31F0A10B70056FEA9 /* LHUserInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3354E21F0A10B70056FEA9 /* LHUserInfoCell.m */; };
+		0F3D32E91F7D33B000ABC8B3 /* libUMessage_Sdk_1.5.0a.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F3D32E81F7D33B000ABC8B3 /* libUMessage_Sdk_1.5.0a.a */; };
+		0F3D32F21F7DDA6600ABC8B3 /* LHEditCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3D32F01F7DDA6600ABC8B3 /* LHEditCommentCell.m */; };
+		0F3D32F61F7DDE6000ABC8B3 /* LHImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3D32F51F7DDE6000ABC8B3 /* LHImageView.m */; };
 		0F3F64251F3C51C500A42084 /* UIButton+badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F64241F3C51C500A42084 /* UIButton+badge.m */; };
 		0F3F64281F3D527C00A42084 /* LHPayWayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F64271F3D527C00A42084 /* LHPayWayView.m */; };
 		0F3F642B1F3DA73900A42084 /* LHGoodsDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F642A1F3DA73900A42084 /* LHGoodsDetailModel.m */; };
@@ -405,6 +408,13 @@
 		0F33547E1F039C2A0056FEA9 /* LHParamCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHParamCell.m; sourceTree = "<group>"; };
 		0F3354E11F0A10B70056FEA9 /* LHUserInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHUserInfoCell.h; sourceTree = "<group>"; };
 		0F3354E21F0A10B70056FEA9 /* LHUserInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHUserInfoCell.m; sourceTree = "<group>"; };
+		0F3D32E81F7D33B000ABC8B3 /* libUMessage_Sdk_1.5.0a.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.5.0a.a; sourceTree = "<group>"; };
+		0F3D32EA1F7D340200ABC8B3 /* UMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
+		0F3D32EB1F7D34E200ABC8B3 /* LFeelAPP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LFeelAPP.entitlements; sourceTree = "<group>"; };
+		0F3D32EF1F7DDA6600ABC8B3 /* LHEditCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHEditCommentCell.h; sourceTree = "<group>"; };
+		0F3D32F01F7DDA6600ABC8B3 /* LHEditCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHEditCommentCell.m; sourceTree = "<group>"; };
+		0F3D32F41F7DDE6000ABC8B3 /* LHImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHImageView.h; sourceTree = "<group>"; };
+		0F3D32F51F7DDE6000ABC8B3 /* LHImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHImageView.m; sourceTree = "<group>"; };
 		0F3F64231F3C51C500A42084 /* UIButton+badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+badge.h"; sourceTree = "<group>"; };
 		0F3F64241F3C51C500A42084 /* UIButton+badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+badge.m"; sourceTree = "<group>"; };
 		0F3F64261F3D527C00A42084 /* LHPayWayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHPayWayView.h; sourceTree = "<group>"; };
@@ -668,6 +678,7 @@
 				0F120C941F6A2DB000E617AA /* QuartzCore.framework in Frameworks */,
 				0F120C921F6A2CFF00E617AA /* CoreTelephony.framework in Frameworks */,
 				0F120C901F6A2CF100E617AA /* SystemConfiguration.framework in Frameworks */,
+				0F3D32E91F7D33B000ABC8B3 /* libUMessage_Sdk_1.5.0a.a in Frameworks */,
 				0F120C8E1F6A2CE700E617AA /* libz.tbd in Frameworks */,
 				0F120C8C1F6A2CDC00E617AA /* libc++.tbd in Frameworks */,
 				58758F7C3BF87C89CE3449CA /* libPods-LFeelAPP.a in Frameworks */,
@@ -907,6 +918,15 @@
 			path = MD5;
 			sourceTree = "<group>";
 		};
+		0F3D32E71F7D338500ABC8B3 /* UMengPush */ = {
+			isa = PBXGroup;
+			children = (
+				0F3D32EA1F7D340200ABC8B3 /* UMessage.h */,
+				0F3D32E81F7D33B000ABC8B3 /* libUMessage_Sdk_1.5.0a.a */,
+			);
+			path = UMengPush;
+			sourceTree = "<group>";
+		};
 		0F3F642E1F414C1300A42084 /* LineView */ = {
 			isa = PBXGroup;
 			children = (
@@ -951,6 +971,7 @@
 		0F52B5F11EEF83E1007D45EC /* LFeelAPP */ = {
 			isa = PBXGroup;
 			children = (
+				0F3D32EB1F7D34E200ABC8B3 /* LFeelAPP.entitlements */,
 				0F52B5F51EEF83E1007D45EC /* AppDelegate.h */,
 				0F52B5F61EEF83E1007D45EC /* AppDelegate.m */,
 				0F52B6251EEF849E007D45EC /* BaseClass */,
@@ -1189,6 +1210,7 @@
 		0F52B6361EEF849E007D45EC /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				0F3D32E71F7D338500ABC8B3 /* UMengPush */,
 				0F120C861F6A2C6400E617AA /* ALiPay */,
 				0FEC8D001F37F06300453700 /* HBK_NavigationBar */,
 				0F3354651F0264380056FEA9 /* MD5 */,
@@ -1255,6 +1277,8 @@
 				0FB793431F4BFC6700FDDB76 /* LHOrderListTableViewController.m */,
 				0F508FB11F7B8AEB007D7F49 /* LHEditCommentViewController.h */,
 				0F508FB21F7B8AEB007D7F49 /* LHEditCommentViewController.m */,
+				0F3D32EF1F7DDA6600ABC8B3 /* LHEditCommentCell.h */,
+				0F3D32F01F7DDA6600ABC8B3 /* LHEditCommentCell.m */,
 				0FB7933C1F4B19B500FDDB76 /* LHOrderHeaderFooterView.h */,
 				0FB7933D1F4B19B500FDDB76 /* LHOrderHeaderFooterView.m */,
 				0F0D27C11F6FC564006BFCB2 /* LHOrderModel.h */,
@@ -1348,6 +1372,8 @@
 			children = (
 				0F508FB41F7CC3BD007D7F49 /* HBKTextView.h */,
 				0F508FB51F7CC3BD007D7F49 /* HBKTextView.m */,
+				0F3D32F41F7DDE6000ABC8B3 /* LHImageView.h */,
+				0F3D32F51F7DDE6000ABC8B3 /* LHImageView.m */,
 				0F3175311F57FA8600208DD0 /* LHImagePickerViewController.h */,
 				0F3175321F57FA8600208DD0 /* LHImagePickerViewController.m */,
 				0F31753E1F594CFA00208DD0 /* LHShareManager.h */,
@@ -1672,6 +1698,14 @@
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = Q7FLGD52CU;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					0F52B6071EEF83E1007D45EC = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -1924,6 +1958,7 @@
 				0F3F64311F414C6E00A42084 /* LHDevider.m in Sources */,
 				0F84BAF31F1F23AB00D98999 /* LHCardHeaderView.m in Sources */,
 				0F120D041F6A2FA800E617AA /* RSADataVerifier.m in Sources */,
+				0F3D32F61F7DDE6000ABC8B3 /* LHImageView.m in Sources */,
 				0F52B6C91EF3D7AC007D45EC /* LHTextCell.m in Sources */,
 				0F52B6541EEF8B0E007D45EC /* LHNewGoodsViewController.m in Sources */,
 				0FEC8D2B1F38533800453700 /* LHSegmentControlView.m in Sources */,
@@ -1931,6 +1966,7 @@
 				0FEC8D281F38533800453700 /* LHCartHeaderView.m in Sources */,
 				0F52B7261EF91965007D45EC /* LHSettingViewController.m in Sources */,
 				0F9046131F1DFD0A000528A2 /* LHScaningView.m in Sources */,
+				0F3D32F21F7DDA6600ABC8B3 /* LHEditCommentCell.m in Sources */,
 				0FEC8D291F38533800453700 /* LHMyBoxCell.m in Sources */,
 				0F9045A11F1CB6D8000528A2 /* UIImage+LHCategory.m in Sources */,
 				0F9045B91F1DA18F000528A2 /* NSAttributedString+Extension.m in Sources */,
@@ -2201,6 +2237,7 @@
 			baseConfigurationReference = 1753B93C65A88FFAE77600F0 /* Pods-LFeelAPP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LFeelAPP/LFeelAPP.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = Q7FLGD52CU;
 				ENABLE_BITCODE = NO;
@@ -2238,6 +2275,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LFeelAPP/Tools/ALiPay",
+					"$(PROJECT_DIR)/LFeelAPP/Tools/UMengPush",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -2279,6 +2317,7 @@
 			baseConfigurationReference = 518C354CE2F3DFF93686C4D9 /* Pods-LFeelAPP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LFeelAPP/LFeelAPP.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = Q7FLGD52CU;
 				ENABLE_BITCODE = NO;
@@ -2312,6 +2351,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LFeelAPP/Tools/ALiPay",
+					"$(PROJECT_DIR)/LFeelAPP/Tools/UMengPush",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (

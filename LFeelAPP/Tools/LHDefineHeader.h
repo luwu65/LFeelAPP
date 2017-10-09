@@ -115,6 +115,17 @@
 #define kShowSuccess(message)[MBProgressHUD showSuccess:message];
 
 
+#define WEAK  @weakify(self);
+
+#define STRONG  @strongify(self);
+
+#define kWeakSelf(type)__weak typeof(type)weak##type = type;
+
+#define kStrongSelf(type)__strong typeof(type)type = weak##type;
+
+
+
+
 /// 验证条件
 #define SLAssert(Condition, Message)\
 if (!(Condition)) {\

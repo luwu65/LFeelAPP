@@ -61,7 +61,7 @@
 - (void)drawRect:(CGRect)rect {
     if (self.placeHolder.length > 0) {
         if (_placeHolderLabel == nil) {
-            self.placeHolderLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 5, self.bounds.size.width, 0)];
+            self.placeHolderLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 5, self.bounds.size.width-16, 0)];
             _placeHolderLabel.lineBreakMode = NSLineBreakByWordWrapping;
             _placeHolderLabel.numberOfLines = 0;
             _placeHolderLabel.font = self.font;

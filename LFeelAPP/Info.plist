@@ -115,6 +115,10 @@
 	<string>乐荟申请访问位置</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>乐荟申请访问相册</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

@@ -18,6 +18,9 @@
 @property (nonatomic, copy) NSString *product_id;
 
 
+@property (nonatomic, copy) NSString *theme_name_ch;
+@property (nonatomic, copy) NSString *theme_logo;
+@property (nonatomic, copy) NSString *theme_name_en;
 
 
 

@@ -76,9 +76,10 @@
 #pragma mark ---------------- Action -----------------
 - (IBAction)tapPhotoAction:(UITapGestureRecognizer *)sender {
     [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
-    
+    kWeakSelf(self);
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:(UIAlertControllerStyleActionSheet)];
     [alertVC addAction:[UIAlertAction actionWithTitle:@"拍照" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+        kStrongSelf(self);
         dispatch_async(dispatch_get_main_queue(), ^{
             [LHImagePickerViewController showInViewController:self libraryType:(LHImagePickerMediaTypeCamera) allowEdit:YES complete:^(UIImage *image) {
                 [self requestUploadIDCardPhotoData:image];
@@ -87,6 +88,7 @@
         });
     }]];
     [alertVC addAction:[UIAlertAction actionWithTitle:@"从相册选择照片" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+        kStrongSelf(self);
         dispatch_async(dispatch_get_main_queue(), ^{
             [LHImagePickerViewController showInViewController:self libraryType:(LHImagePickerMediaTypePhotoLibrary) allowEdit:YES complete:^(UIImage *image) {
                 [self requestUploadIDCardPhotoData:image];

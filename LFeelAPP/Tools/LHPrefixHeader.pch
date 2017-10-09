@@ -72,6 +72,7 @@
 
 #import <AlipaySDK/AlipaySDK.h>
 
+#import "HBKTextView.h"
 
 #import "UIView+Extension.h"
 #import "NSDate+Extension.h"

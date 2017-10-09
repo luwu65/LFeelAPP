@@ -11,6 +11,9 @@
 #import "LHUserInfoManager.h"
 #import "LHWelcomeViewController.h"
 #import <UserNotifications/UserNotifications.h>
+#import "UMessage.h"
+
+
 
 static char kScreenShotViewMove[] = "screenShotViewMove";
 
@@ -42,14 +45,14 @@ static char kScreenShotViewMove[] = "screenShotViewMove";
     self.connect = @"Connect";
     [self KVONetworkChange];
     
-
+    
     
     
     return YES;
 }
 
 
-#pragma mark --------------- 友盟------------------
+#pragma mark --------------- 友盟 分享 -----------------
 - (void)setUmengShare {
     /* 打开调试日志 */
     [[UMSocialManager defaultManager] openLog:YES];
@@ -142,6 +145,34 @@ static char kScreenShotViewMove[] = "screenShotViewMove";
     }
     return result;
 }
+
+#pragma mark -------------- 友盟推送 ------------------
+- (void)umengPushWithOptions:(NSDictionary *)launchOptions {
+    [UMessage startWithAppkey:@"58fd64f23eae2507a90016ff" launchOptions:launchOptions httpsEnable:YES ];
+
+    //注册通知，如果要使用category的自定义策略，可以参考demo中的代码。
+    [UMessage registerForRemoteNotifications];
+    
+    //iOS10必须加下面这段代码。
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate=self;
+    UNAuthorizationOptions types10 = UNAuthorizationOptionBadge | UNAuthorizationOptionAlert | UNAuthorizationOptionSound;
+    [center requestAuthorizationWithOptions:types10 completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if (granted) {
+            //点击允许
+            //这里可以添加一些自己的逻辑
+        } else {
+            //点击不允许
+            //这里可以添加一些自己的逻辑
+        }
+    }];
+    //打开日志，方便调试
+    [UMessage setLogEnabled:YES];
+    
+}
+
+
+
 #pragma mark ----------------------- WXApiDelegate
 -(void)onResp:(BaseResp *)resp {
     if ([resp isKindOfClass:[PayResp class]]) {
@@ -312,21 +343,37 @@ static char kScreenShotViewMove[] = "screenShotViewMove";
     }
 }
 
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)pToken{
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     //    NSLog(@"---Token--%@", pToken);
     // 注册token
-    [[ZCLibClient getZCLibClient] setToken:pToken];
+    [[ZCLibClient getZCLibClient] setToken:deviceToken];
 }
 
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler{
     //    NSLog(@"Userinfo %@",notification.request.content.userInfo);
     
     //功能：可设置是否在应用内弹出通知
-    completionHandler(UNNotificationPresentationOptionAlert);
+//    completionHandler(UNNotificationPresentationOptionAlert);
+    
+    NSDictionary * userInfo = notification.request.content.userInfo;
+    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        //应用处于前台时的远程推送接受
+        //关闭U-Push自带的弹出框
+        [UMessage setAutoAlert:NO];
+        //必须加这句代码
+        [UMessage didReceiveRemoteNotification:userInfo];
+        
+    }else{
+        //应用处于前台时的本地推送接受
+    }
+    //当应用处于前台时提示设置，需要哪个可以设置哪一个
+    completionHandler(UNNotificationPresentationOptionSound|UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionAlert);
+    
     
 }
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
     
+        [UMessage didReceiveRemoteNotification:userInfo];
     //    NSString *message = [[userInfo objectForKey:@"aps"]objectForKey:@"alert"];
     //
     //    NSLog(@"userInfo == %@\n%@",userInfo,message);
@@ -337,6 +384,15 @@ static char kScreenShotViewMove[] = "screenShotViewMove";
 //点击推送消息后回调
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler{
     //    NSLog(@"Userinfo %@",response.notification.request.content.userInfo);
+    NSDictionary * userInfo = response.notification.request.content.userInfo;
+    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        //应用处于后台时的远程推送接受
+        //必须加这句代码
+        [UMessage didReceiveRemoteNotification:userInfo];
+        
+    }else{
+        //应用处于后台时的本地推送接受
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

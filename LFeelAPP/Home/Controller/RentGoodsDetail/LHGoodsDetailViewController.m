@@ -189,7 +189,7 @@
 #pragma mark ------------ 网络请求  ---------------
 - (void)requestGoodsDetailData {
     [self showProgressHUD];
-    [LHNetworkManager requestForGetWithUrl:@"product/findproduct?" parameter:@{@"id": self.goodsModel.product_id} success:^(id reponseObject) {
+    [LHNetworkManager requestForGetWithUrl:kGoodsDetailUrl parameter:@{@"id": self.goodsModel.product_id} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             for (NSDictionary *picdic in reponseObject[@"data"][@"product_pritures"]) {
