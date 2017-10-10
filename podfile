@@ -22,6 +22,7 @@ target 'LFeelAPP' do
    pod ‘UMengUShare/Social/ReducedQQ'
    pod ‘UMengUShare/Social/ReducedSina'
    pod 'FDFullscreenPopGesture', '~> 1.1'
+   pod 'CTAssetsPickerController', '~> 3.3.2-alpha'
 
 
 

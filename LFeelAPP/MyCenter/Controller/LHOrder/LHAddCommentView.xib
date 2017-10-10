@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="LHAddCommentView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="285"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hv6-Za-5pL">
+                    <rect key="frame" x="10" y="10" width="100" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="OFR-68-Ch8"/>
+                        <constraint firstAttribute="width" constant="100" id="pA7-32-cv7"/>
+                    </constraints>
+                </imageView>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1PE-ht-9jf" customClass="HBKTextView">
+                    <rect key="frame" x="120" y="10" width="245" height="150"/>
+                    <color key="backgroundColor" red="0.19237748129999999" green="1" blue="0.26417491430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="nz9-fu-UMW">
+                    <rect key="frame" x="0.0" y="160" width="375" height="125"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="nz9-fu-UMW" secondAttribute="height" multiplier="3/1" id="qBC-WH-zqE"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xrg-Vy-M3C">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="1PE-ht-9jf" secondAttribute="trailing" constant="10" id="7a4-j1-hgz"/>
+                <constraint firstItem="nz9-fu-UMW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="FDj-YI-SF5"/>
+                <constraint firstItem="1PE-ht-9jf" firstAttribute="leading" secondItem="Hv6-Za-5pL" secondAttribute="trailing" constant="10" id="Hv9-x2-eD6"/>
+                <constraint firstItem="Hv6-Za-5pL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="MVJ-Ga-xEO"/>
+                <constraint firstItem="1PE-ht-9jf" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="bF0-RB-zlh"/>
+                <constraint firstItem="Hv6-Za-5pL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="icD-xf-bWu"/>
+                <constraint firstItem="nz9-fu-UMW" firstAttribute="top" secondItem="1PE-ht-9jf" secondAttribute="bottom" id="je3-ao-l5X"/>
+                <constraint firstAttribute="bottom" secondItem="nz9-fu-UMW" secondAttribute="bottom" id="jkj-4g-lcB"/>
+                <constraint firstAttribute="trailing" secondItem="nz9-fu-UMW" secondAttribute="trailing" id="p79-Ig-w8Y"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="commentCollectionView" destination="nz9-fu-UMW" id="T4e-kf-WJq"/>
+                <outlet property="commentTextView" destination="1PE-ht-9jf" id="7ES-xW-Mrq"/>
+                <outlet property="goodsImageView" destination="Hv6-Za-5pL" id="mgH-4i-Wqz"/>
+            </connections>
+            <point key="canvasLocation" x="25.5" y="143.5"/>
+        </view>
+    </objects>
+</document>

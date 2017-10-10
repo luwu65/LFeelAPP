@@ -8,7 +8,7 @@
 
 #import "LHLoginViewController.h"
 #import "LHRegistViewController.h"
-#import "LhCaptchaLoginViewController.h"
+#import "LHCaptchaLoginViewController.h"
 #import "LHForgetPasswordViewController.h"
 #import "LHUserInfoModel.h"
 
@@ -319,7 +319,7 @@
 
 //验证码登录
 - (void)mgsBtnAction {
-    LhCaptchaLoginViewController *captchaVC = [[LhCaptchaLoginViewController alloc] init];
+    LHCaptchaLoginViewController *captchaVC = [[LHCaptchaLoginViewController alloc] init];
     [self presentViewController:captchaVC animated:YES completion:nil];
 }
 

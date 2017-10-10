@@ -13,7 +13,7 @@
 
 
 
-@property (nonatomic, strong) LHThemeGoodsModel *goodsModel;
+@property (nonatomic, copy) NSString *product_id;
 
 
 

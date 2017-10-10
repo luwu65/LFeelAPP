@@ -66,17 +66,19 @@
 		0F3175281F563CBC00208DD0 /* LHNotesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3175261F563CBC00208DD0 /* LHNotesViewController.m */; };
 		0F3175291F563CBC00208DD0 /* LHNotesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3175271F563CBC00208DD0 /* LHNotesViewController.xib */; };
 		0F31752B1F563E9900208DD0 /* LHPackSuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F31752A1F563E9900208DD0 /* LHPackSuccessViewController.xib */; };
-		0F3175331F57FA8700208DD0 /* LHImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3175321F57FA8600208DD0 /* LHImagePickerViewController.m */; };
 		0F3175371F57FE7500208DD0 /* LHCertificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3175351F57FE7500208DD0 /* LHCertificationViewController.m */; };
 		0F3175381F57FE7500208DD0 /* LHCertificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3175361F57FE7500208DD0 /* LHCertificationViewController.xib */; };
 		0F31753A1F58174E00208DD0 /* LHUserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3175391F58174E00208DD0 /* LHUserInfoViewController.xib */; };
 		0F3175401F594CFA00208DD0 /* LHShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F31753F1F594CFA00208DD0 /* LHShareManager.m */; };
+		0F329EEA1F8C9693004A545D /* LHPhotoPickManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F329EE91F8C9692004A545D /* LHPhotoPickManager.m */; };
+		0F329EED1F8C9EC4004A545D /* LHImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F329EEB1F8C9EC4004A545D /* LHImagePickerViewController.m */; };
+		0F329EF01F8CAF19004A545D /* LHAddCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F329EEF1F8CAF19004A545D /* LHAddCommentView.m */; };
+		0F329EF21F8CAF31004A545D /* LHAddCommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F329EF11F8CAF31004A545D /* LHAddCommentView.xib */; };
 		0F3354681F0264380056FEA9 /* MDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3354671F0264380056FEA9 /* MDManager.m */; };
 		0F33547C1F0397260056FEA9 /* LHAllCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F33547B1F0397260056FEA9 /* LHAllCommentViewController.m */; };
 		0F33547F1F039C2A0056FEA9 /* LHParamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F33547E1F039C2A0056FEA9 /* LHParamCell.m */; };
 		0F3354E31F0A10B70056FEA9 /* LHUserInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3354E21F0A10B70056FEA9 /* LHUserInfoCell.m */; };
 		0F3D32E91F7D33B000ABC8B3 /* libUMessage_Sdk_1.5.0a.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F3D32E81F7D33B000ABC8B3 /* libUMessage_Sdk_1.5.0a.a */; };
-		0F3D32F21F7DDA6600ABC8B3 /* LHEditCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3D32F01F7DDA6600ABC8B3 /* LHEditCommentCell.m */; };
 		0F3D32F61F7DDE6000ABC8B3 /* LHImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3D32F51F7DDE6000ABC8B3 /* LHImageView.m */; };
 		0F3F64251F3C51C500A42084 /* UIButton+badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F64241F3C51C500A42084 /* UIButton+badge.m */; };
 		0F3F64281F3D527C00A42084 /* LHPayWayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F3F64271F3D527C00A42084 /* LHPayWayView.m */; };
@@ -139,7 +141,7 @@
 		0F52B7431EFF8A5A007D45EC /* LHForgetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F52B73E1EFF8A59007D45EC /* LHForgetPasswordViewController.m */; };
 		0F52B7441EFF8A5A007D45EC /* LHLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F52B7401EFF8A59007D45EC /* LHLoginViewController.m */; };
 		0F52B7451EFF8A5A007D45EC /* LHRegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F52B7421EFF8A59007D45EC /* LHRegistViewController.m */; };
-		0F52B7491F00E4DC007D45EC /* LhCaptchaLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F52B7481F00E4DC007D45EC /* LhCaptchaLoginViewController.m */; };
+		0F52B7491F00E4DC007D45EC /* LHCaptchaLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F52B7481F00E4DC007D45EC /* LHCaptchaLoginViewController.m */; };
 		0F594CA81F2610860047DCC1 /* ShopCarNew.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F594CA71F2610860047DCC1 /* ShopCarNew.plist */; };
 		0F594D301F2A13560047DCC1 /* LHDraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F594D2F1F2A13560047DCC1 /* LHDraggableView.m */; };
 		0F594D331F2A13B80047DCC1 /* LHDraggableCardContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F594D321F2A13B80047DCC1 /* LHDraggableCardContainer.m */; };
@@ -392,14 +394,19 @@
 		0F3175261F563CBC00208DD0 /* LHNotesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHNotesViewController.m; sourceTree = "<group>"; };
 		0F3175271F563CBC00208DD0 /* LHNotesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHNotesViewController.xib; sourceTree = "<group>"; };
 		0F31752A1F563E9900208DD0 /* LHPackSuccessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHPackSuccessViewController.xib; sourceTree = "<group>"; };
-		0F3175311F57FA8600208DD0 /* LHImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHImagePickerViewController.h; sourceTree = "<group>"; };
-		0F3175321F57FA8600208DD0 /* LHImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHImagePickerViewController.m; sourceTree = "<group>"; };
 		0F3175341F57FE7500208DD0 /* LHCertificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHCertificationViewController.h; sourceTree = "<group>"; };
 		0F3175351F57FE7500208DD0 /* LHCertificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHCertificationViewController.m; sourceTree = "<group>"; };
 		0F3175361F57FE7500208DD0 /* LHCertificationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHCertificationViewController.xib; sourceTree = "<group>"; };
 		0F3175391F58174E00208DD0 /* LHUserInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHUserInfoViewController.xib; sourceTree = "<group>"; };
 		0F31753E1F594CFA00208DD0 /* LHShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHShareManager.h; sourceTree = "<group>"; };
 		0F31753F1F594CFA00208DD0 /* LHShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHShareManager.m; sourceTree = "<group>"; };
+		0F329EE81F8C9692004A545D /* LHPhotoPickManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHPhotoPickManager.h; sourceTree = "<group>"; };
+		0F329EE91F8C9692004A545D /* LHPhotoPickManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHPhotoPickManager.m; sourceTree = "<group>"; };
+		0F329EEB1F8C9EC4004A545D /* LHImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHImagePickerViewController.m; sourceTree = "<group>"; };
+		0F329EEC1F8C9EC4004A545D /* LHImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHImagePickerViewController.h; sourceTree = "<group>"; };
+		0F329EEE1F8CAF19004A545D /* LHAddCommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHAddCommentView.h; sourceTree = "<group>"; };
+		0F329EEF1F8CAF19004A545D /* LHAddCommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHAddCommentView.m; sourceTree = "<group>"; };
+		0F329EF11F8CAF31004A545D /* LHAddCommentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHAddCommentView.xib; sourceTree = "<group>"; };
 		0F3354661F0264380056FEA9 /* MDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDManager.h; sourceTree = "<group>"; };
 		0F3354671F0264380056FEA9 /* MDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDManager.m; sourceTree = "<group>"; };
 		0F33547A1F0397260056FEA9 /* LHAllCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHAllCommentViewController.h; sourceTree = "<group>"; };
@@ -411,8 +418,6 @@
 		0F3D32E81F7D33B000ABC8B3 /* libUMessage_Sdk_1.5.0a.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.5.0a.a; sourceTree = "<group>"; };
 		0F3D32EA1F7D340200ABC8B3 /* UMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		0F3D32EB1F7D34E200ABC8B3 /* LFeelAPP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LFeelAPP.entitlements; sourceTree = "<group>"; };
-		0F3D32EF1F7DDA6600ABC8B3 /* LHEditCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHEditCommentCell.h; sourceTree = "<group>"; };
-		0F3D32F01F7DDA6600ABC8B3 /* LHEditCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHEditCommentCell.m; sourceTree = "<group>"; };
 		0F3D32F41F7DDE6000ABC8B3 /* LHImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHImageView.h; sourceTree = "<group>"; };
 		0F3D32F51F7DDE6000ABC8B3 /* LHImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHImageView.m; sourceTree = "<group>"; };
 		0F3F64231F3C51C500A42084 /* UIButton+badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+badge.h"; sourceTree = "<group>"; };
@@ -530,8 +535,8 @@
 		0F52B7401EFF8A59007D45EC /* LHLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHLoginViewController.m; sourceTree = "<group>"; };
 		0F52B7411EFF8A59007D45EC /* LHRegistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHRegistViewController.h; sourceTree = "<group>"; };
 		0F52B7421EFF8A59007D45EC /* LHRegistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHRegistViewController.m; sourceTree = "<group>"; };
-		0F52B7471F00E4DB007D45EC /* LhCaptchaLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LhCaptchaLoginViewController.h; sourceTree = "<group>"; };
-		0F52B7481F00E4DC007D45EC /* LhCaptchaLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LhCaptchaLoginViewController.m; sourceTree = "<group>"; };
+		0F52B7471F00E4DB007D45EC /* LHCaptchaLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHCaptchaLoginViewController.h; sourceTree = "<group>"; };
+		0F52B7481F00E4DC007D45EC /* LHCaptchaLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHCaptchaLoginViewController.m; sourceTree = "<group>"; };
 		0F594CA71F2610860047DCC1 /* ShopCarNew.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ShopCarNew.plist; sourceTree = "<group>"; };
 		0F594D2E1F2A13560047DCC1 /* LHDraggableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHDraggableView.h; sourceTree = "<group>"; };
 		0F594D2F1F2A13560047DCC1 /* LHDraggableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHDraggableView.m; sourceTree = "<group>"; };
@@ -909,6 +914,17 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		0F329EE71F8C9678004A545D /* PhotoPickManager */ = {
+			isa = PBXGroup;
+			children = (
+				0F329EEB1F8C9EC4004A545D /* LHImagePickerViewController.m */,
+				0F329EEC1F8C9EC4004A545D /* LHImagePickerViewController.h */,
+				0F329EE81F8C9692004A545D /* LHPhotoPickManager.h */,
+				0F329EE91F8C9692004A545D /* LHPhotoPickManager.m */,
+			);
+			path = PhotoPickManager;
+			sourceTree = "<group>";
+		};
 		0F3354651F0264380056FEA9 /* MD5 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1210,6 +1226,7 @@
 		0F52B6361EEF849E007D45EC /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				0F329EE71F8C9678004A545D /* PhotoPickManager */,
 				0F3D32E71F7D338500ABC8B3 /* UMengPush */,
 				0F120C861F6A2C6400E617AA /* ALiPay */,
 				0FEC8D001F37F06300453700 /* HBK_NavigationBar */,
@@ -1277,8 +1294,9 @@
 				0FB793431F4BFC6700FDDB76 /* LHOrderListTableViewController.m */,
 				0F508FB11F7B8AEB007D7F49 /* LHEditCommentViewController.h */,
 				0F508FB21F7B8AEB007D7F49 /* LHEditCommentViewController.m */,
-				0F3D32EF1F7DDA6600ABC8B3 /* LHEditCommentCell.h */,
-				0F3D32F01F7DDA6600ABC8B3 /* LHEditCommentCell.m */,
+				0F329EEE1F8CAF19004A545D /* LHAddCommentView.h */,
+				0F329EEF1F8CAF19004A545D /* LHAddCommentView.m */,
+				0F329EF11F8CAF31004A545D /* LHAddCommentView.xib */,
 				0FB7933C1F4B19B500FDDB76 /* LHOrderHeaderFooterView.h */,
 				0FB7933D1F4B19B500FDDB76 /* LHOrderHeaderFooterView.m */,
 				0F0D27C11F6FC564006BFCB2 /* LHOrderModel.h */,
@@ -1361,8 +1379,8 @@
 				0F52B7401EFF8A59007D45EC /* LHLoginViewController.m */,
 				0F52B7411EFF8A59007D45EC /* LHRegistViewController.h */,
 				0F52B7421EFF8A59007D45EC /* LHRegistViewController.m */,
-				0F52B7471F00E4DB007D45EC /* LhCaptchaLoginViewController.h */,
-				0F52B7481F00E4DC007D45EC /* LhCaptchaLoginViewController.m */,
+				0F52B7471F00E4DB007D45EC /* LHCaptchaLoginViewController.h */,
+				0F52B7481F00E4DC007D45EC /* LHCaptchaLoginViewController.m */,
 			);
 			path = LoginAndRegist;
 			sourceTree = "<group>";
@@ -1374,8 +1392,6 @@
 				0F508FB51F7CC3BD007D7F49 /* HBKTextView.m */,
 				0F3D32F41F7DDE6000ABC8B3 /* LHImageView.h */,
 				0F3D32F51F7DDE6000ABC8B3 /* LHImageView.m */,
-				0F3175311F57FA8600208DD0 /* LHImagePickerViewController.h */,
-				0F3175321F57FA8600208DD0 /* LHImagePickerViewController.m */,
 				0F31753E1F594CFA00208DD0 /* LHShareManager.h */,
 				0F31753F1F594CFA00208DD0 /* LHShareManager.m */,
 				0FB793451F4E859500FDDB76 /* PublicClass */,
@@ -1776,6 +1792,7 @@
 				0FB7936D1F4FAE0F00FDDB76 /* LHEditAddressViewController.xib in Resources */,
 				0F7B79571F428FA8009DAF35 /* LHPackInfoChooseView.xib in Resources */,
 				0F52B7381EFA1328007D45EC /* city.plist in Resources */,
+				0F329EF21F8CAF31004A545D /* LHAddCommentView.xib in Resources */,
 				0F3175241F563C6E00208DD0 /* LHServeProtocolViewController.xib in Resources */,
 				0F3F64451F419C6100A42084 /* MBProgressHUD.bundle in Resources */,
 			);
@@ -1951,9 +1968,9 @@
 				0F52B7251EF91965007D45EC /* LHReceiveAddressViewController.m in Sources */,
 				0F9045C01F1DA18F000528A2 /* UIImage+Extension.m in Sources */,
 				0F3175371F57FE7500208DD0 /* LHCertificationViewController.m in Sources */,
+				0F329EED1F8C9EC4004A545D /* LHImagePickerViewController.m in Sources */,
 				0F52B69F1EF25A80007D45EC /* LHNewGoodsCell.m in Sources */,
 				0FB7933B1F4AE0D600FDDB76 /* LHCollectModel.m in Sources */,
-				0F3175331F57FA8700208DD0 /* LHImagePickerViewController.m in Sources */,
 				0F120D031F6A2FA800E617AA /* RSADataSigner.m in Sources */,
 				0F3F64311F414C6E00A42084 /* LHDevider.m in Sources */,
 				0F84BAF31F1F23AB00D98999 /* LHCardHeaderView.m in Sources */,
@@ -1966,7 +1983,6 @@
 				0FEC8D281F38533800453700 /* LHCartHeaderView.m in Sources */,
 				0F52B7261EF91965007D45EC /* LHSettingViewController.m in Sources */,
 				0F9046131F1DFD0A000528A2 /* LHScaningView.m in Sources */,
-				0F3D32F21F7DDA6600ABC8B3 /* LHEditCommentCell.m in Sources */,
 				0FEC8D291F38533800453700 /* LHMyBoxCell.m in Sources */,
 				0F9045A11F1CB6D8000528A2 /* UIImage+LHCategory.m in Sources */,
 				0F9045B91F1DA18F000528A2 /* NSAttributedString+Extension.m in Sources */,
@@ -1975,7 +1991,7 @@
 				0F3354E31F0A10B70056FEA9 /* LHUserInfoCell.m in Sources */,
 				0F52B6A41EF265D4007D45EC /* LHNewGoodsCollectionCell.m in Sources */,
 				0F9045061F138193000528A2 /* LHBoxHistoryViewController.m in Sources */,
-				0F52B7491F00E4DC007D45EC /* LhCaptchaLoginViewController.m in Sources */,
+				0F52B7491F00E4DC007D45EC /* LHCaptchaLoginViewController.m in Sources */,
 				0F52B6BC1EF3B0D5007D45EC /* LHScrollView.m in Sources */,
 				0F52B6391EEF84BA007D45EC /* LHBaseViewController.m in Sources */,
 				0F1D0C661F78A85400071F85 /* LHLeBaiPayAgainViewController.m in Sources */,
@@ -1986,6 +2002,7 @@
 				0F1D0C731F790ABB00071F85 /* LHMakeBillViewController.m in Sources */,
 				0F33547C1F0397260056FEA9 /* LHAllCommentViewController.m in Sources */,
 				0F84BB411F219AE400D98999 /* LHChangePasswordViewController.m in Sources */,
+				0F329EF01F8CAF19004A545D /* LHAddCommentView.m in Sources */,
 				0F33547F1F039C2A0056FEA9 /* LHParamCell.m in Sources */,
 				0F120D001F6A2FA800E617AA /* base64.m in Sources */,
 				0F52B6421EEF8522007D45EC /* LHNavigationViewController.m in Sources */,
@@ -2050,6 +2067,7 @@
 				0FB793351F4A786300FDDB76 /* LHCategoryView.m in Sources */,
 				0F9045BA1F1DA18F000528A2 /* NSDate+Extension.m in Sources */,
 				0F03D9141F3B07D8002F7939 /* LHGoodsDetailViewController.m in Sources */,
+				0F329EEA1F8C9693004A545D /* LHPhotoPickManager.m in Sources */,
 				0F52B7361EFA11AA007D45EC /* LHCityChooseView.m in Sources */,
 				0F9046211F1EF20F000528A2 /* LHCardBagViewController.m in Sources */,
 				0F52B5F41EEF83E1007D45EC /* main.m in Sources */,

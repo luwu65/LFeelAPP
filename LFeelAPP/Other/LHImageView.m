@@ -41,7 +41,7 @@
     [self addSubview:self.deleteButton];
     
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height-kFit(15)-kFit(20), frame.size.width, kFit(15))];
-    self.titleLabel.text = @"0/3";
+//    self.titleLabel.text = @"0/3";
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.textColor = [UIColor lightGrayColor];
     [self addSubview:self.titleLabel];

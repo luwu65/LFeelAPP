@@ -12,6 +12,7 @@
 #import "LHTagView.h"
 #import "LHCategoryView.h"
 #import "LHCategoryListViewController.h"
+#import "LHGoodsDetailViewController.h"
 
 @interface LHChooseClothesViewController ()<UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 /*搜索框*/
@@ -74,8 +75,6 @@
     // Do any additional setup after loading the view.
     
     self.view.backgroundColor = [UIColor whiteColor];
-    
-    
     
     [self requestCategoryListData];
     
@@ -237,6 +236,14 @@
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     return CGSizeMake(kScreenWidth, (kScreenWidth-30)/5 * 1.2 * 2+kFit(40)+20);
 }
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    LHGoodsDetailViewController *goodDetailVC = [[LHGoodsDetailViewController alloc] init];
+    LHGoodsListModel *model = self.goodsArray[indexPath.row];
+    goodDetailVC.product_id = model.product_id;
+    [self.navigationController pushViewController:goodDetailVC animated:YES];
+}
+
 
 
 #pragma mark ---------- Action -------------

@@ -14,19 +14,22 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - CTAssetsPickerController (3.3.2-alpha):
+    - PureLayout (~> 3.0.0)
   - FDFullscreenPopGesture (1.1)
   - IQKeyboardManager (4.0.13)
   - Masonry (1.0.2)
   - MBProgressHUD (1.0.0)
   - MJExtension (3.0.13)
-  - MJRefresh (3.1.12)
+  - MJRefresh (3.1.14)
+  - PureLayout (3.0.2)
   - ReactiveObjC (3.0.0)
   - SDCycleScrollView (1.73):
     - SDWebImage (~> 4.0.0)
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
-  - SobotKit (2.3.0)
+  - SobotKit (2.3.2)
   - UMengUShare/Core (6.4.5):
     - UMengUShare/Network
   - UMengUShare/Network (6.4.5)
@@ -42,6 +45,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
+  - CTAssetsPickerController (~> 3.3.2-alpha)
   - FDFullscreenPopGesture (~> 1.1)
   - IQKeyboardManager (~> 4.0.9)
   - Masonry (~> 1.0.2)
@@ -60,19 +64,21 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  CTAssetsPickerController: ef06977de8e0b6d6ff11a324d357a12335a61243
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   IQKeyboardManager: 8eab4d8111418414619d1df8e4779ce5d0f8d7e2
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
-  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  MJRefresh: 6642e35b3227a5447b9fd5e17c552c90196c9859
+  PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
   ReactiveObjC: ce79989e8684b9086b5f8d0c74bc7b81a8729c9e
   SDCycleScrollView: d0fd5fe40a80918371fd8939214eb3be81033d83
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
-  SobotKit: 085e7704921180f8aa3b06cb61b9005dfffd6bd0
+  SobotKit: 36cf15259e22baae05fbaec2d19ff1e8a6c653a8
   UMengUShare: a5711c54e640b04e3048e931d2b88d50f9cfa55c
   WechatOpenSDK: 1fe7e3b07db860d6a936c3ff4a5aba6b890958d9
 
-PODFILE CHECKSUM: 1e9d6a1584935ae692170c33398a435d7984f6c1
+PODFILE CHECKSUM: f46e15638f2ffc9d0aa4eccd6fd7027b8e7fb27a
 
 COCOAPODS: 1.2.1

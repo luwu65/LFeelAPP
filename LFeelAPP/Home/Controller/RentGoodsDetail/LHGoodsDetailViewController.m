@@ -187,9 +187,10 @@
 }
 
 #pragma mark ------------ 网络请求  ---------------
+//产品详情
 - (void)requestGoodsDetailData {
     [self showProgressHUD];
-    [LHNetworkManager requestForGetWithUrl:kGoodsDetailUrl parameter:@{@"id": self.goodsModel.product_id} success:^(id reponseObject) {
+    [LHNetworkManager requestForGetWithUrl:kGoodsDetailUrl parameter:@{@"id": self.product_id} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             for (NSDictionary *picdic in reponseObject[@"data"][@"product_pritures"]) {
@@ -213,6 +214,8 @@
         NSLog(@"%@", error);
     }];
 }
+
+//评论列表
 
 #pragma mark  -------------- Action ----------------
 //点击事件

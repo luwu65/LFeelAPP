@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '1ED4655E6FA807AB93E69E4968C19BE7'
+               BlueprintIdentifier = '0F7524AD025C3194D9B5C633DC7A987D'
                BlueprintName = 'Pods-LFeelAPP'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libPods-LFeelAPP.a'>

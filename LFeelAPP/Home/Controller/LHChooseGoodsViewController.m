@@ -434,7 +434,8 @@
 //点击事件
 - (void)cardContainerView:(LHDraggableCardContainer *)cardContainerView didSelectAtIndex:(NSInteger)index draggableView:(UIView *)draggableView {
     LHGoodsDetailViewController *detailVC = [[LHGoodsDetailViewController alloc] init];
-    detailVC.goodsModel = self.dataArray[index];
+    LHThemeGoodsModel *goodsModel = self.dataArray[index];
+    detailVC.product_id = goodsModel.product_id;
     
     [self.navigationController pushViewController:detailVC animated:YES];
 }

@@ -60,7 +60,7 @@
 
 #import "LHDevider.h"
 
-#import "LHImagePickerViewController.h"
+#import "LHPhotoPickManager.h"
 
 #import <UMSocialCore/UMSocialCore.h>
 
@@ -73,6 +73,9 @@
 #import <AlipaySDK/AlipaySDK.h>
 
 #import "HBKTextView.h"
+
+#import "LHImagePickerViewController.h"
+
 
 #import "UIView+Extension.h"
 #import "NSDate+Extension.h"
