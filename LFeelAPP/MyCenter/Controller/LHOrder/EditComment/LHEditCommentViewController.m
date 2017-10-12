@@ -8,10 +8,11 @@
 
 #import "LHEditCommentViewController.h"
 #import "LHAddCommentView.h"
-
+#import "LHPhotoPickManager.h"
 
 @interface LHEditCommentViewController ()
 
+@property (nonatomic, strong) LHAddCommentView *addView;
 
 @end
 
@@ -23,7 +24,7 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     [self setHBK_NavigationBar];
-    
+    [self setFirstSubView];
     
 }
 
@@ -34,11 +35,31 @@
         [self.navigationController popToRootViewControllerAnimated:YES];
     } rightFirst:@"发表" rightFirstBtnAction:^{
         
+        
     }];
+    self.hbk_navgationBar.rightFirstBtn.frame = CGRectMake(kScreenWidth-60, 27, 50, 30);
 }
-//- (void)
 
-
+- (void)setFirstSubView {
+    self.addView = [LHAddCommentView creatView];
+    self.addView.frame = CGRectMake(0, 64, kScreenWidth, (kScreenWidth-kFit(40))/3+kFit(140));
+    kWeakSelf(self);
+    self.addView.ClickBlock = ^{
+        kStrongSelf(self);
+        [[LHPhotoPickManager sharedManager] getImagesInView:self maxCount:3 - self.addView.photoArray.count successBlock:^(NSMutableArray<UIImage *> *images) {
+//            NSLog(@"选中---->>>>> %@", images);
+            kStrongSelf(self);
+            if (self.addView.photoArray.count != 0) {
+                [self.addView.photoArray addObjectsFromArray:images];
+                NSLog(@"------- >>>> %ld", self.addView.photoArray.count);
+                [self.addView updateLayout];
+            } else {
+                self.addView.photoArray = [NSMutableArray arrayWithArray:images];
+            }
+        }];
+    };
+    [self.view addSubview:self.addView];
+}
 
 
 

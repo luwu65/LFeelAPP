@@ -23,6 +23,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self makeView];
+    
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -37,8 +38,8 @@
     self.placeHolderColor = [UIColor lightGrayColor];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChanged:) name:UITextViewTextDidChangeNotification object:nil];
     self.layer.masksToBounds = YES;
-    self.layer.borderWidth = 1;
-    self.layer.borderColor = [UIColor blackColor].CGColor;
+//    self.layer.borderWidth = 1;
+//    self.layer.borderColor = [UIColor blackColor].CGColor;
     
 }
 

@@ -169,14 +169,15 @@ static NSString * BackButtonImageName = @"Back_Button";
         //右边第二个按钮
         if (rightSecond) {
             self.rightSecondBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-            self.rightSecondBtn.frame = CGRectMake(kScreenWidth-70, 27, 30, 30);
             UIImage *image = [UIImage imageNamed:rightSecond];
+            self.rightSecondBtn.frame = CGRectMake(kScreenWidth-70, 27, 30, 30);
             if (image) {
                 [self.rightSecondBtn setImage:[UIImage imageNamed:rightSecond] forState:(UIControlStateNormal)];
             } else {
                 [self.rightSecondBtn setTitle:rightSecond forState:(UIControlStateNormal)];
                 self.rightSecondBtn.titleLabel.font = [UIFont systemFontOfSize:15];
                 [self.rightSecondBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+
             }
             [self.rightSecondBtn addTarget:self action:@selector(rightSecondBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
             self.rightSecondBlock = rightSecondAction;

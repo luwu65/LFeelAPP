@@ -238,7 +238,6 @@
         }
     }
     return YES;
-    
 }
 
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray<PHAsset *> *)assets {
@@ -251,18 +250,19 @@
     options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     
     NSMutableArray *images = [NSMutableArray array];
+
     // 遍历选择所有的图片
     for (NSInteger i = 0; i < assets.count; i++) {
         PHAsset *asset = assets[i];
         CGSize size = CGSizeMake(asset.pixelWidth / scale, asset.pixelHeight / scale);
         // 获取图片
         [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:size contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-            UIImage *image = result;
-            [images addObject:image];
-            
-            if (i == assets.count - 1) {
+            [images addObject:result];
+//            NSLog(@"------- %@ ----- %ld ---- %ld ---- %ld", result, i, images.count, assets.count);
+            if (images.count == assets.count) {
                 if (self.successBlocks) {
                     self.successBlocks(images);
+//                    NSLog(@"====== %ld ====== >>>> %ld -------- %ld", i, images.count, assets.count);
                 }
             }
         }];

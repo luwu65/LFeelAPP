@@ -7,8 +7,8 @@
 //
 
 #import "LHNetworkManager.h"
-#import "LHLoginViewController.h"
-
+//#import "LHLoginViewController.h"
+#import "LHCaptchaLoginViewController.h"
 
 #define ContentType @"application/json"
 
@@ -297,7 +297,7 @@ static bool _judgeLoginStatus(NSDictionary *dic) {
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"登录过期, 请重新登录" message:nil preferredStyle:(UIAlertControllerStyleAlert)];
         [alert addAction:[UIAlertAction actionWithTitle:@"去登录" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-            LHLoginViewController *loginVC = [[LHLoginViewController alloc] init];
+            LHCaptchaLoginViewController *loginVC = [[LHCaptchaLoginViewController alloc] init];
             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:loginVC animated:YES completion:nil];
         }]];
         [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];

@@ -48,7 +48,6 @@
 @property (nonatomic, copy) NSString *ass;
 @property (nonatomic, copy) NSString *head_url;
 @property (nonatomic, copy) NSString *lastlogintime;
-@property (nonatomic, copy) NSString *password;
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *shose;
 @property (nonatomic, copy) NSString *remark;
@@ -56,10 +55,8 @@
 @property (nonatomic, copy) NSString *id_reverse;
 @property (nonatomic, copy) NSString *status;//实名认证状态
 @property (nonatomic, copy) NSString *isreal;//实名认证状态
-
-
-
-
+@property (nonatomic, copy) NSString *isVip;
+@property (nonatomic, copy) NSString *vipminutes;
 
 
 

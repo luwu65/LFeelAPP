@@ -12,7 +12,8 @@
 #import "LHNewGoodsViewController.h"
 #import "LHMyCenterViewController.h"
 #import "LHNavigationViewController.h"
-#import "LHLoginViewController.h"
+//#import "LHLoginViewController.h"
+#import "LHCaptchaLoginViewController.h"
 #import "LHChooseClothesViewController.h"
 @interface LHTabBarViewController ()<UITabBarControllerDelegate>
 
@@ -65,7 +66,7 @@
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     if ([viewController.tabBarItem.title isEqualToString:@"乐荟盒子"] || [viewController.tabBarItem.title isEqualToString:@"我的"]) {
         if (![LHUserInfoManager isLoad]) {
-            LHLoginViewController *loginVC = [[LHLoginViewController alloc] init];
+            LHCaptchaLoginViewController *loginVC = [[LHCaptchaLoginViewController alloc] init];
             [self presentViewController:loginVC animated:YES completion:nil];            
             return NO;
         } else {

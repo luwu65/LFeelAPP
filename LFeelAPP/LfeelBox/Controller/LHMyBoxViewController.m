@@ -18,7 +18,7 @@
 #import "LHSendBackViewController.h"
 #import "LHHomeModel.h"
 #import "LHCertificationViewController.h"
-#import "LHLoginViewController.h"
+//#import "LHLoginViewController.h"
 
 #define kTag_CartEmptyView  3101
 #define kTag_BoxEmptyView   3102

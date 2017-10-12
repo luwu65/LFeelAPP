@@ -8,6 +8,7 @@
 
 #import "LHBaseViewController.h"
 #import "LHPayResultsViewController.h"
+#import "LHCaptchaLoginViewController.h"
 
 @interface LHBaseViewController ()
 
@@ -65,7 +66,7 @@
 
 
 
-#pragma mark --提示框
+#pragma mark --------------- 提示框 ------------------
 - (void)showAlertViewWithTitle:(NSString *)title {
     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"提示" message:title preferredStyle:(UIAlertControllerStyleAlert)];
     UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
@@ -104,7 +105,7 @@
 // 开启倒计时效果
 -(void)openCountdown:(UIButton *)sender {
     sender.userInteractionEnabled = NO;
-    __block NSInteger time = 59; //倒计时时间
+    __block NSInteger time = 5; //倒计时时间
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
     dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
@@ -114,7 +115,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 //设置按钮的样式
                 [sender setTitle:@"重新发送" forState:UIControlStateNormal];
-                [sender setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 sender.userInteractionEnabled = YES;
             });
         } else {
@@ -247,6 +248,19 @@
     
     [WXApi sendReq:payreq];
 }
+
+
+- (void)CaptchaLogin {
+    LHCaptchaLoginViewController *loginVC = [[LHCaptchaLoginViewController alloc] init];
+    loginVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    [self presentViewController:loginVC animated:YES completion:nil];
+}
+
+
+
+
+
+
 
 
 

@@ -75,7 +75,10 @@
 - (void)payForWXPay:(NSString *_Nullable)dataString;
 
 
-
+/**
+ 验证码登录
+ */
+- (void)CaptchaLogin;
 
 
 

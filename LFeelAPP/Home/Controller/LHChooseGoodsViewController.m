@@ -13,7 +13,7 @@
 #import "LHDraggableCardContainer.h"
 #import "LHDragCardView.h"
 #import "LHFloatAnimationButton.h"
-#import "LHLoginViewController.h"
+//#import "LHLoginViewController.h"
 @interface LHChooseGoodsViewController ()<LHDraggableCardContainerDelegate, LHDraggableCardContainerDataSource>
 
 @property (nonatomic, strong) UILabel *cTitleLabel;//中文标题
@@ -157,8 +157,9 @@
             self.eTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
         }
     } else {
-        LHLoginViewController *loginVC = [[LHLoginViewController alloc] init];
-        [self presentViewController:loginVC animated:YES completion:nil];
+//        LHLoginViewController *loginVC = [[LHLoginViewController alloc] init];
+//        [self presentViewController:loginVC animated:YES completion:nil];
+        [self CaptchaLogin];
     }
 }
 
@@ -362,8 +363,9 @@
                 self.eTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
             }
         } else {
-            LHLoginViewController *loginVC = [[LHLoginViewController alloc] init];
-            [self presentViewController:loginVC animated:YES completion:nil];
+//            LHLoginViewController *loginVC = [[LHLoginViewController alloc] init];
+//            [self presentViewController:loginVC animated:YES completion:nil];
+            [self CaptchaLogin];
         }
     }
     if (draggableDirection == LHDraggableDirectionUp) {
@@ -384,8 +386,9 @@
                 self.eTitleLabel.text = [model.brand_name isKindOfClass:[NSNull class]] ? @"" : model.brand_name;
             }
         } else {
-            LHLoginViewController *loginVC = [[LHLoginViewController alloc] init];
-            [self presentViewController:loginVC animated:YES completion:nil];
+//            LHLoginViewController *loginVC = [[LHLoginViewController alloc] init];
+//            [self presentViewController:loginVC animated:YES completion:nil];
+            [self CaptchaLogin];
         }
     }
     if (draggableDirection == LHDraggableDirectionDown) {

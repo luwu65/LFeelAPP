@@ -25,9 +25,10 @@
     
     [self setUI];
     
+    self.phoneTextField.text = @"13298368875";
+    self.captchaTextField.text = @"1234";
     
-    
-    
+    [self loginBtnAction];
 }
 //获取验证码
 - (void)obtainCaptchaAction:(UIButton *)sender {
@@ -51,16 +52,20 @@
 
 //登录
 - (void)loginBtnAction {
+    
     [LHNetworkManager PostWithUrl:kVerifyLogin parameter:@{@"mobile":self.phoneTextField.text, @"verifycode":self.captchaTextField.text} success:^(id reponseObject) {
         NSLog(@"!!!!!!!!!1%@", reponseObject);
         if ([kSTR(reponseObject[@"isError"]) isEqualToString:@"0"]) {
             [LHUserInfoManager cleanUserInfo];
+            [LHUserInfoManager removeUseDefaultsForKey:@"token"];
             LHUserInfoModel *model = [[LHUserInfoModel alloc] init];
             NSDictionary *dic = reponseObject[@"data"];
             [model setValuesForKeysWithDictionary:dic[@"user"]];
             [LHUserInfoManager saveUserInfoWithModel:model];
+            //保存token
+            [LHUserInfoManager saveUseDefaultsOjbect:dic[@"token"] forKey:@"token"];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+                [self dismissViewControllerAnimated:YES completion:nil];
             });
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{

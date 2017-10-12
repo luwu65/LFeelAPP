@@ -14,7 +14,7 @@
 #import "LHGoodsListViewController.h"
 #import "LHNewGoodsModel.h"
 #import "LHNewGoodsDetailViewController.h"
-#import "LHLoginViewController.h"
+//#import "LHLoginViewController.h"
 @interface LHNewGoodsViewController ()<UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate>
 
 @property (nonatomic, strong) UITableView *newsGoodTableView;
@@ -169,8 +169,7 @@
 
         [cell handleCollecitonBtnAction:^(BOOL isClick) {
             if (![LHUserInfoManager isLoad]) {
-                LHLoginViewController *loginVC = [[LHLoginViewController alloc] init];
-                [self presentViewController:loginVC animated:YES completion:nil];
+                [self CaptchaLogin];
             } else {
                 LHGoodsListModel *model = self.goodsArray[indexPath.row];
                 if (isClick) {
