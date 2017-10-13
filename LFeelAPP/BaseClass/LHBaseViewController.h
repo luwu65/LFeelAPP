@@ -35,17 +35,38 @@
 - (void)showAlertViewWithTitle:(NSString *_Nullable)title;
 
 
-//带点击事件的提示框
+/*
+ 带点击事件的提示框
+*/
 - (void)showAlertViewWithTitle:(NSString *_Nullable)title
                     yesHandler:(void (^ __nullable)(UIAlertAction * _Nullable action))yesHandler
                      noHandler:(void (^ __nullable)(UIAlertAction * _Nullable action))noHandler;
 
-//自定义文字的提示框
+/*
+ 自定义文字的提示框
+*/
 - (void)showAlertViewWithTitle:(NSString *_Nullable)title
                            yes:(NSString *_Nullable)yes
                             no:(NSString *_Nullable)no
                     yesHandler:(void (^ __nullable)(UIAlertAction * _Nullable action))yesHandler
                      noHandler:(void (^ __nullable)(UIAlertAction * _Nullable action))noHandler;
+
+/*
+ 自定义文字的提示框
+ */
+- (void)showAlertSheetViewWithTitle:(NSString *_Nullable)title
+                              first:(NSString *_Nullable)first
+                             second:(NSString *_Nullable)second
+                                 no:(NSString *_Nullable)no
+                       firstHandler:(void (^ __nullable)(UIAlertAction * _Nullable action))firstHandler
+                      secondHandler:(void (^ __nullable)(UIAlertAction * _Nullable action))secondHandler
+                          noHandler:(void (^ __nullable)(UIAlertAction * _Nullable action))noHandler;
+
+
+
+
+
+
 
 // 开启倒计时效果
 -(void)openCountdown:(UIButton *_Nullable)sender;

@@ -100,7 +100,28 @@
     [self presentViewController:alertC animated:YES completion:nil];
 }
 
-
+- (void)showAlertSheetViewWithTitle:(NSString *_Nullable)title
+                              first:(NSString *_Nullable)first
+                             second:(NSString *_Nullable)second
+                                 no:(NSString *_Nullable)no
+                       firstHandler:(void (^ __nullable)(UIAlertAction * _Nullable action))firstHandler
+                      secondHandler:(void (^ __nullable)(UIAlertAction * _Nullable action))secondHandler
+                          noHandler:(void (^ __nullable)(UIAlertAction * _Nullable action))noHandler {
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"提示" message:title preferredStyle:(UIAlertControllerStyleActionSheet)];
+    if (first) {
+        UIAlertAction *sureAction = [UIAlertAction actionWithTitle:first style:(UIAlertActionStyleDefault) handler:firstHandler];
+        [alertC addAction:sureAction];
+    }
+    if (second) {
+        UIAlertAction *sureAction = [UIAlertAction actionWithTitle:second style:(UIAlertActionStyleDefault) handler:secondHandler];
+        [alertC addAction:sureAction];
+    }
+    if (no) {
+        UIAlertAction *noAction = [UIAlertAction actionWithTitle:no style:(UIAlertActionStyleCancel) handler:noHandler];
+        [alertC addAction:noAction];
+    }
+    [self presentViewController:alertC animated:YES completion:nil];
+}
 
 // 开启倒计时效果
 -(void)openCountdown:(UIButton *)sender {

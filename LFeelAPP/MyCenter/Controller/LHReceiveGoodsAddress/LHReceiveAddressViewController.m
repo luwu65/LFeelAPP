@@ -78,7 +78,7 @@
 - (void)addEmptyView {
     self.emptyBgView = [[UIView alloc] init];
     self.emptyBgView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight-kNavBarHeight);
-    [self.view addSubview:self.emptyBgView];
+    [self.addressTableView addSubview:self.emptyBgView];
     
     UIImageView *emptyImageView = [[UIImageView alloc] initWithImage:kImage(@"MyCenter_addressEmpty")];
     emptyImageView.frame = CGRectMake(kFit(100), kFit(104), kScreenWidth-kFit(200), kScreenWidth-kFit(200));

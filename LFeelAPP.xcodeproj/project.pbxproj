@@ -181,6 +181,8 @@
 		0F925D351F8EFED5003E75DD /* LHEditCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F925D2F1F8EFED5003E75DD /* LHEditCommentViewController.m */; };
 		0F925D361F8EFED5003E75DD /* LHPhotoCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F925D311F8EFED5003E75DD /* LHPhotoCommentCell.m */; };
 		0F925D371F8EFED5003E75DD /* LHPhotoCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F925D321F8EFED5003E75DD /* LHPhotoCommentCell.xib */; };
+		0F925D3B1F90500E003E75DD /* LHSettingUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F925D391F90500E003E75DD /* LHSettingUserInfoViewController.m */; };
+		0F925D3C1F90500E003E75DD /* LHSettingUserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F925D3A1F90500E003E75DD /* LHSettingUserInfoViewController.xib */; };
 		0FB793351F4A786300FDDB76 /* LHCategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB793341F4A786300FDDB76 /* LHCategoryView.m */; };
 		0FB793381F4A870300FDDB76 /* LHCategoryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB793371F4A870300FDDB76 /* LHCategoryListViewController.m */; };
 		0FB7933B1F4AE0D600FDDB76 /* LHCollectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB7933A1F4AE0D600FDDB76 /* LHCollectModel.m */; };
@@ -613,6 +615,9 @@
 		0F925D301F8EFED5003E75DD /* LHPhotoCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHPhotoCommentCell.h; sourceTree = "<group>"; };
 		0F925D311F8EFED5003E75DD /* LHPhotoCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHPhotoCommentCell.m; sourceTree = "<group>"; };
 		0F925D321F8EFED5003E75DD /* LHPhotoCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHPhotoCommentCell.xib; sourceTree = "<group>"; };
+		0F925D381F90500E003E75DD /* LHSettingUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHSettingUserInfoViewController.h; sourceTree = "<group>"; };
+		0F925D391F90500E003E75DD /* LHSettingUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHSettingUserInfoViewController.m; sourceTree = "<group>"; };
+		0F925D3A1F90500E003E75DD /* LHSettingUserInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LHSettingUserInfoViewController.xib; sourceTree = "<group>"; };
 		0FB793331F4A786300FDDB76 /* LHCategoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHCategoryView.h; sourceTree = "<group>"; };
 		0FB793341F4A786300FDDB76 /* LHCategoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LHCategoryView.m; sourceTree = "<group>"; };
 		0FB793361F4A870300FDDB76 /* LHCategoryListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LHCategoryListViewController.h; sourceTree = "<group>"; };
@@ -922,8 +927,8 @@
 		0F329EE71F8C9678004A545D /* PhotoPickManager */ = {
 			isa = PBXGroup;
 			children = (
-				0F329EEB1F8C9EC4004A545D /* LHImagePickerViewController.m */,
 				0F329EEC1F8C9EC4004A545D /* LHImagePickerViewController.h */,
+				0F329EEB1F8C9EC4004A545D /* LHImagePickerViewController.m */,
 				0F329EE81F8C9692004A545D /* LHPhotoPickManager.h */,
 				0F329EE91F8C9692004A545D /* LHPhotoPickManager.m */,
 			);
@@ -1352,6 +1357,9 @@
 				0F52B7221EF91965007D45EC /* LHUserInfoViewController.h */,
 				0F52B7231EF91965007D45EC /* LHUserInfoViewController.m */,
 				0F3175391F58174E00208DD0 /* LHUserInfoViewController.xib */,
+				0F925D381F90500E003E75DD /* LHSettingUserInfoViewController.h */,
+				0F925D391F90500E003E75DD /* LHSettingUserInfoViewController.m */,
+				0F925D3A1F90500E003E75DD /* LHSettingUserInfoViewController.xib */,
 				0F3354E11F0A10B70056FEA9 /* LHUserInfoCell.h */,
 				0F3354E21F0A10B70056FEA9 /* LHUserInfoCell.m */,
 				0F120C1C1F663A9B00E617AA /* LHBWHPickView.h */,
@@ -1779,6 +1787,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F52B6691EEFDE72007D45EC /* LHSpecialCollectionViewCell.xib in Resources */,
+				0F925D3C1F90500E003E75DD /* LHSettingUserInfoViewController.xib in Resources */,
 				0F31752B1F563E9900208DD0 /* LHPackSuccessViewController.xib in Resources */,
 				0F31753A1F58174E00208DD0 /* LHUserInfoViewController.xib in Resources */,
 				0F52B6021EEF83E1007D45EC /* LaunchScreen.storyboard in Resources */,
@@ -2122,6 +2131,7 @@
 				0F2F17CE1F319EC0006DE053 /* LHChooseClothesViewController.m in Sources */,
 				0F9046191F1EEC52000528A2 /* LHNewGoodsDetailViewController.m in Sources */,
 				0F52B70A1EF8D00F007D45EC /* LHCollectViewController.m in Sources */,
+				0F925D3B1F90500E003E75DD /* LHSettingUserInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

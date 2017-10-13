@@ -54,7 +54,7 @@
     [LHNetworkManager requestForGetWithUrl:kBankListUrl parameter:@{@"user_id": kUser_id} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
-            for (NSDictionary *dic in reponseObject[@"data"]) {
+            for (NSDictionary *dic in reponseObject[@"data"][@"bank"]) {
                 LHBankCardModel *model = [[LHBankCardModel alloc] init];
                 [model setValuesForKeysWithDictionary:dic];
                 [self.bankCardArray addObject:model];

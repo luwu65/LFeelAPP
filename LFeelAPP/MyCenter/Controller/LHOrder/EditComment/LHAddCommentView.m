@@ -120,7 +120,7 @@
         self.addBtn.hidden = NO;
     }
     [self.commentCollectionView reloadData];
-    self.addBtn.frame = CGRectMake(20+(10+(kScreenWidth-40)/3)*(self.photoArray.count%3), self.commentCollectionView.frame.size.height-(kScreenWidth-40)/3,(kScreenWidth-40)/3-20,(kScreenWidth-40)/3-20);
+    self.addBtn.frame = CGRectMake(20+(10+(kScreenWidth-40)/3)*(self.photoArray.count%3), self.commentCollectionView.frame.size.height-(kScreenWidth-40)/3-10,(kScreenWidth-40)/3-20,(kScreenWidth-40)/3-20);
 }
 
 

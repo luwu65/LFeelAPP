@@ -184,7 +184,6 @@
             } noHandler:^(UIAlertAction *action) {
                 
             }];
-            
         } else if ([sender.titleLabel.text isEqualToString:@"删除订单"]) {
             [self showAlertViewWithTitle:@"确认删除订单?" yes:@"确认" no:@"取消" yesHandler:^(UIAlertAction *action) {
                 [self requestDeleteOrderWithModel:self.storeArray[section]];
@@ -193,7 +192,7 @@
             }];
         } else if ([sender.titleLabel.text isEqualToString:@"评价"]) {
             LHEditCommentViewController *editCVC = [[LHEditCommentViewController alloc] init];
-            
+            editCVC.orderModel = self.storeArray[section];
             [self.navigationController pushViewController:editCVC animated:YES];
         }
         

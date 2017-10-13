@@ -53,6 +53,10 @@
  */
 @property (nonatomic, strong) NSMutableArray *categoryListArray;
 
+
+@property (nonatomic, assign) NSInteger page;
+
+
 @end
 
 @implementation LHChooseClothesViewController
@@ -77,7 +81,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self requestCategoryListData];
-    
+    self.page = 1;
     
     
 }
@@ -148,15 +152,20 @@
     
     [self.goodsColllectionView registerNib:[UINib nibWithNibName:@"LHNewGoodsCollectionCell" bundle:nil] forCellWithReuseIdentifier:@"LHNewGoodsCollectionCell"];
     [self.goodsColllectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"LHCategoryView"];
-
+    kWeakSelf(self);
     self.goodsColllectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         NSLog(@"下拉刷新");
+        kStrongSelf(self);
         [self.goodsArray removeAllObjects];
-        [self requestRecommendGoodsListData];
+        [self requestRecommendGoodsListDataWithPage:1];
     }];
+    
+    
     self.goodsColllectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         NSLog(@"上拉加载");
-        [self requestRecommendGoodsListData];
+        kStrongSelf(self);
+        self.page++;
+        [self requestRecommendGoodsListDataWithPage:self.page];
     }];
 }
 
@@ -333,7 +342,7 @@
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             //之前这里有做延迟操作, 防止user_id读取太慢
-            [self requestRecommendGoodsListData];
+            [self requestRecommendGoodsListDataWithPage:1];
         });
     } failure:^(NSError *error) {
         
@@ -345,11 +354,11 @@
 /**
  请求推荐的商品列表
  */
-- (void)requestRecommendGoodsListData {
+- (void)requestRecommendGoodsListDataWithPage:(NSInteger)page {
     //recommended 是否推荐 0 --> 不推荐; 1 --> 推荐
     //type 0 --> 购买的商品; 1 --> 租赁的商品
     //    NSLog(@"---------------> %@", kUser_id); , @"user_id": kUser_id
-    [LHNetworkManager requestForGetWithUrl:kNewGoodsListUrl parameter:@{@"recommend": @1, @"type": @1} success:^(id reponseObject) {
+    [LHNetworkManager requestForGetWithUrl:kNewGoodsListUrl parameter:@{@"recommend": @1, @"type": @1, @"limit": @20, @"page":@(page)} success:^(id reponseObject) {
         NSLog(@"%@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             if (!self.goodsColllectionView) {
@@ -365,6 +374,10 @@
                 [self.goodsArray addObject:model];
             }
         }
+        if (page == [reponseObject[@"pageInfo"][@"total_page"] integerValue]) {
+            [self.goodsColllectionView.mj_footer endRefreshingWithNoMoreData];
+        }
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideProgressHUD];
             [self.goodsColllectionView.mj_header endRefreshing];

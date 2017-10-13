@@ -141,7 +141,8 @@
 //添加银行卡
 #define kAddBankCardUrl               @"bank/add"
 
-
+//添加评论
+#define kAddCommentUrl                @"comment/add"
 
 
 

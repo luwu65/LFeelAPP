@@ -441,7 +441,7 @@ typedef NS_ENUM(NSInteger, PayType) {
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    NSLog(@"点击了~");
 }
 
 

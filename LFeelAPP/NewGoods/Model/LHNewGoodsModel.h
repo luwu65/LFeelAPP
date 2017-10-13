@@ -17,6 +17,7 @@
 @property (nonatomic, copy) NSString *IndexOf;
 @property (nonatomic, copy) NSString *url;
 @property (nonatomic, copy) NSString *isrent;
+@property (nonatomic, copy) NSString *recommend;
 
 @end
 

@@ -7,7 +7,20 @@
 //
 
 #import "LHBaseViewController.h"
-
+#import "LHOrderModel.h"
 @interface LHEditCommentViewController : LHBaseViewController
+
+
+
+
+@property (nonatomic, strong) LHOrderModel *orderModel;
+
+
+
+
+
+
+
+
 
 @end

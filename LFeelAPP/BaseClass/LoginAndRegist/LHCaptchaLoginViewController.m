@@ -25,10 +25,12 @@
     
     [self setUI];
     
-    self.phoneTextField.text = @"13298368875";
+//    self.phoneTextField.text = @"13298368875";
+    self.phoneTextField.text = @"15627284287";
+
     self.captchaTextField.text = @"1234";
     
-    [self loginBtnAction];
+//    [self loginBtnAction];
 }
 //获取验证码
 - (void)obtainCaptchaAction:(UIButton *)sender {
