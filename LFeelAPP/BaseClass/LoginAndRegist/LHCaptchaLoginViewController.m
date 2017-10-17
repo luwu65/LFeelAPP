@@ -25,12 +25,12 @@
     
     [self setUI];
     
-//    self.phoneTextField.text = @"13298368875";
-    self.phoneTextField.text = @"15627284287";
+    self.phoneTextField.text = @"13298368875";
+//    self.phoneTextField.text = @"15627284287";
 
     self.captchaTextField.text = @"1234";
     
-//    [self loginBtnAction];
+    [self loginBtnAction];
 }
 //获取验证码
 - (void)obtainCaptchaAction:(UIButton *)sender {
@@ -95,7 +95,7 @@
     UIButton *backBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [backBtn setImage:[UIImage imageNamed:@"Login_Back_write"] forState:(UIControlStateNormal)];
     [backBtn addTarget:self action:@selector(backAction) forControlEvents:(UIControlEventTouchUpInside)];
-    backBtn.frame = CGRectMake(0, 20, 40, 40);
+    backBtn.frame = CGRectMake(0, 25, 40, 40);
     [bgView addSubview:backBtn];
     
     //logo
@@ -232,6 +232,7 @@
 }
 //返回
 - (void)backAction {
+
     [self dismissViewControllerAnimated:YES completion:nil];
     
 }

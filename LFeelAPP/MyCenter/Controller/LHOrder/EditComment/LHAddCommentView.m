@@ -30,7 +30,7 @@
 }
 
 - (void)setPhotoArray:(NSMutableArray *)photoArray {
-    NSLog(@"------------%ld", photoArray.count);
+//    NSLog(@"------------%ld", photoArray.count);
     _photoArray = photoArray;
 
     [self updateLayout];
@@ -56,7 +56,7 @@
     
     self.addBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [self.addBtn setBackgroundImage:kImage(@"Order_AddImage") forState:(UIControlStateNormal)];
-    self.addBtn.frame = CGRectMake(10, 10, (kScreenWidth-kFit(40))/3-20, (kScreenWidth-kFit(40))/3-20);
+    self.addBtn.frame = CGRectMake(10, 20, (kScreenWidth-kFit(40))/3-20, (kScreenWidth-kFit(40))/3-20);
     [self.addBtn addTarget:self action:@selector(addPhoto) forControlEvents:(UIControlEventTouchUpInside)];
     [self.commentCollectionView addSubview:self.addBtn];
 }
@@ -120,7 +120,7 @@
         self.addBtn.hidden = NO;
     }
     [self.commentCollectionView reloadData];
-    self.addBtn.frame = CGRectMake(20+(10+(kScreenWidth-40)/3)*(self.photoArray.count%3), self.commentCollectionView.frame.size.height-(kScreenWidth-40)/3-10,(kScreenWidth-40)/3-20,(kScreenWidth-40)/3-20);
+    self.addBtn.frame = CGRectMake(20+(10+(kScreenWidth-40)/3)*(self.photoArray.count%3), self.commentCollectionView.frame.size.height-(kScreenWidth-40)/3,(kScreenWidth-40)/3-20,(kScreenWidth-40)/3-20);
 }
 
 

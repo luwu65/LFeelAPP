@@ -223,7 +223,7 @@
            failure:(void(^)(NSError *error))failureBlock {
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"application/json", nil];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"application/json",@"image/jpeg", @"image/png", @"application/octet-stream", @"text/json", nil];
     url = [NSString stringWithFormat:@"%@%@", kBaseUrl, url];
     if (![url hasSuffix:@"?"]) {
         url = [url stringByAppendingString:@"?"];
@@ -252,11 +252,9 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (_judgeLoginStatus(responseObject)) return ;
-
         if (successBlock) {
             successBlock(responseObject);
         }
-        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failureBlock(error);
         

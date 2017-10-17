@@ -107,7 +107,7 @@
                        firstHandler:(void (^ __nullable)(UIAlertAction * _Nullable action))firstHandler
                       secondHandler:(void (^ __nullable)(UIAlertAction * _Nullable action))secondHandler
                           noHandler:(void (^ __nullable)(UIAlertAction * _Nullable action))noHandler {
-    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"提示" message:title preferredStyle:(UIAlertControllerStyleActionSheet)];
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:nil message:title preferredStyle:(UIAlertControllerStyleActionSheet)];
     if (first) {
         UIAlertAction *sureAction = [UIAlertAction actionWithTitle:first style:(UIAlertActionStyleDefault) handler:firstHandler];
         [alertC addAction:sureAction];

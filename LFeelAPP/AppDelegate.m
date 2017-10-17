@@ -47,7 +47,6 @@ static char kScreenShotViewMove[] = "screenShotViewMove";
     
     
     
-    
     return YES;
 }
 
