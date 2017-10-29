@@ -40,43 +40,43 @@
     self.goodsImageView.backgroundColor = [UIColor redColor];
     [self addSubview:self.goodsImageView];
     [self.goodsImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakself.mas_left).offset(5*kRatio);
-        make.top.equalTo(weakself.mas_top).offset(5*kRatio);
-        make.bottom.equalTo(weakself.mas_bottom).offset(-5*kRatio);
+        make.left.equalTo(weakself.mas_left).offset(kFit(5));
+        make.top.equalTo(weakself.mas_top).offset(kFit(5));
+        make.bottom.equalTo(weakself.mas_bottom).offset(-kFit(5));
         make.centerY.equalTo(weakself.mas_centerY);
         make.width.equalTo(weakself.goodsImageView.mas_height).multipliedBy(1.0f);
     }];
     
     self.titleLabel = [[UILabel alloc] init];
-    self.titleLabel.font = kFont(14*kRatio);
+    self.titleLabel.font = kFont(kFit(14));
     [self addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(20*kRatio);
-        make.left.equalTo(weakself.goodsImageView.mas_right).offset(5*kRatio);
-        make.right.equalTo(weakself.mas_right).offset(-5*kRatio);
-        make.top.equalTo(weakself.mas_top).offset(5*kRatio);
+        make.height.mas_equalTo(kFit(20));
+        make.left.equalTo(weakself.goodsImageView.mas_right).offset(kFit(5));
+        make.right.equalTo(weakself.mas_right).offset(-kFit(5));
+        make.top.equalTo(weakself.mas_top).offset(kFit(5));
     }];
 
     self.brandLabel = [[UILabel alloc] init];
     self.brandLabel.textColor = [UIColor lightGrayColor];
-    self.brandLabel.font = kFont(14*kRatio);
+    self.brandLabel.font = kFont(kFit(14));
     [self addSubview:self.brandLabel];
     [self.brandLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(20*kRatio);
-        make.top.equalTo(weakself.titleLabel.mas_bottom).offset(5*kRatio);
-        make.left.equalTo(weakself.goodsImageView.mas_right).offset(5*kRatio);
-        make.right.equalTo(weakself.mas_right).offset(-5*kRatio);
+        make.height.mas_equalTo(kFit(20));
+        make.top.equalTo(weakself.titleLabel.mas_bottom).offset(kFit(5));
+        make.left.equalTo(weakself.goodsImageView.mas_right).offset(kFit(5));
+        make.right.equalTo(weakself.mas_right).offset(-kFit(5));
         
     }];
     
     self.sizeLabel = [[UILabel alloc] init];
-    self.sizeLabel.font = kFont(14*kRatio);
+    self.sizeLabel.font = kFont(kFit(14));
     [self addSubview:self.sizeLabel];
     [self.sizeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(20*kRatio);
-        make.left.equalTo(weakself.goodsImageView.mas_right).offset(5*kRatio);
-        make.right.equalTo(weakself.mas_right).offset(-5*kRatio);
-        make.bottom.equalTo(weakself.mas_bottom).offset(-5*kRatio);
+        make.height.mas_equalTo(kFit(20));
+        make.left.equalTo(weakself.goodsImageView.mas_right).offset(kFit(5));
+        make.right.equalTo(weakself.mas_right).offset(-kFit(5));
+        make.bottom.equalTo(weakself.mas_bottom).offset(-kFit(5));
     }];
 
     

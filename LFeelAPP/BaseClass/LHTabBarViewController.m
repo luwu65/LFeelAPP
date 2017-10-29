@@ -57,7 +57,6 @@
     childController.tabBarController.tabBar.tintColor = [UIColor redColor];
     self.tabBar.tintColor = [UIColor redColor];    
     LHNavigationViewController *nav = [[LHNavigationViewController alloc]initWithRootViewController:childController];
-    
     return nav;
 }
 

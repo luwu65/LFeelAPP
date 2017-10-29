@@ -24,12 +24,12 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
      
-        self.titleLabel.font = kFont(15*kRatio);
+        self.titleLabel.font = kFont(kFit(15));
         [self.picImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(10);
             make.centerY.equalTo(self.mas_centerY);
-            make.width.mas_equalTo(25*kRatio);
-            make.height.mas_equalTo(25*kRatio);
+            make.width.mas_equalTo(kFit(25));
+            make.height.mas_equalTo(kFit(25));
         }];
         
         

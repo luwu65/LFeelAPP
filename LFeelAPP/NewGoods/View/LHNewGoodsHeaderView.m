@@ -69,7 +69,7 @@
         
         self.categoryNameLabel = [[UILabel alloc] initWithFrame:CGRectMake((frame.size.width-20)/3+10, frame.size.height-25+5, (frame.size.width-20)/3, 15)];
         self.categoryNameLabel.textAlignment = NSTextAlignmentCenter;
-        self.categoryNameLabel.font = kFont(12*kRatio);
+        self.categoryNameLabel.font = kFont(kFit(12));
         [self addSubview:self.categoryNameLabel];
         
         UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(5, self.categoryNameLabel.centerY, (frame.size.width-20)/3, 0.5)];

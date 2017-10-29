@@ -43,9 +43,9 @@
     [_clickBtn setBackgroundImage:[UIImage imageNamed:@"MyBox_clicked"] forState:(UIControlStateSelected)];
     [_clickBtn addTarget:self action:@selector(clickBtnAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [_clickBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(30*kRatio);
-        make.height.mas_equalTo(30*kRatio);
-        make.left.mas_equalTo(15*kRatio);
+        make.width.mas_equalTo(kFit(30));
+        make.height.mas_equalTo(kFit(30));
+        make.left.mas_equalTo(kFit(15));
         make.centerY.equalTo(weakSelf.mas_centerY);
     }];
     
@@ -54,34 +54,34 @@
     self.goodsImageView.backgroundColor = [UIColor greenColor];
     [self.contentView addSubview:self.goodsImageView];
     [self.goodsImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_clickBtn.mas_right).offset(10*kRatio);
+        make.left.equalTo(_clickBtn.mas_right).offset(kFit(10));
         make.centerY.equalTo(weakSelf.mas_centerY);
-        make.top.equalTo(weakSelf.mas_top).offset(5*kRatio);
-        make.bottom.equalTo(weakSelf.mas_bottom).offset(-5*kRatio);
+        make.top.equalTo(weakSelf.mas_top).offset(kFit(5));
+        make.bottom.equalTo(weakSelf.mas_bottom).offset(-kFit(5));
         make.width.equalTo(weakSelf.goodsImageView.mas_height).multipliedBy(1.0f);
     }];
     
     //title
     self.titleLabel = [[UILabel alloc] init];
     [self.contentView addSubview:_titleLabel];
-    self.titleLabel.font = kFont(14*kRatio);
+    self.titleLabel.font = kFont(kFit(14));
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.mas_top).offset(5*kRatio);
-        make.left.equalTo(weakSelf.goodsImageView.mas_right).offset(8*kRatio);
-        make.right.equalTo(weakSelf.mas_right).offset(-8*kRatio);
-        make.height.mas_equalTo(20*kRatio);
+        make.top.equalTo(weakSelf.mas_top).offset(kFit(5));
+        make.left.equalTo(weakSelf.goodsImageView.mas_right).offset(kFit(8));
+        make.right.equalTo(weakSelf.mas_right).offset(-kFit(8));
+        make.height.mas_equalTo(kFit(20));
     }];
 
     //尺码 颜色 选择属性
     self.sizeColorLabel = [[UILabel alloc] init];
     [self.contentView addSubview:self.sizeColorLabel];
-    self.sizeColorLabel.font = kFont(12*kRatio);
+    self.sizeColorLabel.font = kFont(kFit(12));
     self.sizeColorLabel.textColor = [UIColor lightGrayColor];
     [self.sizeColorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.goodsImageView.mas_right).offset(8*kRatio);
-        make.right.equalTo(weakSelf.mas_right).offset(-8*kRatio);
-        make.top.equalTo(weakSelf.titleLabel.mas_bottom).with.offset(5*kRatio);
-        make.height.mas_equalTo(20*kRatio);
+        make.left.equalTo(weakSelf.goodsImageView.mas_right).offset(kFit(8));
+        make.right.equalTo(weakSelf.mas_right).offset(-kFit(8));
+        make.top.equalTo(weakSelf.titleLabel.mas_bottom).with.offset(kFit(5));
+        make.height.mas_equalTo(kFit(20));
     }];
 
     
@@ -92,13 +92,13 @@
     self.addBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
     [self.addBtn setTitle:@"+" forState:(UIControlStateNormal)];
     [self.addBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
-    self.addBtn.titleLabel.font = kFont(18*kRatio);
+    self.addBtn.titleLabel.font = kFont(kFit(18));
     [self.addBtn addTarget:self action:@selector(addBtnAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(weakSelf.mas_right).offset(-10*kRatio);
-        make.bottom.equalTo(weakSelf.mas_bottom).offset(-5*kRatio);
-        make.height.mas_equalTo(25*kRatio);
-        make.width.mas_equalTo(25*kRatio);
+        make.right.equalTo(weakSelf.mas_right).offset(-kFit(10));
+        make.bottom.equalTo(weakSelf.mas_bottom).offset(-kFit(5));
+        make.height.mas_equalTo(kFit(25));
+        make.width.mas_equalTo(kFit(25));
     }];
     
     //商品数量
@@ -106,12 +106,12 @@
     self.numberLabel.textAlignment = NSTextAlignmentCenter;
     [self.contentView addSubview:self.numberLabel];
     self.numberLabel.text = @"0";
-    self.numberLabel.font = kFont(15*kRatio);
+    self.numberLabel.font = kFont(kFit(15));
     [self.numberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(weakSelf.addBtn.mas_left).offset(0);
         make.top.equalTo(weakSelf.addBtn.mas_top);
         make.bottom.equalTo(weakSelf.addBtn.mas_bottom);
-        make.width.mas_equalTo(40*kRatio);
+        make.width.mas_equalTo(kFit(40));
     }];
 
     //减
@@ -121,20 +121,20 @@
     self.subBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
     [self.subBtn setTitle:@"-" forState:(UIControlStateNormal)];
     [self.subBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
-    self.subBtn.titleLabel.font = kFont(18*kRatio);
+    self.subBtn.titleLabel.font = kFont(kFit(18));
     [self.subBtn addTarget:self action:@selector(subBtnAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.subBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(weakSelf.numberLabel.mas_left).offset(0);
         make.bottom.equalTo(weakSelf.numberLabel.mas_bottom);
-        make.height.mas_equalTo(25*kRatio);
-        make.width.mas_equalTo(25*kRatio);
+        make.height.mas_equalTo(kFit(25));
+        make.width.mas_equalTo(kFit(25));
     }];
 
 
     //价格
     self.priceLabel = [[UILabel alloc] init];
     [self.contentView addSubview:self.priceLabel];
-    self.priceLabel.font = kFont(14*kRatio);
+    self.priceLabel.font = kFont(kFit(14));
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.goodsImageView.mas_right).offset(5);
         make.right.equalTo(weakSelf.subBtn.mas_left).offset(-5);

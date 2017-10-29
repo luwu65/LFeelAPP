@@ -65,7 +65,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80*kRatio;
+    return kFit(80);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -82,7 +82,7 @@
     
     UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, kScreenWidth-20, 29)];
     timeLabel.textAlignment = NSTextAlignmentRight;
-    timeLabel.font = kFont(15*kRatio);
+    timeLabel.font = kFont(kFit(15));
     timeLabel.text = @"2017-6-12";
     [view addSubview:timeLabel];
     

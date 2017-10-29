@@ -53,6 +53,7 @@
     /**开始网络请求*/
     [manager GET:url parameters:dic progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"请求成功%@", responseObject);
         //将请求成功返回的结果会调回去
         if (success) {
             success(responseObject);
@@ -61,7 +62,7 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         //回调请求失败的错误信息
         aError(error);
-        NSLog(@"%@", error);
+        NSLog(@"请求失败%@", error);
     }];
 }
 
@@ -94,6 +95,7 @@
     [manager POST:url parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"请求成功%@", responseObject);
         //请求成功结果的回调
         if (success) {
             success(responseObject);
@@ -102,7 +104,7 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         //请求失败结果的回调
         aError(error);
-        NSLog(@"%@", error);
+        NSLog(@"请求失败%@", error);
     }];
 }
 
@@ -132,6 +134,7 @@
             id dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
             //            NSLog(@"1111111111%@", dic);
             if (_judgeLoginStatus(dic)) return ;
+            NSLog(@"请求成功%@", dic);
             if (success) {
                 success(dic);
             }
@@ -139,7 +142,7 @@
         } else {
             //            NSLog(@"2222222222%@", [error localizedDescription]);
             aError(error);
-            NSLog(@"%@", error);
+            NSLog(@"请求失败%@", error);
             
         }
         

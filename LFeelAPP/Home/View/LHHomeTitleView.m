@@ -22,12 +22,12 @@
     if (self = [super initWithFrame:frame]) {
         _chineseLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, self.frame.size.width-10, (self.frame.size.height-15)/2)];
         _chineseLabel.text = chinese;
-        _chineseLabel.font = kFont(chineseFont * kRatio);
+        _chineseLabel.font = kFont(kFit(chineseFont));
         [self addSubview:_chineseLabel];
         
         _englishLael = [[UILabel alloc] initWithFrame:CGRectMake(5, (self.frame.size.height-10)/2 + 5, self.frame.size.width-10, (self.frame.size.height-15)/2)];
         _englishLael.text = english;
-        _englishLael.font = kFont(englishFont * kRatio);
+        _englishLael.font = kFont(kFit(englishFont));
         [self addSubview:_englishLael];
     }
     return self;

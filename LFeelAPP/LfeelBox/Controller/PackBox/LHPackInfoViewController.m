@@ -195,9 +195,9 @@
 - (void)defaultBtnAction:(CustomButton *)sender {
     LHUserInfoModel *model = [LHUserInfoManager getUserInfo];
     if (!model.size) {
-        @weakify(self);
+       kWeakSelf(self);
         [self showAlertViewWithTitle:@"您还没有填写个人信息哦, 前往个人中心完善信息?" yes:@"去完善" no:@"不去了" yesHandler:^(UIAlertAction * _Nullable action) {
-            @strongify(self);
+            kStrongSelf(self);
             LHUserInfoViewController *userInfoVC = [[LHUserInfoViewController alloc] init];
             [self.navigationController pushViewController:userInfoVC animated:YES];
         } noHandler:^(UIAlertAction * _Nullable action) {

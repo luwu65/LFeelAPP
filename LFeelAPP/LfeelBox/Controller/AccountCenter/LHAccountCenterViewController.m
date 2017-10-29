@@ -258,9 +258,9 @@ typedef NS_ENUM(NSInteger, PayType) {
     [self.view addSubview:self.orderTableView];
     
     self.headerView = [[LHAccountCenterHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kFit(50))];
-    @weakify(self);
+    kWeakSelf(self);
     self.headerView.clickHeaderViewBlock = ^{
-        @strongify(self);
+         kStrongSelf(self);
         LHReceiveAddressViewController *receiveVC = [[LHReceiveAddressViewController alloc] init];
         receiveVC.addressBlock = ^(LHAddressModel *model) {
             self.address_id = [NSString stringWithFormat:@"%@", model.id_];

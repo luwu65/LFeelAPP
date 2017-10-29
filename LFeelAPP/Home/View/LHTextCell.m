@@ -37,12 +37,12 @@
     self.titleLabel.frame = CGRectMake(10, 10, kScreenWidth-20, 25);
     self.titleLabel.textColor = [UIColor redColor];
     [self addSubview:_titleLabel];
-    _titleLabel.font = kFont(15*kRatio);
+    _titleLabel.font = kFont(kFit(15));
     _titleLabel.numberOfLines = 0;
 
     
     self.contentLabel = [[UILabel alloc] init];
-    self.contentLabel.font = kFont(14*kRatio);
+    self.contentLabel.font = kFont(kFit(14));
     self.contentLabel.numberOfLines = 0;
     self.contentLabel.frame = CGRectMake(10, CGRectGetMaxY(self.titleLabel.frame)+10, kScreenWidth-20, 20);
     [self addSubview:self.contentLabel];
@@ -62,7 +62,7 @@
 + (CGFloat)labelHeightWithString:(NSString *)string {
     //根据内容计算label的高度
     //注意: 字典的字体要和label的字体一致, 给定的尺寸宽度要和label的宽度一致
-    CGRect rect = [string boundingRectWithSize:CGSizeMake(kScreenWidth - 2 * 10, MAXFLOAT) options:NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14*kRatio]} context:nil];
+    CGRect rect = [string boundingRectWithSize:CGSizeMake(kScreenWidth - 2 * 10, MAXFLOAT) options:NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:kFit(14)]} context:nil];
     return rect.size.height;
 }
 

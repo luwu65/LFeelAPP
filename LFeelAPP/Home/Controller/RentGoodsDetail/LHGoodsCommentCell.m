@@ -36,7 +36,7 @@
     UILabel *detailLabel = [[UILabel alloc] init];
     detailLabel.text = @"暂时没有评价";
     detailLabel.textColor = [UIColor lightGrayColor];
-    detailLabel.font = kFont(15*kRatio);
+    detailLabel.font = kFont(kFit(15));
     [self addSubview:detailLabel];
     
     [detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -54,10 +54,10 @@
     [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(10);
         make.top.equalTo(self.mas_top).offset(kFit(15));
-        make.width.mas_equalTo(40*kRatio);
-        make.height.mas_equalTo(40*kRatio);
+        make.width.mas_equalTo(kFit(40));
+        make.height.mas_equalTo(kFit(40));
     }];
-    self.iconImageView.layer.cornerRadius = 40*kRatio/2;
+    self.iconImageView.layer.cornerRadius = kFit(40)/2;
     self.iconImageView.layer.masksToBounds = YES;
 
     
@@ -68,7 +68,7 @@
         make.left.equalTo(self.iconImageView.mas_right).offset(10);
         make.right.equalTo(self.mas_right).offset(-10);
         make.top.equalTo(self.mas_top).offset(kFit(15));
-        make.height.mas_equalTo(15*kRatio);
+        make.height.mas_equalTo(kFit(15));
     }];
     
     self.heightLabel = [[UILabel alloc] init];
@@ -78,7 +78,7 @@
     [self.heightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.iconImageView.mas_right).offset(10);
         make.top.equalTo(self.userNameLabel.mas_bottom).offset(5);
-        make.height.mas_equalTo(15*kRatio);
+        make.height.mas_equalTo(kFit(15));
         make.width.mas_equalTo(60);
     }];
     

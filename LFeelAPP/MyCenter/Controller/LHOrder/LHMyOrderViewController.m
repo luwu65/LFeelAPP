@@ -67,7 +67,7 @@
 }
 
 - (void)setSegmentControl {
-    @weakify(self);
+    kWeakSelf(self);
     self.titleView = [[LHTitleSliderView alloc] init];
     [self.view addSubview:self.titleView];
     self.titleView.backgroundColor = [UIColor whiteColor];
@@ -79,7 +79,7 @@
     _titleView.titles  = self.titleArray;
     _titleView.selectedIndex = self.index;
     _titleView.buttonSelected = ^(NSInteger index){
-        @strongify(self);
+        kStrongSelf(self);
         
         [UIView animateWithDuration:0.25 animations:^{
             [self.myOrderScrollView setContentOffset:CGPointMake(kScreenWidth * index, 0)];

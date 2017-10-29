@@ -30,7 +30,7 @@
 }
 
 - (void)setupUI {
-    LHApplyBillBottomView *applyView = [[LHApplyBillBottomView alloc] initWithFrame:CGRectMake(0, kScreenHeight-40*kRatio, kScreenWidth, 40*kRatio)];
+    LHApplyBillBottomView *applyView = [[LHApplyBillBottomView alloc] initWithFrame:CGRectMake(0, kScreenHeight-kFit(40), kScreenWidth, kFit(40))];
     [applyView applyBillBlock:^{
         NSLog(@"开发票");
     }];
@@ -41,7 +41,7 @@
 
     [self.view addSubview:applyView];
     
-    self.billTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-40*kRatio-64) style:(UITableViewStyleGrouped)];
+    self.billTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-kFit(40)-64) style:(UITableViewStyleGrouped)];
     self.billTableView.dataSource = self;
     self.billTableView.delegate = self;
     [self.view addSubview:self.billTableView];
@@ -67,14 +67,14 @@
 
 #pragma mark  ---------- <UITableViewDelegate, UITableViewDataSource> -----------
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80*kRatio;
+    return kFit(80);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-   return 40*kRatio;
+   return kFit(40);
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 50*kRatio;
+    return kFit(50);
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -114,7 +114,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    LHBillHeaderView *headerView = [[LHBillHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50*kRatio)];
+    LHBillHeaderView *headerView = [[LHBillHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kFit(50))];
     
     headerView.orderNumLabel.text = @"订单编号: 133333333333333";
     return headerView;

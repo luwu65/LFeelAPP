@@ -206,24 +206,24 @@
     self.cTitleLabel = [[UILabel alloc] init];
     self.cTitleLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_cTitleLabel];
-    self.cTitleLabel.font = kFont(14*kRatio);
+    self.cTitleLabel.font = kFont(kFit(14));
     [self.cTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.view).offset(kNavBarHeight+10*kRatio);
+        make.top.equalTo(weakSelf.view).offset(kNavBarHeight+kFit(10));
         make.left.equalTo(weakSelf.view).offset(20);
         make.right.equalTo(weakSelf.view).offset(-20);
-        make.height.mas_equalTo(25*kRatio);
+        make.height.mas_equalTo(kFit(25));
     }];
     //英文标题
     self.eTitleLabel = [[UILabel alloc] init];
     self.eTitleLabel.textAlignment = NSTextAlignmentCenter;
-    self.eTitleLabel.font = kFont(14*kRatio);
+    self.eTitleLabel.font = kFont(kFit(14));
     self.eTitleLabel.textColor = [UIColor lightGrayColor];
     [self.view addSubview:self.eTitleLabel];
     [self.eTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.cTitleLabel.mas_bottom).offset(5*kRatio);
+        make.top.equalTo(weakSelf.cTitleLabel.mas_bottom).offset(kFit(5));
         make.left.equalTo(weakSelf.view).offset(20);
         make.right.equalTo(weakSelf.view).offset(-20);
-        make.height.mas_equalTo(25*kRatio);
+        make.height.mas_equalTo(kFit(25));
     }];
     
     //返回上一张
@@ -233,9 +233,9 @@
     [self.backBtn addTarget:self action:@selector(backBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
     [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(weakSelf.view.mas_centerX);
-        make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-20*kRatio);
-        make.width.mas_equalTo(50*kRatio);
-        make.height.mas_equalTo(50*kRatio);
+        make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-kFit(20));
+        make.width.mas_equalTo(kFit(50));
+        make.height.mas_equalTo(kFit(50));
     }];
     
     //不喜欢
@@ -245,10 +245,10 @@
     //    [self.unLikeBtn setImage:[UIImage imageNamed:@"Home_ChooseGoods_unLike"] forState:(UIControlStateNormal)];
     [self.unLikeBtn setBackgroundImage:[UIImage imageNamed:@"Home_ChooseGoods_unLike"] forState:(UIControlStateNormal)];
     [self.unLikeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-20*kRatio);
-        make.right.equalTo(weakSelf.backBtn.mas_left).offset(-50*kRatio);
-        make.width.mas_equalTo(50*kRatio);
-        make.height.mas_equalTo(50*kRatio);
+        make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-kFit(20));
+        make.right.equalTo(weakSelf.backBtn.mas_left).offset(-kFit(50));
+        make.width.mas_equalTo(kFit(50));
+        make.height.mas_equalTo(kFit(50));
     }];
     
     //喜欢
@@ -257,10 +257,10 @@
     [self.likeBtn setBackgroundImage:[UIImage imageNamed:@"Home_ChooseGoods_Like"] forState:(UIControlStateNormal)];
     [self.likeBtn addTarget:self action:@selector(likeBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
     [self.likeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.backBtn.mas_right).offset(50*kRatio);
-        make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-20*kRatio);
-        make.width.mas_equalTo(50*kRatio);
-        make.height.mas_equalTo(50*kRatio);
+        make.left.equalTo(weakSelf.backBtn.mas_right).offset(kFit(50));
+        make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-kFit(20));
+        make.width.mas_equalTo(kFit(50));
+        make.height.mas_equalTo(kFit(50));
     }];
     
     UIButton *addVipBrn = [UIButton buttonWithType:(UIButtonTypeCustom)];
@@ -274,20 +274,20 @@
     [addVipBrn addTarget:self action:@selector(addVipBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:addVipBrn];
     [addVipBrn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(_likeBtn.mas_top).offset(-15*kRatio);
+        make.bottom.equalTo(_likeBtn.mas_top).offset(-kFit(15));
         make.centerX.equalTo(self.view.mas_centerX);
         make.width.mas_equalTo(80);
-        make.height.mas_equalTo(30*kRatio);
+        make.height.mas_equalTo(kFit(30));
     }];
 }
 - (void)setHBK_NavigationBar {
     //Home_service
-    @weakify(self);
+    kWeakSelf(self);
     self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:self.themesModel.theme_name_ch backAction:^{
-        @strongify(self);
+        kStrongSelf(self);
         [self.navigationController popViewControllerAnimated:YES];
     } rightFirst:@"Home_service" rightFirstBtnAction:^{
-        @strongify(self);
+        kStrongSelf(self);
         NSLog(@"客服");
         ZCProductInfo *productInfo = [ZCProductInfo new];
         //thumbUrl 缩略图地址
@@ -322,7 +322,7 @@
 #pragma mark -------------------- YSLDraggableCardContainer DataSource
 - (UIView *)cardContainerViewNextViewWithIndex:(NSInteger)index {
 //    NSDictionary *dict = _datas[index];
-    LHDragCardView *view = [[LHDragCardView alloc]initWithFrame:CGRectMake(40*kRatio, 64 + 75*kRatio, kScreenWidth - 80*kRatio, kScreenHeight - 64 - 85*kRatio - 130*kRatio)];
+    LHDragCardView *view = [[LHDragCardView alloc]initWithFrame:CGRectMake(kFit(40), 64 + kFit(75), kScreenWidth - kFit(80), kScreenHeight - 64 - kFit(85) - kFit(130))];
     LHThemeGoodsModel *model = self.dataArray[index];
     view.goodsModel = model;
     return view;

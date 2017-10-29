@@ -145,12 +145,12 @@
 
 - (void)setHBK_NavigationBar {
     self.automaticallyAdjustsScrollViewInsets = NO;
-    @weakify(self);
+    kWeakSelf(self);
     self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"商品详情" leftFirst:@"Home_GoodsDetail_Back" leftFirstAction:^{
-        @strongify(self);
+         kStrongSelf(self);
         [self.navigationController popViewControllerAnimated:YES];
     } rightFirst:@"Home_GoodsDetail_Service" rightFirstBtnAction:^{
-        @strongify(self);
+        kStrongSelf(self);
         NSLog(@"客服");
         ZCProductInfo *productInfo = [ZCProductInfo new];
         //thumbUrl 缩略图地址
@@ -259,10 +259,10 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     if (section == 0) {
-        @weakify(self);
+        kWeakSelf(self);
         LHGoodsCommentFooterView *footerView = [[LHGoodsCommentFooterView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 95)];
         footerView.clickAllBtn = ^{
-            @strongify(self);
+            kStrongSelf(self);
             LHAllCommentViewController *commentVC = [[LHAllCommentViewController alloc] init];
             commentVC.product_id = self.goodsInfoDic[@"id"];
             [self.navigationController pushViewController:commentVC animated:YES];
@@ -418,10 +418,10 @@
 
 
 - (void)cycleClickAction {
-    @weakify(self);
+    kWeakSelf(self);
     //立即购买
     self.cycleView.ClickBuyNowBlock = ^{
-        @strongify(self);
+        kStrongSelf(self);
         [self compareColorSize];
         if (self.spec_id) {
             NSLog(@"-------------------  %@  ------------%@------", self.spec_id, self.goodsInfoDic);
@@ -436,7 +436,7 @@
     //加入购物车
     self.cycleView.AddShoppingCartBlock = ^{
         NSLog(@"加入购物车");
-        @strongify(self);
+        kStrongSelf(self);
         [self compareColorSize];
         
         if (self.spec_id) {
@@ -448,7 +448,7 @@
     };
     //选择颜色
     self.cycleView.colorTagView.ClickTagBlock = ^(NSInteger index) {
-        @strongify(self);
+        kStrongSelf(self);
         [self.chooseColorArray removeAllObjects];
         for (LHGoodsSizeColorModel *model in self.colorSizeArray) {
             if ([model.property_value isEqualToString:self.colorArray[index]]) {
@@ -459,7 +459,7 @@
     };
     //选择尺码
     self.cycleView.sizeTagView.ClickTagBlock = ^(NSInteger index) {
-        @strongify(self);
+        kStrongSelf(self);
         [self.chooseSizeArray removeAllObjects];
         //遍历所有的颜色尺码的组合
         for (LHGoodsSizeColorModel *model in self.colorSizeArray) {
@@ -473,7 +473,7 @@
     };
     //收藏
     self.cycleView.ClickCollectBlock = ^{
-        @strongify(self);
+       kStrongSelf(self);
         NSLog(@"收藏");
         
         

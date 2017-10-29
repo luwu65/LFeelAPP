@@ -26,16 +26,16 @@
             make.top.mas_equalTo(self.cycleView.mas_bottom).with.offset(0);
             make.left.mas_equalTo(self).with.offset(0);
             make.width.mas_equalTo(kScreenWidth/3);
-            make.height.mas_equalTo(35*kRatio);
+            make.height.mas_equalTo(kFit(35));
         }];
         [self.professMatchBtn setTitle:buttonTitleArray[0] forState:(UIControlStateNormal)];
         [self.professMatchBtn setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
         [self.professMatchBtn setImage:[UIImage imageNamed:buttonImageArray[0]] forState:(UIControlStateNormal)];
         //button图片的偏移量，距上左下右分别(10, 10, 10, 60)像素点
-        self.professMatchBtn.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 70*kRatio);
+        self.professMatchBtn.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, kFit(70));
         //button标题的偏移量，这个偏移量是相对于图片的
         self.professMatchBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-        self.professMatchBtn.titleLabel.font = kFont(12*kRatio);
+        self.professMatchBtn.titleLabel.font = kFont(kFit(12));
         
         
         //不限次穿数
@@ -45,16 +45,16 @@
             make.top.mas_equalTo(self.cycleView.mas_bottom).with.offset(0);
             make.left.mas_equalTo(self.professMatchBtn.mas_right).with.offset(0);
             make.width.mas_equalTo(kScreenWidth/3);
-            make.height.mas_equalTo(35*kRatio);
+            make.height.mas_equalTo(kFit(35));
         }];
         [self.exchangeWearBtn setTitle:buttonTitleArray[1] forState:(UIControlStateNormal)];
         [self.exchangeWearBtn setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
         [self.exchangeWearBtn setImage:[UIImage imageNamed:buttonImageArray[1]] forState:(UIControlStateNormal)];
         //button图片的偏移量，距上左下右分别(10, 10, 10, 60)像素点
-        self.exchangeWearBtn.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 70*kRatio);
+        self.exchangeWearBtn.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, kFit(70));
         //button标题的偏移量，这个偏移量是相对于图片的
         self.exchangeWearBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-        self.exchangeWearBtn.titleLabel.font = kFont(12*kRatio);
+        self.exchangeWearBtn.titleLabel.font = kFont(kFit(12));
         
         //五星级清洗
         self.cleanBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
@@ -69,10 +69,10 @@
         [self.cleanBtn setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
         [self.cleanBtn setImage:[UIImage imageNamed:buttonImageArray[2]] forState:(UIControlStateNormal)];
         //button图片的偏移量，距上左下右分别(10, 10, 10, 60)像素点
-        self.cleanBtn.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 70*kRatio);
+        self.cleanBtn.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, kFit(70));
         //button标题的偏移量，这个偏移量是相对于图片的
         self.cleanBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-        self.cleanBtn.titleLabel.font = kFont(12*kRatio);
+        self.cleanBtn.titleLabel.font = kFont(kFit(12));
         
     }
     return self;
@@ -116,7 +116,7 @@
         
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(kFit(10), self.rentCycleView.maxY + kFit(5), kScreenWidth - kFit(80), kFit(25))];
         self.titleLabel.backgroundColor = [UIColor whiteColor];
-        self.titleLabel.font = kFont(17*kRatio);
+        self.titleLabel.font = kFont(kFit(17));
         [self addSubview:self.titleLabel];
         
         self.tagView = [[LHTagView alloc] initWithFrame:CGRectMake(kFit(10), self.titleLabel.maxY+kFit(5), kScreenWidth-kFit(20), kFit(40))];
@@ -190,7 +190,7 @@
         //标题
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(kFit(15), self.rentCycleView.maxY+5, kScreenWidth-kFit(60), kFit(25))];
         self.titleLabel.backgroundColor = [UIColor whiteColor];
-        self.titleLabel.font = kFont(17*kRatio);
+        self.titleLabel.font = kFont(kFit(17));
         [self addSubview:self.titleLabel];
 
         
@@ -203,7 +203,7 @@
         
         UILabel *emsLabel = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth-kFit(30))*2/3+kFit(15), self.titleLabel.maxY+5, (kScreenWidth-kFit(30))/3, kFit(25))];
         emsLabel.font = kFont(13);
-        emsLabel.text = @"邮费到付";
+        emsLabel.text = @"顺丰邮费到付";
         emsLabel.textAlignment = NSTextAlignmentRight;
         emsLabel.textColor = [UIColor lightGrayColor];
         [self addSubview:emsLabel];

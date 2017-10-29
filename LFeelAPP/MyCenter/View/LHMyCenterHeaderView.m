@@ -32,11 +32,12 @@
         _nameButton = [UIButton buttonWithType:(UIButtonTypeSystem)];
         [_nameButton addTarget:self action:@selector(myCenterAction) forControlEvents:(UIControlEventTouchUpInside)];
         [_nameButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+        _nameButton.titleLabel.font = kFont(kFit(13));
         [self.bgImageView addSubview:_nameButton];
         [_nameButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(100*kRatio);
+            make.width.mas_equalTo(kFit(100));
             make.bottom.equalTo(self.bgImageView.mas_bottom);
-            make.height.mas_equalTo(40*kRatio);
+            make.height.mas_equalTo(kFit(40));
             make.centerX.mas_equalTo(self.mas_centerX);
         }];
         

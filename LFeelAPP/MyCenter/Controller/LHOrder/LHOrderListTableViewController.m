@@ -44,14 +44,14 @@
     [self requestMyOrderListWithType:self.type page:1];
     self.page = 1;
     
-    @weakify(self);
+    kWeakSelf(self);
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         NSLog(@"%ld", self.page);
         [self requestMyOrderListWithType:self.type page:self.page];
     }];
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        @strongify(self);
+        kStrongSelf(self);
         [self.storeArray removeAllObjects];
         [self requestMyOrderListWithType:self.type page:1];
     }];
@@ -466,7 +466,7 @@
         
         UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, emptyImageView.maxY+kFit(20), kScreenWidth, 25)];
         textLabel.text = @"您还没有相关的订单";
-        textLabel.font = kFont(15*kRatio);
+        textLabel.font = kFont(kFit(15));
         textLabel.textColor = [UIColor lightGrayColor];
         textLabel.textAlignment = NSTextAlignmentCenter;
         [self.emptyView addSubview:textLabel];

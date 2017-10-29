@@ -67,7 +67,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     LHNewGoodsCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LHNewGoodsCollectionCell" forIndexPath:indexPath];
-    cell.titleLabel.font = kFont(13*kRatio);
+    cell.titleLabel.font = kFont(kFit(13));
     cell.lfeelPriceLabel.hidden = YES;
     //    cell.listModel = self.goodsArray[indexPath.row];
     [cell handleCollecitonBtnAction:^(BOOL isClick) {

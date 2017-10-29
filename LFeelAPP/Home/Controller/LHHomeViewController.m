@@ -81,7 +81,6 @@
     //请求之前先把之前数组里的数据清除, 防止下拉刷新重复添加
     [self.cycleImageArray removeAllObjects];
     [LHNetworkManager requestForGetWithUrl:kCycleViewUrl parameter:nil success:^(id reponseObject) {
-        NSLog(@"%@", reponseObject);
         if ([kSTR(reponseObject[@"isError"]) isEqualToString:@"0"]) {
             for (NSDictionary *imaggeURlDic in reponseObject[@"data"]) {
                 [self.cycleImageArray addObject:imaggeURlDic[@"url"]];
@@ -103,7 +102,6 @@
     //请求之前先把之前数组里的数据清除, 防止下拉刷新重复添加
     [self.themeArray removeAllObjects];
     [LHNetworkManager requestForGetWithUrl:kThemeURl parameter:nil success:^(id reponseObject) {
-        NSLog(@"%@", reponseObject);
         if ([kSTR(reponseObject[@"isError"]) isEqualToString:@"0"]) {
             for (NSDictionary *modelDic in reponseObject[@"data"]) {
                 LHHomeThemesModel *model = [[LHHomeThemesModel alloc] init];
@@ -127,7 +125,6 @@
     [self.themeGoodsArray removeAllObjects];
     //@"limit":@3,在首页限制3件
     [LHNetworkManager requestForGetWithUrl:kGoodsUrl parameter:@{@"page":@1, @"limit": @3} success:^(id reponseObject) {
-        NSLog(@"%@", reponseObject);
         if ([kSTR(reponseObject[@"isError"]) isEqualToString:@"0"]) {
             for (NSDictionary *adic in reponseObject[@"data"]) {
                 LHHomeThemeGoodsModel *model = [[LHHomeThemeGoodsModel alloc] init];
@@ -156,7 +153,7 @@
     self.homeTabeView.dataSource = self;
     [self.view addSubview:self.homeTabeView];
     
-    self.cycleScrollView = [[LHHomeCycleView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth*2/3 + 35*kRatio) imageFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth*2/3) placeholderImage:@"Home_New_04" buttonTitle:@[@"专业搭配师", @"不限次换穿", @"五星级清洗"] buttonImage:@[@"Home_Like", @"Home_Like", @"Home_Like"]];
+    self.cycleScrollView = [[LHHomeCycleView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth*2/3 + kFit(35)) imageFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth*2/3) placeholderImage:@"Home_New_04" buttonTitle:@[@"专业搭配师", @"不限次换穿", @"五星级清洗"] buttonImage:@[@"Home_Like", @"Home_Like", @"Home_Like"]];
     self.cycleScrollView.cycleView.imageURLStringsGroup = self.cycleImageArray;
     self.homeTabeView.tableHeaderView = self.cycleScrollView;
     
@@ -164,9 +161,9 @@
         NSLog(@"点击了第%ld张", (long)index);
     }];
     
-    @weakify(self);
+    kWeakSelf(self);
     self.homeTabeView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        @strongify(self);
+        kStrongSelf(self);
         [self requestCycleScrollViewData];
     }];
 }
@@ -205,7 +202,7 @@
     if (indexPath.section == 0) {
         LHHomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LHBoxTableViewCellA"];
         if (cell == nil) {
-            cell = [[LHHomeTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"LHBoxTableViewCellA" newCustomerWithCollectionFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth*2/5+10+50*kRatio)];
+            cell = [[LHHomeTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"LHBoxTableViewCellA" newCustomerWithCollectionFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth*2/5+10+kFit(50))];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.homeTitleView.chineseLabel.text = @"新手须知";
@@ -221,7 +218,7 @@
         if (indexPath.row == 0) {
             LHHomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LHBoxTableViewCellB"];
             if (cell == nil) {
-                cell = [[LHHomeTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"LHBoxTableViewCellB" recommendSpecialWithCollectionFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth*9/10 + 10 + 50*kRatio)];
+                cell = [[LHHomeTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"LHBoxTableViewCellB" recommendSpecialWithCollectionFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth*9/10 + 10 + kFit(50))];
 
             }
             cell.homeTitleView.chineseLabel.text = @"精选推介";
@@ -257,12 +254,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return kScreenWidth*2/5 + 10 + 50*kRatio;
+        return kScreenWidth*2/5 + 10 + kFit(50);
     } else {
         if (indexPath.row == 0) {
-            return kScreenWidth*4/5 + 10 + 50*kRatio;
+            return kScreenWidth*4/5 + 10 + kFit(50);
         } else {
-            return (kScreenWidth + 45)*4/9 + 10 + 50*kRatio;
+            return (kScreenWidth + 45)*4/9 + 10 + kFit(50);
         }
     }
 }

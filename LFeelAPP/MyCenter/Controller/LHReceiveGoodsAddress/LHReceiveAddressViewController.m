@@ -86,7 +86,7 @@
     
     UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, emptyImageView.maxY+kFit(20), kScreenWidth, 25)];
     textLabel.text = @"您还没有添加地址, 点击右上角添加地址吧~";
-    textLabel.font = kFont(15*kRatio);
+    textLabel.font = kFont(kFit(15));
     textLabel.textColor = [UIColor lightGrayColor];
     textLabel.textAlignment = NSTextAlignmentCenter;
     [self.emptyBgView addSubview:textLabel];
@@ -160,10 +160,10 @@
 }
 
 - (void)deleteAddressAlertWithModel:(LHAddressModel *)model {
-    @weakify(self);
+    kWeakSelf(self);
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定要删除这个地址吗?" message:nil preferredStyle:(UIAlertControllerStyleAlert)];
     [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-        @strongify(self);
+        kStrongSelf(self);
         [self requestDeleteAddressDataWithModel:model];
     }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil]];

@@ -55,7 +55,7 @@
     }];
     
     self.titleLabel = [[UILabel alloc] init];
-    self.titleLabel.font = kFont(15*kRatio);
+    self.titleLabel.font = kFont(kFit(15));
     [self.contentView addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.titleImageView.mas_right).offset(10);

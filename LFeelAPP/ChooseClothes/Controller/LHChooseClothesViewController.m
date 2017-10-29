@@ -174,9 +174,9 @@
 */
  - (void)setChooseJumpView {
     self.chooseView = [[LHChooseTypeView alloc] initWithFrame:CGRectMake(0, -(kFit(40)*5-(64+kFit(45))), kScreenWidth, kFit(40)*5)];
-     @weakify(self);
+     kWeakSelf(self);
     self.chooseView.ClickSubmitBlock = ^(NSArray *selectArrray){
-        @strongify(self);
+        kStrongSelf(self);
         [self hideChooseView];
         self.openButton.selected = NO;
         
@@ -192,7 +192,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     LHNewGoodsCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LHNewGoodsCollectionCell" forIndexPath:indexPath];
-    cell.titleLabel.font = kFont(13*kRatio);
+    cell.titleLabel.font = kFont(kFit(13));
     cell.lfeelPriceLabel.hidden = YES;
     cell.listModel = self.goodsArray[indexPath.row];
     [cell handleCollecitonBtnAction:^(BOOL isClick) {

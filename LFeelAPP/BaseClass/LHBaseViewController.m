@@ -208,7 +208,6 @@
     } messageLinkClick:^(NSString *link) {
         NSLog(@"----点击了这个链接-------------%@---------------------", link);
         
-        
     }];
 }
 

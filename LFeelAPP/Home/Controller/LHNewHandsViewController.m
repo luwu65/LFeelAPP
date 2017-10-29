@@ -112,7 +112,7 @@
     addVipBtn.layer.borderColor = kColor(255, 49, 64).CGColor;
     addVipBtn.layer.borderWidth = 1;
     [addVipBtn addTarget:self action:@selector(addVipBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
-    addVipBtn.frame = CGRectMake((kScreenWidth-150)/2, kScreenHeight-40*kRatio-40-kNavBarHeight, 150, 40*kRatio);
+    addVipBtn.frame = CGRectMake((kScreenWidth-150)/2, kScreenHeight-kFit(40)-40-kNavBarHeight, 150, kFit(40));
     scrollView.subviews.lastObject.userInteractionEnabled = YES;
     [scrollView.subviews.lastObject addSubview:addVipBtn];
     

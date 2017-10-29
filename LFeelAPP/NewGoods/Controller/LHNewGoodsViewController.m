@@ -139,7 +139,7 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44*kRatio + 5;
+    return kFit(44) + 5;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.clickIndex = indexPath.row;
@@ -193,9 +193,9 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (self.clickIndex == 0) {
-        return CGSizeMake((kScreenWidth/4*3-15)/2, (kScreenWidth/4*3-15)/2*1.2 + 40*kRatio);
+        return CGSizeMake((kScreenWidth/4*3-15)/2, (kScreenWidth/4*3-15)/2*1.2 + kFit(40));
     } else {
-        return CGSizeMake((kScreenWidth/4*3-20)/3, (kScreenWidth/4*3-20)/3 + 20*kRatio);
+        return CGSizeMake((kScreenWidth/4*3-20)/3, (kScreenWidth/4*3-20)/3 + kFit(20));
     }
 }
 
@@ -213,7 +213,7 @@
 //这个方法是返回 Header的大小 size
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     if (self.clickIndex == 0) {
-        return CGSizeMake(kScreenWidth/4*3, 40*kRatio);
+        return CGSizeMake(kScreenWidth/4*3, kFit(40));
     } else {
         return CGSizeMake(kScreenWidth/4*3, kFit(100));
     }

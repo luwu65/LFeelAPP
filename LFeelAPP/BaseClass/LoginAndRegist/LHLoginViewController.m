@@ -70,8 +70,8 @@
     [logoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(bgView.mas_centerX);
         make.centerY.equalTo(bgView.mas_centerY);
-        make.width.mas_equalTo(80*kRatio);
-        make.height.mas_equalTo(80*kRatio);
+        make.width.mas_equalTo(kFit(80));
+        make.height.mas_equalTo(kFit(80));
     }];
     
     //横线
@@ -89,10 +89,10 @@
     phoneImageView.image = [UIImage imageNamed:@"Login_Phone"];
     [self.view addSubview:phoneImageView];
     [phoneImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(30*kRatio);
-        make.bottom.equalTo(wireTopView.mas_top).offset(-(50-30*kRatio)/2);
-        make.width.mas_equalTo(30*kRatio);
-        make.height.mas_equalTo(30*kRatio);
+        make.left.equalTo(self.view).offset(kFit(30));
+        make.bottom.equalTo(wireTopView.mas_top).offset(-(50-kFit(30))/2);
+        make.width.mas_equalTo(kFit(30));
+        make.height.mas_equalTo(kFit(30));
     }];
     
     UIView *lineTopView = [[UIView alloc] init];
@@ -108,11 +108,11 @@
     self.phoneTextField = [[UITextField alloc] init];
     _phoneTextField.placeholder = @"请输入手机号";
     _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
-    _phoneTextField.font = kFont(16*kRatio);
+    _phoneTextField.font = kFont(kFit(16));
     [self.view addSubview:_phoneTextField];
     [_phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(lineTopView.mas_right).offset(10);
-        make.right.equalTo(self.view.mas_right).offset(-30*kRatio);
+        make.right.equalTo(self.view.mas_right).offset(-kFit(30));
         make.centerY.equalTo(phoneImageView.mas_centerY);
         make.height.mas_equalTo(40);
     }];
@@ -133,10 +133,10 @@
     passwordImageView.image = [UIImage imageNamed:@"Login_Password"];
     [self.view addSubview:passwordImageView];
     [passwordImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(30*kRatio);
-        make.bottom.equalTo(wireBottomView.mas_top).offset(-(50-30*kRatio)/2);
-        make.width.mas_equalTo(30*kRatio);
-        make.height.mas_equalTo(30*kRatio);
+        make.left.equalTo(self.view).offset(kFit(30));
+        make.bottom.equalTo(wireBottomView.mas_top).offset(-(50-kFit(30))/2);
+        make.width.mas_equalTo(kFit(30));
+        make.height.mas_equalTo(kFit(30));
     }];
     
     UIView *lineBottomView = [[UIView alloc] init];
@@ -151,12 +151,12 @@
     
     self.passwordTextField = [[UITextField alloc] init];
     _passwordTextField.placeholder = @"请输入密码";
-    _passwordTextField.font = kFont(16*kRatio);
+    _passwordTextField.font = kFont(kFit(16));
     _passwordTextField.secureTextEntry = YES;
     [self.view addSubview:_passwordTextField];
     [_passwordTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(lineTopView.mas_right).offset(10);
-        make.right.equalTo(self.view.mas_right).offset(-30*kRatio);
+        make.right.equalTo(self.view.mas_right).offset(-kFit(30));
         make.centerY.equalTo(passwordImageView.mas_centerY);
         make.height.mas_equalTo(40);
     }];
@@ -169,13 +169,13 @@
     mgsBtn.layer.masksToBounds = YES;
     mgsBtn.backgroundColor = [UIColor redColor];
     [mgsBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-    mgsBtn.titleLabel.font = kFont(15*kRatio);
+    mgsBtn.titleLabel.font = kFont(kFit(15));
     [mgsBtn addTarget:self action:@selector(mgsBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:mgsBtn];
     [mgsBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.view.mas_right).offset(-20);
-        make.width.mas_equalTo(100*kRatio);
-        make.height.mas_equalTo(30*kRatio);
+        make.width.mas_equalTo(kFit(100));
+        make.height.mas_equalTo(kFit(30));
         make.top.equalTo(wireBottomView.mas_bottom).offset(10);
     }];
     
@@ -193,14 +193,14 @@
         make.top.equalTo(mgsBtn.mas_bottom).offset(10);
         make.left.equalTo(self.view.mas_left).offset(20);
         make.right.equalTo(self.view.mas_right).offset(-20);
-        make.height.mas_equalTo(40*kRatio);
+        make.height.mas_equalTo(kFit(40));
     }];
     
     //注册
     UILabel *registLabel = [[UILabel alloc] init];
     registLabel.text = @"注册";
     registLabel.textColor = [UIColor lightGrayColor];
-    registLabel.font = kFont(14*kRatio);
+    registLabel.font = kFont(kFit(14));
     registLabel.userInteractionEnabled = YES;
     [self.view addSubview:registLabel];
     [registLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -217,7 +217,7 @@
     forgetLabel.text = @"忘记密码?";
     forgetLabel.textColor = [UIColor lightGrayColor];
     forgetLabel.textAlignment = NSTextAlignmentRight;
-    forgetLabel.font = kFont(14*kRatio);
+    forgetLabel.font = kFont(kFit(14));
     forgetLabel.userInteractionEnabled = YES;
     [self.view addSubview:forgetLabel];
     [forgetLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -239,8 +239,8 @@
     [wbBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);
         make.bottom.equalTo(self.view.mas_bottom).offset(-50);
-        make.width.mas_equalTo(50*kRatio);
-        make.height.mas_equalTo(50*kRatio);
+        make.width.mas_equalTo(kFit(50));
+        make.height.mas_equalTo(kFit(50));
     }];
     
     
@@ -250,10 +250,10 @@
     [wxBtn addTarget:self action:@selector(wcBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:wxBtn];
     [wxBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(wbBtn.mas_left).offset(-60*kRatio);
+        make.right.equalTo(wbBtn.mas_left).offset(-kFit(60));
         make.centerY.equalTo(wbBtn.mas_centerY);
-        make.width.mas_equalTo(50*kRatio);
-        make.height.mas_equalTo(50*kRatio);
+        make.width.mas_equalTo(kFit(50));
+        make.height.mas_equalTo(kFit(50));
     }];
     
     //QQ登录
@@ -262,22 +262,22 @@
     [qqBtn addTarget:self action:@selector(qqBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:qqBtn];
     [qqBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(wbBtn.mas_right).offset(60*kRatio);
+        make.left.equalTo(wbBtn.mas_right).offset(kFit(60));
         make.centerY.equalTo(wbBtn.mas_centerY);
-        make.width.mas_equalTo(50*kRatio);
-        make.height.mas_equalTo(50*kRatio);
+        make.width.mas_equalTo(kFit(50));
+        make.height.mas_equalTo(kFit(50));
     }];
     
     
     UILabel *thirdLabel = [[UILabel alloc] init];
     thirdLabel.text = @"使用其他社交账号登陆";
     thirdLabel.textColor = [UIColor lightGrayColor];
-    thirdLabel.font = kFont(14*kRatio);
+    thirdLabel.font = kFont(kFit(14));
     [self.view addSubview:thirdLabel];
     [thirdLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);
         make.bottom.equalTo(wbBtn.mas_top).offset(-30);
-        make.height.mas_equalTo(25*kRatio);
+        make.height.mas_equalTo(kFit(25));
     }];
     
     

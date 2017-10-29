@@ -49,31 +49,31 @@
 - (void)setUI {
     self.priceBtnClickIndex = 0;
     
-    UIView *btnBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, 40*kRatio)];
+    UIView *btnBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kFit(40))];
     btnBgView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:btnBgView];
     
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 39*kRatio, kScreenWidth, 1)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, kFit(39), kScreenWidth, 1)];
     lineView.backgroundColor = kColor(245, 245, 245);
     [btnBgView addSubview:lineView];
     
     self.newsBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [self.newsBtn setTitle:@"新品" forState:(UIControlStateNormal)];
-    self.newsBtn.titleLabel.font = kFont(15*kRatio);
+    self.newsBtn.titleLabel.font = kFont(kFit(15));
     [self.newsBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
     [self.newsBtn addTarget:self action:@selector(newBtnAction:) forControlEvents:(UIControlEventTouchUpInside)];
-    self.newsBtn.frame = CGRectMake(0, 0, kScreenWidth/2, 39*kRatio);
+    self.newsBtn.frame = CGRectMake(0, 0, kScreenWidth/2, kFit(39));
     [btnBgView addSubview:self.newsBtn];
     
     
     _priceBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [_priceBtn setTitle:@"价格" forState:(UIControlStateNormal)];
-    _priceBtn.titleLabel.font = kFont(15*kRatio);
+    _priceBtn.titleLabel.font = kFont(kFit(15));
     [_priceBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
     [_priceBtn setImage:[UIImage imageNamed:@"NewGoods_price_default"] forState:(UIControlStateNormal)];
-    _priceBtn.frame = CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, 39*kRatio);
+    _priceBtn.frame = CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kFit(39));
     [_priceBtn addTarget:self action:@selector(priceBtnAction:) forControlEvents:(UIControlEventTouchUpInside)];
-    _priceBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 10, 0, -75*kRatio);
+    _priceBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 10, 0, -kFit(75));
     [btnBgView addSubview:self.priceBtn];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -166,8 +166,8 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
    LHNewGoodsCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LHNewGoodsCollectionCell" forIndexPath:indexPath];
-    cell.titleLabel.font = kFont(13*kRatio);
-    cell.lfeelPriceLabel.font = kFont(12*kRatio);
+    cell.titleLabel.font = kFont(kFit(13));
+    cell.lfeelPriceLabel.font = kFont(kFit(12));
     cell.listModel = self.goodsArray[indexPath.row];
     [cell handleCollecitonBtnAction:^(BOOL isClick) {
         LHGoodsListModel *model = self.goodsArray[indexPath.row];
@@ -181,7 +181,7 @@
     return cell;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake((kScreenWidth-15)/2, (kScreenWidth-15)*3/5 + 40*kRatio);
+    return CGSizeMake((kScreenWidth-15)/2, (kScreenWidth-15)*3/5 + kFit(40));
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {

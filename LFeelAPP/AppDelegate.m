@@ -13,6 +13,10 @@
 #import <UserNotifications/UserNotifications.h>
 #import "UMessage.h"
 
+#ifndef __IPHONE_11_0
+#define __IPHONE_11_0    110000
+#endif
+
 
 
 static char kScreenShotViewMove[] = "screenShotViewMove";
@@ -22,6 +26,7 @@ static char kScreenShotViewMove[] = "screenShotViewMove";
 @interface AppDelegate ()<UNUserNotificationCenterDelegate, UIApplicationDelegate, WXApiDelegate>
 
 @property (nonatomic, copy) NSString *connect;
+
 
 
 @end
@@ -35,18 +40,27 @@ static char kScreenShotViewMove[] = "screenShotViewMove";
     // Override point for customization after application launch.
 
     [self setupRootViewcontroller];
-    
+    [self umengPushWithOptions:launchOptions];
     //WXApi的成员函数，向微信终端程序注册第三方应用
     [WXApi registerApp:@"wx1fbf06e00893efc4"];
     
     [IQKeyboardManager sharedManager].enable = YES;
-//    [self ZCServiceApplication:application];
+    [self ZCServiceApplication:application];
     [self setUmengShare];
     self.connect = @"Connect";
     [self KVONetworkChange];
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_0
+    if (@available(iOS 11.0, *)) {
+        UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        UITableView.appearance.estimatedRowHeight = 0;
+        UITableView.appearance.estimatedSectionFooterHeight = 0;
+        UITableView.appearance.estimatedSectionHeaderHeight = 0;
+    } else {
+        // Fallback on earlier versions
+    }
     
-    
-    
+#endif
     return YES;
 }
 
@@ -148,28 +162,36 @@ static char kScreenShotViewMove[] = "screenShotViewMove";
 #pragma mark -------------- 友盟推送 ------------------
 - (void)umengPushWithOptions:(NSDictionary *)launchOptions {
     [UMessage startWithAppkey:@"58fd64f23eae2507a90016ff" launchOptions:launchOptions httpsEnable:YES ];
-
     //注册通知，如果要使用category的自定义策略，可以参考demo中的代码。
     [UMessage registerForRemoteNotifications];
     
     //iOS10必须加下面这段代码。
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    center.delegate=self;
+    center.delegate = self;
     UNAuthorizationOptions types10 = UNAuthorizationOptionBadge | UNAuthorizationOptionAlert | UNAuthorizationOptionSound;
     [center requestAuthorizationWithOptions:types10 completionHandler:^(BOOL granted, NSError * _Nullable error) {
         if (granted) {
             //点击允许
             //这里可以添加一些自己的逻辑
+            NSLog(@"点击允许, 这里可以添加一些自己的逻辑");
         } else {
             //点击不允许
             //这里可以添加一些自己的逻辑
+            NSLog(@"点击不允许, 这里可以添加一些自己的逻辑");
         }
     }];
+    
+    
     //打开日志，方便调试
     [UMessage setLogEnabled:YES];
-    
 }
 
+//iOS10以前接收的方法
+-(void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
+    //这个方法用来做action点击的统计
+    [UMessage sendClickReportForRemoteNotification:userInfo];
+    //下面写identifier对各个交互式的按钮进行业务处理
+}
 
 
 #pragma mark ----------------------- WXApiDelegate
@@ -307,14 +329,18 @@ static char kScreenShotViewMove[] = "screenShotViewMove";
         [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert |UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
             if (granted) {
                 // 点击允许
-                NSLog(@"注册成功");
-                [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) { NSLog(@"%@", settings); }]; } else {
+                NSLog(@"智齿客服注册成功");
+                [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) { NSLog(@"%@", settings); }];
+                
+            } else {
                     // 点击不允许
-                    NSLog(@"注册失败");
+                    NSLog(@"智齿客服注册失败");
                 }
             
             if (!error) {
-                [[UIApplication sharedApplication] registerForRemoteNotifications];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[UIApplication sharedApplication] registerForRemoteNotifications];
+                });
             }
         }];
     }else{
@@ -343,7 +369,7 @@ static char kScreenShotViewMove[] = "screenShotViewMove";
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    //    NSLog(@"---Token--%@", pToken);
+        NSLog(@"---Token--%@", deviceToken);
     // 注册token
     [[ZCLibClient getZCLibClient] setToken:deviceToken];
 }

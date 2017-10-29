@@ -19,7 +19,7 @@
 
 @property (nonatomic, strong) LHBankCardModel *bankModel;
 
-
+@property (nonatomic, copy) void (^DeleteBlock)();
 
 @end
 

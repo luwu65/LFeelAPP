@@ -148,8 +148,8 @@
     [logoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(bgView.mas_centerX);
         make.centerY.equalTo(bgView.mas_centerY);
-        make.width.mas_equalTo(80*kRatio);
-        make.height.mas_equalTo(80*kRatio);
+        make.width.mas_equalTo(kFit(80));
+        make.height.mas_equalTo(kFit(80));
     }];
     
     //横线
@@ -167,10 +167,10 @@
     phoneImageView.image = [UIImage imageNamed:@"Login_Phone"];
     [self.view addSubview:phoneImageView];
     [phoneImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(30*kRatio);
-        make.bottom.equalTo(wireView1.mas_top).offset(-(50-30*kRatio)/2);
-        make.width.mas_equalTo(30*kRatio);
-        make.height.mas_equalTo(30*kRatio);
+        make.left.equalTo(self.view).offset(kFit(30));
+        make.bottom.equalTo(wireView1.mas_top).offset(-(50-kFit(30))/2);
+        make.width.mas_equalTo(kFit(30));
+        make.height.mas_equalTo(kFit(30));
     }];
     
     UIView *lineView1 = [[UIView alloc] init];
@@ -186,11 +186,11 @@
     self.phoneTextField = [[UITextField alloc] init];
     _phoneTextField.placeholder = @"请输入手机号";
     _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
-    _phoneTextField.font = kFont(16*kRatio);
+    _phoneTextField.font = kFont(kFit(16));
     [self.view addSubview:_phoneTextField];
     [_phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(lineView1.mas_right).offset(10);
-        make.right.equalTo(self.view.mas_right).offset(-30*kRatio);
+        make.right.equalTo(self.view.mas_right).offset(-kFit(30));
         make.centerY.equalTo(phoneImageView.mas_centerY);
         make.height.mas_equalTo(40);
     }];
@@ -211,10 +211,10 @@
     captchaImageView.image = [UIImage imageNamed:@"Login_Captcha"];
     [self.view addSubview:captchaImageView];
     [captchaImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(30*kRatio);
-        make.bottom.equalTo(wireView2.mas_top).offset(-(50-30*kRatio)/2);
-        make.width.mas_equalTo(30*kRatio);
-        make.height.mas_equalTo(30*kRatio);
+        make.left.equalTo(self.view).offset(kFit(30));
+        make.bottom.equalTo(wireView2.mas_top).offset(-(50-kFit(30))/2);
+        make.width.mas_equalTo(kFit(30));
+        make.height.mas_equalTo(kFit(30));
     }];
     
     UIButton *captchaBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
@@ -246,7 +246,7 @@
     self.captchaTextField = [[UITextField alloc] init];
     _captchaTextField.placeholder = @"请输入验证码";
     _captchaTextField.keyboardType = UIKeyboardTypeNumberPad;
-    _captchaTextField.font = kFont(16*kRatio);
+    _captchaTextField.font = kFont(kFit(16));
     [self.view addSubview:_captchaTextField];
     [_captchaTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(lineView1.mas_right).offset(10);
@@ -271,10 +271,10 @@
     loginImageView1.image = [UIImage imageNamed:@"Login_Password"];
     [self.view addSubview:loginImageView1];
     [loginImageView1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(30*kRatio);
-        make.bottom.equalTo(wireView3.mas_top).offset(-(50-30*kRatio)/2);
-        make.width.mas_equalTo(30*kRatio);
-        make.height.mas_equalTo(30*kRatio);
+        make.left.equalTo(self.view).offset(kFit(30));
+        make.bottom.equalTo(wireView3.mas_top).offset(-(50-kFit(30))/2);
+        make.width.mas_equalTo(kFit(30));
+        make.height.mas_equalTo(kFit(30));
     }];
     UIView *lineView3 = [[UIView alloc] init];
     lineView3.backgroundColor = kColor(245, 245, 245);
@@ -289,11 +289,11 @@
     self.passwordTextField1 = [[UITextField alloc] init];
     _passwordTextField1.placeholder = @"请输入登录密码";
     _passwordTextField1.secureTextEntry = YES;
-    _passwordTextField1.font = kFont(16*kRatio);
+    _passwordTextField1.font = kFont(kFit(16));
     [self.view addSubview:_passwordTextField1];
     [_passwordTextField1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(lineView3.mas_right).offset(10);
-        make.right.equalTo(self.view.mas_right).offset(-30*kRatio);
+        make.right.equalTo(self.view.mas_right).offset(-kFit(30));
         make.centerY.equalTo(loginImageView1.mas_centerY);
         make.height.mas_equalTo(40);
     }];
@@ -315,10 +315,10 @@
     loginImageView2.image = [UIImage imageNamed:@"Login_Password"];
     [self.view addSubview:loginImageView2];
     [loginImageView2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(30*kRatio);
-        make.bottom.equalTo(wireView4.mas_top).offset(-(50-30*kRatio)/2);
-        make.width.mas_equalTo(30*kRatio);
-        make.height.mas_equalTo(30*kRatio);
+        make.left.equalTo(self.view).offset(kFit(30));
+        make.bottom.equalTo(wireView4.mas_top).offset(-(50-kFit(30))/2);
+        make.width.mas_equalTo(kFit(30));
+        make.height.mas_equalTo(kFit(30));
     }];
 
     UIView *lineView4 = [[UIView alloc] init];
@@ -334,11 +334,11 @@
     self.passwordTextField2 = [[UITextField alloc] init];
     _passwordTextField2.placeholder = @"请再次输入登录密码";
     _passwordTextField2.secureTextEntry = YES;
-    _passwordTextField2.font = kFont(16*kRatio);
+    _passwordTextField2.font = kFont(kFit(16));
     [self.view addSubview:_passwordTextField2];
     [_passwordTextField2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(lineView4.mas_right).offset(10);
-        make.right.equalTo(self.view.mas_right).offset(-30*kRatio);
+        make.right.equalTo(self.view.mas_right).offset(-kFit(30));
         make.centerY.equalTo(loginImageView2.mas_centerY);
         make.height.mas_equalTo(40);
     }];
@@ -357,10 +357,10 @@
     inviteImageView.image = [UIImage imageNamed:@"Login_Invite"];
     [self.view addSubview:inviteImageView];
     [inviteImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(30*kRatio);
-        make.bottom.equalTo(wireView5.mas_top).offset(-(50-30*kRatio)/2);
-        make.width.mas_equalTo(30*kRatio);
-        make.height.mas_equalTo(30*kRatio);
+        make.left.equalTo(self.view).offset(kFit(30));
+        make.bottom.equalTo(wireView5.mas_top).offset(-(50-kFit(30))/2);
+        make.width.mas_equalTo(kFit(30));
+        make.height.mas_equalTo(kFit(30));
     }];
     UIView *lineView5 = [[UIView alloc] init];
     lineView5.backgroundColor = kColor(245, 245, 245);
@@ -374,11 +374,11 @@
     
     self.inviteTextField = [[UITextField alloc] init];
     _inviteTextField.placeholder = @"请输入邀请码(非必填)";
-    _inviteTextField.font = kFont(16*kRatio);
+    _inviteTextField.font = kFont(kFit(16));
     [self.view addSubview:_inviteTextField];
     [_inviteTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(lineView5.mas_right).offset(10);
-        make.right.equalTo(self.view.mas_right).offset(-30*kRatio);
+        make.right.equalTo(self.view.mas_right).offset(-kFit(30));
         make.centerY.equalTo(inviteImageView.mas_centerY);
         make.height.mas_equalTo(40);
     }];
@@ -386,13 +386,13 @@
     UILabel *knowLabel = [[UILabel alloc] init];
     knowLabel.text = @"点击注册, 表示您已同意";
     knowLabel.textColor = [UIColor lightGrayColor];
-    knowLabel.font = kFont(12*kRatio);
+    knowLabel.font = kFont(kFit(12));
     knowLabel.textAlignment = NSTextAlignmentRight;
     [self.view addSubview:knowLabel];
     [knowLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left).offset(20);
         make.top.equalTo(wireView5.mas_bottom).offset(15);
-        make.width.mas_equalTo(130*kRatio);
+        make.width.mas_equalTo(kFit(130));
         make.height.mas_equalTo(20);
     }];
     
@@ -400,13 +400,13 @@
     protocolLabel.textColor = [UIColor redColor];
     protocolLabel.text = @"<<乐荟用户协议>>";
     protocolLabel.userInteractionEnabled = YES;
-    protocolLabel.font = kFont(12*kRatio);
+    protocolLabel.font = kFont(kFit(12));
     protocolLabel.textAlignment = NSTextAlignmentLeft;
     [self.view addSubview:protocolLabel];
     [protocolLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(knowLabel.mas_right).offset(0);
         make.top.equalTo(wireView5.mas_bottom).offset(15);
-        make.width.mas_equalTo(130*kRatio);
+        make.width.mas_equalTo(kFit(130));
         make.height.mas_equalTo(20);
     }];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(protocolLabelAction)];
@@ -426,7 +426,7 @@
         make.top.equalTo(protocolLabel.mas_bottom).offset(30);
         make.left.equalTo(self.view.mas_left).offset(20);
         make.right.equalTo(self.view.mas_right).offset(-20);
-        make.height.mas_equalTo(40*kRatio);
+        make.height.mas_equalTo(kFit(40));
     }];
 }
 

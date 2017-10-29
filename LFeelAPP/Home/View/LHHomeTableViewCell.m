@@ -57,7 +57,7 @@
 //商品
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier goodsCollectionFrame:(CGRect)collectionRect {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.homeTitleView = [[LHHomeTitleView alloc] initWithFrame:CGRectMake(10, 0, kScreenWidth-20, 50*kRatio) chinese:@"" chineseFont:16*kRatio english:@"" englishFont:14*kRatio];
+        self.homeTitleView = [[LHHomeTitleView alloc] initWithFrame:CGRectMake(10, 0, kScreenWidth-20, kFit(50)) chinese:@"" chineseFont:kFit(16) english:@"" englishFont:kFit(14)];
         [self addSubview:self.homeTitleView];
         self.goodsScrollView = [[UIScrollView alloc] init];
         self.goodsImageView.backgroundColor = kColor(245, 245, 245);
@@ -68,7 +68,7 @@
         [self.goodsScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(0);
             make.right.equalTo(self).offset(0);
-            make.top.equalTo(self).offset(kRatio*50);
+            make.top.equalTo(self).offset(kFit(50));
             make.bottom.equalTo(self).offset(0);
         }];
         
@@ -91,7 +91,7 @@
                 make.left.equalTo(self.goodsImageView).offset(0);
                 make.right.equalTo(self.goodsImageView).offset(0);
                 make.bottom.equalTo(self.goodsImageView).offset(0);
-                make.height.mas_equalTo(25*kRatio);
+                make.height.mas_equalTo(kFit(25));
             }];
             
         }
@@ -100,7 +100,7 @@
 }
 
 - (void)setUIWithCellFrame:(CGRect)CollectionRect collecitonViewName:(NSString *)collectionViewName{
-    self.homeTitleView = [[LHHomeTitleView alloc] initWithFrame:CGRectMake(10, 0, kScreenWidth-20, 50*kRatio) chinese:@"" chineseFont:16*kRatio english:@"" englishFont:14*kRatio];
+    self.homeTitleView = [[LHHomeTitleView alloc] initWithFrame:CGRectMake(10, 0, kScreenWidth-20, kFit(50)) chinese:@"" chineseFont:kFit(16) english:@"" englishFont:kFit(14)];
     [self addSubview:self.homeTitleView];
     
     if ([collectionViewName isEqualToString:@"buyNewCollectionView"]) {

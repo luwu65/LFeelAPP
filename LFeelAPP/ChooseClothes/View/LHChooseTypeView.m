@@ -40,11 +40,11 @@
             LHDevider *devider = [[LHDevider alloc] initWithFrame:CGRectMake(0, i*kFit(40) + kFit(40), kScreenWidth, 0.5)];
             [self addSubview:devider];
         }
-        @weakify(self);
+        kWeakSelf(self);
         LHTagView *sizeTagView = [[LHTagView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kFit(40)) TxtArray:kClothesSize];
         sizeTagView.contentView.tag = kChooseClothesTag + 100;
         sizeTagView.ClickTagBlock = ^(NSInteger index) {
-            @strongify(self);
+            kStrongSelf(self);
             self.sizeStr = kClothesSize[index];
 //            NSLog(@"%@ --->%ld -----> %@", kClothesSize[index], index, self.selectArray);
         };
@@ -54,7 +54,7 @@
         LHTagView *colorTagView = [[LHTagView alloc] initWithFrame:CGRectMake(0, kFit(40), kScreenWidth, kFit(40)) ColorArray:colorArray];
         colorTagView.contentView.tag = kChooseClothesTag + 200;
         colorTagView.ClickTagBlock = ^(NSInteger index) {
-            @strongify(self);
+            kStrongSelf(self);
             self.colorStr = colorArray[index];
 //            NSLog(@"%@ --->%ld -----> %@", colorArray[index], index, self.selectArray);
         };
@@ -63,7 +63,7 @@
         LHTagView *typeTagView = [[LHTagView alloc] initWithFrame:CGRectMake(0, kFit(40)*2, kScreenWidth, kFit(40)) TxtArray:kClothtsType];
         typeTagView.contentView.tag = kChooseClothesTag + 300;
         typeTagView.ClickTagBlock = ^(NSInteger index) {
-            @strongify(self);
+            kStrongSelf(self);
             self.typeStr = kClothtsType[index];
 //            NSLog(@"%@ --->%ld -----> %@", kClothtsType[index], index, self.selectArray);
         };
@@ -73,7 +73,7 @@
         LHTagView *styleTagView = [[LHTagView alloc] initWithFrame:CGRectMake(0, kFit(40)*3, kScreenWidth, kFit(40)) TxtArray:kClothesStyle];
         styleTagView.contentView.tag = kChooseClothesTag + 400;
         styleTagView.ClickTagBlock = ^(NSInteger index) {
-            @strongify(self);
+            kStrongSelf(self);
             self.styleStr = kClothesStyle[index];
 //            NSLog(@"%@ --->%ld -----> %@", kClothesStyle[index], index, self.selectArray);
         };

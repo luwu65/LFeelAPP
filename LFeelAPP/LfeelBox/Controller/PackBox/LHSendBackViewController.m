@@ -38,9 +38,9 @@
 }
 - (void)setHBK_NavigationBar {
     self.automaticallyAdjustsScrollViewInsets = NO;
-    @weakify(self);
+    kWeakSelf(self);
     self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"寄回盒子" backAction:^{
-        @strongify(self);
+        kStrongSelf(self);
         [self.navigationController popViewControllerAnimated:YES];
     } rightFirst:@"Home_Camera" rightFirstBtnAction:^{
         LHScanViewController *scanVC = [[LHScanViewController alloc] init];

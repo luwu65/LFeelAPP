@@ -67,27 +67,27 @@ typedef NS_ENUM(NSInteger, PayType) {
     [self.view addSubview:bgImageView];
     
     UILabel *eLabel = [[UILabel alloc] init];
-    eLabel.font = kFont(20*kRatio);
+    eLabel.font = kFont(kFit(20));
     eLabel.text = @"MEMBERSHIP";
     eLabel.textAlignment = NSTextAlignmentLeft;
     [bgImageView addSubview:eLabel];
     [eLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left).offset(40);
         make.right.equalTo(self.view.mas_right).offset(-40);
-        make.top.equalTo(self.view.mas_top).offset(100*kRatio);
-        make.height.mas_offset(50*kRatio);
+        make.top.equalTo(self.view.mas_top).offset(kFit(100));
+        make.height.mas_offset(kFit(50));
     }];
     
     UILabel *cLabel = [[UILabel alloc] init];
     cLabel.text = @"购买会员";
-    cLabel.font = kFont(17*kRatio);
+    cLabel.font = kFont(kFit(17));
     cLabel.textColor = [UIColor lightGrayColor];
     [bgImageView addSubview:cLabel];
     [cLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left).offset(40);
         make.right.equalTo(self.view.mas_right).offset(-40);
         make.top.equalTo(eLabel.mas_bottom).offset(0);
-        make.height.mas_offset(50*kRatio);
+        make.height.mas_offset(kFit(50));
     }];
     
     self.yearBtn = [[CustomButton alloc] initWithVipBtnFrame:CGRectZero];
@@ -96,7 +96,7 @@ typedef NS_ENUM(NSInteger, PayType) {
     [self.yearBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left).offset(40);
         make.right.equalTo(self.view.mas_right).offset(-40);
-        make.top.equalTo(cLabel.mas_bottom).offset(30*kRatio);
+        make.top.equalTo(cLabel.mas_bottom).offset(kFit(30));
         make.height.mas_offset(80);
     }];
     
@@ -107,7 +107,7 @@ typedef NS_ENUM(NSInteger, PayType) {
     [self.halfYearBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left).offset(40);
         make.right.equalTo(self.view.mas_right).offset(-40);
-        make.top.equalTo(self.yearBtn.mas_bottom).offset(30*kRatio);
+        make.top.equalTo(self.yearBtn.mas_bottom).offset(kFit(30));
         make.height.mas_offset(80);
     }];
     

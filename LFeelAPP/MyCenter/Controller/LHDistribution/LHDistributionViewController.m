@@ -151,9 +151,9 @@
     
     _titleView.titles  = @[@"分销商", @"用户", @"明细"];
     _titleView.selectedIndex = 0;
-    @weakify(self);
+    kWeakSelf(self);
     _titleView.buttonSelected = ^(NSInteger index){
-        @strongify(self);
+        kStrongSelf(self);
         [self.getScrollView setContentOffset:CGPointMake(kScreenWidth * index, 0) animated:YES];
     };
 }

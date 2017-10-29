@@ -25,8 +25,10 @@
     
     [self setUI];
     
-    self.phoneTextField.text = @"13298368875";
+//    self.phoneTextField.text = @"13298368875";
 //    self.phoneTextField.text = @"15627284287";
+//        self.phoneTextField.text = @"13553856874";
+            self.phoneTextField.text = @"13631358479";
 
     self.captchaTextField.text = @"1234";
     
@@ -54,7 +56,6 @@
 
 //登录
 - (void)loginBtnAction {
-    
     [LHNetworkManager PostWithUrl:kVerifyLogin parameter:@{@"mobile":self.phoneTextField.text, @"verifycode":self.captchaTextField.text} success:^(id reponseObject) {
         NSLog(@"!!!!!!!!!1%@", reponseObject);
         if ([kSTR(reponseObject[@"isError"]) isEqualToString:@"0"]) {
@@ -105,8 +106,8 @@
     [logoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(bgView.mas_centerX);
         make.centerY.equalTo(bgView.mas_centerY);
-        make.width.mas_equalTo(80*kRatio);
-        make.height.mas_equalTo(80*kRatio);
+        make.width.mas_equalTo(kFit(80));
+        make.height.mas_equalTo(kFit(80));
     }];
     
     //横线
@@ -124,10 +125,10 @@
     phoneImageView.image = [UIImage imageNamed:@"Login_Phone"];
     [self.view addSubview:phoneImageView];
     [phoneImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(30*kRatio);
-        make.bottom.equalTo(wireView1.mas_top).offset(-(50-30*kRatio)/2);
-        make.width.mas_equalTo(30*kRatio);
-        make.height.mas_equalTo(30*kRatio);
+        make.left.equalTo(self.view).offset(kFit(30));
+        make.bottom.equalTo(wireView1.mas_top).offset(-(50-kFit(30))/2);
+        make.width.mas_equalTo(kFit(30));
+        make.height.mas_equalTo(kFit(30));
     }];
     
     UIView *lineView1 = [[UIView alloc] init];
@@ -142,11 +143,11 @@
     
     self.phoneTextField = [[UITextField alloc] init];
     _phoneTextField.placeholder = @"请输入手机号";
-    _phoneTextField.font = kFont(16*kRatio);
+    _phoneTextField.font = kFont(kFit(16));
     [self.view addSubview:_phoneTextField];
     [_phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(lineView1.mas_right).offset(10);
-        make.right.equalTo(self.view.mas_right).offset(-30*kRatio);
+        make.right.equalTo(self.view.mas_right).offset(-kFit(30));
         make.centerY.equalTo(phoneImageView.mas_centerY);
         make.height.mas_equalTo(40);
     }];
@@ -167,17 +168,17 @@
     captchaImageView.image = [UIImage imageNamed:@"Login_Captcha"];
     [self.view addSubview:captchaImageView];
     [captchaImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(30*kRatio);
-        make.bottom.equalTo(wireView2.mas_top).offset(-(50-30*kRatio)/2);
-        make.width.mas_equalTo(30*kRatio);
-        make.height.mas_equalTo(30*kRatio);
+        make.left.equalTo(self.view).offset(kFit(30));
+        make.bottom.equalTo(wireView2.mas_top).offset(-(50-kFit(30))/2);
+        make.width.mas_equalTo(kFit(30));
+        make.height.mas_equalTo(kFit(30));
     }];
     
     UIButton *captchaBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [captchaBtn setTitle:@"获取验证码" forState:(UIControlStateNormal)];
     [captchaBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     captchaBtn.backgroundColor = [UIColor redColor];
-    captchaBtn.titleLabel.font = kFont(15*kRatio);
+    captchaBtn.titleLabel.font = kFont(kFit(15));
     captchaBtn.layer.cornerRadius = 5;
     captchaBtn.layer.masksToBounds = YES;
     [captchaBtn addTarget:self action:@selector(obtainCaptchaAction:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -201,7 +202,7 @@
     
     self.captchaTextField = [[UITextField alloc] init];
     _captchaTextField.placeholder = @"请输入验证码";
-    _captchaTextField.font = kFont(16*kRatio);
+    _captchaTextField.font = kFont(kFit(16));
 //    _captchaTextField.secureTextEntry = YES;
     [self.view addSubview:_captchaTextField];
     [_captchaTextField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -226,7 +227,7 @@
         make.top.equalTo(wireView2.mas_bottom).offset(30);
         make.left.equalTo(self.view.mas_left).offset(20);
         make.right.equalTo(self.view.mas_right).offset(-20);
-        make.height.mas_equalTo(40*kRatio);
+        make.height.mas_equalTo(kFit(40));
     }];
     
 }

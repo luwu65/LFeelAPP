@@ -71,12 +71,12 @@
 
 - (void)setHBK_NavigationBar {
     self.automaticallyAdjustsScrollViewInsets = NO;
-    @weakify(self);
+    kWeakSelf(self);
     self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"商品详情" leftFirst:@"Home_GoodsDetail_Back" leftFirstAction:^{
-        @strongify(self);
+        kStrongSelf(self);
         [self.navigationController popViewControllerAnimated:YES];
     } rightFirst:@"Home_GoodsDetail_Service" rightFirstBtnAction:^{
-        @strongify(self);
+        kStrongSelf(self);
         NSLog(@"客服");
         ZCProductInfo *productInfo = [ZCProductInfo new];
         //thumbUrl 缩略图地址
@@ -175,10 +175,10 @@
     return headerView;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    @weakify(self);
+    kWeakSelf(self);
     LHGoodsCommentFooterView *footerView = [[LHGoodsCommentFooterView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 95)];
     footerView.clickAllBtn = ^{
-        @strongify(self);
+        kStrongSelf(self);
         LHAllCommentViewController *commentVC = [[LHAllCommentViewController alloc] init];
         [self.navigationController pushViewController:commentVC animated:YES];
         NSLog(@"全部评论");

@@ -3,7 +3,7 @@
 //  VKu
 //
 //  Created by jens on 16/5/26.
-//  Copyright © 2016年 张建帅. All rights reserved.
+//  Copyright © 2016年 黄冰珂. All rights reserved.
 //
 
 #import "MDManager.h"

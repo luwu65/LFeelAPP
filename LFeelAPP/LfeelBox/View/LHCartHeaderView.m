@@ -42,7 +42,7 @@
 //    __weak typeof(self) weakSelf = self;
     //选中按钮
     self.clickBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    self.clickBtn.frame = CGRectMake(15*kRatio, 2.5*kRatio, 30*kRatio, 30*kRatio);
+    self.clickBtn.frame = CGRectMake(kFit(15), kFit(2.5), kFit(30), kFit(30));
     [self.contentView addSubview:self.clickBtn];
     [_clickBtn setBackgroundImage:[UIImage imageNamed:@"MyBox_click_default"] forState:(UIControlStateNormal)];
     [_clickBtn setBackgroundImage:[UIImage imageNamed:@"MyBox_clicked"] forState:(UIControlStateSelected)];
@@ -50,15 +50,15 @@
     
     //图片
     self.storeImageView = [[UIImageView alloc] init];
-    self.storeImageView.frame = CGRectMake(55*kRatio, 5*kRatio, 25*kRatio, 25*kRatio);
+    self.storeImageView.frame = CGRectMake(kFit(55), kFit(5), kFit(25), kFit(25));
     self.storeImageView.backgroundColor = [UIColor greenColor];
     [self.contentView addSubview:self.storeImageView];
 
     //title
     self.titleLabel = [[UILabel alloc] init];
-    self.titleLabel.frame = CGRectMake(90*kRatio, 5*kRatio, kScreenWidth-90*kRatio, 25*kRatio);
+    self.titleLabel.frame = CGRectMake(kFit(90), kFit(5), kScreenWidth-kFit(90), kFit(25));
     [self.contentView addSubview:_titleLabel];
-    self.titleLabel.font = kFont(14*kRatio);
+    self.titleLabel.font = kFont(kFit(14));
 }
 
 //选中按钮

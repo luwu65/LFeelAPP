@@ -47,7 +47,7 @@
         make.left.equalTo(self.selectBtn.mas_right).offset(10);
         make.top.equalTo(self.mas_top).offset(5);
         make.bottom.equalTo(self.mas_bottom).offset(-5);
-        make.right.equalTo(self.mas_right).offset(-80*kRatio);
+        make.right.equalTo(self.mas_right).offset(-kFit(80));
     }];
     
 //    UIView *lineView = [[UIView alloc] init];
@@ -61,13 +61,13 @@
 //    }];
     
     self.statusLabel = [[UILabel alloc] init];
-    self.statusLabel.font = kFont(14*kRatio);
+    self.statusLabel.font = kFont(kFit(14));
     [self.contentView addSubview:self.statusLabel];
     [self.statusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.mas_right).offset(-10*kRatio);
+        make.right.equalTo(self.mas_right).offset(-kFit(10));
         make.top.equalTo(self.mas_top).offset(5);
         make.bottom.equalTo(self.mas_bottom).offset(-5);
-        make.width.mas_equalTo(60*kRatio);
+        make.width.mas_equalTo(kFit(60));
     }];
     
 }
@@ -152,7 +152,7 @@
     }];
     
     self.timeLabel = [[UILabel alloc] init];
-    self.timeLabel.font = kFont(15*kRatio);
+    self.timeLabel.font = kFont(kFit(15));
     [self addSubview:self.timeLabel];
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.mas_right).offset(-10);

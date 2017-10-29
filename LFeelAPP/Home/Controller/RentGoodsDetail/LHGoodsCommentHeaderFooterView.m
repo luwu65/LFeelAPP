@@ -21,7 +21,7 @@
         [self addSubview:devider];
         
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, kScreenWidth-30, 40)];
-        self.titleLabel.font = kFont(17*kRatio);
+        self.titleLabel.font = kFont(kFit(17));
         [self addSubview:_titleLabel];
         
         

@@ -30,7 +30,7 @@
         
         [self.goodsTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.equalTo(self.mas_width);
-            make.height.mas_equalTo(20*kRatio);
+            make.height.mas_equalTo(kFit(20));
             make.top.equalTo(self.goodsImageView).offset(0);
             make.left.equalTo(self.mas_left).offset(0);
         }];

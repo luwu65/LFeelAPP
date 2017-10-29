@@ -30,7 +30,7 @@
         if (packingLabelStr) {
             self.statusLabel.text = packingLabelStr;
         }
-        self.statusLabel.font = kFont(13*kRatio);
+        self.statusLabel.font = kFont(kFit(30));
         self.statusLabel.textAlignment = NSTextAlignmentCenter;
         self.statusLabel.textColor = [UIColor lightGrayColor];
         [self addSubview:self.statusLabel];
@@ -38,7 +38,7 @@
         self.packingBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
         self.packingBtn.frame = CGRectMake(kScreenWidth/3*2, 0, kScreenWidth/3, kAllBarHeight*kRatio);
         self.packingBtn.backgroundColor = [UIColor redColor];
-        self.packingBtn.titleLabel.font = kFont(16*kRatio);
+        self.packingBtn.titleLabel.font = kFont(kFit(16));
         [self.packingBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
         [self.packingBtn addTarget:self action:@selector(handldPacking:) forControlEvents:(UIControlEventTouchUpInside)];
         [self addSubview:self.packingBtn];
@@ -72,14 +72,14 @@
         
         self.priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(kAllBarHeight*kRatio+20, 5, kScreenWidth/3*2-kAllBarHeight*kRatio-5, kAllBarHeight*kRatio-10)];
         self.priceLabel.text = @"总价:";
-        self.priceLabel.font = kFont(14*kRatio);
+        self.priceLabel.font = kFont(kFit(14));
         self.priceLabel.textColor = [UIColor redColor];
         [self addSubview:self.priceLabel];
         
         UIButton *accountButton = [UIButton buttonWithType:(UIButtonTypeSystem)];
         [accountButton setTitle:@"去结算" forState:(UIControlStateNormal)];
         [accountButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-        accountButton.titleLabel.font = kFont(16*kRatio);
+        accountButton.titleLabel.font = kFont(kFit(16));
         accountButton.backgroundColor = [UIColor redColor];
         accountButton.frame = CGRectMake(kScreenWidth/3*2, 0, kScreenWidth/3, kAllBarHeight*kRatio);
         [accountButton addTarget:self action:@selector(accrountBtnAction:) forControlEvents:(UIControlEventTouchUpInside)];

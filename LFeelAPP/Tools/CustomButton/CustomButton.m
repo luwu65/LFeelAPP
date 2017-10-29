@@ -41,15 +41,15 @@
 - (instancetype)initWithFrame:(CGRect)frame imageName:(NSString *)imageName title:(NSString *)title {
     if (self = [super initWithFrame:frame]) {
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
-        imageView.frame = CGRectMake(((kScreenWidth/4)-30*kRatio)/2, 10, 30*kRatio, 30*kRatio);
+        imageView.frame = CGRectMake(((kScreenWidth/4)-kFit(30))/2, 10, kFit(30), kFit(30));
         [self addSubview:imageView];
 
         
         UILabel *label = [[UILabel alloc] init];
-        label.frame = CGRectMake(0, 10+30*kRatio, frame.size.width, 20*kRatio);
+        label.frame = CGRectMake(0, 10+kFit(30), frame.size.width, kFit(20));
         label.text = title;
         label.textAlignment = NSTextAlignmentCenter;
-        label.font = [UIFont systemFontOfSize:12*kRatio];
+        label.font = [UIFont systemFontOfSize:kFit(12)];
         [self addSubview:label];
     }
     return self;

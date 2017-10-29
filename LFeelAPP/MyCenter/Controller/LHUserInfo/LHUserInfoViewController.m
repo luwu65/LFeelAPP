@@ -125,10 +125,10 @@
     if (!_bwhPickView) {
         self.bwhPickView = [LHBWHPickView creatView];
         self.bwhPickView.frame = CGRectMake(0, kScreenHeight, kScreenWidth, kScreenWidth*0.8);
-        @weakify(self);
+        kWeakSelf(self);
         self.bwhPickView.SureBlock = ^(NSString *chest, NSString *waist, NSString *hip) {
 //            NSLog(@"确定------胸围%@-----腰围%@-----臀围%@", chest, waist, hip);
-            @strongify(self);
+            kStrongSelf(self);
             self.chest = [NSString stringWithFormat:@"%@CM", chest];
             self.waist = [NSString stringWithFormat:@"%@CM", waist];;
             self.hip = [NSString stringWithFormat:@"%@CM", hip];
@@ -138,7 +138,7 @@
         };
         self.bwhPickView.CancelBlock = ^{
             NSLog(@"取消");
-            @strongify(self);
+            kStrongSelf(self);
             [self handleWindowAction];
         };
     }

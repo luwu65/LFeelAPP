@@ -51,10 +51,10 @@
     captchaImageView.image = [UIImage imageNamed:@"Login_Password"];
     [self.view addSubview:captchaImageView];
     [captchaImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(30*kRatio);
-        make.top.equalTo(wireView.mas_bottom).offset((50-30*kRatio)/2);
-        make.width.mas_equalTo(30*kRatio);
-        make.height.mas_equalTo(30*kRatio);
+        make.left.equalTo(self.view.mas_left).offset(kFit(30));
+        make.top.equalTo(wireView.mas_bottom).offset((50-kFit(30))/2);
+        make.width.mas_equalTo(kFit(30));
+        make.height.mas_equalTo(kFit(30));
     }];
     
     UIView *lineView = [[UIView alloc] init];
@@ -69,11 +69,11 @@
     
     self.captchaTextField = [[UITextField alloc] init];
     _captchaTextField.placeholder = @"请输入原密码";
-    _captchaTextField.font = kFont(16*kRatio);
+    _captchaTextField.font = kFont(kFit(16));
     [self.view addSubview:_captchaTextField];
     [_captchaTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(lineView.mas_right).offset(10);
-        make.right.equalTo(self.view.mas_right).offset(-30*kRatio);
+        make.right.equalTo(self.view.mas_right).offset(-kFit(30));
         make.centerY.equalTo(captchaImageView.mas_centerY);
         make.height.mas_equalTo(40);
     }];
@@ -94,10 +94,10 @@
     loginImageView1.image = [UIImage imageNamed:@"Login_Password"];
     [self.view addSubview:loginImageView1];
     [loginImageView1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(30*kRatio);
-        make.top.equalTo(wireView1.mas_bottom).offset((50-30*kRatio)/2);
-        make.width.mas_equalTo(30*kRatio);
-        make.height.mas_equalTo(30*kRatio);
+        make.left.equalTo(self.view).offset(kFit(30));
+        make.top.equalTo(wireView1.mas_bottom).offset((50-kFit(30))/2);
+        make.width.mas_equalTo(kFit(30));
+        make.height.mas_equalTo(kFit(30));
     }];
     UIView *lineView1 = [[UIView alloc] init];
     lineView1.backgroundColor = kColor(245, 245, 245);
@@ -112,11 +112,11 @@
     self.passwordTextField1 = [[UITextField alloc] init];
     _passwordTextField1.placeholder = @"请输入新密码";
     _passwordTextField1.secureTextEntry = YES;
-    _passwordTextField1.font = kFont(16*kRatio);
+    _passwordTextField1.font = kFont(kFit(16));
     [self.view addSubview:_passwordTextField1];
     [_passwordTextField1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(lineView1.mas_right).offset(10);
-        make.right.equalTo(self.view.mas_right).offset(-30*kRatio);
+        make.right.equalTo(self.view.mas_right).offset(-kFit(30));
         make.centerY.equalTo(loginImageView1.mas_centerY);
         make.height.mas_equalTo(40);
     }];
@@ -138,10 +138,10 @@
     loginImageView2.image = [UIImage imageNamed:@"Login_Password"];
     [self.view addSubview:loginImageView2];
     [loginImageView2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(30*kRatio);
-        make.top.equalTo(wireView2.mas_bottom).offset((50-30*kRatio)/2);
-        make.width.mas_equalTo(30*kRatio);
-        make.height.mas_equalTo(30*kRatio);
+        make.left.equalTo(self.view).offset(kFit(30));
+        make.top.equalTo(wireView2.mas_bottom).offset((50-kFit(30))/2);
+        make.width.mas_equalTo(kFit(30));
+        make.height.mas_equalTo(kFit(30));
     }];
     
     UIView *lineView2 = [[UIView alloc] init];
@@ -157,11 +157,11 @@
     self.passwordTextField2 = [[UITextField alloc] init];
     _passwordTextField2.placeholder = @"请再次输入密码";
     _passwordTextField2.secureTextEntry = YES;
-    _passwordTextField2.font = kFont(16*kRatio);
+    _passwordTextField2.font = kFont(kFit(16));
     [self.view addSubview:_passwordTextField2];
     [_passwordTextField2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(lineView2.mas_right).offset(10);
-        make.right.equalTo(self.view.mas_right).offset(-30*kRatio);
+        make.right.equalTo(self.view.mas_right).offset(-kFit(30));
         make.centerY.equalTo(loginImageView2.mas_centerY);
         make.height.mas_equalTo(40);
     }];
@@ -203,7 +203,7 @@
         make.bottom.equalTo(self.view.mas_bottom).offset(-80);
         make.left.equalTo(self.view.mas_left).offset(20);
         make.right.equalTo(self.view.mas_right).offset(-20);
-        make.height.mas_equalTo(40*kRatio);
+        make.height.mas_equalTo(kFit(40));
     }];
     
     

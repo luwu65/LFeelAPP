@@ -144,7 +144,8 @@
 //添加评论
 #define kAddCommentUrl                @"comment/add"
 
-
+//删除银行
+#define kDeleteBankUrl                @"bank/delete"
 
 
 

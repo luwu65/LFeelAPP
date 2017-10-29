@@ -38,6 +38,7 @@
 
 - (void)setHBK_NavigationBar {
     self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"添加信用卡" backAction:^{
+       
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }
@@ -69,6 +70,9 @@
              [MBProgressHUD showSuccess:@"添加成功"];
          });
          dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+             if (self.AddBankCard) {
+                 self.AddBankCard();
+             }
              [self.navigationController popViewControllerAnimated:YES];
          });
         } else {

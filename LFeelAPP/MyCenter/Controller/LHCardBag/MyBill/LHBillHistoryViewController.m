@@ -46,14 +46,14 @@
 
 #pragma mark  ---------- <UITableViewDelegate, UITableViewDataSource> -----------
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80*kRatio;
+    return kFit(80);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 40*kRatio;
+    return kFit(40);
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 50*kRatio;
+    return kFit(50);
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -98,7 +98,7 @@
             make.left.equalTo(headerView.mas_left).offset(10);
             make.top.equalTo(headerView.mas_top).offset(5);
             make.bottom.equalTo(headerView.mas_bottom).offset(-5);
-            make.right.equalTo(headerView.mas_right).offset(-80*kRatio);
+            make.right.equalTo(headerView.mas_right).offset(-kFit(80));
         }];
     }
     headerView.orderNumLabel.text = @"订单编号: 133333333333333";

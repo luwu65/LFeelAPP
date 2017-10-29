@@ -115,7 +115,7 @@ static NSString *myCenterCell = @"myCenterCell";
     self.myCenterTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.myCenterTableView];
     
-     self.headerView = [[LHMyCenterHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 200*kRatio)];
+     self.headerView = [[LHMyCenterHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kFit(200))];
     self.headerView.bgImageView.backgroundColor = [UIColor whiteColor];
     [self.headerView clickIconBlock:^{
         LHUserInfoViewController *userInfoVC = [[LHUserInfoViewController alloc] init];
@@ -171,8 +171,8 @@ static NSString *myCenterCell = @"myCenterCell";
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 cell.textLabel.text = self.cellTitleArray[indexPath.row];
                 cell.detailTextLabel.text = @"查看更多订单";
-                cell.detailTextLabel.font = kFont(14*kRatio);
-                cell.textLabel.font = kFont(14*kRatio);
+                cell.detailTextLabel.font = kFont(kFit(14));
+                cell.textLabel.font = kFont(kFit(14));
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
             return cell;
@@ -188,7 +188,7 @@ static NSString *myCenterCell = @"myCenterCell";
         
     } else {
         LHMyCenterCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LHMyCenterCell" forIndexPath:indexPath];
-        cell.titleLabel.font = kFont(14*kRatio);
+        cell.titleLabel.font = kFont(kFit(14));
         if (1 == indexPath.section) {
             cell.titleLabel.text = self.cellTitleArray[indexPath.row+1];
             cell.picImageView.image = [UIImage imageNamed:self.cellImageViewArray[indexPath.row]];
@@ -305,7 +305,7 @@ static NSString *myCenterCell = @"myCenterCell";
     if (model.nick_name) {
         [_headerView.nameButton setTitle:model.nick_name forState:(UIControlStateNormal)];
     } else {
-        NSString *phone = [NSString stringWithFormat:@"%@****%@", [model.username substringToIndex:3], [model.username substringFromIndex:7]];
+        NSString *phone = [NSString stringWithFormat:@"%@****%@", [model.mobile substringToIndex:3], [model.mobile substringFromIndex:7]];
         [_headerView.nameButton setTitle:phone forState:(UIControlStateNormal)];
     }
     [self.myCenterTableView reloadData];

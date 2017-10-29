@@ -82,13 +82,13 @@
     
     UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, emptyImageView.maxY+kFit(20), kScreenWidth, 25)];
     textLabel.text = @"收藏夹还是空的哟~";
-    textLabel.font = kFont(15*kRatio);
+    textLabel.font = kFont(kFit(15));
     textLabel.textColor = [UIColor lightGrayColor];
     textLabel.textAlignment = NSTextAlignmentCenter;
     [self.emptyBgView addSubview:textLabel];
     
     UIButton *goBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    goBtn.frame = CGRectMake(40*kRatio, kScreenHeight-kNavBarHeight - 100*kRatio, kScreenWidth-80*kRatio, 40*kRatio);
+    goBtn.frame = CGRectMake(kFit(40), kScreenHeight-kNavBarHeight - kFit(100), kScreenWidth-kFit(80), kFit(40));
     [goBtn setTitle:@"逛逛新品~" forState:(UIControlStateNormal)];
     [goBtn setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
     goBtn.layer.masksToBounds = YES;

@@ -43,7 +43,7 @@
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(10);
         make.top.equalTo(self.mas_top).offset(5);
-        make.height.mas_equalTo(25*kRatio);
+        make.height.mas_equalTo(kFit(25));
         make.width.mas_equalTo((kScreenWidth-30)/2);
     }];
     
@@ -55,20 +55,20 @@
         make.right.equalTo(self.mas_right).offset(-10);
         make.top.equalTo(self.mas_top).offset(5);
         make.width.mas_equalTo((kScreenWidth-30)/2);
-        make.height.mas_equalTo(25*kRatio);
+        make.height.mas_equalTo(kFit(25));
     }];
     
     //地址
     self.addressLabel = [[UILabel alloc] init];
     _addressLabel.numberOfLines = 0;
 //    _addressLabel.textColor = [UIColor lightGrayColor];
-    _addressLabel.font = kFont(14*kRatio);
+    _addressLabel.font = kFont(kFit(14));
     [self addSubview:_addressLabel];
     [_addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(10);
         make.right.equalTo(self.mas_right).offset(-10);
         make.top.equalTo(_nameLabel.mas_bottom).offset(5);
-        make.height.mas_equalTo(30*kRatio);
+        make.height.mas_equalTo(kFit(30));
     }];
     
     //分隔线
@@ -90,19 +90,19 @@
     [self.defaultBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(10);
         make.bottom.equalTo(self.mas_bottom).offset(-5);
-        make.width.mas_equalTo(25*kRatio);
-        make.height.mas_equalTo(25*kRatio);
+        make.width.mas_equalTo(kFit(25));
+        make.height.mas_equalTo(kFit(25));
     }];
     
     UILabel *defaultLabel = [[UILabel alloc] init];
     defaultLabel.text = @"设为默认";
-    defaultLabel.font = kFont(13*kRatio);
+    defaultLabel.font = kFont(kFit(13));
     [self addSubview:defaultLabel];
     [defaultLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.defaultBtn.mas_right).offset(0);
         make.bottom.equalTo(self.mas_bottom).offset(-5);
-        make.width.mas_equalTo(80*kRatio);
-        make.height.mas_equalTo(25*kRatio);
+        make.width.mas_equalTo(kFit(80));
+        make.height.mas_equalTo(kFit(25));
     }];
     
     //删除
@@ -113,8 +113,8 @@
     [self.deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.mas_right).offset(-10);
         make.bottom.equalTo(self.mas_bottom).offset(-5);
-        make.width.mas_equalTo(25*kRatio);
-        make.height.mas_equalTo(25*kRatio);
+        make.width.mas_equalTo(kFit(25));
+        make.height.mas_equalTo(kFit(25));
     }];
     
     //编辑
@@ -125,8 +125,8 @@
     [self.editBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.deleteBtn.mas_left).offset(-20);
         make.bottom.equalTo(self.mas_bottom).offset(-5);
-        make.width.mas_equalTo(25*kRatio);
-        make.height.mas_equalTo(25*kRatio);
+        make.width.mas_equalTo(kFit(25));
+        make.height.mas_equalTo(kFit(25));
     }];
 }
 

@@ -48,7 +48,7 @@
     
 }
 #pragma mark -------------------------- 网络请求 --------------------------
-
+//银行卡列表
 - (void)requestBankListData {
     [self.bankCardArray removeAllObjects];
     [LHNetworkManager requestForGetWithUrl:kBankListUrl parameter:@{@"user_id": kUser_id} success:^(id reponseObject) {
@@ -59,12 +59,30 @@
                 [model setValuesForKeysWithDictionary:dic];
                 [self.bankCardArray addObject:model];
             }
+            [self.cardTableView.mj_header endRefreshing];
             [self.cardTableView reloadSections:[[NSIndexSet alloc]initWithIndex:1] withRowAnimation:(UITableViewRowAnimationAutomatic)];
         }
     } failure:^(NSError *error) {
         
     }];
 }
+//解绑银行卡
+- (void)requestDeleteBankCard:(LHBankCardModel *)model {
+    
+    [LHNetworkManager PostWithUrl:kDeleteBankUrl parameter:@{@"id": model.id_} success:^(id reponseObject) {
+        NSLog(@"%@", reponseObject);
+        if ([reponseObject[@"errorCode"] integerValue] == 200) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showSuccess:@"解绑成功"];
+                [self.cardTableView reloadData];
+            });
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
+
 
 #pragma mark ----------------------- UI --------------------------------
 - (void)setupUI {
@@ -75,6 +93,12 @@
     self.cardTableView.backgroundColor = kColor(245, 245, 245);
     self.cardTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.cardTableView];
+    
+    self.cardTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self requestBankListData];
+    }];
+    
+    
 }
 - (void)setHBK_NavigationBar {
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -107,7 +131,7 @@
     } else if (section == 3) {
         if (self.isSecond) {
             //这里返回优惠券的行数
-            return 5;
+            return 2;
         } else {
             return 0;
         }
@@ -129,7 +153,17 @@
                 cell = [[LHCardCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cardCell];
             }
             cell.bankModel = self.bankCardArray[indexPath.row];
-            
+            kWeakSelf(self);
+            cell.DeleteBlock = ^{
+                NSLog(@"解绑银行卡");
+                kStrongSelf(self);
+                [self showAlertViewWithTitle:@"解绑银行卡" yesHandler:^(UIAlertAction * _Nullable action) {
+                    [self requestDeleteBankCard:self.bankCardArray[indexPath.row]];
+                    [self.bankCardArray removeObjectAtIndex:indexPath.row];
+                } noHandler:^(UIAlertAction * _Nullable action) {
+                    
+                }];
+            };
             return cell;
         } else {
             LHAddCardCell *cell = [tableView dequeueReusableCellWithIdentifier:addCardCell];
@@ -263,7 +297,7 @@
             NSLog(@"添加新卡");
             LHAddBankCardViewController *addCardVC = [[LHAddBankCardViewController alloc] init];
             addCardVC.AddBankCard = ^{
-                [self requestBankListData];
+                [tableView.mj_header beginRefreshing];
             };
             [self.navigationController pushViewController:addCardVC animated:YES];
         }

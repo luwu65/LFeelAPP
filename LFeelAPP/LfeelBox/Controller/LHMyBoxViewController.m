@@ -331,7 +331,7 @@
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80*kRatio;
+    return kFit(80);
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (tableView == self.shoppingCartTableView) {
@@ -520,10 +520,10 @@
  打包盒子, 寄回盒子 点击事件
  */
 - (void)packOrBackBoxStatusAction:(LHPackingBoxView *)boxView {
-    @weakify(self);
+    kWeakSelf(self);
     //此处, 首先判断有没有登录, 其次再判断有没有实名认证, 如果没有实名认证 再实名认证
     [boxView clickPackingButtonBlock:^(NSString *packBtnTitle) {
-        @strongify(self);
+        kStrongSelf(self);
         if ([[LHUserInfoManager getUserInfo].isreal integerValue] == 0) {
             [self showAlertViewWithTitle:@"您还没有实名认证哦~" yes:@"去认证" no:@"放弃" yesHandler:^(UIAlertAction * _Nullable action) {
                 //未实名认证
@@ -762,7 +762,6 @@
 //请求购物车数据
 - (void)requestShoppingCartData {
     [LHNetworkManager requestForGetWithUrl:kShopppingCartListUrl parameter:@{@"user_id": kUser_id} success:^(id reponseObject) {
-        NSLog(@"购物车----> %@", reponseObject);
         if ([reponseObject[@"errorCode"] integerValue] == 200) {
             for (NSDictionary *dic in reponseObject[@"data"]) {
                 LHCartStoreModel *model = [[LHCartStoreModel alloc] init];
@@ -944,7 +943,7 @@
     NSMutableAttributedString *LHString = [[NSMutableAttributedString alloc]initWithString:text];
     NSRange rang = [text rangeOfString:@"总价:"];
     [LHString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:rang];
-    [LHString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14*kRatio] range:rang];
+    [LHString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:kFit(14)] range:rang];
     return LHString;
 }
 
@@ -965,18 +964,18 @@
     [self.boxScrollView addSubview:bgView];
     
     UIImageView *emptyImageView = [[UIImageView alloc] initWithImage:kImage(@"MyBox_Empty_ShoppintCart")];
-    emptyImageView.frame = CGRectMake(100*kRatio, 40*kRatio, kScreenWidth-200*kRatio, kScreenWidth-200*kRatio);
+    emptyImageView.frame = CGRectMake(kFit(100), kFit(40), kScreenWidth-kFit(200), kScreenWidth-kFit(200));
     [bgView addSubview:emptyImageView];
     
-    UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kScreenWidth-140*kRatio, kScreenWidth, 25)];
+    UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kScreenWidth-kFit(140), kScreenWidth, 25)];
     textLabel.text = @"购物车还是空的哟~";
-    textLabel.font = kFont(15*kRatio);
+    textLabel.font = kFont(kFit(15));
     textLabel.textColor = [UIColor lightGrayColor];
     textLabel.textAlignment = NSTextAlignmentCenter;
     [bgView addSubview:textLabel];
     
     UIButton *goBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    goBtn.frame = CGRectMake(40*kRatio, kScreenHeight-kNavBarHeight-tabBarHeight - 100*kRatio, kScreenWidth-80*kRatio, 40*kRatio);
+    goBtn.frame = CGRectMake(kFit(40), kScreenHeight-kNavBarHeight-tabBarHeight - kFit(100), kScreenWidth-kFit(80), kFit(40));
     [goBtn setTitle:@"去逛逛~" forState:(UIControlStateNormal)];
     [goBtn setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
     goBtn.layer.masksToBounds = YES;
@@ -1003,18 +1002,18 @@
     [self.boxScrollView addSubview:bgView];
     
     UIImageView *emptyImageView = [[UIImageView alloc] initWithImage:kImage(@"MyBox_Empty_MyBox")];
-    emptyImageView.frame = CGRectMake(100*kRatio, 40*kRatio, kScreenWidth-200*kRatio, kScreenWidth-200*kRatio);
+    emptyImageView.frame = CGRectMake(kFit(100), kFit(40), kScreenWidth-kFit(200), kScreenWidth-kFit(200));
     [bgView addSubview:emptyImageView];
     
-    UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kScreenWidth-140*kRatio, kScreenWidth, 25)];
+    UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kScreenWidth-kFit(140), kScreenWidth, 25)];
     textLabel.text = @"换衣盒还是空的哟~";
-    textLabel.font = kFont(15*kRatio);
+    textLabel.font = kFont(kFit(15));
     textLabel.textColor = [UIColor lightGrayColor];
     textLabel.textAlignment = NSTextAlignmentCenter;
     [bgView addSubview:textLabel];
     
     UIButton *goBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    goBtn.frame = CGRectMake(40*kRatio, kScreenHeight-kNavBarHeight-tabBarHeight - 100*kRatio, kScreenWidth-80*kRatio, 40*kRatio);
+    goBtn.frame = CGRectMake(kFit(40), kScreenHeight-kNavBarHeight-tabBarHeight - kFit(100), kScreenWidth-kFit(80), kFit(40));
     [goBtn setTitle:@"去逛逛~" forState:(UIControlStateNormal)];
     [goBtn setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
     goBtn.layer.masksToBounds = YES;
