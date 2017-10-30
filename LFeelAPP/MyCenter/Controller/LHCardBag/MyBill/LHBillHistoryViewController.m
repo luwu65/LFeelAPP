@@ -28,7 +28,7 @@
 
 
 - (void)setupUI {
-    self.billTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64) style:(UITableViewStyleGrouped)];
+    self.billTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight) style:(UITableViewStyleGrouped)];
     self.billTableView.dataSource = self;
     self.billTableView.delegate = self;
     [self.view addSubview:self.billTableView];

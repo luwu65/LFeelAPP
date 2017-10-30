@@ -43,11 +43,11 @@
         }
         
     }];
-    self.hbk_navgationBar.rightFirstBtn.frame = CGRectMake(kScreenWidth-60, 27, 50, 30);
+    self.hbk_navgationBar.rightFirstBtn.frame = CGRectMake(kScreenWidth-60, 0, 50, 44);
 }
 
 - (void)setUI {
-    self.bgScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64)];
+    self.bgScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight)];
     self.bgScrollView.contentSize = CGSizeMake(kScreenWidth, (HeightEditView + 20)* self.orderModel.products.count);
     [self.view addSubview:self.bgScrollView];
 

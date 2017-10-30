@@ -322,7 +322,7 @@
 #pragma mark -------------------- YSLDraggableCardContainer DataSource
 - (UIView *)cardContainerViewNextViewWithIndex:(NSInteger)index {
 //    NSDictionary *dict = _datas[index];
-    LHDragCardView *view = [[LHDragCardView alloc]initWithFrame:CGRectMake(kFit(40), 64 + kFit(75), kScreenWidth - kFit(80), kScreenHeight - 64 - kFit(85) - kFit(130))];
+    LHDragCardView *view = [[LHDragCardView alloc]initWithFrame:CGRectMake(kFit(40), kNavBarHeight + kFit(75), kScreenWidth - kFit(80), kScreenHeight - kNavBarHeight - kFit(85) - kFit(130))];
     LHThemeGoodsModel *model = self.dataArray[index];
     view.goodsModel = model;
     return view;

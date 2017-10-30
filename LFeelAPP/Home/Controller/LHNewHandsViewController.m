@@ -103,7 +103,7 @@
 
 //新手指导
 - (void)setUIWithNewHands {
-    LHScrollView *scrollView = [[LHScrollView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-kNavBarHeight) imageArray:@[@"NewHands_01", @"NewHands_02", @"NewHands_03", @"NewHands_04", @"NewHands_05"]];
+    LHScrollView *scrollView = [[LHScrollView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight) imageArray:@[@"NewHands_01", @"NewHands_02", @"NewHands_03", @"NewHands_04", @"NewHands_05"]];
     [self.view addSubview:scrollView];
     
     UIButton *addVipBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
@@ -127,14 +127,14 @@
 
 //清理
 - (void)setUIWithClean {
-    LHScrollView *scrollView = [[LHScrollView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-kNavBarHeight) imageArray:@[@"HomeClean_01", @"HomeClean_02", @"HomeClean_03", @"HomeClean_04"]];
+    LHScrollView *scrollView = [[LHScrollView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight) imageArray:@[@"HomeClean_01", @"HomeClean_02", @"HomeClean_03", @"HomeClean_04"]];
     [self.view addSubview:scrollView];
 }
 
 
 //租用流程
 - (void)setUIWithRentStep {
-    LHScrollView *scrollView = [[LHScrollView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-kNavBarHeight) imageArray:@[@"RentStep_01", @"RentStep_02"]];
+    LHScrollView *scrollView = [[LHScrollView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight) imageArray:@[@"RentStep_01", @"RentStep_02"]];
     [self.view addSubview:scrollView];
 }
 
@@ -142,7 +142,7 @@
 
 //新手须知
 - (void)setUIWithNewHandsUnderstand {
-    UITableView *understandTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-kNavBarHeight) style:(UITableViewStylePlain)];
+    UITableView *understandTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight) style:(UITableViewStylePlain)];
     understandTableView.dataSource = self;
     understandTableView.delegate = self;
     [self.view addSubview:understandTableView];

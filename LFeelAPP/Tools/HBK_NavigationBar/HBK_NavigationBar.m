@@ -79,11 +79,11 @@ static NSString * BackButtonImageName = @"Back_Button";
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.size = CGSizeMake(kScreenWidth, 64);
+        self.size = CGSizeMake(kScreenWidth, kNavBarHeight);
         self.backgroundColor = HexColorInt32_t(F8F8F8);
         // 分隔线
         CALayer * layer = [CALayer layer];
-        layer.frame = CGRectMake(0, 63.5, kScreenWidth, 0.5);
+        layer.frame = CGRectMake(0, kNavBarHeight-0.5, kScreenWidth, 0.5);
         layer.backgroundColor = HexColorInt32_t(DDDDDD).CGColor;
         [self.layer addSublayer:layer];
         _deviderLayer = layer;
@@ -103,22 +103,24 @@ static NSString * BackButtonImageName = @"Back_Button";
                    rightThird:(NSString *)rightThird
           rightThirdBtnAction:(ClickBlock)rightThirdAction {
     if (self = [super init]) {
-        self.bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 63.5)];
+        self.bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kNavBarHeight-0.5)];
         [self addSubview:self.bgImageView];
         
+        UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.maxY-44, kScreenWidth, 44)];
+        [self addSubview:bottomView];
         //如果标题存在, 创建label
         if (title) {
-            self.titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 21, kScreenWidth, 42.5))];
+            self.titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, kScreenWidth, 44))];
             self.titleLabel.textAlignment = NSTextAlignmentCenter;
             self.titleLabel.font = [UIFont systemFontOfSize:18];
             self.titleLabel.text = title;
-            [self addSubview:self.titleLabel];
+            [bottomView addSubview:self.titleLabel];
         }
         
         //左边第一个按钮(最左边)
         if (leftFirst) {
             self.leftFirstBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-            self.leftFirstBtn.frame = CGRectMake(10, 27, 30, 30);
+            self.leftFirstBtn.frame = CGRectMake(10, 7, 30, 30);
             UIImage *image = [UIImage imageNamed:leftFirst];
             if (image) {
                 [self.leftFirstBtn setImage:[UIImage imageNamed:leftFirst] forState:(UIControlStateNormal)];
@@ -129,7 +131,7 @@ static NSString * BackButtonImageName = @"Back_Button";
             }
             [self.leftFirstBtn addTarget:self action:@selector(leftFirstBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
             self.leftFirstBlock = leftFirstAction;
-            [self addSubview:self.leftFirstBtn];
+            [bottomView addSubview:self.leftFirstBtn];
         }
         
         //左边第二个按钮
@@ -146,13 +148,13 @@ static NSString * BackButtonImageName = @"Back_Button";
             }
             [self.leftSecondBtn addTarget:self action:@selector(leftSecondBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
             self.leftSecondBlock = leftSecondAction;
-            [self addSubview:self.leftSecondBtn];
+            [bottomView addSubview:self.leftSecondBtn];
         }
         
         //右边第一个按钮(最右边)
         if (rightFirst) {
             self.rightFirstBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-            self.rightFirstBtn.frame = CGRectMake(kScreenWidth-35, 27, 30, 30);
+            self.rightFirstBtn.frame = CGRectMake(kScreenWidth-35, 7, 30, 30);
             UIImage *image = [UIImage imageNamed:rightFirst];
             if (image) {
                 [self.rightFirstBtn setImage:[UIImage imageNamed:rightFirst] forState:(UIControlStateNormal)];
@@ -163,14 +165,14 @@ static NSString * BackButtonImageName = @"Back_Button";
             }
             [self.rightFirstBtn addTarget:self action:@selector(rightFirstBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
             self.rightFirstBlock = rightFirstAction;
-            [self addSubview:self.rightFirstBtn];
+            [bottomView addSubview:self.rightFirstBtn];
         }
         
         //右边第二个按钮
         if (rightSecond) {
             self.rightSecondBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
             UIImage *image = [UIImage imageNamed:rightSecond];
-            self.rightSecondBtn.frame = CGRectMake(kScreenWidth-70, 27, 30, 30);
+            self.rightSecondBtn.frame = CGRectMake(kScreenWidth-70, 7, 30, 30);
             if (image) {
                 [self.rightSecondBtn setImage:[UIImage imageNamed:rightSecond] forState:(UIControlStateNormal)];
             } else {
@@ -181,12 +183,12 @@ static NSString * BackButtonImageName = @"Back_Button";
             }
             [self.rightSecondBtn addTarget:self action:@selector(rightSecondBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
             self.rightSecondBlock = rightSecondAction;
-            [self addSubview:self.rightSecondBtn];
+            [bottomView addSubview:self.rightSecondBtn];
         }
         
         if (rightThird) {
             self.rightThirdBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-            self.rightThirdBtn.frame = CGRectMake(kScreenWidth-105, 27, 30, 30);
+            self.rightThirdBtn.frame = CGRectMake(kScreenWidth-105, 7, 30, 30);
             UIImage *image = [UIImage imageNamed:rightThird];
             if (image) {
                 [self.rightThirdBtn setImage:[UIImage imageNamed:rightThird] forState:(UIControlStateNormal)];
@@ -197,7 +199,7 @@ static NSString * BackButtonImageName = @"Back_Button";
             }
             [self.rightThirdBtn addTarget:self action:@selector(rightThirdBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
             self.rightThirdBlock = rightThirdAction;
-            [self addSubview:self.rightThirdBtn];
+            [bottomView addSubview:self.rightThirdBtn];
         }
         
         

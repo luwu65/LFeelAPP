@@ -456,7 +456,7 @@
 #pragma mark ------------------ 没有数据的时候 ---------------
 - (UIView *)emptyView {
     if (!_emptyView) {
-        _emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-kFit(44))];
+        _emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-kNavBarHeight-kFit(44))];
         _emptyView.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:_emptyView];
         

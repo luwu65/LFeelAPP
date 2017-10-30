@@ -30,7 +30,7 @@
         if (packingLabelStr) {
             self.statusLabel.text = packingLabelStr;
         }
-        self.statusLabel.font = kFont(kFit(30));
+        self.statusLabel.font = kFont(kFit(16));
         self.statusLabel.textAlignment = NSTextAlignmentCenter;
         self.statusLabel.textColor = [UIColor lightGrayColor];
         [self addSubview:self.statusLabel];

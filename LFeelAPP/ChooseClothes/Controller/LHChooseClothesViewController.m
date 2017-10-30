@@ -90,22 +90,25 @@
 #pragma mark  --------------- UI --------------------
 - (void)setHBK_NavigationBar {
     self.automaticallyAdjustsScrollViewInsets = NO;
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kNavBarHeight)];
     bgView.backgroundColor = kColor(245, 245, 245);
     [self.view addSubview:bgView];
     // 分隔线
     CALayer * layer = [CALayer layer];
-    layer.frame = CGRectMake(0, 63.5, kScreenWidth, 0.5);
+    layer.frame = CGRectMake(0, kNavBarHeight-0.5, kScreenWidth, 0.5);
     layer.backgroundColor = HexColorInt32_t(DDDDDD).CGColor;
     [self.view.layer addSublayer:layer];
     
-    _chooseSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(15, 20, kScreenWidth-30, 44)];
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, bgView.maxY-44, kScreenWidth, 44)];
+    [bgView addSubview:bottomView];
+    
+    _chooseSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(15, 0, kScreenWidth-30, 44)];
     _chooseSearchBar.barTintColor = kColor(245, 245, 245);
     _chooseSearchBar.layer.borderWidth = 0;
     _chooseSearchBar.placeholder = @"输入品牌或商品名称";
     _chooseSearchBar.searchBarStyle = UISearchBarStyleMinimal;
     _chooseSearchBar.delegate = self;
-    [bgView addSubview:_chooseSearchBar];
+    [bottomView addSubview:_chooseSearchBar];
 }
 
 
@@ -113,7 +116,7 @@
  创建筛选条件的横条 ----> 全部品类
  */
 - (void)setScreeningView {
-    self.categoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kFit(45))];
+    self.categoryView = [[UIView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kFit(45))];
     self.categoryView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.categoryView];
     
@@ -144,7 +147,7 @@
 - (void)setCollectionView {
     //下面的商品列表
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    self.goodsColllectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64+kFit(45), kScreenWidth, kScreenHeight-64-kFit(45)-49) collectionViewLayout:layout];
+    self.goodsColllectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kNavBarHeight+kFit(45), kScreenWidth, kScreenHeight-kNavBarHeight-kFit(45)-kTabBarHeight) collectionViewLayout:layout];
     self.goodsColllectionView.dataSource = self;
     self.goodsColllectionView.delegate = self;
     self.goodsColllectionView.backgroundColor = kColor(245, 245, 245);
@@ -173,7 +176,7 @@
  弹出来的筛选的View
 */
  - (void)setChooseJumpView {
-    self.chooseView = [[LHChooseTypeView alloc] initWithFrame:CGRectMake(0, -(kFit(40)*5-(64+kFit(45))), kScreenWidth, kFit(40)*5)];
+    self.chooseView = [[LHChooseTypeView alloc] initWithFrame:CGRectMake(0, -(kFit(40)*5-(kNavBarHeight+kFit(45))), kScreenWidth, kFit(40)*5)];
      kWeakSelf(self);
     self.chooseView.ClickSubmitBlock = ^(NSArray *selectArrray){
         kStrongSelf(self);

@@ -60,7 +60,7 @@
 
 
 - (void)setUI {
-    self.settingTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-kNavBarHeight) style:(UITableViewStylePlain)];
+    self.settingTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight) style:(UITableViewStylePlain)];
     self.settingTableView.scrollEnabled = NO;
     self.settingTableView.delegate = self;
     self.settingTableView.dataSource = self;

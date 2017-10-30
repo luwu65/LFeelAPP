@@ -268,7 +268,7 @@ extern UIView * sl_makeDeviderWithColor(CGFloat width, UIColor *color) {
 @implementation UIScrollView (Extension)
 
 + (instancetype)defaultScrollView {
-    return [self scrollViewWithBgColor:nil frame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
+    return [self scrollViewWithBgColor:nil frame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight - kNavBarHeight)];
 }
 
 + (instancetype)scrollViewWithBgColor:(UIColor *)bgColor frame:(CGRect)frame

@@ -131,7 +131,7 @@
 }
 
 - (void)CreateNoAddressView {
-    self.noAddressBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kFit(60))];
+    self.noAddressBgView = [[UIView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kFit(60))];
     self.noAddressBgView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.noAddressBgView];
     
@@ -150,7 +150,7 @@
 }
 
 - (void)CreateAddressView {
-    self.addressBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kFit(100))];
+    self.addressBgView = [[UIView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kFit(100))];
     self.addressBgView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.addressBgView];
     

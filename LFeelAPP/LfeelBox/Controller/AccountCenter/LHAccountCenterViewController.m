@@ -252,7 +252,7 @@ typedef NS_ENUM(NSInteger, PayType) {
 }
 
 - (void)createOrderTableView {
-    self.orderTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64-kTabBarHeight) style:(UITableViewStyleGrouped)];
+    self.orderTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight-kTabBarHeight) style:(UITableViewStyleGrouped)];
     self.orderTableView.delegate = self;
     self.orderTableView.dataSource = self;
     [self.view addSubview:self.orderTableView];

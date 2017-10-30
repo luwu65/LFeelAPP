@@ -33,7 +33,7 @@
 #pragma mark ------------------ UI --------------
 
 - (void)setUI {
-    LHTagView *sizeView = [[LHTagView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kFit(35)) TxtArray:kClothesSize];
+    LHTagView *sizeView = [[LHTagView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kFit(35)) TxtArray:kClothesSize];
     sizeView.ClickTagBlock = ^(NSInteger index) {
         NSLog(@"%@", kClothesSize[index]);
     };
@@ -41,7 +41,7 @@
     
     //下面的商品列表
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    self.goodsColllectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64+kFit(35), kScreenWidth, kScreenHeight-64-kFit(35)) collectionViewLayout:layout];
+    self.goodsColllectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kNavBarHeight+kFit(35), kScreenWidth, kScreenHeight-kNavBarHeight-kFit(35)) collectionViewLayout:layout];
     self.goodsColllectionView.dataSource = self;
     self.goodsColllectionView.delegate = self;
     self.goodsColllectionView.backgroundColor = kColor(245, 245, 245);

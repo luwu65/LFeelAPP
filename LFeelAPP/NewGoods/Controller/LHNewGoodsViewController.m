@@ -83,7 +83,7 @@
     self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageFromColor:kColor(242, 242, 242)] forBarMetrics:UIBarMetricsDefault];
     
-    self.newsGoodTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth/4, kScreenHeight-kNBarTBarHeight) style:(UITableViewStylePlain)];
+    self.newsGoodTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth/4, kScreenHeight-kNBarTBarHeight) style:(UITableViewStylePlain)];
     self.newsGoodTableView.dataSource = self;
     self.newsGoodTableView.delegate = self;
     [self.view addSubview:self.newsGoodTableView];
@@ -95,7 +95,7 @@
     
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    self.newsGoodCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(kScreenWidth/4, 64, kScreenWidth/4*3, kScreenHeight-kNBarTBarHeight) collectionViewLayout:layout];
+    self.newsGoodCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(kScreenWidth/4, kNavBarHeight, kScreenWidth/4*3, kScreenHeight-kNBarTBarHeight) collectionViewLayout:layout];
     self.newsGoodCollectionView.dataSource = self;
     self.newsGoodCollectionView.delegate = self;
     self.newsGoodCollectionView.backgroundColor = [UIColor whiteColor];
@@ -109,7 +109,7 @@
 
 }
 - (void)setHBK_NavigationBar {
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kNavBarHeight)];
     bgView.backgroundColor = kColor(245, 245, 245);
     [self.view addSubview:bgView];
     // 分隔线
@@ -118,13 +118,16 @@
     layer.backgroundColor = HexColorInt32_t(DDDDDD).CGColor;
     [self.view.layer addSublayer:layer];
     
-    _newsGoodSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(15, 20, kScreenWidth-30, 44)];
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, bgView.maxY-44, kScreenWidth, 44)];
+    [bgView addSubview:bottomView];
+    
+    _newsGoodSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(15, 0, kScreenWidth-30, 44)];
     _newsGoodSearchBar.barTintColor = kColor(245, 245, 245);
     _newsGoodSearchBar.layer.borderWidth = 0;
     _newsGoodSearchBar.placeholder = @"输入品牌或商品名称";
     _newsGoodSearchBar.searchBarStyle = UISearchBarStyleMinimal;
     _newsGoodSearchBar.delegate = self;
-    [bgView addSubview:_newsGoodSearchBar];
+    [bottomView addSubview:_newsGoodSearchBar];
 }
 #pragma mark ------------ UITableViewDelegate, UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

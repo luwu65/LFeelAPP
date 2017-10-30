@@ -49,7 +49,7 @@ static char kScreenShotViewMove[] = "screenShotViewMove";
     [self setUmengShare];
     self.connect = @"Connect";
     [self KVONetworkChange];
-
+   
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_0
     if (@available(iOS 11.0, *)) {
         UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;

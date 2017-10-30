@@ -73,7 +73,7 @@
     self.titleView.backgroundColor = [UIColor whiteColor];
     [self.titleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(self.view);
-        make.top.mas_equalTo(64);
+        make.top.mas_equalTo(kNavBarHeight);
         make.height.mas_equalTo(kFit(44));
     }];
     _titleView.titles  = self.titleArray;

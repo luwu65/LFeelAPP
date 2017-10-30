@@ -94,7 +94,7 @@ static NSString *myCenterCell = @"myCenterCell";
         LHAddVipViewController *addVip = [[LHAddVipViewController alloc] init];
         [self.navigationController pushViewController:addVip animated:YES];
     }];
-    self.hbk_navgationBar.rightFirstBtn.frame = CGRectMake(kScreenWidth-70, 31, 60, 25);
+    self.hbk_navgationBar.rightFirstBtn.frame = CGRectMake(kScreenWidth-70, 19/2, 60, 25);
     self.hbk_navgationBar.bgColor = [UIColor clearColor];
     self.hbk_navgationBar.deviderLayer.backgroundColor = [UIColor clearColor].CGColor;
     self.hbk_navgationBar.titleLabel.textColor = [UIColor clearColor];
@@ -107,7 +107,10 @@ static NSString *myCenterCell = @"myCenterCell";
 }
 
 - (void)setUI {
-    self.myCenterTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-49) style:(UITableViewStylePlain)];
+    
+    NSLog(@"%f - %f = %f", kScreenHeight, kTabBarHeight, kScreenHeight - kTabBarHeight);
+    
+    self.myCenterTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-kTabBarHeight) style:(UITableViewStylePlain)];
     self.myCenterTableView.backgroundColor = [UIColor clearColor];
     self.myCenterTableView.dataSource = self;
     self.myCenterTableView.delegate = self;

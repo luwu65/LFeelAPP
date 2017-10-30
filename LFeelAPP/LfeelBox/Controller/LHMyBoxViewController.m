@@ -159,33 +159,33 @@
 
 #pragma mark -----------------------  初始化UI控件 --------------------------------
 - (void)setUI {
-    CGFloat tabBarHeight = 49;
+    CGFloat tabBarHeight = kTabBarHeight;
     if ([self.subPage isEqualToString:@"Rent"] || [self.subPage isEqualToString:@"New"]) {
         tabBarHeight = 0;
-        self.boxScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64-tabBarHeight)];
+        self.boxScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight-tabBarHeight)];
         self.boxScrollView.contentSize = CGSizeMake(kScreenWidth * 2, kScreenHeight-kNavBarHeight-tabBarHeight);
         self.boxScrollView.pagingEnabled = YES;
         self.boxScrollView.scrollEnabled = NO;
         [self.view addSubview:self.boxScrollView];
         self.boxScrollView.contentOffset = CGPointMake(kScreenWidth, 0);
     } else {
-        tabBarHeight = 49;
-        self.boxScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64-tabBarHeight)];
+        tabBarHeight = kTabBarHeight;
+        self.boxScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight-tabBarHeight)];
         self.boxScrollView.contentSize = CGSizeMake(kScreenWidth * 2, kScreenHeight-kNavBarHeight-tabBarHeight);
         self.boxScrollView.pagingEnabled = YES;
         self.boxScrollView.scrollEnabled = NO;
         [self.view addSubview:self.boxScrollView];
     }
     
-    UIView *leftBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-tabBarHeight)];
+    UIView *leftBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-kNavBarHeight-tabBarHeight)];
     leftBgView.tag = kTag_BoxEmptyView;
     [self.boxScrollView addSubview:leftBgView];
     
-    UIView *rightBgView = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth, 0, kScreenWidth, kScreenHeight- 64 -tabBarHeight)];
+    UIView *rightBgView = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth, 0, kScreenWidth, kScreenHeight- kNavBarHeight -tabBarHeight)];
     rightBgView.tag = kTag_CartEmptyView;
     [self.boxScrollView addSubview:rightBgView];
     
-    self.myBoxTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight- 64 -tabBarHeight-kAllBarHeight*kRatio) style:(UITableViewStylePlain)];
+    self.myBoxTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight- kNavBarHeight -tabBarHeight-kAllBarHeight*kRatio) style:(UITableViewStylePlain)];
     self.myBoxTableView.delegate = self;
     self.myBoxTableView.dataSource = self;
     self.myBoxTableView.backgroundColor = kColor(246, 246, 246);
@@ -194,7 +194,7 @@
     self.myBoxTableView.mj_header  = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshMyBoxTable)];
     self.myBoxTableView.mj_footer = [MJRefreshAutoFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefreshMyBoxTable)];
     
-    self.shoppingCartTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight- 64 -tabBarHeight-kAllBarHeight*kRatio) style:(UITableViewStyleGrouped)];
+    self.shoppingCartTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight- kNavBarHeight -tabBarHeight-kAllBarHeight*kRatio) style:(UITableViewStyleGrouped)];
     self.shoppingCartTableView.delegate = self;
     self.shoppingCartTableView.dataSource = self;
     self.shoppingCartTableView.backgroundColor = kColor(246, 246, 246);
@@ -224,18 +224,21 @@
 
 - (void)customNavBar {
     self.automaticallyAdjustsScrollViewInsets = NO;
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kNavBarHeight)];
     bgView.backgroundColor = kColor(245, 245, 245);
     [self.view addSubview:bgView];
     // 分隔线
     CALayer * layer = [CALayer layer];
-    layer.frame = CGRectMake(0, 63.5, kScreenWidth, 0.5);
+    layer.frame = CGRectMake(0, kNavBarHeight-0.5, kScreenWidth, 0.5);
     layer.backgroundColor = HexColorInt32_t(DDDDDD).CGColor;
     [self.view.layer addSublayer:layer];
     
-    LHSegmentControlView *segView = [[LHSegmentControlView alloc] initWithFrame:CGRectMake((kScreenWidth-150)/2, 20, 150, 42) titleArray:@[@"换衣盒", @"购物车"] titleFont:kFont(15) titleDefineColor:[UIColor blackColor] titleSelectedColor:[UIColor redColor]];
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, bgView.maxY-44, kScreenWidth, 44)];
+    [bgView addSubview:bottomView];
+    
+    LHSegmentControlView *segView = [[LHSegmentControlView alloc] initWithFrame:CGRectMake((kScreenWidth-150)/2, 1, 150, 42) titleArray:@[@"换衣盒", @"购物车"] titleFont:kFont(15) titleDefineColor:[UIColor blackColor] titleSelectedColor:[UIColor redColor]];
     [self segmentControlClickAction:segView];
-    [bgView addSubview: segView];
+    [bottomView addSubview: segView];
 
     if ([self.subPage isEqualToString:@"New"]) {
         UIButton *backBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
@@ -951,11 +954,11 @@
 #pragma mark ---------------  换衣盒 和 购物车为空的时候的展示  ------------------------
 
 - (void)emptyShoppingCartView {
-    CGFloat tabBarHeight = 49;
+    CGFloat tabBarHeight = kTabBarHeight;
     if ([self.subPage isEqualToString:@"Rent"] || [self.subPage isEqualToString:@"New"]) {
         tabBarHeight = 0;
     } else {
-        tabBarHeight = 49;
+        tabBarHeight = kTabBarHeight;
     }
     UIView *bgView = [[UIView alloc] init];
     bgView.tag = kTag_CartEmptyView+10;
@@ -989,11 +992,11 @@
 
 
 - (void)emptyLfeelBoxView {
-    CGFloat tabBarHeight = 49;
+    CGFloat tabBarHeight = kTabBarHeight;
     if ([self.subPage isEqualToString:@"Rent"] || [self.subPage isEqualToString:@"New"]) {
         tabBarHeight = 0;
     } else {
-        tabBarHeight = 49;
+        tabBarHeight = kTabBarHeight;
     }
     UIView *bgView = [[UIView alloc] init];
     bgView.tag = kTag_BoxEmptyView+20;

@@ -23,26 +23,27 @@
 //屏幕的高度
 #define kScreenHeight           [[UIScreen mainScreen] bounds].size.height
 
-//NavigationBar和TabBar的高度
-#define kNBarTBarHeight  113
 
 //打包和结算的高度
-#define kAllBarHeight  40
+#define kAllBarHeight           40
 
 //导航栏高度
-#define kNavBarHeight  64
+#define kNavBarHeight           (kScreenHeight == 812 ? 88 : 64)
 
 //tabBar高度
-#define kTabBarHeight  49
+#define kTabBarHeight           (kScreenHeight == 812.000000 ? 83.000000 : 49.000000)
+
+//NavigationBar和TabBar的高度
+#define kNBarTBarHeight         (kNavBarHeight + kTabBarHeight)
 
 //比例 以iPhone6 为基准
 #define kRatio kScreenWidth/375
 
 //按比例适配
-#define kFit(num)       kRatio * (num)
+#define kFit(num)                 kRatio * (num)
 
 //打印api
-#define KMyLog(...) NSLog(__VA_ARGS__)
+#define KMyLog(...)               NSLog(__VA_ARGS__)
 
 
 #pragma mark ------------------->> Tag <<----------------------------

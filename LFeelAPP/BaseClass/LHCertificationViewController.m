@@ -69,7 +69,7 @@
         kVerifyText(self.phoneUrl.length, @"请上传身份证照片");
         [self requestCertificationData];
     }];
-    self.hbk_navgationBar.rightFirstBtn.frame = CGRectMake(kScreenWidth-60, 31, 50, 25);
+    self.hbk_navgationBar.rightFirstBtn.frame = CGRectMake(kScreenWidth-60, 0, 50, 44);
 }
 
 

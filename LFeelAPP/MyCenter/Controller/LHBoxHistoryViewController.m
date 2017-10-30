@@ -27,7 +27,23 @@
     
     [self setHBK_NavigationBar];
     
+    [self requestHistoryData];
 }
+
+#pragma mark ------------------ 网络请求 ---------------------
+- (void)requestHistoryData {
+    
+    [LHNetworkManager requestForGetWithUrl:kBoxHistoryUrl parameter:@{@"type": @"[2,3]"} success:^(id reponseObject) {
+        
+        
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+
+#pragma mark ---------------------  UI ------------------------
 - (void)setHBK_NavigationBar {
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.hbk_navgationBar = [HBK_NavigationBar HBK_setupNavigationBarWithTitle:@"我的盒子历史" backAction:^{
@@ -36,13 +52,14 @@
 }
 
 - (void)setUI {
-    self.boxHistoryTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64) style:(UITableViewStyleGrouped)];
+    self.boxHistoryTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight) style:(UITableViewStyleGrouped)];
     self.boxHistoryTableView.delegate = self;
     self.boxHistoryTableView.dataSource = self;
     [self.view addSubview:self.boxHistoryTableView];
 }
 
 
+#pragma mark  --------------- <UITableViewDelegate, UITableViewDataSource> -----------------
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 8;
 }

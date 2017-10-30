@@ -41,7 +41,7 @@
 
     [self.view addSubview:applyView];
     
-    self.billTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-kFit(40)-64) style:(UITableViewStyleGrouped)];
+    self.billTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kFit(40)-kNavBarHeight) style:(UITableViewStyleGrouped)];
     self.billTableView.dataSource = self;
     self.billTableView.delegate = self;
     [self.view addSubview:self.billTableView];
@@ -59,7 +59,7 @@
         LHBillHistoryViewController *historyVC = [[LHBillHistoryViewController alloc] init];
         [self.navigationController pushViewController:historyVC animated:YES];
     }];
-    self.hbk_navgationBar.rightFirstBtn.frame = CGRectMake(kScreenWidth-84, 21, 84, 42);
+    self.hbk_navgationBar.rightFirstBtn.frame = CGRectMake(kScreenWidth-84, 1, 84, 42);
 }
 
 

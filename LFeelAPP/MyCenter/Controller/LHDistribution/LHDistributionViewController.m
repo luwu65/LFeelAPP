@@ -61,7 +61,7 @@
     NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:kFit(13)]};
     CGFloat length = [@"申请提现" boundingRectWithSize:CGSizeMake(320, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size.width;
     
-    self.hbk_navgationBar.rightFirstBtn.frame = CGRectMake(kScreenWidth-length-20, 31, length+10, 25);
+    self.hbk_navgationBar.rightFirstBtn.frame = CGRectMake(kScreenWidth-length-20, 19/2, length+10, 25);
     self.hbk_navgationBar.bgColor = [UIColor clearColor];
     self.hbk_navgationBar.deviderLayer.backgroundColor = [UIColor clearColor].CGColor;
     self.hbk_navgationBar.titleLabel.textColor = [UIColor clearColor];
@@ -192,7 +192,7 @@
     CGFloat offsetY = scrollView.contentOffset.y;
     CGFloat originY = 0;
     CGFloat otherOffsetY = 0;
-    if (offsetY <= kHeaderViewHeight-64) {
+    if (offsetY <= (kHeaderViewHeight-kNavBarHeight)) {
         originY = -offsetY;
         if (offsetY < 0) {
             otherOffsetY = 0;
@@ -200,8 +200,8 @@
             otherOffsetY = offsetY;
         }
     } else {
-        originY = -kHeaderViewHeight+64;
-        otherOffsetY = kHeaderViewHeight+64;
+        originY = -kHeaderViewHeight+kNavBarHeight;
+        otherOffsetY = kHeaderViewHeight+kNavBarHeight;
     }
     self.disHeaderView.frame = CGRectMake(0, originY, kScreenWidth, kHeaderViewHeight+kTitleHeight);
     for ( int i = 0; i < self.titleView.titles.count; i++ ) {

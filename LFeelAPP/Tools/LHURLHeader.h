@@ -12,7 +12,7 @@
 
 #pragma mark  -----------------------  URL  -------------------------
 
-#define kBaseUrl            @"http://1542e87s78.51mypc.cn:34249/lfeel/" //本地测试环境
+#define kBaseUrl            @"http://192.168.0.126:8081/lfeel/" //本地测试环境
 //#define kBaseUrl            @"http://120.76.215.11:8021/lfeel/" //服务器环境
 
 //token
@@ -147,7 +147,8 @@
 //删除银行
 #define kDeleteBankUrl                @"bank/delete"
 
-
+//盒子历史
+#define kBoxHistoryUrl                @"application/getList"
 
 
 

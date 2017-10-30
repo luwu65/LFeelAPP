@@ -41,7 +41,7 @@
 
 
 - (void)setUI {
-    self.allTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64) style:(UITableViewStylePlain)];
+    self.allTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight) style:(UITableViewStylePlain)];
     self.allTableView.delegate = self;
     self.allTableView.dataSource = self;
     [self.view addSubview:self.allTableView];

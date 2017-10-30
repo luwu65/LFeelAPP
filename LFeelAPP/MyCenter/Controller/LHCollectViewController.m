@@ -51,7 +51,7 @@
 #pragma mark --------------- UI ------------------------
 - (UITableView *)collecTableView {
     if (!_collecTableView) {
-        self.collecTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-kNavBarHeight) style:(UITableViewStylePlain)];
+        self.collecTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight) style:(UITableViewStylePlain)];
         self.collecTableView.backgroundColor = kColor(245, 245, 245);
         self.collecTableView.dataSource = self;
         self.collecTableView.delegate = self;
@@ -73,7 +73,7 @@
 
 - (void)addEmptyView {
     self.emptyBgView = [[UIView alloc] init];
-    self.emptyBgView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight-kNavBarHeight);
+    self.emptyBgView.frame = CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight);
     [self.view addSubview:self.emptyBgView];
     
     UIImageView *emptyImageView = [[UIImageView alloc] initWithImage:kImage(@"MyBox_Empty_MyBox")];

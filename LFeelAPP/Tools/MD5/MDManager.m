@@ -11,8 +11,7 @@
 #import <CommonCrypto/CommonDigest.h>
 
 @implementation MDManager
-+(NSString *)md5withStr:(NSString *)str
-{
++(NSString *)md5withStr:(NSString *)str {
     // 获取c字符串
     const char *cStr = [str UTF8String];
     

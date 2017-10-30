@@ -49,7 +49,7 @@
 - (void)setUI {
     self.priceBtnClickIndex = 0;
     
-    UIView *btnBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kFit(40))];
+    UIView *btnBgView = [[UIView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kFit(40))];
     btnBgView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:btnBgView];
     
@@ -77,7 +77,7 @@
     [btnBgView addSubview:self.priceBtn];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    self.goodsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kFit(40)+64, kScreenWidth, kScreenHeight-64-kFit(40)) collectionViewLayout:layout];
+    self.goodsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kFit(40)+kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight-kFit(40)) collectionViewLayout:layout];
     self.goodsCollectionView.dataSource = self;
     self.goodsCollectionView.delegate = self;
     self.goodsCollectionView.backgroundColor = [UIColor whiteColor];
@@ -86,7 +86,7 @@
     [self.goodsCollectionView registerNib:[UINib nibWithNibName:@"LHNewGoodsCollectionCell" bundle:nil] forCellWithReuseIdentifier:@"LHNewGoodsCollectionCell"];
 }
 - (void)setHBK_NavigationBar {
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kNavBarHeight)];
     bgView.backgroundColor = kColor(245, 245, 245);
     [self.view addSubview:bgView];
     // 分隔线
@@ -95,19 +95,23 @@
     layer.backgroundColor = HexColorInt32_t(DDDDDD).CGColor;
     [self.view.layer addSublayer:layer];
     
-    _newsGoodSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(44, 20, kScreenWidth-44, 44)];
+    UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, bgView.maxY-44, kScreenWidth, 44)];
+    [bgView addSubview:bottomView];
+    
+    _newsGoodSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(44, 0, kScreenWidth-44, 44)];
     _newsGoodSearchBar.barTintColor = kColor(245, 245, 245);
     _newsGoodSearchBar.layer.borderWidth = 0;
     _newsGoodSearchBar.placeholder = @"输入品牌或商品名称";
     _newsGoodSearchBar.searchBarStyle = UISearchBarStyleMinimal;
     _newsGoodSearchBar.delegate = self;
-    [bgView addSubview:_newsGoodSearchBar];
+    [bottomView addSubview:_newsGoodSearchBar];
     
+
     UIButton *backBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [backBtn setImage:kImage(@"Back_Button") forState:(UIControlStateNormal)];
-    backBtn.frame = CGRectMake(0, 20, 44, 44);
+    backBtn.frame = CGRectMake(0, 0, 44, 44);
     [backBtn addTarget:self action:@selector(backAction) forControlEvents:(UIControlEventTouchUpInside)];
-    [bgView addSubview:backBtn];
+    [bottomView addSubview:backBtn];
 }
 
 #pragma mark -------------------------- Action ------------------------------

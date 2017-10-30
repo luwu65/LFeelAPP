@@ -57,11 +57,11 @@
         };
         [self.navigationController pushViewController:editVC animated:YES];
     }];
-    self.hbk_navgationBar.rightFirstBtn.frame = CGRectMake(kScreenWidth-50, 21, 50, 42);
+    self.hbk_navgationBar.rightFirstBtn.frame = CGRectMake(kScreenWidth-50, 1, 50, 42);
 }
 
 - (void)setUI {    
-    self.addressTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-kNavBarHeight) style:(UITableViewStylePlain)];
+    self.addressTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight) style:(UITableViewStylePlain)];
     self.addressTableView.delegate = self;
     self.addressTableView.dataSource = self;
     self.addressTableView.tableFooterView = [[UIView alloc] init];
@@ -77,7 +77,7 @@
 }
 - (void)addEmptyView {
     self.emptyBgView = [[UIView alloc] init];
-    self.emptyBgView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight-kNavBarHeight);
+    self.emptyBgView.frame = CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight);
     [self.addressTableView addSubview:self.emptyBgView];
     
     UIImageView *emptyImageView = [[UIImageView alloc] initWithImage:kImage(@"MyCenter_addressEmpty")];
