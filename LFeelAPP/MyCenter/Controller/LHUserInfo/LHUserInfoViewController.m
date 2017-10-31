@@ -38,6 +38,9 @@
 @property (nonatomic, copy) NSString *waist;
 @property (nonatomic, copy) NSString *hip;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
+
+
 @end
 
 @implementation LHUserInfoViewController {
@@ -73,7 +76,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.view rm_fitAllConstraint];
+//    [self.view rm_fitAllConstraint];
     self.iconImageView.layer.cornerRadius = self.iconImageView.frame.size.height/2;
     self.iconImageView.image = [UIImage imageNamed:@"MyCenter_headerIcon"];
     self.iconImageView.layer.masksToBounds = YES;
@@ -82,7 +85,8 @@
     
     [self setHBK_NavigationBar];
     
-    
+    //Xib拖的约束,距离顶部的距离定成了64, 在这里重新修改它的值
+    self.topConstraint.constant = kNavBarHeight;
     
 }
 

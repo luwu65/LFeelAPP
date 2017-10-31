@@ -24,6 +24,7 @@
 //是否默认
 @property (weak, nonatomic) IBOutlet UISwitch *defaultSwitch;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @end
 
 @implementation LHEditAddressViewController
@@ -32,6 +33,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.view rm_fitAllConstraint];
+    self.topConstraint.constant = kNavBarHeight-10;
     self.view.backgroundColor = [UIColor whiteColor];
     
     

@@ -22,10 +22,10 @@
     if (self = [super initWithFrame:frame]) {
         self.showsVerticalScrollIndicator = NO;
         self.pagingEnabled = YES;
-        self.contentSize = CGSizeMake(kScreenWidth, (kScreenHeight-kNavBarHeight)*(imageArray.count));
+        self.contentSize = CGSizeMake(kScreenWidth, (kScreenHeight-kNavBarHeight-kIPhoneXBottomHeight)*(imageArray.count));
         for (int i = 0; i < imageArray.count; i++) {
             UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageArray[i]]];
-            imageView.frame = CGRectMake(0, i*(kScreenHeight-kNavBarHeight), kScreenWidth, kScreenHeight-kNavBarHeight);
+            imageView.frame = CGRectMake(0, i*(kScreenHeight-kNavBarHeight-kIPhoneXBottomHeight), kScreenWidth, kScreenHeight-kNavBarHeight-kIPhoneXBottomHeight);
             [self addSubview:imageView];
         }
     }

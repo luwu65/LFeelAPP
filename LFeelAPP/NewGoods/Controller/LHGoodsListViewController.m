@@ -77,7 +77,7 @@
     [btnBgView addSubview:self.priceBtn];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    self.goodsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kFit(40)+kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight-kFit(40)) collectionViewLayout:layout];
+    self.goodsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kFit(40)+kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight-kFit(40)-kIPhoneXBottomHeight) collectionViewLayout:layout];
     self.goodsCollectionView.dataSource = self;
     self.goodsCollectionView.delegate = self;
     self.goodsCollectionView.backgroundColor = [UIColor whiteColor];

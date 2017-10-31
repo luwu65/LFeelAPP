@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *captchaTF;
 @property (weak, nonatomic) IBOutlet UIButton *captchalBtn;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @end
 
 @implementation LHAddBankCardViewController
@@ -24,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    self.topConstraint.constant = kNavBarHeight;
     [self setHBK_NavigationBar];
     
     self.nameTF.text = @"李刚";

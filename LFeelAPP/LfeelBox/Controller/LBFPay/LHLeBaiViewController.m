@@ -57,6 +57,8 @@
  */
 @property (nonatomic, assign) NSInteger count;
 
+//距离顶部的高度
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 
 @end
 
@@ -65,7 +67,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    self.topConstraint.constant = kNavBarHeight;
     [self setHBK_NavigationBar];
     if (self.orderModel) {
         [self configureDataWithPrice:[self.orderModel.shop_price floatValue] Count:6];

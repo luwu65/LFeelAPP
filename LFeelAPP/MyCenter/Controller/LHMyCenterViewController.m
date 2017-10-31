@@ -108,7 +108,7 @@ static NSString *myCenterCell = @"myCenterCell";
 
 - (void)setUI {
     
-    NSLog(@"%f - %f = %f", kScreenHeight, kTabBarHeight, kScreenHeight - kTabBarHeight);
+//    NSLog(@"%f - %f = %f", kScreenHeight, kTabBarHeight, kScreenHeight - kTabBarHeight);
     
     self.myCenterTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-kTabBarHeight) style:(UITableViewStylePlain)];
     self.myCenterTableView.backgroundColor = [UIColor clearColor];
@@ -213,7 +213,7 @@ static NSString *myCenterCell = @"myCenterCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0 && indexPath.row == 1) {
-        return kFit(65);
+        return kFit(70);
     } else {
         return kFit(50);
     }

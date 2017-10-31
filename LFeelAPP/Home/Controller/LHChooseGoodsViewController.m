@@ -28,6 +28,10 @@
 @property (nonatomic, strong) LHFloatAnimationButton * floatAnimationButton;
 @property (nonatomic, strong) NSTimer * timer;
 
+@property (nonatomic, strong) UIView *bottomView;
+@property (nonatomic, strong) UIView *titleView;
+
+
 @end
 
 @implementation LHChooseGoodsViewController
@@ -194,21 +198,17 @@
 #pragma mark  ---------------------- UI 控件 -----------------
 - (void)setUI {
     __weak typeof(self) weakSelf = self;
-    _container = [[LHDraggableCardContainer alloc]init];
-    _container.frame = self.view.bounds;
-    _container.backgroundColor = [UIColor clearColor];
-    _container.dataSource = self;
-    _container.delegate = self;
-    _container.canDraggableDirection = LHDraggableDirectionLeft | LHDraggableDirectionRight | LHDraggableDirectionUp | LHDraggableDirectionDown;
-    [self.view addSubview:_container];
+
+    self.titleView = [[UIView alloc] initWithFrame:CGRectMake(0, kNavBarHeight+20, kScreenWidth, kFit(55))];
+    [self.view addSubview:self.titleView];
     
     //中文标题
     self.cTitleLabel = [[UILabel alloc] init];
     self.cTitleLabel.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:_cTitleLabel];
+    [self.titleView addSubview:_cTitleLabel];
     self.cTitleLabel.font = kFont(kFit(14));
     [self.cTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.view).offset(kNavBarHeight+kFit(10));
+        make.top.equalTo(weakSelf.titleView).offset(0);
         make.left.equalTo(weakSelf.view).offset(20);
         make.right.equalTo(weakSelf.view).offset(-20);
         make.height.mas_equalTo(kFit(25));
@@ -218,7 +218,7 @@
     self.eTitleLabel.textAlignment = NSTextAlignmentCenter;
     self.eTitleLabel.font = kFont(kFit(14));
     self.eTitleLabel.textColor = [UIColor lightGrayColor];
-    [self.view addSubview:self.eTitleLabel];
+    [self.titleView addSubview:self.eTitleLabel];
     [self.eTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.cTitleLabel.mas_bottom).offset(kFit(5));
         make.left.equalTo(weakSelf.view).offset(20);
@@ -226,14 +226,26 @@
         make.height.mas_equalTo(kFit(25));
     }];
     
+    _container = [[LHDraggableCardContainer alloc]init];
+    _container.frame = CGRectMake(0, self.titleView.maxY+20, kScreenWidth, (kScreenWidth-kFit(80))*4/3);
+    _container.backgroundColor = [UIColor clearColor];
+    _container.dataSource = self;
+    _container.delegate = self;
+    _container.canDraggableDirection = LHDraggableDirectionLeft | LHDraggableDirectionRight | LHDraggableDirectionUp | LHDraggableDirectionDown;
+    [self.view addSubview:_container];
+    
+    
+    self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.container.maxY+20, kScreenWidth, kScreenHeight-self.container.maxY-20 -34)];
+    [self.view addSubview:self.bottomView];
+    
     //返回上一张
     self.backBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    [self.view addSubview:self.backBtn];
+    [self.bottomView addSubview:self.backBtn];
     [self.backBtn setImage:[UIImage imageNamed:@"Home_ChooseGoods_Back"] forState:(UIControlStateNormal)];
     [self.backBtn addTarget:self action:@selector(backBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
     [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(weakSelf.view.mas_centerX);
-        make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-kFit(20));
+        make.centerX.equalTo(weakSelf.bottomView.mas_centerX);
+        make.bottom.equalTo(weakSelf.bottomView.mas_bottom).offset(-kFit(20));
         make.width.mas_equalTo(kFit(50));
         make.height.mas_equalTo(kFit(50));
     }];
@@ -245,7 +257,7 @@
     //    [self.unLikeBtn setImage:[UIImage imageNamed:@"Home_ChooseGoods_unLike"] forState:(UIControlStateNormal)];
     [self.unLikeBtn setBackgroundImage:[UIImage imageNamed:@"Home_ChooseGoods_unLike"] forState:(UIControlStateNormal)];
     [self.unLikeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-kFit(20));
+        make.bottom.equalTo(weakSelf.bottomView.mas_bottom).offset(-kFit(20));
         make.right.equalTo(weakSelf.backBtn.mas_left).offset(-kFit(50));
         make.width.mas_equalTo(kFit(50));
         make.height.mas_equalTo(kFit(50));
@@ -258,7 +270,7 @@
     [self.likeBtn addTarget:self action:@selector(likeBtnAction) forControlEvents:(UIControlEventTouchUpInside)];
     [self.likeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.backBtn.mas_right).offset(kFit(50));
-        make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-kFit(20));
+        make.bottom.equalTo(weakSelf.bottomView.mas_bottom).offset(-kFit(20));
         make.width.mas_equalTo(kFit(50));
         make.height.mas_equalTo(kFit(50));
     }];
@@ -275,7 +287,7 @@
     [self.view addSubview:addVipBrn];
     [addVipBrn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(_likeBtn.mas_top).offset(-kFit(15));
-        make.centerX.equalTo(self.view.mas_centerX);
+        make.centerX.equalTo(weakSelf.bottomView.mas_centerX);
         make.width.mas_equalTo(80);
         make.height.mas_equalTo(kFit(30));
     }];
@@ -322,7 +334,7 @@
 #pragma mark -------------------- YSLDraggableCardContainer DataSource
 - (UIView *)cardContainerViewNextViewWithIndex:(NSInteger)index {
 //    NSDictionary *dict = _datas[index];
-    LHDragCardView *view = [[LHDragCardView alloc]initWithFrame:CGRectMake(kFit(40), kNavBarHeight + kFit(75), kScreenWidth - kFit(80), kScreenHeight - kNavBarHeight - kFit(85) - kFit(130))];
+    LHDragCardView *view = [[LHDragCardView alloc] initWithFrame:CGRectMake(kFit(40), 0, kScreenWidth-kFit(80), (kScreenWidth-kFit(80))*4/3)];
     LHThemeGoodsModel *model = self.dataArray[index];
     view.goodsModel = model;
     return view;

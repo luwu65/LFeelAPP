@@ -147,7 +147,6 @@
 #pragma mark  ------------------   UI  控件 ----------------------
 //创建最底层的TableView   左右上角的button
 - (void)setUI {
-    NSLog(@"%f",kNBarTBarHeight);
     self.homeTabeView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, (kScreenHeight-kNBarTBarHeight)) style:(UITableViewStyleGrouped)];
     self.homeTabeView.delegate = self;
     self.homeTabeView.dataSource = self;

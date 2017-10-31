@@ -291,7 +291,7 @@ typedef NS_ENUM(NSInteger, PayType) {
 }
 
 /*
- 总金额  付款
+ 总金额  付款/提交
  */
 - (void)setBottomView {
     UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, self.orderTableView.maxY, kScreenWidth, kTabBarHeight)];
@@ -300,21 +300,19 @@ typedef NS_ENUM(NSInteger, PayType) {
     
     UIButton *submitBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
     submitBtn.backgroundColor = [UIColor redColor];
-    submitBtn.frame = CGRectMake(kScreenWidth/3*2, 0, kScreenWidth/3, kTabBarHeight);
+    submitBtn.frame = CGRectMake(kScreenWidth/3*2, 0, kScreenWidth/3, bgView.height);
     submitBtn.titleLabel.font = kFont(15);
     [submitBtn setTitle:@"提交" forState:(UIControlStateNormal)];
     [submitBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [submitBtn addTarget:self action:@selector(submitAction) forControlEvents:(UIControlEventTouchUpInside)];
     [bgView addSubview:submitBtn];
     
-    UILabel *allPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth/3*2-15, kTabBarHeight)];
+    UILabel *allPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth/3*2-15, bgView.height)];
 //    allPriceLabel.text = @"总计: 1000.00";
     allPriceLabel.textAlignment = NSTextAlignmentRight;
     self.allPriceLabel = allPriceLabel;
     self.allPriceLabel.textColor = [UIColor redColor];
     [bgView addSubview:allPriceLabel];
-
-    
 }
 
 

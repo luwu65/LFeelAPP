@@ -41,7 +41,7 @@
 
     [self.view addSubview:applyView];
     
-    self.billTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kFit(40)-kNavBarHeight) style:(UITableViewStyleGrouped)];
+    self.billTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kFit(40)-kNavBarHeight-kIPhoneXBottomHeight) style:(UITableViewStyleGrouped)];
     self.billTableView.dataSource = self;
     self.billTableView.delegate = self;
     [self.view addSubview:self.billTableView];

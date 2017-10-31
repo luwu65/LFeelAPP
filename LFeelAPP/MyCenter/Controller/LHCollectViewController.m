@@ -51,7 +51,7 @@
 #pragma mark --------------- UI ------------------------
 - (UITableView *)collecTableView {
     if (!_collecTableView) {
-        self.collecTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight) style:(UITableViewStylePlain)];
+        self.collecTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight-kIPhoneXBottomHeight) style:(UITableViewStylePlain)];
         self.collecTableView.backgroundColor = kColor(245, 245, 245);
         self.collecTableView.dataSource = self;
         self.collecTableView.delegate = self;

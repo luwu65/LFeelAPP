@@ -158,7 +158,7 @@
 
     if (collectionView == self.buyNewCollectionView) {
         LHBuyNewCollectionViewCell *aCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LHBuyNewCollectionViewCell" forIndexPath:indexPath];
-        aCell.backgroundColor = [UIColor greenColor];
+//        aCell.backgroundColor = [UIColor greenColor];
         NSArray *imageArray = @[@"Home_New_01", @"Home_New_02", @"Home_New_03", @"Home_New_04"];
         aCell.buyNewImageView.image = [UIImage imageNamed:imageArray[indexPath.row]];
         return aCell;

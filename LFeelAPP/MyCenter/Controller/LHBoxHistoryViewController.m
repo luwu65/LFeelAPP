@@ -52,7 +52,7 @@
 }
 
 - (void)setUI {
-    self.boxHistoryTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight) style:(UITableViewStyleGrouped)];
+    self.boxHistoryTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight-kIPhoneXBottomHeight) style:(UITableViewStyleGrouped)];
     self.boxHistoryTableView.delegate = self;
     self.boxHistoryTableView.dataSource = self;
     [self.view addSubview:self.boxHistoryTableView];

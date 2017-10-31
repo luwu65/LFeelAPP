@@ -61,7 +61,7 @@
 }
 
 - (void)setUI {    
-    self.addressTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight) style:(UITableViewStylePlain)];
+    self.addressTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight-kIPhoneXBottomHeight) style:(UITableViewStylePlain)];
     self.addressTableView.delegate = self;
     self.addressTableView.dataSource = self;
     self.addressTableView.tableFooterView = [[UIView alloc] init];

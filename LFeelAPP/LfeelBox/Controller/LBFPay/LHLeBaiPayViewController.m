@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *CVN2TF;
 @property (weak, nonatomic) IBOutlet UITextField *phoneTF;
 @property (weak, nonatomic) IBOutlet UITextField *smsCodeTF;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 
 @end
 
@@ -25,6 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.topConstraint.constant = kNavBarHeight;
     [self setHBK_NavigationBar];
     
     self.nameTF.text = @"王丹";

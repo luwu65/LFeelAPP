@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,6 +19,7 @@
                 <outlet property="nickNameTF" destination="lgC-Mz-FBM" id="EJs-49-HNB"/>
                 <outlet property="shoesLabel" destination="rVR-7y-eaP" id="W2J-1t-EJ2"/>
                 <outlet property="sizeLabel" destination="GWn-JV-5T0" id="kps-aE-DPO"/>
+                <outlet property="topConstraint" destination="rZ1-C2-j46" id="9ax-uM-yKq"/>
                 <outlet property="view" destination="iN0-l3-epB" id="0Do-fl-dv9"/>
                 <outlet property="weightLabel" destination="ZdJ-MW-iez" id="ODV-wM-xKy"/>
             </connections>

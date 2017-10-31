@@ -76,6 +76,7 @@
 - (void)setUI {
     self.getScrollView = [[LHScrollView alloc] init];
     [self.view addSubview:self.getScrollView];
+    self.getScrollView.bounces = NO;
     self.getScrollView.delaysContentTouches = NO;
     self.getScrollView.pagingEnabled = YES;
     self.getScrollView.showsVerticalScrollIndicator   = NO;
@@ -96,7 +97,7 @@
         make.left.equalTo(self.getScrollView);
         make.width.mas_equalTo(kScreenWidth);
         make.top.equalTo(self.view);
-        make.bottom.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-kIPhoneXBottomHeight);
     }];
     self.agentTableView.tableHeaderView = headerView;
 //    [self.agentTableView registerNib:[UINib nibWithNibName:@"LFDistributionCell" bundle:nil] forCellReuseIdentifier:@"LFDistributionCell"];
@@ -145,7 +146,8 @@
         make.height.mas_equalTo(kTitleHeight);
     }];
     [self.getScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.view);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-kIPhoneXBottomHeight);
         make.top.mas_equalTo(self.disHeaderView.mas_top);
     }];
     

@@ -41,7 +41,7 @@
     
     //下面的商品列表
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    self.goodsColllectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kNavBarHeight+kFit(35), kScreenWidth, kScreenHeight-kNavBarHeight-kFit(35)) collectionViewLayout:layout];
+    self.goodsColllectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kNavBarHeight+kFit(35), kScreenWidth, kScreenHeight-kNavBarHeight-kFit(35)-kIPhoneXBottomHeight) collectionViewLayout:layout];
     self.goodsColllectionView.dataSource = self;
     self.goodsColllectionView.delegate = self;
     self.goodsColllectionView.backgroundColor = kColor(245, 245, 245);

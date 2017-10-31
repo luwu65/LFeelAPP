@@ -51,10 +51,10 @@
     self.titleLabel.font = kFont(kFit(14));
     [self.contentView addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(kFit(5));
+        make.top.equalTo(weakself.mas_top).offset(kFit(5));
+        make.height.mas_equalTo(kFit(20));
         make.left.equalTo(weakself.goodsImageView.mas_right).offset(kFit(5));
         make.right.equalTo(weakself.mas_right).offset(-kFit(5));
-        make.top.equalTo(weakself.mas_top).offset(kFit(5));
     }];
     
     self.sizeLabel = [[UILabel alloc] init];

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,10 +25,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MyBox_packSuccess" translatesAutoresizingMaskIntoConstraints="NO" id="egE-rz-98R">
-                    <rect key="frame" x="90" y="100" width="140" height="140"/>
+                    <rect key="frame" x="90" y="164" width="140" height="140"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="打包成功!您的盒子会尽快进行处理!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JZS-4L-ldf">
-                    <rect key="frame" x="0.0" y="260" width="320" height="20"/>
+                    <rect key="frame" x="0.0" y="324" width="320" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="DsM-xI-5Kq"/>
                     </constraints>
@@ -85,6 +85,7 @@
                 <constraint firstAttribute="trailing" secondItem="9vK-sY-3Zj" secondAttribute="trailing" constant="20" id="03B-Er-fBW"/>
                 <constraint firstItem="egE-rz-98R" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="90" id="2M9-I4-ecA"/>
                 <constraint firstAttribute="bottom" secondItem="9vK-sY-3Zj" secondAttribute="bottom" constant="80" id="4pZ-w4-mWY"/>
+                <constraint firstItem="egE-rz-98R" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-50" id="6di-Iz-f6s"/>
                 <constraint firstAttribute="trailing" secondItem="JZS-4L-ldf" secondAttribute="trailing" id="82c-Mm-Q1b"/>
                 <constraint firstItem="9vK-sY-3Zj" firstAttribute="height" secondItem="4go-k3-oxR" secondAttribute="height" id="CQz-6a-eOW"/>
                 <constraint firstItem="JZS-4L-ldf" firstAttribute="top" secondItem="egE-rz-98R" secondAttribute="bottom" constant="20" id="DLZ-wo-tf6"/>
@@ -95,13 +96,12 @@
                 <constraint firstItem="9vK-sY-3Zj" firstAttribute="leading" secondItem="4go-k3-oxR" secondAttribute="trailing" constant="20" id="ii9-ik-a5Y"/>
                 <constraint firstItem="JZS-4L-ldf" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="kxV-0A-2IX"/>
                 <constraint firstItem="9vK-sY-3Zj" firstAttribute="width" secondItem="4go-k3-oxR" secondAttribute="width" id="lPq-LO-GEw"/>
-                <constraint firstItem="egE-rz-98R" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="100" id="rxn-Ll-Gbc"/>
                 <constraint firstAttribute="bottom" secondItem="4go-k3-oxR" secondAttribute="bottom" constant="80" id="z11-6l-ZJ5"/>
             </constraints>
             <point key="canvasLocation" x="-109.5" y="78.5"/>
         </view>
     </objects>
     <resources>
-        <image name="MyBox_packSuccess" width="16" height="16"/>
+        <image name="MyBox_packSuccess" width="166" height="147"/>
     </resources>
 </document>

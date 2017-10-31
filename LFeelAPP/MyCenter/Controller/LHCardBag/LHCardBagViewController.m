@@ -86,7 +86,7 @@
 
 #pragma mark ----------------------- UI --------------------------------
 - (void)setupUI {
-    self.cardTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight) style:(UITableViewStylePlain)];
+    self.cardTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kNavBarHeight-kIPhoneXBottomHeight) style:(UITableViewStylePlain)];
     self.cardTableView.bounces = NO;
     self.cardTableView.delegate = self;
     self.cardTableView.dataSource = self;

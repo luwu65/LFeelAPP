@@ -9,6 +9,7 @@
 #import "LHLeBaiPayAgainViewController.h"
 
 @interface LHLeBaiPayAgainViewController ()
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 
 @end
 
@@ -17,6 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.topConstraint.constant = kNavBarHeight;
     [self setHBK_NavigationBar];
 }
 - (void)setHBK_NavigationBar {

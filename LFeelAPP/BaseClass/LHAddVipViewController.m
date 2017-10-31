@@ -61,7 +61,7 @@ typedef NS_ENUM(NSInteger, PayType) {
 
 #pragma mark -------------- UI ------------------
 - (void)setUI {
-    UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, kScreenWidth, kScreenHeight-kIPhoneXBottomHeight)];
     bgImageView.image = [UIImage imageNamed:@"AddVip_bgImageView"];
     bgImageView.userInteractionEnabled = YES;
     [self.view addSubview:bgImageView];

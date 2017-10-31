@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *hintLabel;
 
 @property (nonatomic, copy) NSString *phoneUrl;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 
 @end
 
@@ -36,6 +37,9 @@
     [self setHBK_NavigationBar];
     
     [self configureData];
+    
+    self.topConstraint.constant = kNavBarHeight+50;
+    
     
     
     //isreal 0->待审核

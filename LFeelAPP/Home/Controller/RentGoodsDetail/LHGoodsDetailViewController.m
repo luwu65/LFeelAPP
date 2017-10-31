@@ -57,7 +57,7 @@
 
 #pragma mark --------------------- UI -----------------------
 - (void)setUI {
-    self.detailTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:(UITableViewStyleGrouped)];
+    self.detailTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-kIPhoneXBottomHeight) style:(UITableViewStyleGrouped)];
     self.detailTableView.dataSource = self;
     self.detailTableView.delegate = self;
     [self.view addSubview:self.detailTableView];

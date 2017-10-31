@@ -31,10 +31,13 @@
 #define kNavBarHeight           (kScreenHeight == 812 ? 88 : 64)
 
 //tabBar高度
-#define kTabBarHeight           (kScreenHeight == 812.000000 ? 83.000000 : 49.000000)
+#define kTabBarHeight           (kScreenHeight == 812 ? 83 : 49)
 
 //NavigationBar和TabBar的高度
 #define kNBarTBarHeight         (kNavBarHeight + kTabBarHeight)
+
+//如果是iPhoneX 底部留空隙34, 如果不是空隙为0
+#define kIPhoneXBottomHeight    (kScreenHeight == 812 ? 34 : 0)
 
 //比例 以iPhone6 为基准
 #define kRatio kScreenWidth/375

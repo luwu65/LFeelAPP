@@ -10,7 +10,7 @@
 #import "LHOrderListTableViewController.h"
 #import "LHTitleSliderView.h"
 
-#define kScrollHeight kScreenHeight-kNavBarHeight-kFit(44)
+#define kScrollHeight kScreenHeight-kNavBarHeight-kFit(44)-kIPhoneXBottomHeight
 @interface LHMyOrderViewController ()<UIScrollViewDelegate>
 
 
